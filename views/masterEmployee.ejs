@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Jindal Trading | Dashboard</title>
+
+	<!-- Global stylesheets -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="../../../../global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/layout.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/colors.min.css" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script src="../../../../global_assets/js/main/jquery.min.js"></script>
+	<script src="../../../../global_assets/js/main/bootstrap.bundle.min.js"></script>
+	<script src="../../../../global_assets/js/plugins/loaders/blockui.min.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="../../../../global_assets/js/plugins/visualization/d3/d3.min.js"></script>
+	<script src="../../../../global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+	<script src="../../../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+	<script src="../../../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
+	<script src="../../../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
+
+	<script src="../../../../global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+
+
+	<script src="assets/js/app.js"></script>
+	<script src="../../../../global_assets/js/demo_pages/dashboard.js"></script>
+	<script src="../../../../global_assets/js/demo_pages/datatables_basic.js"></script>
+	<!-- /theme JS files -->
+
+</head>
+
+<body>
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-expand-md navbar-dark">
+		<div class="navbar-brand">
+			<a href="index.html" class="d-inline-block">
+				<img src="../../../../global_assets/images/logo_light.png" alt="">
+			</a>
+		</div>
+
+		<div class="d-md-none">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+				<i class="icon-tree5"></i>
+			</button>
+			<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
+				<i class="icon-paragraph-justify3"></i>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="navbar-mobile">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
+						<i class="icon-paragraph-justify3"></i>
+					</a>
+				</li>
+			</ul>
+
+			<span class="badge bg-success ml-md-3 mr-md-auto">Online</span>
+
+			<ul class="navbar-nav">
+
+				<li class="nav-item dropdown dropdown-user">
+					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+						<img src="../../../../global_assets/images/demo/users/face11.jpg" class="rounded-circle mr-2" height="34" alt="">
+						<span><%=username%></span>
+					</a>
+
+					<div class="dropdown-menu dropdown-menu-right">
+						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
+						<div class="dropdown-divider"></div>
+						<a href="/logout" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page content -->
+	<div class="page-content">
+
+		<!-- Main sidebar -->
+		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+
+			<!-- Sidebar mobile toggler -->
+			<div class="sidebar-mobile-toggler text-center">
+				<a href="#" class="sidebar-mobile-main-toggle">
+					<i class="icon-arrow-left8"></i>
+				</a>
+				Navigation
+				<a href="#" class="sidebar-mobile-expand">
+					<i class="icon-screen-full"></i>
+					<i class="icon-screen-normal"></i>
+				</a>
+			</div>
+			<!-- /sidebar mobile toggler -->
+
+
+			<!-- Sidebar content -->
+			<div class="sidebar-content">
+
+				<!-- User menu -->
+				<div class="sidebar-user">
+					<div class="card-body">
+						<div class="media">
+							<div class="mr-3">
+								<a href="#"><img src="../../../../global_assets/images/demo/users/face11.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+							</div>
+
+							<div class="media-body">
+								<div class="media-title font-weight-semibold"><%=username%></div>
+								<div class="font-size-xs opacity-50">
+									<i class="icon-pin font-size-sm"></i> &nbsp;Meerut
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /user menu -->
+
+
+				<!-- Main navigation -->
+				<div class="card card-sidebar-mobile">
+					<ul class="nav nav-sidebar" data-nav-type="accordion">
+
+						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
+						<li class="nav-item nav-item-submenu">
+							<a href="/userDashboard" class="nav-link active">
+								<i class="icon-home4"></i>
+								<span>
+									Dashboard
+								</span>
+							</a>
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/register" class="nav-link">User-Register</a></li>
+							</ul>
+						</li>
+
+                        <li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Market-Plan</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
+							</ul>
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Master</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
+								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
+								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
+								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
+								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
+								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
+								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="index.html" class="nav-link">Contact</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_2/LTR/default/full/index.html" class="nav-link">Categories</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Firms</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Products</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Transport</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="index.html" class="nav-link">Contact</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_2/LTR/default/full/index.html" class="nav-link">Stations</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Trucks</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Team</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="index.html" class="nav-link">Contact Details</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Add Member</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- /main navigation -->
+
+			</div>
+			<!-- /sidebar content -->
+			
+		</div>
+		<!-- /main sidebar -->
+
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Page header -->
+			<div class="page-header page-header-light">
+				<div class="page-header-content header-elements-md-inline">
+					<div class="page-title d-flex">
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Employee</span> - Master</h4>
+						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- /page header -->
+
+
+			<!-- Content area -->
+			<div class="content ">
+
+				<!-- Dashboard content -->
+				<div class="row ">
+					<div class="col-md-12 ">
+						<div class="card">
+							<div class="card-header header-elements-inline">
+								<h5 class="card-title">Style combinations</h5>
+								<% if(level>2) {%>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Employee<i class="icon-play3 ml-2"></i></button></td>
+									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
+								<%}%>
+								<div class="header-elements">
+									<div class="list-icons">
+										<a class="list-icons-item" data-action="collapse"></a>
+										<a class="list-icons-item" data-action="reload"></a>
+										<a class="list-icons-item" data-action="remove"></a>
+									</div>
+								</div>
+							</div>
+
+							<% if(data.length>0) {%>
+    
+								<table class="table datatable-basic table-bordered table-striped table-hover ">
+									
+									<thead>
+										<tr>
+                                            <th>Employee-Name</th>
+                                            <th>Designation</th>
+                                            <th>Employee-Categories</th>
+                                            <th>dateOfBirth</th>
+                                            <th>fatherName</th>
+                                            <th>motherName</th>
+                                            <th>address</th>
+                                            <th>primaryMobileNumber</th>
+                                            <th>officeMobileNumber</th>
+                                            <th>fatherMobileNumber</th>
+                                            <th>motherMobileNumber</th>
+                                            <th>spouseName</th>
+                                            <th>spouseMobileNumber</th>
+                                            <th>emailId</th>
+                                            <th>officeEmailId</th>
+                                            <th>area</th>
+                                            <th>bankName</th>
+                                            <th>bankAccountNumber</th>
+                                            <th>ifscCode</th>
+                                            <th>dateOfJoining</th>
+                                            <th>aadharNumber</th>
+                                            <th>panNumber</th>
+                                            <th>reference</th>
+                                            <th>gender</th>
+                                            <th>photo</th>
+                                            <% if(level>2) {%>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            <%}else if(level>1){%>
+                                                <th>Edit</th>
+                                            <%}else{%>
+                                            <%}%>
+                                        </tr>
+									</thead >
+									
+									<% for(var i=0; i<data.length; i++) {%>
+										<tr class="<%= data[i].employeeNumber%>employee">
+                                            <%if(level==1) {%>
+                                                <td class="employeeName"><%= data[i].employeeName%></td>
+                                                <td class="designation"><%= data[i].designation%></td>
+                                                <td class="employeeCategories"><%= data[i].employeeCategories%></td>
+                                                <td class="dateOfBirth"><%= data[i].dateOfBirth%></td>
+                                                <td class="fatherName"><%= data[i].fatherName%></td>
+                                                <td class="motherName"><%= data[i].motherName%></td>
+                                                <td class="address"><%= data[i].address%></td>
+                                                <td class="primaryMobileNumber"><%= data[i].primaryMobileNumber%></td>
+                                                <td class="officeMobileNumber"><%= data[i].officeMobileNumber%></td>
+                                                <td class="fatherMobileNumber"><%= data[i].fatherMobileNumber%></td>
+                                                <td class="motherMobileNumber"><%= data[i].motherMobileNumber%></td>
+                                                <td class="spouseName"><%= data[i].spouseName%></td>
+                                                <td class="spouseMobileNumber"><%= data[i].spouseMobileNumber%></td>
+                                                <td class="emailId"><%= data[i].emailId%></td>
+                                                <td class="officeEmailId"><%= data[i].officeEmailId%></td>
+                                                <td class="area"><%= data[i].area%></td>
+                                                <td class="bankName"><%= data[i].bankName%></td>
+                                                <td class="bankAccountNumber"><%= data[i].bankAccountNumber%></td>
+                                                <td class="ifscCode"><%= data[i].ifscCode%></td>
+                                                <td class="dateOfJoining"><%= data[i].dateOfJoining%></td>
+                                                <td class="aadharNumber"><%= data[i].aadharNumber%></td>
+                                                <td class="panNumber"><%= data[i].panNumber%></td>
+                                                <td class="reference"><%= data[i].reference%></td>
+                                                <td class="gender"><%= data[i].gender%></td>
+                                                <td class="photo"><%= data[i].photo%></td>
+                                            <%} else if(level>2) {%>
+                                                <td class="employeeName" contenteditable="true"><%= data[i].employeeName%></td>
+                                                <td class="designation" contenteditable="true"><%= data[i].designation%></td>
+                                                <td class="employeeCategories" contenteditable="true"><%= data[i].employeeCategories%></td>
+                                                <td class="dateOfBirth" contenteditable="true"><%= data[i].dateOfBirth%></td>
+                                                <td class="fatherName" contenteditable="true"><%= data[i].fatherName%></td>
+                                                <td class="motherName" contenteditable="true"><%= data[i].motherName%></td>
+                                                <td class="address" contenteditable="true"><%= data[i].address%></td>
+                                                <td class="primaryMobileNumber" contenteditable="true"><%= data[i].primaryMobileNumber%></td>
+                                                <td class="officeMobileNumber" contenteditable="true"><%= data[i].officeMobileNumber%></td>
+                                                <td class="fatherMobileNumber" contenteditable="true"><%= data[i].fatherMobileNumber%></td>
+                                                <td class="motherMobileNumber" contenteditable="true"><%= data[i].motherMobileNumber%></td>
+                                                <td class="spouseName" contenteditable="true"><%= data[i].spouseName%></td>
+                                                <td class="spouseMobileNumber" contenteditable="true"><%= data[i].spouseMobileNumber%></td>
+                                                <td class="emailId" contenteditable="true"><%= data[i].emailId%></td>
+                                                <td class="officeEmailId" contenteditable="true"><%= data[i].officeEmailId%></td>
+                                                <td class="area" contenteditable="true"><%= data[i].area%></td>
+                                                <td class="bankName" contenteditable="true"><%= data[i].bankName%></td>
+                                                <td class="bankAccountNumber" contenteditable="true"><%= data[i].bankAccountNumber%></td>
+                                                <td class="ifscCode" contenteditable="true"><%= data[i].ifscCode%></td>
+                                                <td class="dateOfJoining" contenteditable="true"><%= data[i].dateOfJoining%></td>
+                                                <td class="aadharNumber" contenteditable="true"><%= data[i].aadharNumber%></td>
+                                                <td class="panNumber" contenteditable="true"><%= data[i].panNumber%></td>
+                                                <td class="reference" contenteditable="true"><%= data[i].reference%></td>
+                                                <td class="gender" contenteditable="true"><%= data[i].gender%></td>
+                                                <td class="photo" contenteditable="true"><%= data[i].photo%></td>
+                                                <td>
+                                                    <button onclick="edit('<%= data[i].employeeNumber%>employee')" name="foo" value="check" >Edit</button>
+                                                </td>
+                                                <td >
+                                                    <button onclick="del('<%= data[i].employeeNumber %>')" name="foo" value="check" >Delete</button>
+                                                </td>
+                                            <%}else if(level>1){%>
+                                                <td class="employeeName" contenteditable="true"><%= data[i].employeeName%></td>
+                                                <td class="designation" contenteditable="true"><%= data[i].designation%></td>
+                                                <td class="employeeCategories" contenteditable="true"><%= data[i].employeeCategories%></td>
+                                                <td class="dateOfBirth" contenteditable="true"><%= data[i].dateOfBirth%></td>
+                                                <td class="fatherName" contenteditable="true"><%= data[i].fatherName%></td>
+                                                <td class="motherName" contenteditable="true"><%= data[i].motherName%></td>
+                                                <td class="address" contenteditable="true"><%= data[i].address%></td>
+                                                <td class="primaryMobileNumber" contenteditable="true"><%= data[i].primaryMobileNumber%></td>
+                                                <td class="officeMobileNumber" contenteditable="true"><%= data[i].officeMobileNumber%></td>
+                                                <td class="fatherMobileNumber" contenteditable="true"><%= data[i].fatherMobileNumber%></td>
+                                                <td class="motherMobileNumber" contenteditable="true"><%= data[i].motherMobileNumber%></td>
+                                                <td class="spouseName" contenteditable="true"><%= data[i].spouseName%></td>
+                                                <td class="spouseMobileNumber" contenteditable="true"><%= data[i].spouseMobileNumber%></td>
+                                                <td class="emailId" contenteditable="true"><%= data[i].emailId%></td>
+                                                <td class="officeEmailId" contenteditable="true"><%= data[i].officeEmailId%></td>
+                                                <td class="area" contenteditable="true"><%= data[i].area%></td>
+                                                <td class="bankName" contenteditable="true"><%= data[i].bankName%></td>
+                                                <td class="bankAccountNumber" contenteditable="true"><%= data[i].bankAccountNumber%></td>
+                                                <td class="ifscCode" contenteditable="true"><%= data[i].ifscCode%></td>
+                                                <td class="dateOfJoining" contenteditable="true"><%= data[i].dateOfJoining%></td>
+                                                <td class="aadharNumber" contenteditable="true"><%= data[i].aadharNumber%></td>
+                                                <td class="panNumber" contenteditable="true"><%= data[i].panNumber%></td>
+                                                <td class="reference" contenteditable="true"><%= data[i].reference%></td>
+                                                <td class="gender" contenteditable="true"><%= data[i].gender%></td>
+                                                <td class="photo" contenteditable="true"><%= data[i].photo%></td>
+                                                <td>
+                                                    <button onclick="edit('<%= data[i].employeeNumber%>employee')" name="foo" value="check" >Edit</button>
+                                                </td>
+                                            <%}%>  
+                                            
+                                        </tr>
+									<% } %>
+								</table>
+							
+							<%}else{%>
+								<h4>No new data</h4>
+							<%}%>
+							
+							
+							<!-- Vertical form modal -->
+							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">New Master Employee</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+							            <form action="/masterEmployee" method="POST">
+								            <div class="modal-body">
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-12">
+												            <label>Employee Name</label>
+												            <input type="text" placeholder="Babu Rao" class="form-control employeeName" name="employeeName" id="employeeName">
+											            </div>
+                                                        
+											            
+
+										            </div>
+									            </div>
+                                                
+									            <div class="form-group">
+										            <div class="row">
+                                                        <div class="col-sm-4">
+												            <label>Designation</label>
+												            <input type="text" placeholder="Totla Seth" class="form-control designation" name="designation" id="designation">
+											            </div>
+
+											            <div class="col-sm-4">
+												            <label>Employee Categories</label>
+												            <input type="text" placeholder="Reservation  hai" class="form-control employeeCategories" name="employeeCategories" id="employeeCategories">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>Date Of Birth</label>
+												            <input type="text" placeholder="tu paida kb hua re" class="form-control dateOfBirth" name="dateOfBirth" id="dateOfBirth">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>Father Name</label>
+												            <input type="text" placeholder="pappaji bol" class="form-control fatherName" name="fatherName" id="fatherName">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>Mother Name</label>
+												            <input type="text" placeholder="maa" class="form-control motherName" name="motherName" id="motherName">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-12">
+												            <label>Address</label>
+												            <input type="text" placeholder="Shmashan Ghat" class="form-control address" name="address" id="address">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>Primary Mobile Number</label>
+												            <input type="text" placeholder="Apna Number bol bro" class="form-control primaryMobileNumber" name="primaryMobileNumber" id="primaryMobileNumber">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>Office Mobile Number</label>
+												            <input type="text" placeholder="office ka number" class="form-control officeMobileNumber" name="officeMobileNumber" id="officeMobileNumber">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>Father Mobile Number</label>
+												            <input type="text" placeholder="father number" class="form-control fatherMobileNumber" name="fatherMobileNumber" id="fatherMobileNumber">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>Mother Mobile Number</label>
+												            <input type="text" placeholder="mother number" class="form-control motherMobileNumber" name="motherMobileNumber" id="motherMobileNumber">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>Spouse Name</label>
+												            <input type="text" placeholder="partner" class="form-control spouseName" name="spouseName" id="spouseName">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>Spouse Mobile Number</label>
+												            <input type="text" placeholder="partner number" class="form-control spouseMobileNumber" name="spouseMobileNumber" id="spouseMobileNumber">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>Email Id</label>
+												            <input type="text" placeholder="E-mail" class="form-control emailId" name="emailId" id="emailId">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>Office Email Id</label>
+												            <input type="text" placeholder="E-mail" class="form-control officeEmailId" name="officeEmailId" id="officeEmailId">
+											            </div>
+										            </div>
+									            </div>
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>Area</label>
+												            <select id="area" name="area" class="area form-control" id="area">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<areaData.length; i++) {%>
+                                                                    <option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
+                                                                <% } %>
+                                                            </select>
+											            </div>
+											            <div class="col-sm-6">
+												            <label>bankName</label>
+												            <input type="text" placeholder="E-mail" class="form-control bankName" name="bankName" id="bankName">
+											            </div>
+										            </div>
+									            </div>
+									            <div class="form-group">
+										            <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>Bank Account Number</label>
+                                                            <input type="text" placeholder="E-mail" class="form-control bankAccountNumber" name="bankAccountNumber" id="bankAccountNumber">
+                                                        </div>
+											            <div class="col-sm-6">
+												            <label>ifscCode</label>
+												            <input type="text" placeholder="E-mail" class="form-control ifscCode" name="ifscCode" id="ifscCode">
+											            </div>
+										            </div>
+									            </div>
+									            <div class="form-group">
+										            <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <label>dateOfJoining</label>
+                                                            <input type="text" placeholder="E-mail" class="form-control dateOfJoining" name="dateOfJoining" id="dateOfJoining">
+                                                        </div>
+											            <div class="col-sm-4">
+												            <label>aadharNumber</label>
+												            <input type="text" placeholder="E-mail" class="form-control aadharNumber" name="aadharNumber" id="aadharNumber">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>panNumber</label>
+												            <input type="text" placeholder="E-mail" class="form-control panNumber" name="panNumber" id="panNumber">
+											            </div>
+										            </div>
+									            </div>
+									            <div class="form-group">
+										            <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <label>reference</label>
+                                                            <input type="text" placeholder="E-mail" class="form-control reference" name="reference" id="reference">
+                                                        </div>
+											            <div class="col-sm-4">
+												            <label>gender</label>
+												            <input type="text" placeholder="E-mail" class="form-control gender" name="gender" id="gender">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>photo</label>
+												            <input type="text" placeholder="E-mail" class="form-control photo" name="photo" id="photo">
+											            </div>
+										            </div>
+									            </div>
+
+								            </div>
+
+								            <div class="modal-footer">
+									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+									            <button type="submit" class="btn bg-primary">Add</button>
+								            </div>
+							            </form>
+						            </div>
+					            </div>
+				            </div>
+			            </div>
+		            </div>
+					
+		        </div>
+				<!-- /dashboard content -->
+
+			</div>
+			<!-- /content area -->
+
+
+			<!-- Footer -->
+			<!-- /footer -->
+
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+</body>
+
+</html>
+
+
+<script>
+    function edit(value)
+    {
+        console.log(value);
+        var sub = 'employee';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {
+            
+            var employeeName = $(this).find(".employeeName").html();    
+            var designation = $(this).find(".designation").html();    
+            var employeeCategories = $(this).find(".employeeCategories").html();    
+            var dateOfBirth = $(this).find(".dateOfBirth").html();    
+            var fatherName = $(this).find(".fatherName").html();    
+            var motherName = $(this).find(".motherName").html();    
+            var address = $(this).find(".address").html();    
+            var primaryMobileNumber = $(this).find(".primaryMobileNumber").html();    
+            var officeMobileNumber = $(this).find(".officeMobileNumber").html();    
+            var fatherMobileNumber = $(this).find(".fatherMobileNumber").html();    
+            var motherMobileNumber = $(this).find(".motherMobileNumber").html();    
+            var spouseName = $(this).find(".spouseName").html();    
+            var spouseMobileNumber = $(this).find(".spouseMobileNumber").html();    
+            var officeEmailId = $(this).find(".officeEmailId").html();    
+            var area = $(this).find(".area").html();    
+            var bankName = $(this).find(".bankName").html();    
+            var bankAccountNumber = $(this).find(".bankAccountNumber").html();    
+            var ifscCode = $(this).find(".ifscCode").html();    
+            var dateOfJoining = $(this).find(".dateOfJoining").html();    
+            var aadharNumber = $(this).find(".aadharNumber").html();    
+            var panNumber = $(this).find(".panNumber").html();    
+            var reference = $(this).find(".reference").html();    
+            var gender = $(this).find(".gender").html();    
+            var photo = $(this).find(".photo").html();  
+               
+            $.post("/masterEmployee",
+            {
+                id: result,
+                employeeName: employeeName,
+                designation: designation,
+                employeeCategories: employeeCategories,
+                dateOfBirth: dateOfBirth,
+                fatherName: fatherName,
+                motherName: motherName,
+                address: address,
+                primaryMobileNumber: primaryMobileNumber,
+                officeMobileNumber: officeMobileNumber,
+                fatherMobileNumber: fatherMobileNumber,
+                motherMobileNumber: motherMobileNumber,
+                spouseName: spouseName,
+                spouseMobileNumber: spouseMobileNumber,
+                officeEmailId: officeEmailId,
+                area: area,
+                bankName: bankName,
+                bankAccountNumber: bankAccountNumber,
+                ifscCode: ifscCode,
+                dateOfJoining: dateOfJoining,
+                aadharNumber: aadharNumber,
+                panNumber: panNumber,
+                reference: reference,
+                gender: gender,
+                photo: photo,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+            }
+            );
+        });
+    }
+</script>
+
+
+<script>
+    function del(value)
+    {
+        console.log(value);
+        $.post("/masterEmployee",
+            {
+                id: value,
+                op:"del"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+            }
+            );
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h2>masterEmployee</h2>
+<h3>User level <%=level%></h3>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity=
+        "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous">
+    </script>
+
+<% if(data.length>0) {%>
+    
+    <table >
+        
+        <thead>
+            <tr>
+                <th>Employee-Name</th>
+                <th>Designation</th>
+                <th>Employee-Categories</th>
+                <th>dateOfBirth</th>
+                <th>fatherName</th>
+                <th>motherName</th>
+                <th>address</th>
+                <th>primaryMobileNumber</th>
+                <th>officeMobileNumber</th>
+                <th>fatherMobileNumber</th>
+                <th>motherMobileNumber</th>
+                <th>spouseName</th>
+                <th>spouseMobileNumber</th>
+                <th>emailId</th>
+                <th>officeEmailId</th>
+                <th>area</th>
+                <th>bankName</th>
+                <th>bankAccountNumber</th>
+                <th>ifscCode</th>
+                <th>dateOfJoining</th>
+                <th>aadharNumber</th>
+                <th>panNumber</th>
+                <th>reference</th>
+                <th>gender</th>
+                <th>photo</th>
+                <% if(level>2) {%>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                <%}else if(level>1){%>
+                    <th>Edit</th>
+                <%}else{%>
+                <%}%>
+            </tr>
+        </thead >
+        
+        <% for(var i=0; i<data.length; i++) {%>
+            <tr class="<%= data[i].employeeNumber%>employee">
+                <%if(level==1) {%>
+                    <td class="employeeName"><%= data[i].employeeName%></td>
+                    <td class="designation"><%= data[i].designation%></td>
+                    <td class="employeeCategories"><%= data[i].employeeCategories%></td>
+                    <td class="dateOfBirth"><%= data[i].dateOfBirth%></td>
+                    <td class="fatherName"><%= data[i].fatherName%></td>
+                    <td class="motherName"><%= data[i].motherName%></td>
+                    <td class="address"><%= data[i].address%></td>
+                    <td class="primaryMobileNumber"><%= data[i].primaryMobileNumber%></td>
+                    <td class="officeMobileNumber"><%= data[i].officeMobileNumber%></td>
+                    <td class="fatherMobileNumber"><%= data[i].fatherMobileNumber%></td>
+                    <td class="motherMobileNumber"><%= data[i].motherMobileNumber%></td>
+                    <td class="spouseName"><%= data[i].spouseName%></td>
+                    <td class="spouseMobileNumber"><%= data[i].spouseMobileNumber%></td>
+                    <td class="emailId"><%= data[i].emailId%></td>
+                    <td class="officeEmailId"><%= data[i].officeEmailId%></td>
+                    <td class="area"><%= data[i].area%></td>
+                    <td class="bankName"><%= data[i].bankName%></td>
+                    <td class="bankAccountNumber"><%= data[i].bankAccountNumber%></td>
+                    <td class="ifscCode"><%= data[i].ifscCode%></td>
+                    <td class="dateOfJoining"><%= data[i].dateOfJoining%></td>
+                    <td class="aadharNumber"><%= data[i].aadharNumber%></td>
+                    <td class="panNumber"><%= data[i].panNumber%></td>
+                    <td class="reference"><%= data[i].reference%></td>
+                    <td class="gender"><%= data[i].gender%></td>
+                    <td class="photo"><%= data[i].photo%></td>
+                <%} else if(level>2) {%>
+                    <td class="employeeName" contenteditable="true"><%= data[i].employeeName%></td>
+                    <td class="designation" contenteditable="true"><%= data[i].designation%></td>
+                    <td class="employeeCategories" contenteditable="true"><%= data[i].employeeCategories%></td>
+                    <td class="dateOfBirth" contenteditable="true"><%= data[i].dateOfBirth%></td>
+                    <td class="fatherName" contenteditable="true"><%= data[i].fatherName%></td>
+                    <td class="motherName" contenteditable="true"><%= data[i].motherName%></td>
+                    <td class="address" contenteditable="true"><%= data[i].address%></td>
+                    <td class="primaryMobileNumber" contenteditable="true"><%= data[i].primaryMobileNumber%></td>
+                    <td class="officeMobileNumber" contenteditable="true"><%= data[i].officeMobileNumber%></td>
+                    <td class="fatherMobileNumber" contenteditable="true"><%= data[i].fatherMobileNumber%></td>
+                    <td class="motherMobileNumber" contenteditable="true"><%= data[i].motherMobileNumber%></td>
+                    <td class="spouseName" contenteditable="true"><%= data[i].spouseName%></td>
+                    <td class="spouseMobileNumber" contenteditable="true"><%= data[i].spouseMobileNumber%></td>
+                    <td class="emailId" contenteditable="true"><%= data[i].emailId%></td>
+                    <td class="officeEmailId" contenteditable="true"><%= data[i].officeEmailId%></td>
+                    <td class="area" contenteditable="true"><%= data[i].area%></td>
+                    <td class="bankName" contenteditable="true"><%= data[i].bankName%></td>
+                    <td class="bankAccountNumber" contenteditable="true"><%= data[i].bankAccountNumber%></td>
+                    <td class="ifscCode" contenteditable="true"><%= data[i].ifscCode%></td>
+                    <td class="dateOfJoining" contenteditable="true"><%= data[i].dateOfJoining%></td>
+                    <td class="aadharNumber" contenteditable="true"><%= data[i].aadharNumber%></td>
+                    <td class="panNumber" contenteditable="true"><%= data[i].panNumber%></td>
+                    <td class="reference" contenteditable="true"><%= data[i].reference%></td>
+                    <td class="gender" contenteditable="true"><%= data[i].gender%></td>
+                    <td class="photo" contenteditable="true"><%= data[i].photo%></td>
+                    <td>
+                        <button onclick="edit('<%= data[i].employeeNumber%>employee')" name="foo" value="check" >Edit</button>
+                    </td>
+                    <td >
+                        <button onclick="del('<%= data[i].employeeNumber %>')" name="foo" value="check" >Delete</button>
+                    </td>
+                <%}else if(level>1){%>
+                    <td class="employeeName" contenteditable="true"><%= data[i].employeeName%></td>
+                    <td class="designation" contenteditable="true"><%= data[i].designation%></td>
+                    <td class="employeeCategories" contenteditable="true"><%= data[i].employeeCategories%></td>
+                    <td class="dateOfBirth" contenteditable="true"><%= data[i].dateOfBirth%></td>
+                    <td class="fatherName" contenteditable="true"><%= data[i].fatherName%></td>
+                    <td class="motherName" contenteditable="true"><%= data[i].motherName%></td>
+                    <td class="address" contenteditable="true"><%= data[i].address%></td>
+                    <td class="primaryMobileNumber" contenteditable="true"><%= data[i].primaryMobileNumber%></td>
+                    <td class="officeMobileNumber" contenteditable="true"><%= data[i].officeMobileNumber%></td>
+                    <td class="fatherMobileNumber" contenteditable="true"><%= data[i].fatherMobileNumber%></td>
+                    <td class="motherMobileNumber" contenteditable="true"><%= data[i].motherMobileNumber%></td>
+                    <td class="spouseName" contenteditable="true"><%= data[i].spouseName%></td>
+                    <td class="spouseMobileNumber" contenteditable="true"><%= data[i].spouseMobileNumber%></td>
+                    <td class="emailId" contenteditable="true"><%= data[i].emailId%></td>
+                    <td class="officeEmailId" contenteditable="true"><%= data[i].officeEmailId%></td>
+                    <td class="area" contenteditable="true"><%= data[i].area%></td>
+                    <td class="bankName" contenteditable="true"><%= data[i].bankName%></td>
+                    <td class="bankAccountNumber" contenteditable="true"><%= data[i].bankAccountNumber%></td>
+                    <td class="ifscCode" contenteditable="true"><%= data[i].ifscCode%></td>
+                    <td class="dateOfJoining" contenteditable="true"><%= data[i].dateOfJoining%></td>
+                    <td class="aadharNumber" contenteditable="true"><%= data[i].aadharNumber%></td>
+                    <td class="panNumber" contenteditable="true"><%= data[i].panNumber%></td>
+                    <td class="reference" contenteditable="true"><%= data[i].reference%></td>
+                    <td class="gender" contenteditable="true"><%= data[i].gender%></td>
+                    <td class="photo" contenteditable="true"><%= data[i].photo%></td>
+                    <td>
+                        <button onclick="edit('<%= data[i].employeeNumber%>employee')" name="foo" value="check" >Edit</button>
+                    </td>
+                <%}%>  
+                
+            </tr>
+        <% } %>
+    </table>
+
+<%}else{%>
+    <h4>No new data</h4>
+<%}%>
+
+<% if(level>2) {%>
+    <p><a href="/addMasterEmployee">Add new Master Employee</a></p>
+<%}%>
+<p><a href="/userDashboard">Dashboard</a></p>
+<p><a href="/">Back to Home Page</a></p>
+
+ -->

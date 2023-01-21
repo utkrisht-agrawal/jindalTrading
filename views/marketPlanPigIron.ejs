@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Jindal Trading | Dashboard</title>
+
+	<!-- Global stylesheets -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+	<link href="assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/layout.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/colors.min.css" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script src="global_assets/js/main/jquery.min.js"></script>
+	<script src="global_assets/js/main/bootstrap.bundle.min.js"></script>
+	<script src="global_assets/js/plugins/loaders/blockui.min.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="global_assets/js/plugins/visualization/d3/d3.min.js"></script>
+	<script src="global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+	<script src="global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+	<script src="global_assets/js/plugins/ui/moment/moment.min.js"></script>
+	<script src="global_assets/js/plugins/pickers/daterangepicker.js"></script>
+
+	<script src="global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+
+	<script src="global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+	<script src="global_assets/js/plugins/notifications/pnotify.min.js"></script>
+	<script src="global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+
+
+	<script src="assets/js/app.js"></script>
+	<script src="global_assets/js/demo_pages/dashboard.js"></script>
+	<script src="global_assets/js/demo_pages/datatables_basic.js"></script>
+	<script src="global_assets/js/demo_pages/form_multiselect.js"></script>
+	<!-- /theme JS files -->
+
+
+	
+</head>
+
+<body>
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-expand-md navbar-dark">
+		<div class="navbar-brand">
+			<a href="index.html" class="d-inline-block">
+				<img src="../../../../global_assets/images/logo_light.png" alt="">
+			</a>
+		</div>
+
+		<div class="d-md-none">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+				<i class="icon-tree5"></i>
+			</button>
+			<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
+				<i class="icon-paragraph-justify3"></i>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="navbar-mobile">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
+						<i class="icon-paragraph-justify3"></i>
+					</a>
+				</li>
+			</ul>
+
+			<span class="badge bg-success ml-md-3 mr-md-auto">Online</span>
+
+			<ul class="navbar-nav">
+
+				<li class="nav-item dropdown dropdown-user">
+					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+						<img src="../../../../global_assets/images/demo/users/face11.jpg" class="rounded-circle mr-2" height="34" alt="">
+						<span><%=username%></span>
+					</a>
+
+					<div class="dropdown-menu dropdown-menu-right">
+						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
+						<div class="dropdown-divider"></div>
+						<a href="/logout" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page content -->
+	<div class="page-content">
+
+		<!-- Main sidebar -->
+		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+
+			<!-- Sidebar mobile toggler -->
+			<div class="sidebar-mobile-toggler text-center">
+				<a href="#" class="sidebar-mobile-main-toggle">
+					<i class="icon-arrow-left8"></i>
+				</a>
+				Navigation
+				<a href="#" class="sidebar-mobile-expand">
+					<i class="icon-screen-full"></i>
+					<i class="icon-screen-normal"></i>
+				</a>
+			</div>
+			<!-- /sidebar mobile toggler -->
+
+
+			<!-- Sidebar content -->
+			<div class="sidebar-content">
+
+				<!-- User menu -->
+				<div class="sidebar-user">
+					<div class="card-body">
+						<div class="media">
+							<div class="mr-3">
+								<a href="#"><img src="../../../../global_assets/images/demo/users/face11.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+							</div>
+
+							<div class="media-body">
+								<div class="media-title font-weight-semibold"><%=username%></div>
+								<div class="font-size-xs opacity-50">
+									<i class="icon-pin font-size-sm"></i> &nbsp;Meerut
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /user menu -->
+
+
+				<!-- Main navigation -->
+				<div class="card card-sidebar-mobile">
+					<ul class="nav nav-sidebar" data-nav-type="accordion">
+
+						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
+						<li class="nav-item nav-item-submenu">
+							<a href="/userDashboard" class="nav-link active">
+								<i class="icon-home4"></i>
+								<span>
+									Dashboard
+								</span>
+							</a>
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/register" class="nav-link">User-Register</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Market-Plan</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link active">Pig-Iron</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
+								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
+								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
+								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
+								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
+								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
+								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="index.html" class="nav-link">Contact</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_2/LTR/default/full/index.html" class="nav-link">Categories</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Firms</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Products</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Transport</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="index.html" class="nav-link">Contact</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_2/LTR/default/full/index.html" class="nav-link">Stations</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Trucks</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Team</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="index.html" class="nav-link">Contact Details</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Add Member</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- /main navigation -->
+
+			</div>
+			<!-- /sidebar content -->
+			
+		</div>
+		<!-- /main sidebar -->
+
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Page header -->
+			<div class="page-header page-header-light">
+				<div class="page-header-content header-elements-md-inline">
+					<div class="page-title d-flex">
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">PigIron</span> - Market Plan</h4>
+						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- /page header -->
+
+
+			<!-- Content area -->
+			<div class="content">
+
+				<!-- Dashboard content -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card" style="overflow-x: auto;">
+							<div class="card-header header-elements-inline">
+								<h5 class="card-title">Market-Plan</h5>
+								<% if(level>2) {%>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Plan<i class="icon-play3 ml-2"></i></button>
+								<%}%>
+								<% if(level==1) {%>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#customer_form_vertical">Add new Customer<i class="icon-play3 ml-2"></i></button>
+								<%}%>
+								<div class="header-elements">
+									<div class="list-icons">
+										<a class="list-icons-item" data-action="collapse"></a>
+										<a class="list-icons-item" data-action="reload"></a>
+										<a class="list-icons-item" data-action="remove"></a>
+									</div>
+								</div>
+							</div>
+
+							<% if(data.length>0) {%>
+    
+								<table class="table datatable-basic table-bordered table-striped table-hover" style="table-layout: auto; width: 100%; overflow-x: auto;">
+									
+									<thead>
+										<tr>
+                                            <th>customerId</th>
+                                            <th>area</th>
+                                            <th>grade</th>
+                                            <th>category</th>
+                                            <th>product</th>
+                                            <th>representative</th>
+                                            <th>phoneNumber</th>
+                                            <th>meetingDates</th>
+                                            <th>currentRemark</th>
+											<th>remarkStatus</th>
+                                            <th>nextDate</th>
+                                            <th>currentIssue</th>
+                                            <th>analysed</th>
+                                            <th>updateTimeStamp</th>
+                                            <th>totalIssue</th>
+											<% if(level>2) {%>
+												<th>Edit</th>
+												<th>Delete</th>
+											<%}else if(level>1){%>
+												<th>Edit</th>
+											<%}else{%>
+												<th>Edit</th>
+											<%}%>
+										</tr>
+									</thead >
+									
+									<% for(var i=0; i<data.length; i++) {%>
+										<tr class="<%= data[i].serialNumber%>pigIron">
+											<%if(level==1) {%>
+                                                <td class="customerId"><%= data[i].customerId%></td>
+                                                <td class="aSelect"><%= data[i].area%></td>
+                                                <td class="gSelect"><%= data[i].grade%></td>
+                                                <td class="category"><%= data[i].category%></td>
+                                                <td class="product"><%= data[i].product%></td>
+                                                <td class="representative"><%= data[i].representative%></td>
+                                                <td class="phoneNumber"><%= data[i].phoneNumber%></td>
+                                                <td class="meetingDates"><%= data[i].meetingDates%></td>
+                                                <td class="currentRemark" contenteditable="true"><%= data[i].currentRemark%></td>
+                                                <td class="remarkStatus"><%= data[i].remarkStatus%></td>
+                                                <td class="nextDate"><%= data[i].nextDate%></td>
+												<td name="currentIssue" class="currentIssue">
+													<select name="cSelect" class="cSelect">
+														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
+														<option value="A">A</option>
+														<option value="B">B</option>
+														<option value="C">C</option>
+														
+													</select>
+												</td>
+                                                <td class="analysed"><%= data[i].analysed%></td>
+                                                <td class="updateTimeStamp"><%= data[i].updateTimeStamp%></td>
+                                                <td class="totalIssue"><%= data[i].totalIssue%></td>
+												<td>
+                                                    <button onclick="uEdit('<%= data[i].serialNumber%>pigIron')" name="foo" value="check" >Edit</button>
+                                                </td>
+											<%} else if(level>2) {%>
+                                                
+                                                <td class="customerId" contenteditable="true"><%= data[i].customerId%></td>
+                                                <td name="area" class="area">
+													<select name="aSelect" class="aSelect">
+														<option value="<%= data[i].area%>"><%= data[i].area%></option>
+														<% for(var j=0; j<areaData.length; j++) {%>
+															<option value="	<%=areaData[j].area%>"><%=areaData[j].area%></option>
+														<% } %>
+													</select>
+												</td> 
+                                                <td name="grade" class="grade">
+													<select name="gSelect" class="gSelect">
+														<option value="<%= data[i].grade%>"><%= data[i].grade%></option>
+														<% for(var j=0; j<gradeData.length; j++) {%>
+															<option value="	<%=gradeData[j].gradeType%>"><%=gradeData[j].gradeType%></option>
+														<% } %>
+													</select>
+												</td> 
+                                               											
+                                                
+                                                <td class="category" contenteditable="true"><%= data[i].category%></td>
+                                                <td class="product" contenteditable="true"><%= data[i].product%></td>
+                                                <td class="representative" contenteditable="true"><%= data[i].representative%></td>
+                                                <td class="phoneNumber" contenteditable="true"><%= data[i].phoneNumber%></td>
+                                                <td class="meetingDates" contenteditable="true"><%= data[i].meetingDates%></td>
+                                                <td class="currentRemark" contenteditable="true"><%= data[i].currentRemark%></td>
+												<td class="remarkStatus" contenteditable="true"><%= data[i].remarkStatus%></td>
+                                                <td class="nextDate" contenteditable="true"><%= data[i].nextDate%></td>
+                                                <td name="currentIssue" class="currentIssue">
+													<select name="cSelect" class="cSelect">
+														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
+														<option value="A">A</option>
+														<option value="B">B</option>
+														<option value="C">C</option>
+														
+													</select>
+												</td>
+                                                <td class="analysed" contenteditable="true"><%= data[i].analysed%></td>
+                                                <td class="updateTimeStamp" contenteditable="true"><%= data[i].updateTimeStamp%></td>
+                                                <td class="totalIssue" contenteditable="true"><%= data[i].totalIssue%></td>
+												<td>
+                                                    <button onclick="edit('<%= data[i].serialNumber%>pigIron')" name="foo" value="check" >Edit</button>
+                                                </td>
+                                                <td>
+                                                    <button onclick="del('<%= data[i].serialNumber%>')" name="foo" value="check" >Delete</button>
+                                                </td>
+											<%}else if(level>1){%>
+                                                <td class="customerId" contenteditable="true"><%= data[i].customerId%></td>
+                                                <td name="area" class="area">
+													<select name="aSelect" class="aSelect">
+														<option value="<%= data[i].area%>"><%= data[i].area%></option>
+														<% for(var j=0; j<areaData.length; j++) {%>
+															<option value="	<%=areaData[j].area%>"><%=areaData[j].area%></option>
+														<% } %>
+													</select>
+												</td> 
+                                                <td name="grade" class="grade">
+													<select name="gSelect" class="gSelect">
+														<option value="<%= data[i].grade%>"><%= data[i].grade%></option>
+														<% for(var j=0; j<gradeData.length; j++) {%>
+															<option value="	<%=gradeData[j].gradeType%>"><%=gradeData[j].gradeType%></option>
+														<% } %>
+													</select>
+												</td> 
+                                                <td class="category" contenteditable="true"><%= data[i].category%></td>
+                                                <td class="product" contenteditable="true"><%= data[i].product%></td>
+                                                <td class="representative" contenteditable="true"><%= data[i].representative%></td>
+                                                <td class="phoneNumber" contenteditable="true"><%= data[i].phoneNumber%></td>
+                                                <td class="meetingDates" contenteditable="true"><%= data[i].meetingDates%></td>
+                                                <td class="currentRemark" contenteditable="true"><%= data[i].currentRemark%></td>
+												<td class="remarkStatus" contenteditable="true"><%= data[i].remarkStatus%></td>
+                                                <td class="nextDate" contenteditable="true"><%= data[i].nextDate%></td>
+                                                <td name="currentIssue" class="currentIssue">
+													<select name="cSelect" class="cSelect">
+														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
+														<option value="A">A</option>
+														<option value="B">B</option>
+														<option value="C">C</option>
+													</select>
+												</td>
+                                                <td class="analysed" contenteditable="true"><%= data[i].analysed%></td>
+                                                <td class="updateTimeStamp" contenteditable="true"><%= data[i].updateTimeStamp%></td>
+                                                <td class="totalIssue" contenteditable="true"><%= data[i].totalIssue%></td>
+												<td>
+                                                <button onclick="edit('<%= data[i].serialNumber %>pigIron')" name="foo" value="check" >Edit</button>
+                                                </td>
+											<%}%>
+										</tr>
+									<% } %>
+								</table>
+							
+							<%}else{%>
+								<h4>No data</h4>
+							<%}%>
+
+
+							<!-- Seperate Filter box -->
+							<!-- <div id="koiBhi">
+								<label for="">Customized Filter</label>
+								<select id="filterCategory" name="filterCategory" class="col-sm-2 form-control filterCategory" >
+									<option value="" disabled selected>-Select-</option>
+									<option value="customerId">customerId</option>
+									<option value="area">area</option>
+									<option value="grade">grade</option>
+									<option value="category">category</option>
+									<option value="product">product</option>
+									<option value="representative">representative</option>
+								</select>
+										<input type="text" class="col-sm-2 filterText" id="filterText" name="filterText">
+										<button onclick="fil()" class="btn bg-primary" type="button" data-target="#filterData">Filter</button>
+									</div> -->
+								
+									
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-2">
+										<label for="customerId" class="form-control"><span class="font-weight-semibold">customerId</span></label>
+										<select name="customerId" class="form-control multiselect-filtering customerId" id="customerIdFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].customerId%>"><%=data[i].customerId%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="area" class="form-control"><span class="font-weight-semibold">area</span></label>
+										<select name="area" class="form-control multiselect-filtering  area" id="areaFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].area%>"><%=data[i].area%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="grade" class="form-control"><span class="font-weight-semibold">grade</span></label>
+										<select name="grade" class="form-control multiselect-filtering grade" id="gradeFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].grade%>"><%=data[i].grade%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="category" class="form-control"><span class="font-weight-semibold">category</span></label>
+										<select name="category" class="form-control multiselect-filtering category" id="categoryFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].category%>"><%=data[i].category%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="product" class="form-control"><span class="font-weight-semibold">product</span></label>
+										<select name="product" class="form-control multiselect-filtering product" id="productFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].product%>"><%=data[i].product%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="representative" class="form-control"><span class="font-weight-semibold">representative</span></label>
+										<select name="representative" class="form-control multiselect-filtering representative" id="representativeFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].representative%>"><%=data[i].representative%></option>
+                                            <% } %>	
+										</select>
+									</div>									
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<button onclick="fil()" class="form-control btn bg-primary" type="button">Filter</button>
+								</div>
+							</div>
+							<div class="card" style="overflow-x: auto;" id="koiBhi"></div>
+							<div class="card" style="overflow-x: auto;" id="chlna"></div>
+						
+
+
+
+
+							
+							<!-- Vertical form modal -->
+							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
+							
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">New Market Plan </h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+							            <form action="/marketPlanPigIron" method="POST">
+								            <div class="modal-body">
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>customerId </label>
+												            <input type="text" placeholder="customerId" class="form-control customerId" name="customerId" id="customerId">
+											            </div>
+                                                        <div class="col-sm-6">
+												            <label>Area</label>
+												            <select id="area" name="area" class="area form-control" id="area">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<areaData.length; i++) {%>
+                                                                    <option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
+                                                                <% } %>
+                                                            </select>
+											            </div>
+											            
+
+										            </div>
+									            </div>
+                                                
+									            <div class="form-group">
+										            <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <label>grade</label>
+                                                            <select id="grade" name="grade" class="form-control grade" id="grade">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<gradeData.length; i++) {%>
+                                                                    <option value="<%=gradeData[i].gradeType%>"><%=gradeData[i].gradeType%></option>
+                                                                <% } %>
+                                                            </select>
+											            </div>
+
+											            <div class="col-sm-4">
+												            <label>Category</label>
+												            <input type="text" placeholder="category" class="form-control category" name="category" id="category">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>product</label>
+												            <input type="text" placeholder="product" class="form-control product" name="product" id="product">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-4">
+												            <label>representative</label>
+												            <input type="text" placeholder="representative" class="form-control representative" name="representative" id="representative">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>phoneNumber</label>
+												            <input type="text" placeholder="phoneNumber" class="form-control phoneNumber" name="phoneNumber" id="phoneNumber">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>meetingDates</label>
+												            <input type="text" placeholder="meetingDates" class="form-control meetingDates" name="meetingDates" id="meetingDates">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>currentRemark</label>
+												            <input type="text" placeholder="currentRemark" class="form-control currentRemark" name="currentRemark" id="currentRemark">
+											            </div>
+														<div class="col-sm-6">
+															<label>remarkStatus</label>
+															<select id="remarkStatus" name="remarkStatus" class="form-control remarkStatus" id="remarkStatus">
+																<option value="" disabled selected>-Select-</option>
+																<option value="VERIFIED">VERIFIED</option>
+																<option value="UNVERIFIED">UNVERIFIED</option>
+															</select>
+														</div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>nextDate</label>
+												            <input type="text" placeholder="nextDate" class="form-control nextDate" name="nextDate" id="nextDate">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>currentIssue</label>
+												            <input type="text" placeholder="office ka number" class="form-control currentIssue" name="currentIssue" id="currentIssue">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>analysed</label>
+												            <input type="text" placeholder="analysed" class="form-control analysed" name="analysed" id="analysed">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>updateTimeStamp</label>
+												            <input type="text" placeholder="updateTimeStamp" class="form-control updateTimeStamp" name="updateTimeStamp" id="updateTimeStamp">
+											            </div>
+										            </div>
+									            </div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-12">
+												            <label>totalIssue</label>
+												            <input type="text" placeholder="Issue" class="form-control totalIssue" name="totalIssue" id="totalIssue">
+											            </div>
+											            
+										            </div>
+									            </div>
+									            
+
+								            </div>
+
+								            <div class="modal-footer">
+									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+									            <button type="submit" class="btn bg-primary">Add</button>
+								            </div>
+							            </form>
+						            </div>
+					            </div>
+				            </div>
+
+
+
+
+
+
+
+							<div id="customer_form_vertical" class="modal fade" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">New Master Customer</h5>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+			
+										<form action="/masterCustomer" method="POST">
+											<div class="modal-body">
+												<div class="form-group">
+													<div class="row">
+														<div class="col-sm-6">
+															<label>Customer Name</label>
+															<input type="text" placeholder="Ujjwal Raturi" class="form-control customerName" name="customerName" id="customerName">
+														</div>
+			
+													</div>
+												</div>
+												
+												<div class="form-group">
+													<div class="row">
+														<div class="col-sm-4">
+															<label>Area</label>
+															<select id="area" name="area" class="form-control area" id="area">
+																<option value="" disabled selected>-Select-</option>
+																<% for(var i=0; i<areaData.length; i++) {%>
+																	<option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
+																<% } %>
+															</select>
+															<!-- <input type="text" placeholder="Dehradun" class="form-control"> -->
+														</div>
+														<div class="col-sm-4">
+															<label>grade</label>
+															<select id="grade" name="grade" class="form-control grade" id="grade">
+																<option value="" disabled selected>-Select-</option>
+																<% for(var i=0; i<gradeData.length; i++) {%>
+																	<option value="<%=gradeData[i].gradeType%>"><%=gradeData[i].gradeType%></option>
+																<% } %>
+															</select>
+															<!-- <input type="text" placeholder="Dehradun" class="form-control"> -->
+														</div>
+														<div class="col-sm-4">
+															<label>Pincode</label>
+															<input type="number" placeholder="248001" class="form-control pincode" name="pincode" id="pincode">
+														</div>
+			
+														
+													</div>
+												</div>
+			
+												<div class="form-group">
+													<div class="row">
+			
+														<div class="col-sm-12">
+															<label>Address</label>
+															<input type="text" placeholder="Miyanwala" class="form-control address" name="address" id="address">
+														</div>
+			
+													</div>
+												</div>
+			
+												<div class="form-group">
+													<div class="row">
+														<div class="col-sm-6">
+															<label>Reference Number 1</label>
+															<input type="text" placeholder="Ishu" class="form-control referenceNumber1" name="referenceNumber1" id="referenceNumber1">
+															<!-- <span class="form-text text-muted">name@domain.com</span> -->
+														</div>
+			
+														<div class="col-sm-6">
+															<label>Reference Number 2</label>
+															<input type="text" placeholder="Kios" class="form-control referenceNumber2" name="referenceNumber2"  id="referenceNumber2">
+															<!-- <span class="form-text text-muted">+99-99-9999-9999</span> -->
+														</div>
+													</div>
+												</div>
+			
+												<div class="form-group">
+													<div class="row">
+														<div class="col-sm-6">
+															<label>Credit Limit</label>
+															<input type="text" placeholder="150" class="form-control creditLimit" name="creditLimit" id="creditLimit">
+															<span class="form-text text-muted">150 rupiya dega</span>
+														</div>
+			
+														<div class="col-sm-6">
+															<label>Credit Days</label>
+															<input type="text" placeholder="21" class="form-control creditDays" name="creditDays" id="creditDays">
+															<span class="form-text text-muted">21 din mei paisa dabal</span>
+														</div>
+													</div>
+												</div>
+											</div>
+			
+											<div class="modal-footer">
+												<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+												<button type="submit" class="btn bg-primary">Add</button>
+											</div>
+										</form>
+									</div>
+								</div>
+				            </div>
+
+
+
+
+
+
+
+
+							
+
+			            </div>
+		            </div>
+					
+		        </div>
+				<!-- /dashboard content -->
+
+			</div>
+			<!-- /content area -->
+
+
+			<!-- Footer -->
+			<!-- /footer -->
+
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+
+	
+</body>
+
+</html>
+
+
+<script>
+    function edit(value)
+    {
+        console.log(`EDIT  ${value}`);
+        var sub = 'pigIron';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {
+            console.log("new yr");
+            var customerId = $(this).find(".customerId").html();   
+            var area = $(this).find(".aSelect").val();    
+            var grade = $(this).find(".gSelect").val();  
+            var category = $(this).find(".category").html();    
+            var product = $(this).find(".product").html();    
+            var representative = $(this).find(".representative").html();    
+            var phoneNumber = $(this).find(".phoneNumber").html();    
+            var meetingDates = $(this).find(".meetingDates").html();    
+            var currentRemark = $(this).find(".currentRemark").html();    
+            var remarkStatus = $(this).find(".remarkStatus").html();    
+            var nextDate = $(this).find(".nextDate").html();    
+            var currentIssue = $(this).find(".cSelect").val();    
+            var analysed = $(this).find(".analysed").html();    
+            var updateTimeStamp = $(this).find(".updateTimeStamp").html();    
+            var totalIssue = $(this).find(".totalIssue").html();  
+            console.log(area);
+            console.log(grade);
+            console.log("ujjwal");
+            $.post("/marketPlanPigIron",
+            {
+                id: result,
+                customerId:customerId,
+                area: area,
+                grade:grade,
+                category: category,
+                product: product,
+                representative: representative,
+                phoneNumber: phoneNumber,
+                meetingDates: meetingDates,
+                currentRemark: currentRemark,
+                remarkStatus: remarkStatus,
+                nextDate: nextDate,
+                currentIssue: currentIssue,
+                analysed: analysed,
+                updateTimeStamp: updateTimeStamp,
+                totalIssue:totalIssue,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log("check edit wala data");
+                console.log(data);
+                console.log(status);
+            }
+            );
+        });
+    }
+    function uEdit(value)
+    {
+        console.log(`EDIT  ${value}`);
+        var sub = 'pigIron';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {
+            console.log("new yr");
+            var customerId = $(this).find(".customerId").html();
+            var area = $(this).find(".aSelect").html();    
+            var grade = $(this).find(".gSelect").html();  
+            var category = $(this).find(".category").html();    
+            var product = $(this).find(".product").html();    
+            var representative = $(this).find(".representative").html();    
+            var phoneNumber = $(this).find(".phoneNumber").html();    
+            var meetingDates = $(this).find(".meetingDates").html();    
+            var currentRemark = $(this).find(".currentRemark").html();    
+            var remarkStatus = $(this).find(".remarkStatus").html();    
+            var nextDate = $(this).find(".nextDate").html();    
+            var currentIssue = $(this).find(".cSelect").val();    
+            var analysed = $(this).find(".analysed").html();    
+            var updateTimeStamp = $(this).find(".updateTimeStamp").html();    
+            var totalIssue = $(this).find(".totalIssue").html();  
+            console.log(area);
+            console.log(grade);
+            console.log("ujjwal");
+            $.post("/marketPlanPigIron",
+            {
+                id: result,
+                customerId:customerId,
+                area: area,
+                grade:grade,
+                category: category,
+                product: product,
+                representative: representative,
+                phoneNumber: phoneNumber,
+                meetingDates: meetingDates,
+                currentRemark: currentRemark,
+                remarkStatus: remarkStatus,
+                nextDate: nextDate,
+                currentIssue: currentIssue,
+                analysed: analysed,
+                updateTimeStamp: updateTimeStamp,
+                totalIssue:totalIssue,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log("check edit wala data");
+                console.log(data);
+                console.log(status);
+            }
+            );
+        });
+    }
+</script>
+
+<script>
+    
+    function del(value)
+    {
+        console.log(value);
+        $.post("/marketPlanPigIron",
+            {
+                id: value,
+                op:"del"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+            }
+            );
+    }
+
+	function fil()
+    {
+		// var customerIdFil = document.getElementById("customerIdFil").value;
+		// var areaFil = document.getElementById("areaFil").value;
+		// var gradeFil = document.getElementById("gradeFil").value;
+		// var categoryFil = document.getElementById("categoryFil").value;
+		// var productFil = document.getElementById("productFil").value;  
+		// var representativeFil = document.getElementById("representativeFil").value;
+
+
+		var mySelCust = [];
+    	$('#customerIdFil option').each(function(i) {
+        if (this.selected == true) {
+            mySelCust.push(this.value);
+        }
+    	});
+		if(mySelCust.length<1) 
+		{
+			mySelCust.push("");
+		}
+        
+		var mySelArea = [];
+    	$('#areaFil option').each(function(i) {
+        if (this.selected == true) {
+            mySelArea.push(this.value);
+        }
+    	});
+		if(mySelArea.length<1) 
+		{
+			mySelArea.push("");
+		}
+        
+		var mySelGrad = [];
+    	$('#gradeFil option').each(function(i) {
+        if (this.selected == true) {
+            mySelGrad.push(this.value);
+        }
+    	});
+		if(mySelGrad.length<1) 
+		{
+			mySelGrad.push("");
+		}
+        
+		var mySelCate = [];
+    	$('#categoryFil option').each(function(i) {
+        if (this.selected == true) {
+            mySelCate.push(this.value);
+        }
+    	});
+		if(mySelCate.length<1) 
+		{
+			mySelCate.push("");
+		}
+        
+		var mySelProd = [];
+    	$('#productFil option').each(function(i) {
+        if (this.selected == true) {
+            mySelProd.push(this.value);
+        }
+    	});
+		if(mySelProd.length<1) 
+		{
+			mySelProd.push("");
+		}
+        
+		var mySelRep = [];
+    	$('#representativeFil option').each(function(i) {
+        if (this.selected == true) {
+            mySelRep.push(this.value);
+        }
+    	});
+		if(mySelRep.length<1) 
+		{
+			mySelRep.push("");
+		}
+        
+		console.log(mySelCust);
+        console.log(mySelArea);
+        console.log(mySelGrad);
+        console.log(mySelCate);
+        console.log(mySelProd);
+        console.log(mySelRep);
+
+		// if(!productFil) console.log("latenite");
+
+        console.log("ujjwal");
+        $.post("/marketPlanPigIron",
+        {
+            customerIdFil: mySelCust,
+            areaFil: mySelArea,
+            gradeFil: mySelGrad,
+            categoryFil: mySelCate,
+            productFil: mySelProd,
+            representativeFil: mySelRep,
+            op:"fil"
+        },
+        function (dataFil, status) {
+			console.log("filter kios");
+            console.log(dataFil);
+			check(dataFil);
+            console.log(status);
+        }
+        );
+    }
+</script>
+
+	<script>
+		function check(tableData)
+		{
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>customerId</th> <th>area</th> <th>grade</th> <th>category</th> <th>product</th> <th>representative</th> <th>phoneNumber</th> <th>meetingDates</th> <th>currentRemark</th> <th>remarkStatus</th> <th>nextDate</th> <th>currentIssue</th> <th>analysed</th> <th>updateTimeStamp</th> <th>totalIssue</th> </thead> <tbody> "
+			for(var i=0;i<tableData.length;i++)
+			{
+
+				table+="<tr> "
+					table+="<td class='customerId'>"+tableData[i].customerId+"</td>"	
+					table+="<td class='area'>"+tableData[i].area+"</td>"	
+					table+="<td class='grade'>"+tableData[i].grade+"</td>"	
+					table+="<td class='category'>"+tableData[i].category+"</td>"	
+					table+="<td class='product'>"+tableData[i].product+"</td>"	
+					table+="<td class='representative'>"+tableData[i].representative+"</td>"
+					table+="<td class='phoneNumber'>"+tableData[i].phoneNumber+"</td>"
+					table+="<td class='meetingDates'>"+tableData[i].meetingDates+"</td>"
+					table+="<td class='currentRemark' contenteditable='true'>"+tableData[i].currentRemark+"</td>"
+					table+="<td class='remarkStatus'>"+tableData[i].remarkStatus+"</td>"
+					table+="<td class='nextDate'>"+tableData[i].nextDate+"</td>"
+					table+="<td class='currentIssue'>"+tableData[i].currentIssue+"</td>"
+					table+="<td class='analysed'>"+tableData[i].analysed+"</td>"
+					table+="<td class='updateTimeStamp'>"+tableData[i].updateTimeStamp+"</td>"
+					table+="<td class='totalIssue'>"+tableData[i].totalIssue+"</td>"                       
+				table+="</tr>"
+			}
+			table+="</tbody> </table>"
+			document.getElementById("koiBhi").innerHTML=table;
+			// console.log(tableData );
+			var button = "<button onclick=exportData()> Download list</button>"
+			document.getElementById("chlna").innerHTML=button;
+
+		}
+	</script>
+
+	<script>
+		
+		function exportData(){
+			console.log("a")
+			
+			var table = document.getElementById("tbl");
+			console.log(table)
+
+			
+			var rows =[];
+ 
+      
+			for(var i=0,row; row = table.rows[i];i++){
+				
+				column1 = row.cells[0].innerText;
+				column2 = row.cells[1].innerText;
+				column3 = row.cells[2].innerText;
+				column4 = row.cells[3].innerText;
+				column5 = row.cells[4].innerText;
+				column6 = row.cells[5].innerText;
+				column7 = row.cells[6].innerText;
+				column8 = row.cells[7].innerText;
+				column9 = row.cells[8].innerText;
+				column10 = row.cells[9].innerText;
+				column11 = row.cells[10].innerText;
+				column12 = row.cells[11].innerText;
+				column13 = row.cells[12].innerText;
+				column14 = row.cells[13].innerText;
+				column15 = row.cells[14].innerText;
+				rows.push(
+					[
+						column1,
+						column2,
+						column3,
+						column4,
+						column5,
+						column6,
+						column7,
+						column8,
+						column9,
+						column10,
+						column12,
+						column13,
+						column14,
+						column15,
+					]
+				);
+ 
+        	}
+			console.log(rows)
+        	csvContent = "data:text/csv;charset=utf-8,";
+         
+			rows.forEach(function(rowArray){
+				row = rowArray.join(",");
+				csvContent += row + "\r\n";
+			});
+ 
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "Market_Plan_Pig_Iron.csv");
+			document.body.appendChild(link);
+			link.click();
+}
+	</script>
+
+<script type="text/javascript">
+    $('#example-multiple-selected').multiselect();
+</script>

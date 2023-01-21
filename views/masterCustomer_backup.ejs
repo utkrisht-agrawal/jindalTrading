@@ -1,0 +1,158 @@
+<h2>masterCustomer</h2>
+<h3>User level <%=level%></h3>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity=
+        "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous">
+</script>
+
+<% if(data.length>0) {%>
+    
+    <table >
+        
+        <thead>
+            <tr>
+                <th>customerName</th>
+                <th>AREA</th>
+                <th>STATUS</th>
+                <th>GRADE</th>
+                <th>PIN_CODE</th>
+                <th>ADDRESS</th>
+                <th>REF_NO_1</th>
+                <th>REF_NO_2</th>
+                <th>CREDIT_LIMIT</th>
+                <th>CREDIT_DAYS</th>
+                <% if(level>2) {%>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                <%}else if(level>1){%>
+                    <th>Edit</th>
+                <%}else{%>
+                <%}%>
+            </tr>
+        </thead >
+        
+        <% for(var i=0; i<data.length; i++) {%>
+            <tr class="<%= data[i].customerId%>customer">
+                <%if(level==1) {%>
+                    <td class="customerName" ><%= data[i].customerName%></td>
+                    <td class="area" ><%= data[i].area%></td>
+                    <td class="status" ><%= data[i].status%></td>
+                    <td class="grade" ><%= data[i].grade%></td>
+                    <td class="pincode" ><%= data[i].pincode%></td> 
+                    <td class="address" ><%= data[i].address%></td>
+                    <td class="referenceNumber1" ><%= data[i].referenceNumber1%></td>
+                    <td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+                    <td class="creditLimit" ><%= data[i].credit Limit%></td>
+                    <td class="creditDays" ><%= data[i].creditDays%></td>
+                <%} else if(level>2) {%>
+                    <td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
+                    <td class="area" contenteditable="true"><%= data[i].area%></td>
+                    <td class="area" contenteditable="true"><%= data[i].area%></td>
+                    <td class="status" contenteditable="true"><%= data[i].status%></td>
+                    <td class="grade" contenteditable="true"><%= data[i].grade%></td>
+                    <td class="pincode" contenteditable="true"><%= data[i].pincode%></td>
+                    <td class="address" contenteditable="true"><%= data[i].address%></td>
+                    <td class="referenceNumber1" contenteditable="true"><%= data[i].referenceNumber1%></td>
+                    <td class="referenceNumber2" contenteditable="true"><%= data[i].referenceNumber2%></td>
+                    <td class="creditLimit" contenteditable="true"><%= data[i].creditLimit%></td>
+                    <td class="creditDays" contenteditable="true"><%= data[i].creditDays%></td>
+                    <td>
+                        <button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check">Edit</button>
+                    </td>
+                    <td >
+                        <button onclick="del('<%= data[i].customerId %>')" name="foo" value="check" >Delete</button>
+                    </td>
+                <%}else if(level>1){%>
+                    <td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
+                    <td class="area" contenteditable="true"><%= data[i].area%></td>
+                    <td class="status" contenteditable="true"><%= data[i].status%></td>
+                    <td class="grade" contenteditable="true"><%= data[i].grade%></td>
+                    <td class="pincode" contenteditable="true"><%= data[i].pincode%></td>
+                    <td class="address" contenteditable="true"><%= data[i].address%></td>
+                    <td class="referenceNumber1" contenteditable="true"><%= data[i].referenceNumber1%></td>
+                    <td class="referenceNumber2" contenteditable="true"><%= data[i].referenceNumber2%></td>
+                    <td class="creditLimit" contenteditable="true"><%= data[i].creditLimit%></td>
+                    <td class="creditDays" contenteditable="true"><%= data[i].creditDays%></td>
+                    <td>
+                        <button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" >Edit</button>
+                    </td>
+                <%}%>
+            </tr>
+        <% } %>
+    </table>
+
+<%}else{%>
+    <h4>No new data</h4>
+<%}%>
+
+<% if(level>2) {%>
+    <p><a href="/addMasterCustomer">Add new Master Customer</a></p>
+<%}%>
+<p><a href="/userDashboard">Dashboard</a></p>
+<p><a href="/userDashboard">Back to Home Page</a></p>
+
+
+<script>
+    function edit(value)
+    {
+        console.log(value);
+        var sub = 'customer';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {
+            
+            var customerName = $(this).find(".customerName").html();    
+            var area = $(this).find(".area").html();    
+            var status = $(this).find(".status").html();    
+            var grade = $(this).find(".grade").html();    
+            var pincode = $(this).find(".pincode").html();    
+            var address = $(this).find(".address").html();    
+            var referenceNumber1 = $(this).find(".referenceNumber1").html();    
+            var referenceNumber2 = $(this).find(".referenceNumber2").html();    
+            var creditLimit = $(this).find(".creditLimit").html();    
+            var creditDays = $(this).find(".creditDays").html();    
+            $.post("/masterCustomer",
+            {
+                id: result,
+                customerName:customerName,
+                area: area,
+                status: status,
+                grade: grade,
+                pincode: pincode,
+                address: address,
+                referenceNumber1: referenceNumber1,
+                referenceNumber2: referenceNumber2,
+                creditLimit: creditLimit,
+                creditDays: creditDays,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+            }
+            );
+        });
+    }
+</script>
+
+
+<script>
+    function del(value)
+    {
+        console.log(value);
+        $.post("/masterCustomer",
+            {
+                id: value,
+                op:"del"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+            }
+            );
+    }
+</script>
