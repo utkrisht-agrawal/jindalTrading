@@ -6,6 +6,8 @@ const masterGradeModel = require('../model/masterGradeModel');
 const masterProductsModel = require('../model/masterProductsModel');
 const masterTeamsModel = require('../model/masterTeamsModel');
 const masterVendorsModel = require('../model/masterVendorsModel');
+const customerContactModel = require('../model/customerContactModel');
+const customerCategoryModel = require('../model/customerCategoryModel');
 
 
 
@@ -269,17 +271,31 @@ const getMasterCustomer =(req,res,next)=>{
         .then((gradeData)=>{
             masterAreaModel.findAll()
             .then((areaData)=>{
-                masterCustomerModel.findAll()
-                    .then((data)=>{
-                        res.render('masterCustomer',
-                        {
-                            username : req.session.username,
-                            data:data,
-                            level:req.session.userLevel,
-                            gradeData:gradeData,
-                            areaData:areaData
-                        })
-            
+                masterProductsModel.findAll()
+                    .then((productData)=>{
+                        masterCategoriesModel.findAll()
+                        .then((categorydata)=>{
+                        masterCustomerModel.findAll()
+                            .then((data)=>{
+                                res.render('masterCustomer',
+                                {
+                                    username : req.session.username,
+                                    data:data,
+                                    categorydata:categorydata,
+                                    productData:productData,
+                                    level:req.session.userLevel,
+                                    gradeData:gradeData,
+                                    areaData:areaData
+                                })
+                
+                                })
+                            .catch((err)=>
+                                console.log(err)
+                            )
+                            })
+                        .catch((err)=>
+                            console.log(err)
+                        )
                     })
                     .catch((err)=>
                         console.log(err)
@@ -335,6 +351,8 @@ const postMasterCustomer =(req,res,next)=>{
         const area = req.body.area
         const status = req.body.status
         const grade = req.body.grade
+        const contact = req.body.contact
+        const category = req.body.category
         const pincode = req.body.pincode
         const address = req.body.address
         const referenceNumber1 = req.body.referenceNumber1
@@ -355,9 +373,29 @@ const postMasterCustomer =(req,res,next)=>{
             creditDays:creditDays
         })
         .then((result)=>
-            console.log(result),
-            console.log('New Master Customer added'),
-            res.redirect('/masterCustomer')
+            customerContactModel.create({
+                customerName :customerName,
+                mobileNumber :contact,
+            })
+            .then((res2)=>{
+                customerCategoryModel.create({
+                    customerName :customerName,
+                    category :category
+                })
+                .then((res3)=>{
+                    console.log(result),
+                    console.log(res2),
+                    console.log(res3),
+                    console.log('New Master Customer added'),
+                    res.redirect('/masterCustomer')
+                })
+                .catch((err)=>
+                console.log(err)
+                )
+            })
+            .catch((err)=>
+            console.log(err)
+            )
         )
         .catch((err)=>
             console.log(err)

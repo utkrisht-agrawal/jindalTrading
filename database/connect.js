@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('freedb_jindaltrading','freedb_utkrisht','2M8v6q9KM@NKz!d',{
+const sequelize = new Sequelize('jindaltrading','root','root',{
     dialect: 'mysql',
-    host: 'sql.freedb.tech'
+    host: 'localhost'
 });
 
 module.exports = sequelize; 

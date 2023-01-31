@@ -2,13 +2,13 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../database/connect');
 
-const marketPigIronModel = sequelize.define('market_plan_pig_iron',{
+const marketPlanPigIronModel = sequelize.define('market_plan_pig_iron',{
     serialNumber:{
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    customerId: {
+    customerName: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -71,4 +71,4 @@ const marketPigIronModel = sequelize.define('market_plan_pig_iron',{
     timestamps: true
 }); 
 
-module.exports = marketPigIronModel
+module.exports = marketPlanPigIronModel
