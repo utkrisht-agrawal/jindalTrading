@@ -6,6 +6,7 @@ const path = require('path');
 const sequelize = require('./database/connect');
 const userRoutes = require('./routes/userRoutes');
 const masterRoutes = require('./routes/masterRoutes');
+const customerRoutes = require('./routes/customerRoutes');
 const marketPlanRoutes = require('./routes/marketPlanRoutes');
 
 const app = express();
@@ -21,6 +22,7 @@ app.set("views","./views");
 
 app.use(userRoutes);
 app.use(masterRoutes);
+app.use(customerRoutes);
 app.use(marketPlanRoutes);
 
 app.use('/',(req,res,next)=>{

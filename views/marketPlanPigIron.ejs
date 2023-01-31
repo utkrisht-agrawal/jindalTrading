@@ -147,7 +147,7 @@
 
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item nav-item-submenu">
-							<a href="/userDashboard" class="nav-link active">
+							<a href="/userDashboard" class="nav-link">
 								<i class="icon-home4"></i>
 								<span>
 									Dashboard
@@ -161,8 +161,17 @@
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Market-Plan</span></a>
 
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link active">Pig-Iron</a></li>
+							</ul>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
+						    </ul>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
 						</li>
 
@@ -184,7 +193,7 @@
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="index.html" class="nav-link">Contact</a></li>
+								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_2/LTR/default/full/index.html" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Firms</a></li>
 								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Products</a></li>
@@ -263,7 +272,7 @@
 									
 									<thead>
 										<tr>
-                                            <th>customerId</th>
+                                            <th>customerName</th>
                                             <th>area</th>
                                             <th>grade</th>
                                             <th>category</th>
@@ -292,10 +301,10 @@
 									<% for(var i=0; i<data.length; i++) {%>
 										<tr class="<%= data[i].serialNumber%>pigIron">
 											<%if(level==1) {%>
-                                                <td class="customerId"><%= data[i].customerId%></td>
+                                                <td class="customerName"><%= data[i].customerName%></td>
                                                 <td class="aSelect"><%= data[i].area%></td>
                                                 <td class="gSelect"><%= data[i].grade%></td>
-                                                <td class="category"><%= data[i].category%></td>
+                                                <td class="ctSelect"><%= data[i].category%></td>
                                                 <td class="product"><%= data[i].product%></td>
                                                 <td class="representative"><%= data[i].representative%></td>
                                                 <td class="phoneNumber"><%= data[i].phoneNumber%></td>
@@ -304,7 +313,7 @@
                                                 <td class="remarkStatus"><%= data[i].remarkStatus%></td>
                                                 <td class="nextDate"><%= data[i].nextDate%></td>
 												<td name="currentIssue" class="currentIssue">
-													<select name="cSelect" class="cSelect">
+													<select name="ciSelect" class="ciSelect">
 														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
 														<option value="A">A</option>
 														<option value="B">B</option>
@@ -320,7 +329,7 @@
                                                 </td>
 											<%} else if(level>2) {%>
                                                 
-                                                <td class="customerId" contenteditable="true"><%= data[i].customerId%></td>
+                                                <td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
                                                 <td name="area" class="area">
 													<select name="aSelect" class="aSelect">
 														<option value="<%= data[i].area%>"><%= data[i].area%></option>
@@ -339,16 +348,38 @@
 												</td> 
                                                											
                                                 
-                                                <td class="category" contenteditable="true"><%= data[i].category%></td>
-                                                <td class="product" contenteditable="true"><%= data[i].product%></td>
-                                                <td class="representative" contenteditable="true"><%= data[i].representative%></td>
+                                                <td name="category" class="category">
+													<select name="ctSelect" class="ctSelect">
+														<option value="<%= data[i].category%>"><%= data[i].category%></option>
+														<% for(var j=0; j<catdata.length; j++) {%>
+															<option value="	<%=catdata[j].categoriesType%>"><%=catdata[j].categoriesType%></option>
+														<% } %>
+													</select>
+												</td>
+
+                                                <td name="product" class="product">
+													<select name="pSelect" class="pSelect">
+														<option value="<%= data[i].product%>"><%= data[i].product%></option>
+														<% for(var j=0; j<productData.length; j++) {%>
+															<option value="	<%=productData[j].productName%>"><%=productData[j].productName%></option>
+														<% } %>
+													</select>
+												</td> 
+												<td class="representative" >
+													<select name="repSelect" class="repSelect">
+														<option value="<%= data[i].product%>"><%= data[i].representative%></option>
+														<% for(var j=0; j<teamData.length; j++) {%>
+															<option value="<%=teamData[j].teamMember%>"><%=teamData[j].teamMember%></option>
+														<% } %>
+													</select>
+												</td>
                                                 <td class="phoneNumber" contenteditable="true"><%= data[i].phoneNumber%></td>
                                                 <td class="meetingDates" contenteditable="true"><%= data[i].meetingDates%></td>
                                                 <td class="currentRemark" contenteditable="true"><%= data[i].currentRemark%></td>
 												<td class="remarkStatus" contenteditable="true"><%= data[i].remarkStatus%></td>
                                                 <td class="nextDate" contenteditable="true"><%= data[i].nextDate%></td>
                                                 <td name="currentIssue" class="currentIssue">
-													<select name="cSelect" class="cSelect">
+													<select name="ciSelect" class="ciSelect">
 														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
 														<option value="A">A</option>
 														<option value="B">B</option>
@@ -366,7 +397,7 @@
                                                     <button onclick="del('<%= data[i].serialNumber%>')" name="foo" value="check" >Delete</button>
                                                 </td>
 											<%}else if(level>1){%>
-                                                <td class="customerId" contenteditable="true"><%= data[i].customerId%></td>
+                                                <td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
                                                 <td name="area" class="area">
 													<select name="aSelect" class="aSelect">
 														<option value="<%= data[i].area%>"><%= data[i].area%></option>
@@ -383,16 +414,37 @@
 														<% } %>
 													</select>
 												</td> 
-                                                <td class="category" contenteditable="true"><%= data[i].category%></td>
-                                                <td class="product" contenteditable="true"><%= data[i].product%></td>
-                                                <td class="representative" contenteditable="true"><%= data[i].representative%></td>
+                                                <td name="category" class="category">
+													<select name="ctSelect" class="ctSelect">
+														<option value="<%= data[i].category%>"><%= data[i].category%></option>
+														<% for(var j=0; j<catdata.length; j++) {%>
+															<option value="	<%=catdata[j].categoriesType%>"><%=catdata[j].categoriesType%></option>
+														<% } %>
+													</select>
+												</td>
+                                                <td name="product" class="product">
+													<select name="pSelect" class="pSelect">
+														<option value="<%= data[i].product%>"><%= data[i].product%></option>
+														<% for(var j=0; j<productData.length; j++) {%>
+															<option value="	<%=productData[j].productName%>"><%=productData[j].productName%></option>
+														<% } %>
+													</select>
+												</td> 
+                                                <td class="representative" >
+													<select name="repSelect" class="repSelect">
+														<option value="<%= data[i].product%>"><%= data[i].representative%></option>
+														<% for(var j=0; j<teamData.length; j++) {%>
+															<option value="<%=teamData[j].teamMember%>"><%=teamData[j].teamMember%></option>
+														<% } %>
+													</select>
+												</td>
                                                 <td class="phoneNumber" contenteditable="true"><%= data[i].phoneNumber%></td>
                                                 <td class="meetingDates" contenteditable="true"><%= data[i].meetingDates%></td>
                                                 <td class="currentRemark" contenteditable="true"><%= data[i].currentRemark%></td>
 												<td class="remarkStatus" contenteditable="true"><%= data[i].remarkStatus%></td>
                                                 <td class="nextDate" contenteditable="true"><%= data[i].nextDate%></td>
                                                 <td name="currentIssue" class="currentIssue">
-													<select name="cSelect" class="cSelect">
+													<select name="ciSelect" class="ciSelect">
 														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
 														<option value="A">A</option>
 														<option value="B">B</option>
@@ -414,31 +466,15 @@
 								<h4>No data</h4>
 							<%}%>
 
-
-							<!-- Seperate Filter box -->
-							<!-- <div id="koiBhi">
-								<label for="">Customized Filter</label>
-								<select id="filterCategory" name="filterCategory" class="col-sm-2 form-control filterCategory" >
-									<option value="" disabled selected>-Select-</option>
-									<option value="customerId">customerId</option>
-									<option value="area">area</option>
-									<option value="grade">grade</option>
-									<option value="category">category</option>
-									<option value="product">product</option>
-									<option value="representative">representative</option>
-								</select>
-										<input type="text" class="col-sm-2 filterText" id="filterText" name="filterText">
-										<button onclick="fil()" class="btn bg-primary" type="button" data-target="#filterData">Filter</button>
-									</div> -->
 								
 									
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-2">
-										<label for="customerId" class="form-control"><span class="font-weight-semibold">customerId</span></label>
-										<select name="customerId" class="form-control multiselect-filtering customerId" id="customerIdFil" multiple="multiple" data-fouc>
+										<label for="customerName" class="form-control"><span class="font-weight-semibold">customerName</span></label>
+										<select name="customerName" class="form-control multiselect-filtering customerName" id="customerNameFil" multiple="multiple" data-fouc>
                                             <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].customerId%>"><%=data[i].customerId%></option>
+                                                <option value="<%=data[i].customerName%>"><%=data[i].customerName%></option>
                                             <% } %>	
 										</select>
 									</div>
@@ -512,8 +548,13 @@
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>customerId </label>
-												            <input type="text" placeholder="customerId" class="form-control customerId" name="customerId" id="customerId">
+												            <label>customerName </label>
+												            <select id="customerName" name="customerName" class="customerName form-control" id="customerName">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<custdata.length; i++) {%>
+                                                                    <option value="<%=custdata[i].customerName%>"><%=custdata[i].customerName%></option>
+                                                                <% } %>
+                                                            </select>
 											            </div>
                                                         <div class="col-sm-6">
 												            <label>Area</label>
@@ -543,11 +584,21 @@
 
 											            <div class="col-sm-4">
 												            <label>Category</label>
-												            <input type="text" placeholder="category" class="form-control category" name="category" id="category">
+															<select id="category" name="category" class="form-control category" id="category">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<catdata.length; i++) {%>
+                                                                    <option value="<%=catdata[i].categoriesType%>"><%=catdata[i].categoriesType%></option>
+                                                                <% } %>
+                                                            </select>
 											            </div>
 											            <div class="col-sm-4">
 												            <label>product</label>
-												            <input type="text" placeholder="product" class="form-control product" name="product" id="product">
+												            <select id="product" name="product" class="form-control product" id="product">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<productData.length; i++) {%>
+                                                                    <option value="<%=productData[i].productName%>"><%=productData[i].productName%></option>
+                                                                <% } %>
+                                                            </select>
 											            </div>
 										            </div>
 									            </div>
@@ -556,7 +607,12 @@
 										            <div class="row">
 											            <div class="col-sm-4">
 												            <label>representative</label>
-												            <input type="text" placeholder="representative" class="form-control representative" name="representative" id="representative">
+												            <select id="representative" name="representative" class="form-control representative" id="representative">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<teamData.length; i++) {%>
+                                                                    <option value="<%=teamData[i].teamMember%>"><%=teamData[i].teamMember%></option>
+                                                                <% } %>
+                                                            </select>
 											            </div>
 											            <div class="col-sm-4">
 												            <label>phoneNumber</label>
@@ -790,18 +846,18 @@
         $('.'+value).each(function() 
         {
             console.log("new yr");
-            var customerId = $(this).find(".customerId").html();   
+            var customerName = $(this).find(".customerName").html();   
             var area = $(this).find(".aSelect").val();    
             var grade = $(this).find(".gSelect").val();  
-            var category = $(this).find(".category").html();    
-            var product = $(this).find(".product").html();    
-            var representative = $(this).find(".representative").html();    
+            var category = $(this).find(".ctSelect").val();   
+            var product = $(this).find(".pSelect").val();  
+            var representative = $(this).find(".repSelect").val();    
             var phoneNumber = $(this).find(".phoneNumber").html();    
             var meetingDates = $(this).find(".meetingDates").html();    
             var currentRemark = $(this).find(".currentRemark").html();    
             var remarkStatus = $(this).find(".remarkStatus").html();    
             var nextDate = $(this).find(".nextDate").html();    
-            var currentIssue = $(this).find(".cSelect").val();    
+            var currentIssue = $(this).find(".ciSelect").val();    
             var analysed = $(this).find(".analysed").html();    
             var updateTimeStamp = $(this).find(".updateTimeStamp").html();    
             var totalIssue = $(this).find(".totalIssue").html();  
@@ -811,7 +867,7 @@
             $.post("/marketPlanPigIron",
             {
                 id: result,
-                customerId:customerId,
+                customerName:customerName,
                 area: area,
                 grade:grade,
                 category: category,
@@ -846,10 +902,10 @@
         $('.'+value).each(function() 
         {
             console.log("new yr");
-            var customerId = $(this).find(".customerId").html();
+            var customerName = $(this).find(".customerName").html();
             var area = $(this).find(".aSelect").html();    
             var grade = $(this).find(".gSelect").html();  
-            var category = $(this).find(".category").html();    
+            var category = $(this).find(".ctSelect").html();    
             var product = $(this).find(".product").html();    
             var representative = $(this).find(".representative").html();    
             var phoneNumber = $(this).find(".phoneNumber").html();    
@@ -857,7 +913,7 @@
             var currentRemark = $(this).find(".currentRemark").html();    
             var remarkStatus = $(this).find(".remarkStatus").html();    
             var nextDate = $(this).find(".nextDate").html();    
-            var currentIssue = $(this).find(".cSelect").val();    
+            var currentIssue = $(this).find(".ciSelect").val();    
             var analysed = $(this).find(".analysed").html();    
             var updateTimeStamp = $(this).find(".updateTimeStamp").html();    
             var totalIssue = $(this).find(".totalIssue").html();  
@@ -867,7 +923,7 @@
             $.post("/marketPlanPigIron",
             {
                 id: result,
-                customerId:customerId,
+                customerName:customerName,
                 area: area,
                 grade:grade,
                 category: category,
@@ -913,79 +969,79 @@
 
 	function fil()
     {
-		// var customerIdFil = document.getElementById("customerIdFil").value;
-		// var areaFil = document.getElementById("areaFil").value;
-		// var gradeFil = document.getElementById("gradeFil").value;
-		// var categoryFil = document.getElementById("categoryFil").value;
-		// var productFil = document.getElementById("productFil").value;  
-		// var representativeFil = document.getElementById("representativeFil").value;
+		var mySelCust = document.getElementById("customerNameFil").value;
+		var mySelArea = document.getElementById("areaFil").value;
+		var mySelGrad = document.getElementById("gradeFil").value;
+		var mySelCate = document.getElementById("categoryFil").value;
+		var mySelProd = document.getElementById("productFil").value;  
+		var mySelRep = document.getElementById("representativeFil").value;
 
 
-		var mySelCust = [];
-    	$('#customerIdFil option').each(function(i) {
-        if (this.selected == true) {
-            mySelCust.push(this.value);
-        }
-    	});
-		if(mySelCust.length<1) 
-		{
-			mySelCust.push("");
-		}
+		// var mySelCust = [];
+    	// $('#customerNameFil option').each(function(i) {
+        // if (this.selected == true) {
+        //     mySelCust.push(this.value);
+        // }
+    	// });
+		// if(mySelCust.length<1) 
+		// {
+		// 	mySelCust.push("");
+		// }
         
-		var mySelArea = [];
-    	$('#areaFil option').each(function(i) {
-        if (this.selected == true) {
-            mySelArea.push(this.value);
-        }
-    	});
-		if(mySelArea.length<1) 
-		{
-			mySelArea.push("");
-		}
+		// var mySelArea = [];
+    	// $('#areaFil option').each(function(i) {
+        // if (this.selected == true) {
+        //     mySelArea.push(this.value);
+        // }
+    	// });
+		// if(mySelArea.length<1) 
+		// {
+		// 	mySelArea.push("");
+		// }
         
-		var mySelGrad = [];
-    	$('#gradeFil option').each(function(i) {
-        if (this.selected == true) {
-            mySelGrad.push(this.value);
-        }
-    	});
-		if(mySelGrad.length<1) 
-		{
-			mySelGrad.push("");
-		}
+		// var mySelGrad = [];
+    	// $('#gradeFil option').each(function(i) {
+        // if (this.selected == true) {
+        //     mySelGrad.push(this.value);
+        // }
+    	// });
+		// if(mySelGrad.length<1) 
+		// {
+		// 	mySelGrad.push("");
+		// }
         
-		var mySelCate = [];
-    	$('#categoryFil option').each(function(i) {
-        if (this.selected == true) {
-            mySelCate.push(this.value);
-        }
-    	});
-		if(mySelCate.length<1) 
-		{
-			mySelCate.push("");
-		}
+		// var mySelCate = [];
+    	// $('#categoryFil option').each(function(i) {
+        // if (this.selected == true) {
+        //     mySelCate.push(this.value);
+        // }
+    	// });
+		// if(mySelCate.length<1) 
+		// {
+		// 	mySelCate.push("");
+		// }
         
-		var mySelProd = [];
-    	$('#productFil option').each(function(i) {
-        if (this.selected == true) {
-            mySelProd.push(this.value);
-        }
-    	});
-		if(mySelProd.length<1) 
-		{
-			mySelProd.push("");
-		}
+		// var mySelProd = [];
+    	// $('#productFil option').each(function(i) {
+        // if (this.selected == true) {
+        //     mySelProd.push(this.value);
+        // }
+    	// });
+		// if(mySelProd.length<1) 
+		// {
+		// 	mySelProd.push("");
+		// }
         
-		var mySelRep = [];
-    	$('#representativeFil option').each(function(i) {
-        if (this.selected == true) {
-            mySelRep.push(this.value);
-        }
-    	});
-		if(mySelRep.length<1) 
-		{
-			mySelRep.push("");
-		}
+		// var mySelRep = [];
+    	// $('#representativeFil option').each(function(i) {
+        // if (this.selected == true) {
+        //     mySelRep.push(this.value);
+        // }
+    	// });
+		// if(mySelRep.length<1) 
+		// {
+		// 	mySelRep.push("");
+		// }
         
 		console.log(mySelCust);
         console.log(mySelArea);
@@ -999,7 +1055,7 @@
         console.log("ujjwal");
         $.post("/marketPlanPigIron",
         {
-            customerIdFil: mySelCust,
+            customerNameFil: mySelCust,
             areaFil: mySelArea,
             gradeFil: mySelGrad,
             categoryFil: mySelCate,
@@ -1020,12 +1076,12 @@
 	<script>
 		function check(tableData)
 		{
-			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>customerId</th> <th>area</th> <th>grade</th> <th>category</th> <th>product</th> <th>representative</th> <th>phoneNumber</th> <th>meetingDates</th> <th>currentRemark</th> <th>remarkStatus</th> <th>nextDate</th> <th>currentIssue</th> <th>analysed</th> <th>updateTimeStamp</th> <th>totalIssue</th> </thead> <tbody> "
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>customerName</th> <th>area</th> <th>grade</th> <th>category</th> <th>product</th> <th>representative</th> <th>phoneNumber</th> <th>meetingDates</th> <th>currentRemark</th> <th>remarkStatus</th> <th>nextDate</th> <th>currentIssue</th> <th>analysed</th> <th>updateTimeStamp</th> <th>totalIssue</th> </thead> <tbody> "
 			for(var i=0;i<tableData.length;i++)
 			{
 
 				table+="<tr> "
-					table+="<td class='customerId'>"+tableData[i].customerId+"</td>"	
+					table+="<td class='customerName'>"+tableData[i].customerName+"</td>"	
 					table+="<td class='area'>"+tableData[i].area+"</td>"	
 					table+="<td class='grade'>"+tableData[i].grade+"</td>"	
 					table+="<td class='category'>"+tableData[i].category+"</td>"	
