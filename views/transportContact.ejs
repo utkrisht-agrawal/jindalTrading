@@ -172,16 +172,16 @@
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
 						</li>
-
+						
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Master</span></a>
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
-								<li class="nav-item"><a href="/masterGrade" class="nav-link active">MasterGrade</a></li>
+								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
@@ -198,11 +198,11 @@
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Transport</span></a>
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Transport</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/transportDetails" class="nav-link">Details</a></li>
-								<li class="nav-item"><a href="/transportContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/transportContacts" class="nav-link active">Contacts</a></li>
 								<li class="nav-item"><a href="/transportStations" class="nav-link">Stations</a></li>
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
@@ -233,7 +233,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Grade</span> - Master</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transport</span> - Contact</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -251,8 +251,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Style combinations</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Grade<i class="icon-play3 ml-2"></i></button></td>
-									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Transporter Contact<i class="icon-play3 ml-2"></i></button></td>
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -269,7 +268,8 @@
 									
 									<thead>
 										<tr>
-											<th>GRADE</th>
+											<th>transportName</th>
+                                            <th>transportContact</th>
 											<% if(level>2) {%>
 												<th>Edit</th>
 												<th>Delete</th>
@@ -281,25 +281,27 @@
 									</thead >
 									
 									<% for(var i=0; i<data.length; i++) {%>
-										<tr class="<%= data[i].gradeId%>grade">
+										<tr  class="<%= data[i].transportId%>transport">
                                             <%if(level==1) {%>
-                                                <td class="gradeType" ><%= data[i].gradeType%></td>
+                                                <td class="transportName"><%= data[i].transportName%></td>
+												<td class="transportContact"><%= data[i].transportContact%></td>
                                             <%} else if(level>2) {%>
-                                                <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
+                                                <td class="transportName" contenteditable="true"><%= data[i].transportName%></td>
+                                                <td class="transportContact" contenteditable="true"><%= data[i].transportContact%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="edit('<%= data[i].transportId%>transport')" name="foo" value="check" >Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" >Delete</button>
+                                                    <button onclick="del('<%= data[i].transportId %>')" name="foo" value="check" >Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
-                                                <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
+                                                <td class="transportName" contenteditable="true"><%= data[i].transportName%></td>
+                                                <td class="transportContact" contenteditable="true"><%= data[i].transportContact%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="edit('<%= data[i].transportId%>transport')" name="foo" value="check" >Edit</button>
                                                 </td>
                                             <%}%>
-                                            
-                                        </tr>
+                                            </tr>
 									<% } %>
 								</table>
 							
@@ -313,21 +315,25 @@
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">New Master Grade</h5>
+								            <h5 class="modal-title">New Transporter Contact</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
-							            <form action="/masterGrade" method="POST">
+							            <form action="/transportContacts" method="POST">
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>Grade</label>
-												            <input type="text" placeholder="chl koi ni" class="form-control gradeType" name="gradeType" id="gradeType">
+												            <label>Transport Name</label>
+												            <input type="text"class="form-control transportName" name="transportName" id="transportName">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>Transport Contact</label>
+                                                            <input type="text"class="form-control transportContact" name="transportContact" id="transportContact">
 											            </div>
 										            </div>
-									            </div>
-								            </div>
+										        </div>
+                                                
 
 								            <div class="modal-footer">
 									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
@@ -362,10 +368,41 @@
 
 
 <script>
+    function edit(value)
+    {
+        console.log(value);
+        var sub = 'transport';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {
+            
+            var transportName = $(this).find(".transportName").html();    
+            var transportContact = $(this).find(".transportContact").html();   
+            console.log(transportName);
+            console.log("ujjwal");
+            $.post("/transportContacts",
+            {
+                id: result,
+                transportName: transportName,
+                transportContact: transportContact,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+            }
+            );
+        });
+    }
+</script>
+
+<script>
     function del(value)
     {
         console.log(value);
-        $.post("/masterGrade",
+        $.post("/transportContacts",
             {
                 id: value,
                 op:"del"
@@ -378,92 +415,6 @@
     }
 </script>
 
-<script>
-    function edit(value)
-    {
-        console.log(value);
-        var sub = 'grade';
-        var result = value.replace(sub,'');
-        console.log(result);
-        
-        $('.'+value).each(function() 
-        {   
-            var gradeType = $(this).find(".gradeType").html();    
-            console.log(gradeType);
-            console.log("ujjwal");
-            $.post("/masterGrade",
-            {
-                id: result,
-                gradeType: gradeType,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
-    }
-</script>
 
 
-<!-- <h2>masterGrade</h2>
-<h3>User level <%=level%></h3>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity=
-        "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-        crossorigin="anonymous">
-    </script>
-
-<% if(data.length>0) {%>
-    
-    <table >
-        
-        <thead>
-            <tr>
-                <th>gradeType</th>
-                <% if(level>2) {%>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                <%}else if(level>1){%>
-                    <th>Edit</th>
-                <%}else{%>
-                <%}%>
-
-            </tr>
-        </thead >
-        
-        <% for(var i=0; i<data.length; i++) {%>
-            <tr class="<%= data[i].gradeId%>grade">
-                <%if(level==1) {%>
-                    <td class="gradeType" ><%= data[i].gradeType%></td>
-                <%} else if(level>2) {%>
-                    <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                    <td>
-                        <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                    </td>
-                    <td >
-                        <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" >Delete</button>
-                    </td>
-                <%}else if(level>1){%>
-                    <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                    <td>
-                        <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                    </td>
-                <%}%>
-                
-            </tr>
-        <% } %>
-    </table>
-
-<%}else{%>
-    <h4>No new data</h4>
-<%}%>
-
-<% if(level>2) {%>
-    <p><a href="/addMasterGrade">Add new Master Grade</a></p>
-<%}%>
-<p><a href="/userDashboard">Dashboard</a></p>
-<p><a href="/">Back to Home Page</a></p> -->
 

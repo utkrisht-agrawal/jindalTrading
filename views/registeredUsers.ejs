@@ -10,7 +10,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
 	<link href="assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/layout.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
@@ -30,19 +29,19 @@
 	<script src="global_assets/js/plugins/ui/moment/moment.min.js"></script>
 	<script src="global_assets/js/plugins/pickers/daterangepicker.js"></script>
 
-	<script src="global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
-
-	<script src="global_assets/js/plugins/forms/styling/uniform.min.js"></script>
-	<script src="global_assets/js/plugins/notifications/pnotify.min.js"></script>
-	<script src="global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-
-
 	<script src="assets/js/app.js"></script>
 	<script src="global_assets/js/demo_pages/dashboard.js"></script>
-	<script src="global_assets/js/demo_pages/datatables_basic.js"></script>
-	<script src="global_assets/js/demo_pages/form_multiselect.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/streamgraph.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/sparklines.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/lines.js"></script>	
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/areas.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/donuts.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/bars.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/progress.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/heatmaps.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/pies.js"></script>
+	<script src="global_assets/js/demo_charts/pages/dashboard/light/bullets.js"></script>
 	<!-- /theme JS files -->
-
 
 </head>
 
@@ -52,7 +51,7 @@
 	<div class="navbar navbar-expand-md navbar-dark">
 		<div class="navbar-brand">
 			<a href="index.html" class="d-inline-block">
-				<img src="../../../../global_assets/images/logo_light.png" alt="">
+				<img src="global_assets/images/logo_light.png" alt="">
 			</a>
 		</div>
 
@@ -80,7 +79,7 @@
 
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<img src="../../../../global_assets/images/demo/users/face11.jpg" class="rounded-circle mr-2" height="34" alt="">
+						<img src="global_assets/images/demo/users/face11.jpg" class="rounded-circle mr-2" height="34" alt="">
 						<span><%=username%></span>
 					</a>
 
@@ -125,7 +124,7 @@
 					<div class="card-body">
 						<div class="media">
 							<div class="mr-3">
-								<a href="#"><img src="../../../../global_assets/images/demo/users/face11.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+								<a href="#"><img src="global_assets/images/demo/users/face11.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
 							</div>
 
 							<div class="media-body">
@@ -146,7 +145,7 @@
 
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item nav-item-submenu">
-							<a href="/userDashboard" class="nav-link">
+							<a href="/userDashboard" class="nav-link active">
 								<i class="icon-home4"></i>
 								<span>
 									Dashboard
@@ -155,33 +154,36 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/register" class="nav-link">User-Register</a></li>
 							</ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/registeredUsers" class="nav-link active">Register-List</a></li>
+							</ul>
 						</li>
 
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Market-Plan</span></a>
-
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
-							
+
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
-						    </ul>
-							
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
+							</ul>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
 						</li>
 
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Master</span></a>
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
-								<li class="nav-item"><a href="/masterGrade" class="nav-link active">MasterGrade</a></li>
+								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
@@ -193,18 +195,18 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
-								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
-								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Firms</a></li>
+								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Products</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Transport</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="/transportDetails" class="nav-link">Details</a></li>
-								<li class="nav-item"><a href="/transportContacts" class="nav-link">Contacts</a></li>
-								<li class="nav-item"><a href="/transportStations" class="nav-link">Stations</a></li>
-								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
+								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
+								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
+								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
+								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -233,7 +235,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Grade</span> - Master</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">User</span> - Register</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -246,14 +248,19 @@
 
 				<!-- Dashboard content -->
 				<div class="row">
+					<div class="col-xl-8">
+					</div>
+                    
+					<div class="col-xl-4">
+                    </div>
+				</div>
+				<!-- /dashboard content -->
+                
+                <div class="row">
 					<div class="col-md-12">
-						<div class="card">
+						<div class="card" style="overflow-x: auto;">
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Style combinations</h5>
-								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Grade<i class="icon-play3 ml-2"></i></button></td>
-									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
-								<%}%>
+								<h5 class="card-title">Register-List</h5>
 								<div class="header-elements">
 									<div class="list-icons">
 										<a class="list-icons-item" data-action="collapse"></a>
@@ -262,87 +269,71 @@
 									</div>
 								</div>
 							</div>
-
 							<% if(data.length>0) {%>
     
-								<table class="table datatable-basic table-bordered table-striped table-hover">
+								<table class="table datatable-basic table-bordered table-striped table-hover" style="table-layout: auto; width: 100%; overflow-x: auto;">
 									
 									<thead>
 										<tr>
-											<th>GRADE</th>
+                                            <th>username</th>
+                                            <th>password</th>
+                                            <th>role</th>
 											<% if(level>2) {%>
 												<th>Edit</th>
 												<th>Delete</th>
 											<%}else if(level>1){%>
 												<th>Edit</th>
-											<%}else{%>
 											<%}%>
 										</tr>
 									</thead >
 									
 									<% for(var i=0; i<data.length; i++) {%>
-										<tr class="<%= data[i].gradeId%>grade">
-                                            <%if(level==1) {%>
-                                                <td class="gradeType" ><%= data[i].gradeType%></td>
-                                            <%} else if(level>2) {%>
-                                                <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
+										<tr class="<%= data[i].id%>RegisterList">
+											<%if(level>2) {%>
+                                                
+                                                <td class="username" contenteditable="true"><%= data[i].username%></td>
+                                                <td class="password" contenteditable="true"><%= data[i].password%></td>
+                                                <td name="role" class="role">
+													<select name="rSelect" class="rSelect">
+														<option value="<%= data[i].role%>"><%= data[i].role%></option>
+														<option value="User">User</option>
+														<option value="Moderator">Moderator</option>
+														<option value="Admin">Admin</option>
+													</select>
+												</td>
+												<td>
+                                                    <button onclick="edit('<%= data[i].id%>RegisterList')" name="foo" value="check" >Edit</button>
+                                                </td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="del('<%= data[i].id%>')" name="foo" value="check" >Delete</button>
                                                 </td>
-                                                <td >
-                                                    <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" >Delete</button>
+                                               
+											<%}else if(level>1){%>
+												<td class="username" contenteditable="true"><%= data[i].username%></td>
+                                                <td class="password" contenteditable="true"><%= data[i].password%></td>
+                                                <td name="role" class="role">
+													<select name="rSelect" class="rSelect">
+														<option value="<%= data[i].role%>"><%= data[i].role%></option>
+														<option value="User">User</option>
+														<option value="Moderator">Moderator</option>
+														<option value="Admin">Admin</option>
+													</select>
+												</td>
+												<td>
+                                                    <button onclick="edit('<%= data[i].id%>RegisterList')" name="foo" value="check" >Edit</button>
                                                 </td>
-                                            <%}else if(level>1){%>
-                                                <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                                                <td>
-                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                                                </td>
-                                            <%}%>
-                                            
-                                        </tr>
+											<%}%>
+										</tr>
 									<% } %>
 								</table>
 							
 							<%}else{%>
-								<h4>No new data</h4>
+								<h4>No data</h4>
 							<%}%>
-							
-							
-							<!-- Vertical form modal -->
-							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
-					            <div class="modal-dialog">
-						            <div class="modal-content">
-							            <div class="modal-header">
-								            <h5 class="modal-title">New Master Grade</h5>
-								            <button type="button" class="close" data-dismiss="modal">&times;</button>
-							            </div>
-
-							            <form action="/masterGrade" method="POST">
-								            <div class="modal-body">
-									            <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>Grade</label>
-												            <input type="text" placeholder="chl koi ni" class="form-control gradeType" name="gradeType" id="gradeType">
-											            </div>
-										            </div>
-									            </div>
-								            </div>
-
-								            <div class="modal-footer">
-									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									            <button type="submit" class="btn bg-primary">Add</button>
-								            </div>
-							            </form>
-						            </div>
-					            </div>
-				            </div>
-			            </div>
-		            </div>
-					
-		        </div>
-				<!-- /dashboard content -->
-
+								
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- /content area -->
 
@@ -360,12 +351,49 @@
 
 </html>
 
+<script>
+    function edit(value)
+    {
+        console.log(`EDIT  ${value}`);
+        var sub = 'RegisterList';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {
+            console.log("new yr");
+            var username = $(this).find(".username").html();   
+            var password = $(this).find(".password").html();   
+            var role = $(this).find(".rSelect").val();         
+            console.log(username);
+            console.log(password);
+            console.log(role);
+            console.log("ujjwal");
+            $.post("/registeredUsers",
+            {
+                id: result,
+                username:username,
+                password:password,
+                role: role,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log("check edit wala data");
+                console.log(data);
+                console.log(status);
+            }
+            );
+        });
+    }
+    
+</script>
 
 <script>
+    
     function del(value)
     {
         console.log(value);
-        $.post("/masterGrade",
+        $.post("/registeredUsers",
             {
                 id: value,
                 op:"del"
@@ -376,94 +404,6 @@
             }
             );
     }
+
+	
 </script>
-
-<script>
-    function edit(value)
-    {
-        console.log(value);
-        var sub = 'grade';
-        var result = value.replace(sub,'');
-        console.log(result);
-        
-        $('.'+value).each(function() 
-        {   
-            var gradeType = $(this).find(".gradeType").html();    
-            console.log(gradeType);
-            console.log("ujjwal");
-            $.post("/masterGrade",
-            {
-                id: result,
-                gradeType: gradeType,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
-    }
-</script>
-
-
-<!-- <h2>masterGrade</h2>
-<h3>User level <%=level%></h3>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity=
-        "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-        crossorigin="anonymous">
-    </script>
-
-<% if(data.length>0) {%>
-    
-    <table >
-        
-        <thead>
-            <tr>
-                <th>gradeType</th>
-                <% if(level>2) {%>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                <%}else if(level>1){%>
-                    <th>Edit</th>
-                <%}else{%>
-                <%}%>
-
-            </tr>
-        </thead >
-        
-        <% for(var i=0; i<data.length; i++) {%>
-            <tr class="<%= data[i].gradeId%>grade">
-                <%if(level==1) {%>
-                    <td class="gradeType" ><%= data[i].gradeType%></td>
-                <%} else if(level>2) {%>
-                    <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                    <td>
-                        <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                    </td>
-                    <td >
-                        <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" >Delete</button>
-                    </td>
-                <%}else if(level>1){%>
-                    <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                    <td>
-                        <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                    </td>
-                <%}%>
-                
-            </tr>
-        <% } %>
-    </table>
-
-<%}else{%>
-    <h4>No new data</h4>
-<%}%>
-
-<% if(level>2) {%>
-    <p><a href="/addMasterGrade">Add new Master Grade</a></p>
-<%}%>
-<p><a href="/userDashboard">Dashboard</a></p>
-<p><a href="/">Back to Home Page</a></p> -->
-

@@ -2,6 +2,7 @@ const userModel = require('../model/userModel');
 
 
 const getRegister = (req,res,next)=>{
+    
     if(req.session.userLevel==3)
     {
         res.render('reg',{
@@ -10,8 +11,8 @@ const getRegister = (req,res,next)=>{
         });
     }
     else
-    {
-        res.redirect('/login')
+    { 
+        res.redirect('/userDashboard')
     }
 }
 
@@ -19,8 +20,19 @@ const postRegister = (req,res,next)=>{
     const username = req.body.username;
     const password = req.body.password;
     const role = req.body.role;
-    const level = req.body.level;
-
+    var level;
+    if(role==='User')
+    {
+        level = 1;
+    }
+    else if(role==='Moderator')
+    {
+        level = 2;
+    }
+    else{
+        level = 3;
+    }
+    console.log(`level ; ${level}`)
     userModel.create({
         username : username,
         password : password, 
@@ -149,6 +161,70 @@ const getUserDashboard=(req,res,next)=>{
 
 
 
+
+const getRegisteredUsers = (req,res,next)=>{
+    if(req.session.isLoggedIn)
+    {
+        if(req.session.userLevel>1)
+        {
+            userModel.findAll()
+                .then((data)=>{
+                    res.render('registeredUsers',{
+                        data:data, 
+                        username : req.session.username,
+                        level:req.session.userLevel
+                    })
+                })
+                .catch((err)=>
+                console.log(err)
+                )
+        }
+    }
+}
+
+
+
+
+
+
+
+const postRegisteredUsers =(req,res,next)=>{
+    var id = req.body.id;
+    if(req.body.op==="del")
+    {
+        userModel.destroy({
+            where: { id : id}
+        })
+        .then((result)=>
+            res.redirect('/registeredUsers'),
+        )
+        .catch((err)=>
+        console.log(err)
+    )
+    }
+    else if(req.body.op==="edt")
+    {
+        console.log(req.body.id);
+        userModel.update({
+            username: req.body.username,
+            password: req.body.password,
+            role: req.body.role
+        },
+        {
+            where: {id: id}
+        }
+        )
+    }
+}
+
+
+
+
+
+
+
+
+
 const getLogout = (req,res,next)=>{
     req.session.isLoggedIn = false;
     req.session.destroy();
@@ -164,5 +240,7 @@ module.exports = {
     getUserDashboard,
     getRegister,
     postRegister,
+    getRegisteredUsers,
+    postRegisteredUsers,
     getLogout
 }

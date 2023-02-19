@@ -12,6 +12,11 @@ router.get('/userDashboard',userCtrl.getUserDashboard);
 
 router.get('/logout',userCtrl.getLogout);
 
+router.get('/registeredUsers',userCtrl.getRegisteredUsers);
+
+router.post('/registeredUsers',userCtrl.postRegisteredUsers);
+
+
 
 
 

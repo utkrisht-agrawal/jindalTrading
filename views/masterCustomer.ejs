@@ -8,8 +8,9 @@
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-	<link href="../../../../global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+	<link href="global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
 	<link href="assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/layout.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
@@ -17,32 +18,30 @@
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script src="../../../../global_assets/js/main/jquery.min.js"></script>
-	<script src="../../../../global_assets/js/main/bootstrap.bundle.min.js"></script>
-	<script src="../../../../global_assets/js/plugins/loaders/blockui.min.js"></script>
+	<script src="global_assets/js/main/jquery.min.js"></script>
+	<script src="global_assets/js/main/bootstrap.bundle.min.js"></script>
+	<script src="global_assets/js/plugins/loaders/blockui.min.js"></script>
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
-	<script src="../../../../global_assets/js/plugins/visualization/d3/d3.min.js"></script>
-	<script src="../../../../global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
-	<script src="../../../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
-	<script src="../../../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
-	<script src="../../../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
+	<script src="global_assets/js/plugins/visualization/d3/d3.min.js"></script>
+	<script src="global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+	<script src="global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+	<script src="global_assets/js/plugins/ui/moment/moment.min.js"></script>
+	<script src="global_assets/js/plugins/pickers/daterangepicker.js"></script>
 
-	<script src="../../../../global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+	<script src="global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
 
+	<script src="global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+	<script src="global_assets/js/plugins/notifications/pnotify.min.js"></script>
+	<script src="global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
 
 	<script src="assets/js/app.js"></script>
-	<script src="../../../../global_assets/js/demo_pages/dashboard.js"></script>
-	<script src="../../../../global_assets/js/demo_pages/datatables_basic.js"></script>
+	<script src="global_assets/js/demo_pages/dashboard.js"></script>
+	<script src="global_assets/js/demo_pages/datatables_basic.js"></script>
+	<script src="global_assets/js/demo_pages/form_multiselect.js"></script>
 	<!-- /theme JS files -->
 
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity=
-        "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-        crossorigin="anonymous">
-	</script>
 
 </head>
 
@@ -146,7 +145,7 @@
 
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item nav-item-submenu">
-							<a href="/userDashboard" class="nav-link active">
+							<a href="/userDashboard" class="nav-link">
 								<i class="icon-home4"></i>
 								<span>
 									Dashboard
@@ -158,11 +157,16 @@
 						</li>
 
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Market-Plan</span></a>
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Market-Plan</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
+						    </ul>
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
@@ -186,19 +190,20 @@
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="index.html" class="nav-link">Contact</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_2/LTR/default/full/index.html" class="nav-link">Categories</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Firms</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Products</a></li>
+								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
+								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
+								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
+								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Transport</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="index.html" class="nav-link">Contact</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_2/LTR/default/full/index.html" class="nav-link">Stations</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Trucks</a></li>
+								<li class="nav-item"><a href="/transportDetails" class="nav-link">Details</a></li>
+								<li class="nav-item"><a href="/transportContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/transportStations" class="nav-link">Stations</a></li>
+								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -241,7 +246,14 @@
 				<!-- Dashboard content -->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="card">
+						<div class="card" style="overflow-x: auto;">
+							
+							<div class="errInfo" id="errInfo" style=" background-color: rgb(255, 0, 0); margin: 1%;">
+								<% if(msg){ %>
+									<h6 style="text-align: center;"><%=msg%></h6>
+								<% } %>
+							</div>
+							
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Style combinations</h5>
 								<% if(level>2) {%>
@@ -338,94 +350,93 @@
 								<h4>No new data</h4>
 							<%}%>
 							
-							<hr>
-							<hr>
-								
-							<h3>Unverified Customer</h3>	
-							<hr>	
-
-
-							<% if(data.length>0) {%>
-    
-								<table class="table datatable-basic table-bordered table-striped table-hover">
-									
-									<thead>
-										<tr>
-											<th>customerName</th>
-											<th>AREA</th>
-											<th>STATUS</th>
-											<th>GRADE</th>
-											<th>PIN_CODE</th>
-											<th>ADDRESS</th>
-											<th>REF_NO_1</th>
-											<th>REF_NO_2</th>
-											<th>CREDIT_LIMIT</th>
-											<th>CREDIT_DAYS</th>
-											<% if(level>2) {%>
-												<th>Edit</th>
-												<th>Delete</th>
-											<%}else if(level>1){%>
-												<th>Edit</th>
-											<%}else{%>
-											<%}%>
-										</tr>
-									</thead >
-									
-									<% for(var i=0; i<data.length; i++) {%>
-										<%if(data[i].status=='UNVERIFIED') {%>
-										<tr class="<%= data[i].customerId%>customer">
-											<%if(level==1) {%>
-												<td class="customerName" ><%= data[i].customerName%></td>
-												<td class="area" ><%= data[i].area%></td>
-												<td class="status" ><%= data[i].status%></td>
-												<td class="grade" ><%= data[i].grade%></td>
-												<td class="pincode" ><%= data[i].pincode%></td>
-												<td class="address" ><%= data[i].address%></td>
-												<td class="referenceNumber1" ><%= data[i].referenceNumber1%></td>
-												<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
-												<td class="creditLimit" ><%= data[i].creditLimit%></td>
-												<td class="creditDays" ><%= data[i].creditDays%></td>
-											<%} else if(level>2) {%>
-												<td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
-												<td class="area" contenteditable="true"><%= data[i].area%></td>
-												<td class="status" contenteditable="true"><%= data[i].status%></td>
-												<td class="grade" contenteditable="true"><%= data[i].grade%></td>
-												<td class="pincode" contenteditable="true"><%= data[i].pincode%></td>
-												<td class="address" contenteditable="true"><%= data[i].address%></td>
-												<td class="referenceNumber1" contenteditable="true"><%= data[i].referenceNumber1%></td>
-												<td class="referenceNumber2" contenteditable="true"><%= data[i].referenceNumber2%></td>
-												<td class="creditLimit" contenteditable="true"><%= data[i].creditLimit%></td>
-												<td class="creditDays" contenteditable="true"><%= data[i].creditDays%></td>
-												<td>
-													<button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" >Edit</button>
-												</td>
-												<td >
-													<button onclick="del('<%= data[i].customerId %>')" name="foo" value="check" >Delete</button>
-												</td>
-											<%}else if(level>1){%>
-												<td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
-												<td class="area" contenteditable="true"><%= data[i].area%></td>
-												<td class="status" contenteditable="true"><%= data[i].status%></td>
-												<td class="grade" contenteditable="true"><%= data[i].grade%></td>
-												<td class="pincode" contenteditable="true"><%= data[i].pincode%></td>
-												<td class="address" contenteditable="true"><%= data[i].address%></td>
-												<td class="referenceNumber1" contenteditable="true"><%= data[i].referenceNumber1%></td>
-												<td class="referenceNumber2" contenteditable="true"><%= data[i].referenceNumber2%></td>
-												<td class="creditLimit" contenteditable="true"><%= data[i].creditLimit%></td>
-												<td class="creditDays" contenteditable="true"><%= data[i].creditDays%></td>
-												<td>
-													<button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" >Edit</button>
-												</td>
-											<%}%>
-										</tr>
-										<% } %>
-									<% } %>
-								</table>
 							
-							<%}else{%>
-								<h4>No new data</h4>
-							<%}%>
-						
+								
+							<div class="card" style="overflow-x: auto;"></div>
+								<h3>Unverified Customer</h3>	
+
+
+								<% if(data.length>0) {%>
+		
+									<table class="table datatable-basic table-bordered table-striped table-hover">
+										
+										<thead>
+											<tr>
+												<th>customerName</th>
+												<th>AREA</th>
+												<th>STATUS</th>
+												<th>GRADE</th>
+												<th>PIN_CODE</th>
+												<th>ADDRESS</th>
+												<th>REF_NO_1</th>
+												<th>REF_NO_2</th>
+												<th>CREDIT_LIMIT</th>
+												<th>CREDIT_DAYS</th>
+												<% if(level>2) {%>
+													<th>Edit</th>
+													<th>Delete</th>
+												<%}else if(level>1){%>
+													<th>Edit</th>
+												<%}else{%>
+												<%}%>
+											</tr>
+										</thead >
+										
+										<% for(var i=0; i<data.length; i++) {%>
+											<%if(data[i].status=='UNVERIFIED') {%>
+											<tr class="<%= data[i].customerId%>customer">
+												<%if(level==1) {%>
+													<td class="customerName" ><%= data[i].customerName%></td>
+													<td class="area" ><%= data[i].area%></td>
+													<td class="status" ><%= data[i].status%></td>
+													<td class="grade" ><%= data[i].grade%></td>
+													<td class="pincode" ><%= data[i].pincode%></td>
+													<td class="address" ><%= data[i].address%></td>
+													<td class="referenceNumber1" ><%= data[i].referenceNumber1%></td>
+													<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+													<td class="creditLimit" ><%= data[i].creditLimit%></td>
+													<td class="creditDays" ><%= data[i].creditDays%></td>
+												<%} else if(level>2) {%>
+													<td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
+													<td class="area" contenteditable="true"><%= data[i].area%></td>
+													<td class="status" contenteditable="true"><%= data[i].status%></td>
+													<td class="grade" contenteditable="true"><%= data[i].grade%></td>
+													<td class="pincode" contenteditable="true"><%= data[i].pincode%></td>
+													<td class="address" contenteditable="true"><%= data[i].address%></td>
+													<td class="referenceNumber1" contenteditable="true"><%= data[i].referenceNumber1%></td>
+													<td class="referenceNumber2" contenteditable="true"><%= data[i].referenceNumber2%></td>
+													<td class="creditLimit" contenteditable="true"><%= data[i].creditLimit%></td>
+													<td class="creditDays" contenteditable="true"><%= data[i].creditDays%></td>
+													<td>
+														<button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" >Edit</button>
+													</td>
+													<td >
+														<button onclick="del('<%= data[i].customerId %>')" name="foo" value="check" >Delete</button>
+													</td>
+												<%}else if(level>1){%>
+													<td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
+													<td class="area" contenteditable="true"><%= data[i].area%></td>
+													<td class="status" contenteditable="true"><%= data[i].status%></td>
+													<td class="grade" contenteditable="true"><%= data[i].grade%></td>
+													<td class="pincode" contenteditable="true"><%= data[i].pincode%></td>
+													<td class="address" contenteditable="true"><%= data[i].address%></td>
+													<td class="referenceNumber1" contenteditable="true"><%= data[i].referenceNumber1%></td>
+													<td class="referenceNumber2" contenteditable="true"><%= data[i].referenceNumber2%></td>
+													<td class="creditLimit" contenteditable="true"><%= data[i].creditLimit%></td>
+													<td class="creditDays" contenteditable="true"><%= data[i].creditDays%></td>
+													<td>
+														<button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" >Edit</button>
+													</td>
+												<%}%>
+											</tr>
+											<% } %>
+										<% } %>
+									</table>
+								
+								<%}else{%>
+									<h4>No new data</h4>
+								<%}%>
+							</div>		
 							
 							
 							<!-- Vertical form modal -->
@@ -442,24 +453,33 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6">
-												<label>Customer Name</label>
-												<input type="text" placeholder="Ujjwal Raturi" class="form-control customerName" name="customerName" id="customerName">
+												<label>Customer Name<span class="text-danger">*</span></label>
+												<input type="text" placeholder="Ujjwal Raturi" class="form-control customerName" required name="customerName" id="customerName">
 											</div>
 
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-12">
+												<label>Firm<span class="text-danger">*</span></label>
+												<input type="text" placeholder="Firm" class="form-control firm" required name="firm" id="firm">
+											</div>
 										</div>
 									</div>
 									
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-4">
-												<label>Area</label>
-												<select id="area" name="area" class="form-control area" id="area">
+												<label>Area<span class="text-danger">*</span></label>
+												<select id="area" name="area" class="form-control area" id="area" required>
 													<option value="" disabled selected>-Select-</option>
 													<% for(var i=0; i<areaData.length; i++) {%>
 														<option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
 													<% } %>
 												</select>
-												<!-- <input type="text" placeholder="Dehradun" class="form-control"> -->
+												
 											</div>
 											<div class="col-sm-4">
 												<label>Status</label>
@@ -468,33 +488,66 @@
 													<option value="VERIFIED">VERIFIED</option>
 													<option value="UNVERIFIED">UNVERIFIED</option>
 												</select>
-												<!-- <input type="text" placeholder="Dehradun" class="form-control"> -->
 											</div>
 											<div class="col-sm-4">
-												<label>grade</label>
-												<select id="grade" name="grade" class="form-control grade" id="grade">
+												<label>grade<span class="text-danger">*</span></label>
+												<select id="grade" name="grade" class="form-control grade" id="grade" required>
 													<option value="" disabled selected>-Select-</option>
 													<% for(var i=0; i<gradeData.length; i++) {%>
 														<option value="<%=gradeData[i].gradeType%>"><%=gradeData[i].gradeType%></option>
 													<% } %>
 												</select>
-												<!-- <input type="text" placeholder="Dehradun" class="form-control"> -->
-											</div>
-
-											
+											</div>											
 										</div>
 									</div>
 
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-4">
-												<label>Pincode</label>
-												<input type="number" placeholder="248001" class="form-control pincode" name="pincode" id="pincode">
+												<label>Contact<span class="text-danger">*</span></label>
+												<input type="tel" required placeholder="10-digit-format" class="form-control contact" name="contact" id="contact" pattern="[0-9]{10}">
+											</div>
+
+											<div class="col-sm-4">
+												<label>Category<span class="text-danger">*</span></label>
+												<select name="category" class="category form-control" required>
+													<option value="" disabled selected>-Select-</option>
+													<% for(var j=0; j<categorydata.length; j++) {%>
+														<option value="	<%=categorydata[j].categoriesType%>"><%=categorydata[j].categoriesType%></option>
+													<% } %>
+												</select>
+											</div>
+
+											
+											
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<div class="row">
+											
+											<div class="col-sm-12">
+												<label>Products</label>
+												<select name="productFil" class="form-control multiselect-filtering productFil" id="productFil" multiple="multiple" data-fouc>
+													<% for(var i=0; i<productData.length; i++) {%>
+														<option value="<%=productData[i].productName%>"><%=productData[i].productName%></option>
+													<% } %>	
+												</select>
+												
+											</div>
+
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Pincode<span class="text-danger">*</span></label>
+												<input type="number" required placeholder="110001" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}">
 											</div>
 
 											<div class="col-sm-8">
-												<label>Address</label>
-												<input type="text" placeholder="Miyanwala" class="form-control address" name="address" id="address">
+												<label>Address<span class="text-danger">*</span></label>
+												<input type="text" required placeholder="Meerut" class="form-control address" name="address" id="address">
 											</div>
 
 										</div>
@@ -520,14 +573,14 @@
 										<div class="row">
 											<div class="col-sm-6">
 												<label>Credit Limit</label>
-												<input type="text" placeholder="150" class="form-control creditLimit" name="creditLimit" id="creditLimit">
-												<span class="form-text text-muted">150 rupiya dega</span>
+												<input type="number" placeholder="150" class="form-control creditLimit" name="creditLimit" id="creditLimit">
+												<!-- <span class="form-text text-muted">150</span> -->
 											</div>
 
 											<div class="col-sm-6">
 												<label>Credit Days</label>
-												<input type="text" placeholder="21" class="form-control creditDays" name="creditDays" id="creditDays">
-												<span class="form-text text-muted">21 din mei paisa dabal</span>
+												<input type="number" placeholder="21" class="form-control creditDays" name="creditDays" id="creditDays">
+												<!-- <span class="form-text text-muted">21</span> -->
 											</div>
 										</div>
 									</div>
@@ -535,7 +588,7 @@
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									<button type="submit" class="btn bg-primary">Add</button>
+									<button  class="btn bg-primary">Add</button>
 								</div>
 							</form>
 						</div>
@@ -724,4 +777,41 @@
             }
             );
     }
+
+
+    function abc()
+    {
+        console.log("000000000000000000000000000000000000000")
+        console.log("000000000000000000000000000000000000000000")
+        console.log("00000000000000000000000000000000000000000000")
+        console.log("0000000000000000000000000000000000000000000")
+        console.log("000000000000000000000000000000000000000000000")
+        $.post("/masterCustomer",
+            {
+				a:"abc",
+                op:"abc"
+            },
+            function (dataFil, status) {
+				$("#errInfo").html("a");
+                console.log("oooooooooooooooooooooooooooooooooooooooo");
+                console.log("oooooooooooooooooooooooooooooooooooooooo");
+                console.log("oooooooooooooooooooooooooooooooooooooooo");
+                console.log("oooooooooooooooooooooooooooooooooooooooo");
+                console.log(dataFil);
+                console.log(status);
+            }
+            );
+    }
+
+
+</script>
+
+
+<script>
+	function check(msg)
+	{
+		console.log(msg);
+		var alert="<h5 class='modal-title'>Customer Name Already Exists</h5>"
+		document.getElementById("errInfo").innerHTML=alert;
+	}
 </script>

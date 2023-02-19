@@ -44,6 +44,7 @@
 	<!-- /theme JS files -->
 
 
+	
 </head>
 
 <body>
@@ -158,30 +159,31 @@
 						</li>
 
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Market-Plan</span></a>
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Market-Plan</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
-						    </ul>
+								<li class="nav-item"><a href="/marketPlanAllotment" class="nav-link active">Allotment</a></li>
+							</ul>
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
+							
 						</li>
 
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Master</span></a>
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
-								<li class="nav-item"><a href="/masterGrade" class="nav-link active">MasterGrade</a></li>
+								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
@@ -233,7 +235,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Grade</span> - Master</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Market-Plan</span> - Allotment</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -247,12 +249,11 @@
 				<!-- Dashboard content -->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="card">
+						<div class="card" style="overflow-x: auto;">
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Style combinations</h5>
-								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Grade<i class="icon-play3 ml-2"></i></button></td>
-									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
+								<h5 class="card-title">Allotments</h5>
+								<% if(level>1) {%>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Allotment<i class="icon-play3 ml-2"></i></button>
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -265,11 +266,17 @@
 
 							<% if(data.length>0) {%>
     
-								<table class="table datatable-basic table-bordered table-striped table-hover">
+								<table class="table datatable-basic table-bordered table-striped table-hover" style="table-layout: auto; width: 100%; overflow-x: auto;">
 									
 									<thead>
 										<tr>
-											<th>GRADE</th>
+                                            <th>customerId</th>
+                                            <th>phoneNumber</th>
+                                            <th>area</th>
+                                            <th>product</th>
+                                            <th>representative</th>
+                                            <th>meetingDates</th>
+                                            <th>currentIssue</th>
 											<% if(level>2) {%>
 												<th>Edit</th>
 												<th>Delete</th>
@@ -281,52 +288,159 @@
 									</thead >
 									
 									<% for(var i=0; i<data.length; i++) {%>
-										<tr class="<%= data[i].gradeId%>grade">
-                                            <%if(level==1) {%>
-                                                <td class="gradeType" ><%= data[i].gradeType%></td>
-                                            <%} else if(level>2) {%>
-                                                <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
+										<tr class="<%= data[i].serialNumber%>Allotment">
+											<%if(level==1) {%>
+                                                <td class="customerId"><%= data[i].customerId%></td>
+                                                <td class="phoneNumber"><%= data[i].phoneNumber%></td>
+                                                <td class="area"><%= data[i].area%></td>
+                                                <td class="product"><%= data[i].product%></td>
+                                                <td class="representative"><%= data[i].representative%></td>
+                                                <td class="meetingDates"><%= data[i].meetingDates%></td>
+                                                <td class="currentIssue"><%= data[i].currentIssue%></td>
+											<%} else if(level>2) {%>
+                                                
+                                                <td class="customerId" contenteditable="true"><%= data[i].customerId%></td>
+                                                <td class="phoneNumber" contenteditable="true"><%= data[i].phoneNumber%></td>
+												<td name="area" class="area">
+													<select name="aSelect" class="aSelect">
+														<option value="<%= data[i].area%>"><%= data[i].area%></option>
+														<% for(var j=0; j<adata.length; j++) {%>
+															<option value="	<%=adata[j].area%>"><%=adata[j].area%></option>
+														<% } %>
+													</select>
+												</td>
+												<td name="product" class="product">
+													<select name="pSelect" class="pSelect">
+														<option value="<%= data[i].area%>"><%= data[i].product%></option>
+														<% for(var j=0; j<pdata.length; j++) {%>
+															<option value="	<%=pdata[j].productName%>"><%=pdata[j].productName%></option>
+														<% } %>
+													</select>
+												</td>
+                                                <td class="representative" contenteditable="true"><%= data[i].representative%></td>
+                                                <td class="meetingDates" contenteditable="true"><%= data[i].meetingDates%></td>
+                                                <td class="currentIssue" contenteditable="true"><%= data[i].currentIssue%></td>
+												<td>
+                                                    <button onclick="edit('<%= data[i].serialNumber%>Allotment')" name="foo" value="check" >Edit</button>
+                                                </td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="del('<%= data[i].serialNumber%>')" name="foo" value="check" >Delete</button>
                                                 </td>
-                                                <td >
-                                                    <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" >Delete</button>
+											<%}else if(level>1){%>
+                                                <td class="customerId" contenteditable="true"><%= data[i].customerId%></td>
+                                                <td class="phoneNumber" contenteditable="true"><%= data[i].phoneNumber%></td>
+												<td name="area" class="area">
+													<select name="aSelect" class="aSelect">
+														<option value="<%= data[i].area%>"><%= data[i].area%></option>
+														<% for(var j=0; j<adata.length; j++) {%>
+															<option value="	<%=adata[j].area%>"><%=adata[j].area%></option>
+														<% } %>
+													</select>
+												</td>
+												<td name="product" class="product">
+													<select name="pSelect" class="pSelect">
+														<option value="<%= data[i].area%>"><%= data[i].product%></option>
+														<% for(var j=0; j<pdata.length; j++) {%>
+															<option value="	<%=pdata[j].productName%>"><%=pdata[j].productName%></option>
+														<% } %>
+													</select>
+												</td>
+                                                <td class="representative" contenteditable="true"><%= data[i].representative%></td>
+                                                <td class="meetingDates" contenteditable="true"><%= data[i].meetingDates%></td>
+                                                <td class="currentIssue" contenteditable="true"><%= data[i].currentIssue%></td>
+                                                <button onclick="edit('<%= data[i].serialNumber %>Allotment')" name="foo" value="check" >Edit</button>
                                                 </td>
-                                            <%}else if(level>1){%>
-                                                <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                                                <td>
-                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                                                </td>
-                                            <%}%>
-                                            
-                                        </tr>
+											<%}%>
+										</tr>
 									<% } %>
 								</table>
 							
 							<%}else{%>
-								<h4>No new data</h4>
+								<h4>No data</h4>
 							<%}%>
-							
+
+
+								
+									
+
+
+
+
 							
 							<!-- Vertical form modal -->
 							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
+							
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">New Master Grade</h5>
+								            <h5 class="modal-title">New Allotment </h5>    
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
-							            <form action="/masterGrade" method="POST">
+							            <form action="/marketPlanAllotment" method="POST">
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>Grade</label>
-												            <input type="text" placeholder="chl koi ni" class="form-control gradeType" name="gradeType" id="gradeType">
+												            <label>customerId </label>
+												            <input type="text" placeholder="customerId" class="form-control customerId" name="customerId" id="customerId">
 											            </div>
+											            
+											            <div class="col-sm-6">
+												            <label>phoneNumber </label>
+												            <input type="text" placeholder="phoneNumber" class="form-control phoneNumber" name="phoneNumber" id="phoneNumber">
+											            </div>
+                                                        
 										            </div>
 									            </div>
+                                                
+									            <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>area</label>
+                                                            <select id="area" name="area" class="form-control area" id="area">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<adata.length; i++) {%>
+                                                                    <option value="<%=adata[i].area%>"><%=adata[i].area%></option>
+                                                                    <% } %>
+                                                                </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label>product</label>
+                                                            <select id="product" name="product" class="form-control product" id="product">
+                                                                <option value="" disabled selected>-Select-</option>
+                                                                <% for(var i=0; i<pdata.length; i++) {%>
+                                                                    <option value="<%=pdata[i].productName%>"><%=pdata[i].productName%></option>
+                                                                    <% } %>
+                                                            </select>                        	
+                                                        </div>
+                                                            
+                                                    </div>
+                                                </div>
+                                                        
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>representative </label>
+                                                            <input type="text" placeholder="representative" class="form-control representative" name="representative" id="representative">
+                                                        </div> 
+
+                                                        <div class="col-sm-6">
+                                                            <label>meetingDates </label>
+                                                            <input type="text" placeholder="meetingDates" class="form-control meetingDates" name="meetingDates" id="meetingDates">
+                                                        </div>                                
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <label>currentIssue </label>
+                                                            <input type="text" placeholder="currentIssue" class="form-control currentIssue" name="currentIssue" id="currentIssue">
+                                                        </div>                              
+                                                    </div>
+                                                </div>
+									            
 								            </div>
 
 								            <div class="modal-footer">
@@ -337,6 +451,10 @@
 						            </div>
 					            </div>
 				            </div>
+
+
+						
+
 			            </div>
 		            </div>
 					
@@ -356,16 +474,68 @@
 	</div>
 	<!-- /page content -->
 
+
+	
 </body>
 
 </html>
 
 
 <script>
+    function edit(value)
+    {
+        console.log(`EDIT  ${value}`);
+        var sub = 'Allotment';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {
+            console.log("new yr");
+            var customerId = $(this).find(".customerId").html();   
+            var phoneNumber = $(this).find(".phoneNumber").html();   
+            var area = $(this).find(".aSelect").val();    
+            var product = $(this).find(".pSelect").val();    
+            var representative = $(this).find(".representative").html();     
+            var meetingDates = $(this).find(".meetingDates").html();     
+            var currentIssue = $(this).find(".currentIssue").html();     
+            console.log(customerId);
+            console.log(phoneNumber);
+            console.log(area);
+            console.log(product);
+            console.log(representative);
+            console.log(meetingDates);
+            console.log(currentIssue);
+            console.log("ujjwal");
+            $.post("/marketPlanAllotment",
+            {
+                id: result,
+                customerId:customerId,
+                phoneNumber:phoneNumber,
+                area: area,
+                product:product,
+                representative: representative,
+                meetingDates: meetingDates,
+                currentIssue: currentIssue,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log("check edit wala data");
+                console.log(data);
+                console.log(status);
+            }
+            );
+        });
+    }
+    
+</script>
+
+<script>
+    
     function del(value)
     {
         console.log(value);
-        $.post("/masterGrade",
+        $.post("/marketPlanAllotment",
             {
                 id: value,
                 op:"del"
@@ -376,94 +546,9 @@
             }
             );
     }
-</script>
 
-<script>
-    function edit(value)
-    {
-        console.log(value);
-        var sub = 'grade';
-        var result = value.replace(sub,'');
-        console.log(result);
-        
-        $('.'+value).each(function() 
-        {   
-            var gradeType = $(this).find(".gradeType").html();    
-            console.log(gradeType);
-            console.log("ujjwal");
-            $.post("/masterGrade",
-            {
-                id: result,
-                gradeType: gradeType,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
-    }
+	
 </script>
 
 
-<!-- <h2>masterGrade</h2>
-<h3>User level <%=level%></h3>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity=
-        "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-        crossorigin="anonymous">
-    </script>
-
-<% if(data.length>0) {%>
-    
-    <table >
-        
-        <thead>
-            <tr>
-                <th>gradeType</th>
-                <% if(level>2) {%>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                <%}else if(level>1){%>
-                    <th>Edit</th>
-                <%}else{%>
-                <%}%>
-
-            </tr>
-        </thead >
-        
-        <% for(var i=0; i<data.length; i++) {%>
-            <tr class="<%= data[i].gradeId%>grade">
-                <%if(level==1) {%>
-                    <td class="gradeType" ><%= data[i].gradeType%></td>
-                <%} else if(level>2) {%>
-                    <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                    <td>
-                        <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                    </td>
-                    <td >
-                        <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" >Delete</button>
-                    </td>
-                <%}else if(level>1){%>
-                    <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                    <td>
-                        <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                    </td>
-                <%}%>
-                
-            </tr>
-        <% } %>
-    </table>
-
-<%}else{%>
-    <h4>No new data</h4>
-<%}%>
-
-<% if(level>2) {%>
-    <p><a href="/addMasterGrade">Add new Master Grade</a></p>
-<%}%>
-<p><a href="/userDashboard">Dashboard</a></p>
-<p><a href="/">Back to Home Page</a></p> -->
-
+</script>

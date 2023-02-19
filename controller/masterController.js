@@ -6,6 +6,10 @@ const masterGradeModel = require('../model/masterGradeModel');
 const masterProductsModel = require('../model/masterProductsModel');
 const masterTeamsModel = require('../model/masterTeamsModel');
 const masterVendorsModel = require('../model/masterVendorsModel');
+const customerContactModel = require('../model/customerContactModel');
+const customerCategoryModel = require('../model/customerCategoryModel');
+const customerFirmModel = require('../model/customerFirmModel');
+const customerProductModel = require('../model/customerProductModel');
 
 
 
@@ -94,48 +98,6 @@ const postMasterArea =(req,res,next)=>{
     
 }
 
-// const getAddMasterArea =(req,res,next)=>{
-//     if(req.session.userLevel>2)
-//     {
-//         if(req.session.isLoggedIn)
-//         {
-//             res.render('addMasterArea');
-//         }
-//         else 
-//         {
-//             res.redirect('/')
-//         }
-//     }
-//     else 
-//     {
-//         res.redirect('/masterArea');
-//     }
-    
-// }
-
-// const postAddMasterArea = (req,res,next)=>{
-//     const area = req.body.area;
-//     masterAreaModel.create({
-//         area :area
-//     })
-//     .then((result)=>
-//         console.log(result),
-//         console.log('New Master Area added'),
-//         masterAreaModel.findAll()
-//         .then((data)=>{
-//             console.log(data);
-//             res.render('masterArea',{data:data,level:req.session.userLevel})
-//         })
-//         .catch((err)=>
-//             console.log(err)
-//         )
-//     )
-//     .catch((err)=>
-//         console.log(err)
-//     )
-// } 
-
-
 
 
 
@@ -221,31 +183,6 @@ const postMasterCategories =(req,res,next)=>{
     }
 }
 
-// const getAddMasterCategories = (req,res,next)=>{
-//     if(req.session.isLoggedIn)
-//     {
-//         res.render('addMasterCategories');
-//     }
-//     else 
-//     {
-//         res.redirect('/')
-//     }
-// }
-
-// const postAddMasterCategories = (req,res,next)=>{
-//     const categoriesType = req.body.categoriesType;
-//     masterCategoriesModel.create({
-//         categoriesType : categoriesType
-//     })
-//     .then((result)=>
-//         console.log(result),
-//         console.log('New Master Category added'),
-//         res.redirect('/masterCategories')
-//     )
-//     .catch((err)=>
-//         console.log(err)
-//     )
-// }
 
 
 
@@ -269,17 +206,32 @@ const getMasterCustomer =(req,res,next)=>{
         .then((gradeData)=>{
             masterAreaModel.findAll()
             .then((areaData)=>{
-                masterCustomerModel.findAll()
-                    .then((data)=>{
-                        res.render('masterCustomer',
-                        {
-                            username : req.session.username,
-                            data:data,
-                            level:req.session.userLevel,
-                            gradeData:gradeData,
-                            areaData:areaData
+                masterProductsModel.findAll()
+                    .then((productData)=>{
+                        masterCategoriesModel.findAll()
+                        .then((categorydata)=>{
+                        masterCustomerModel.findAll()
+                            .then((data)=>{
+                                res.render('masterCustomer',
+                                {
+                                    username : req.session.username,
+                                    data:data,
+                                    categorydata:categorydata,
+                                    productData:productData,
+                                    level:req.session.userLevel,
+                                    gradeData:gradeData,
+                                    areaData:areaData,
+                                    msg:""
+                                })
+                
+                            })
+                            .catch((err)=>
+                                console.log(err)
+                            )
                         })
-            
+                        .catch((err)=>
+                            console.log(err)
+                        )
                     })
                     .catch((err)=>
                         console.log(err)
@@ -330,38 +282,172 @@ const postMasterCustomer =(req,res,next)=>{
           }
         )
     }
-    else{
-        const customerName = req.body.customerName
-        const area = req.body.area
-        const status = req.body.status
-        const grade = req.body.grade
-        const pincode = req.body.pincode
-        const address = req.body.address
-        const referenceNumber1 = req.body.referenceNumber1
-        const referenceNumber2 = req.body.referenceNumber2
-        const creditLimit = req.body.creditLimit
-        const creditDays = req.body.creditDays
-
-        masterCustomerModel.create({
-            customerName:customerName,
-            area:area,
-            status:status,
-            grade:grade,
-            pincode:pincode,
-            address:address,
-            referenceNumber1:referenceNumber1,
-            referenceNumber2:referenceNumber2,
-            creditLimit:creditLimit,
-            creditDays:creditDays
-        })
-        .then((result)=>
-            console.log(result),
-            console.log('New Master Customer added'),
-            res.redirect('/masterCustomer')
-        )
-        .catch((err)=>
+    else {
+        console.log("9999999999999999999999999999999999999999999")
+        console.log(req.body.customerName)
+        console.log("9999999999999999999999999999999999999999999")
+        masterCustomerModel.findAll(
+            {
+                where:{customerName : req.body.customerName}
+            }
+            )
+            .then((data)=>
+            {
+                console.log("1111111111111111111111111111111111111111111")
+                console.log(data);
+                console.log("1111111111111111111111111111111111111111111")
+                if(data.length==0)
+                {
+                    const customerName = req.body.customerName
+                    const firm = req.body.firm
+                    const area = req.body.area
+                    const status = req.body.status
+                    const grade = req.body.grade
+                    const productFil = req.body.productFil
+                    const contact = req.body.contact
+                    const category = req.body.category
+                    const pincode = req.body.pincode
+                    const address = req.body.address
+                    const referenceNumber1 = req.body.referenceNumber1
+                    const referenceNumber2 = req.body.referenceNumber2
+                    const creditLimit = req.body.creditLimit
+                    const creditDays = req.body.creditDays
+            
+                    masterCustomerModel.create({
+                        customerName:customerName,
+                        area:area,
+                        status:status,
+                        grade:grade,
+                        pincode:pincode,
+                        address:address,
+                        referenceNumber1:referenceNumber1,
+                        referenceNumber2:referenceNumber2,
+                        creditLimit:creditLimit,
+                        creditDays:creditDays
+                    })
+                    .then((result)=>
+                        customerContactModel.create({
+                            customerName :customerName,
+                            mobileNumber :contact,
+                        })
+                        .then((res2)=>{
+                            customerCategoryModel.create({
+                                customerName :customerName,
+                                category :category
+                            })
+                            .then((res3)=>{
+                                customerFirmModel.create({
+                                    customerName :customerName,
+                                    firm :firm
+                                })
+                                .then((res4)=>{
+                                    for(let i=0;i<productFil.length;i++)
+                                    {
+                                        console.log(productFil[i])
+                                        customerProductModel.create({
+                                            customerName : customerName,
+                                            product : productFil[i]
+                                        })
+                                        .then((reso)=>{
+                                            console.log(reso)
+                                        })
+                                        .catch((err)=>{
+                                            console.log(err)
+                                        })
+                                    }
+                                    console.log(result),
+                                    console.log(res2),
+                                    console.log(res3),
+                                    console.log(res4),
+                                    console.log('New Master Customer added'),
+                                    res.redirect('/masterCustomer')
+                                })
+                                .catch((err)=>
+                                console.log(err)
+                                )
+                            })
+                            .catch((err)=>
+                            console.log(err)
+                            )
+                        })
+                        .catch((err)=>
+                        console.log(err)
+                        )
+                    )
+                    .catch((err)=>
+                        console.log(err)
+                    )
+                    
+                }
+                else
+                {
+                    console.log("000000000000000000000000000000000000000")
+                    console.log("000000000000000000000000000000000000000000")
+                    console.log("0000000000000000000000000000000000000000000")
+                    console.log(req.session.username)
+                    console.log("000000000000000000000000000000000000000000000")
+                    var dataFil="abc";
+                    console.log(dataFil);
+                    // res.send(dataFil);
+                    // res.render('error', { message: req.flash('successMessage')})
+                    // res.render('masterCustomer',{
+                    //     msg:"Customer Already exists"
+                    // })
+                    if(req.session.isLoggedIn)
+                    {
+                        masterGradeModel.findAll()
+                        .then((gradeData)=>{
+                            masterAreaModel.findAll()
+                            .then((areaData)=>{
+                                masterProductsModel.findAll()
+                                    .then((productData)=>{
+                                        masterCategoriesModel.findAll()
+                                        .then((categorydata)=>{
+                                        masterCustomerModel.findAll()
+                                            .then((data)=>{
+                                                res.render('masterCustomer',
+                                                {
+                                                    username : req.session.username,
+                                                    data:data,
+                                                    categorydata:categorydata,
+                                                    productData:productData,
+                                                    level:req.session.userLevel,
+                                                    gradeData:gradeData,
+                                                    areaData:areaData,
+                                                    msg:"Customer Name Already Exists"
+                                                })
+                                
+                                            })
+                                            .catch((err)=>
+                                                console.log(err)
+                                            )
+                                        })
+                                        .catch((err)=>
+                                            console.log(err)
+                                        )
+                                    })
+                                    .catch((err)=>
+                                        console.log(err)
+                                    )
+                            })
+                            .catch((err)=>
+                                console.log(err)
+                            )
+                        })
+                        .catch((err)=>
+                            console.log(err)
+                        )
+                        
+                    }
+                    else 
+                    {
+                        res.redirect('/')
+                    }
+                }
+            })
+            .catch((err)=>
             console.log(err)
-        )
+            )
     }
 }
 

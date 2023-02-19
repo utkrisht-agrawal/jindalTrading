@@ -36,6 +36,23 @@ INSERT INTO `contact_details` (`FIRST_NAME`, `LAST_NAME`, `E_MAIL_ADDRESS`, `DES
 	('RAKESH', 'TOMAR', 'rakeshtomar@gmail.com', 'owner', 2147483647),
 	('RAKESH', 'TOMAR', 'rakeshtomar@gmail.com', 'owner', 9837786106);
 
+-- Dumping structure for table jindaltrading.cust_categories
+CREATE TABLE IF NOT EXISTS `cust_categories` (
+  `customerId` int NOT NULL AUTO_INCREMENT,
+  `customerName` varchar(255) DEFAULT NULL,
+  `category` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`customerId`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table jindaltrading.cust_categories: ~3 rows (approximately)
+DELETE FROM `cust_categories`;
+INSERT INTO `cust_categories` (`customerId`, `customerName`, `category`, `createdAt`, `updatedAt`) VALUES
+	(29, 'ABC', '	RETAIL', '2023-02-08 02:54:04', '2023-02-08 02:54:51'),
+	(30, 'PAL AGRO', '	EMPLOYEES', '2023-02-11 01:20:26', '2023-02-11 01:20:26'),
+	(32, 'q', '	PIGIRON', '2023-02-14 04:17:46', '2023-02-14 04:17:46');
+
 -- Dumping structure for table jindaltrading.cust_caterories
 CREATE TABLE IF NOT EXISTS `cust_caterories` (
   `CUSTOMER_ID` varchar(50) DEFAULT NULL,
@@ -58,6 +75,23 @@ CREATE TABLE IF NOT EXISTS `cust_contact` (
 -- Dumping data for table jindaltrading.cust_contact: ~0 rows (approximately)
 DELETE FROM `cust_contact`;
 
+-- Dumping structure for table jindaltrading.cust_contacts
+CREATE TABLE IF NOT EXISTS `cust_contacts` (
+  `customerId` int NOT NULL AUTO_INCREMENT,
+  `mobileNumber` int NOT NULL,
+  `customerName` varchar(50) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`customerId`)
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table jindaltrading.cust_contacts: ~3 rows (approximately)
+DELETE FROM `cust_contacts`;
+INSERT INTO `cust_contacts` (`customerId`, `mobileNumber`, `customerName`, `createdAt`, `updatedAt`) VALUES
+	(59, 1112223333, 'ABC', '2023-02-08 02:54:04', '2023-02-08 02:54:04'),
+	(60, 1112223333, 'PAL AGRO', '2023-02-11 01:20:26', '2023-02-11 01:20:26'),
+	(62, 1112223333, 'q', '2023-02-14 04:17:46', '2023-02-14 04:17:46');
+
 -- Dumping structure for table jindaltrading.cust_firm
 CREATE TABLE IF NOT EXISTS `cust_firm` (
   `CUSTOMER_ID` varchar(50) DEFAULT NULL,
@@ -66,6 +100,23 @@ CREATE TABLE IF NOT EXISTS `cust_firm` (
 
 -- Dumping data for table jindaltrading.cust_firm: ~0 rows (approximately)
 DELETE FROM `cust_firm`;
+
+-- Dumping structure for table jindaltrading.cust_firms
+CREATE TABLE IF NOT EXISTS `cust_firms` (
+  `customerId` int NOT NULL AUTO_INCREMENT,
+  `customerName` varchar(255) NOT NULL,
+  `firm` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`customerId`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table jindaltrading.cust_firms: ~3 rows (approximately)
+DELETE FROM `cust_firms`;
+INSERT INTO `cust_firms` (`customerId`, `customerName`, `firm`, `createdAt`, `updatedAt`) VALUES
+	(14, 'ABC', 'abc solutions', '2023-02-08 02:54:04', '2023-02-08 02:54:04'),
+	(16, 'PAL AGRO', 'PAL AGRO', '2023-02-11 01:27:45', '2023-02-11 01:27:45'),
+	(17, 'q', 'q', '2023-02-14 04:17:46', '2023-02-14 04:17:46');
 
 -- Dumping structure for table jindaltrading.cust_product
 CREATE TABLE IF NOT EXISTS `cust_product` (
@@ -82,6 +133,27 @@ INSERT INTO `cust_product` (`CUSTOMER_ID`, `PRODUCTS`, `QUANTITY`, `PRODUCT_GROU
 	('PAL AGRO', 'PIG IRON', 50, 'IRON', 50),
 	('PAL AGRO', 'MET COKE 65-80', 20, 'COKE', 30),
 	('PAL AGRO', 'HARD COKE', 10, 'COKE', 30);
+
+-- Dumping structure for table jindaltrading.cust_products
+CREATE TABLE IF NOT EXISTS `cust_products` (
+  `customerId` int NOT NULL AUTO_INCREMENT,
+  `customerName` varchar(255) NOT NULL,
+  `product` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`customerId`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table jindaltrading.cust_products: ~7 rows (approximately)
+DELETE FROM `cust_products`;
+INSERT INTO `cust_products` (`customerId`, `customerName`, `product`, `createdAt`, `updatedAt`) VALUES
+	(16, 'ABC', 'HARD COKE', '2023-02-08 02:54:04', '2023-02-08 02:54:04'),
+	(17, 'ABC', '24% LOW ASH', '2023-02-08 02:54:04', '2023-02-08 02:54:04'),
+	(18, 'ABC', 'PIG IRON', '2023-02-08 02:54:04', '2023-02-08 02:54:04'),
+	(19, 'ABC', 'CAST IRON', '2023-02-08 02:54:04', '2023-02-08 02:54:04'),
+	(20, 'PAL AGRO', 'MET COKE 80-150', '2023-02-11 01:20:26', '2023-02-11 01:20:26'),
+	(21, 'PAL AGRO', '24% LOW ASH', '2023-02-11 01:20:26', '2023-02-11 01:20:26'),
+	(38, 'q', 'pigIron', '2023-02-15 04:42:00', '2023-02-15 04:42:00');
 
 -- Dumping structure for table jindaltrading.firm_details
 CREATE TABLE IF NOT EXISTS `firm_details` (
@@ -115,49 +187,46 @@ CREATE TABLE IF NOT EXISTS `logintables` (
   `updatedAt` datetime NOT NULL,
   `level` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.logintables: ~4 rows (approximately)
+-- Dumping data for table jindaltrading.logintables: ~3 rows (approximately)
 DELETE FROM `logintables`;
 INSERT INTO `logintables` (`id`, `username`, `password`, `role`, `createdAt`, `updatedAt`, `level`) VALUES
 	(1, 'Rohit', 'passr', 'User', '2022-11-17 18:04:54', '2022-11-17 18:04:54', 1),
 	(2, 'Kios', 'passk', 'Moderator', '2022-11-24 17:01:32', '2022-11-24 17:01:32', 2),
-	(3, 'Harsh', 'passh', 'Admin', '2022-11-24 17:02:23', '2022-11-24 17:02:23', 3),
-	(4, 'chutiya', 'passc', 'Moderator', '2023-01-19 17:05:51', '2023-01-19 17:05:51', 2);
+	(3, 'Harsh', 'passh', 'Admin', '2022-11-24 17:02:23', '2022-11-24 17:02:23', 3);
 
--- Dumping structure for table jindaltrading.market plan pig iron
-CREATE TABLE IF NOT EXISTS `market plan pig iron` (
-  `s. no.` int unsigned NOT NULL AUTO_INCREMENT,
-  `customer id` varchar(50) NOT NULL,
-  `area` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `grade` varchar(50) NOT NULL,
-  `category` varchar(50) NOT NULL,
-  `product` varchar(50) NOT NULL,
-  `represntative` varchar(50) NOT NULL,
-  `meeting dates` date DEFAULT NULL,
-  `curent remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `next date` date DEFAULT NULL,
-  `curent issue` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '',
-  `analysed` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'N',
-  `updatetimestam` datetime DEFAULT NULL,
-  `total issue` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`customer id`),
-  KEY `s. no.` (`s. no.`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- Dumping structure for table jindaltrading.market_plan_allotments
+CREATE TABLE IF NOT EXISTS `market_plan_allotments` (
+  `serialNumber` int NOT NULL AUTO_INCREMENT,
+  `customerId` varchar(255) NOT NULL,
+  `phoneNumber` varchar(255) NOT NULL,
+  `area` varchar(255) NOT NULL,
+  `product` varchar(255) NOT NULL,
+  `representative` varchar(255) NOT NULL,
+  `meetingDates` varchar(255) NOT NULL,
+  `currentIssue` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`serialNumber`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.market plan pig iron: ~0 rows (approximately)
-DELETE FROM `market plan pig iron`;
-INSERT INTO `market plan pig iron` (`s. no.`, `customer id`, `area`, `grade`, `category`, `product`, `represntative`, `meeting dates`, `curent remark`, `next date`, `curent issue`, `analysed`, `updatetimestam`, `total issue`) VALUES
-	(1, 'xyz', 'delhi', 'a', '', '', 'vipin', '2022-09-25', NULL, '2022-09-25', 'rate not match', 'N', '2022-09-25 12:43:41', NULL);
+-- Dumping data for table jindaltrading.market_plan_allotments: ~3 rows (approximately)
+DELETE FROM `market_plan_allotments`;
+INSERT INTO `market_plan_allotments` (`serialNumber`, `customerId`, `phoneNumber`, `area`, `product`, `representative`, `meetingDates`, `currentIssue`, `createdAt`, `updatedAt`) VALUES
+	(1, '11', '1122334455', '	delhi', '	MET COKE 65-80', 'Rohit', '1', 'sales', '2023-01-27 14:39:57', '2023-01-27 09:20:23'),
+	(2, '5', '5556663333', '	muzafarnagar', '	HARD COKE', 'Shekhar', '2', 'account', '2023-01-27 14:49:52', '2023-01-27 09:20:25'),
+	(3, '12', '5533559704', 'muzafarnagar', '24% LOW ASH', 'Arun', '19', 'not known', '2023-01-27 09:37:42', '2023-01-27 09:37:42');
 
 -- Dumping structure for table jindaltrading.market_plan_pig_irons
 CREATE TABLE IF NOT EXISTS `market_plan_pig_irons` (
   `serialNumber` int NOT NULL AUTO_INCREMENT,
-  `customerId` varchar(255) NOT NULL,
+  `customerName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `area` varchar(255) NOT NULL,
   `grade` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `product` varchar(255) NOT NULL,
+  `lastDelivery` varchar(255) NOT NULL,
   `representative` varchar(255) NOT NULL,
   `phoneNumber` varchar(255) NOT NULL,
   `meetingDates` varchar(255) NOT NULL,
@@ -171,18 +240,18 @@ CREATE TABLE IF NOT EXISTS `market_plan_pig_irons` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`serialNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.market_plan_pig_irons: ~6 rows (approximately)
+-- Dumping data for table jindaltrading.market_plan_pig_irons: ~7 rows (approximately)
 DELETE FROM `market_plan_pig_irons`;
-INSERT INTO `market_plan_pig_irons` (`serialNumber`, `customerId`, `area`, `grade`, `category`, `product`, `representative`, `phoneNumber`, `meetingDates`, `currentRemark`, `remarkStatus`, `nextDate`, `currentIssue`, `analysed`, `updateTimeStamp`, `totalIssue`, `createdAt`, `updatedAt`) VALUES
-	(1, '1', 'agra', 'A', 'A', 'a', 'Rohit', '1234567891', '1', 'ok thik hai beta', 'UNVERIFIED', '1', 'C', 'a', '1', 'a', '2023-01-03 06:57:39', '2023-01-19 02:12:59'),
-	(3, '11', '	quetta', 'A', 'n', 'Gift', 'Rohit', '2233445566', '1', '', 'UNVERIFIED', '1', 'C', 'q', '1', 'q', '2023-01-07 16:32:14', '2023-01-19 02:12:04'),
-	(4, '12', 'chittor', 'B', 'n', 'cars', 'Shekhar', '1122334455', '', '', 'VERIFIED', '', 'B', '', '', '', '2023-01-09 10:29:08', '2023-01-14 03:24:23'),
-	(5, '15', 'meerut', 'B', 'n', 'quick', 'Arun', '2244668800', '', '', 'UNVERIFIED', '', 'B', '', '', '', '2023-01-09 11:25:56', '2023-01-14 03:24:24'),
-	(6, '1', 'delhi', 'A', 'n', 'cars', 'Shekhar', '1133557799', '', '', 'UNVERIFIED', '', 'C', '', '', '', '2023-01-10 01:50:51', '2023-01-14 03:24:18'),
-	(7, '12', 'delhi', 'C', 'n', 'quick', 'Arun', '9876543210', '1', 'q', 'VERIFIED', '', 'A', '', '', '', '2023-01-13 06:50:02', '2023-01-14 03:24:52'),
-	(8, '15', '	muzafarnagar', 'B', 'g', 'Gift', 'Rohit', '0003336663', '', '', 'UNVERIFIED', '', 'B', '', '', '', '2023-01-14 03:34:46', '2023-01-19 02:12:08');
+INSERT INTO `market_plan_pig_irons` (`serialNumber`, `customerName`, `area`, `grade`, `category`, `product`, `lastDelivery`, `representative`, `phoneNumber`, `meetingDates`, `currentRemark`, `remarkStatus`, `nextDate`, `currentIssue`, `analysed`, `updateTimeStamp`, `totalIssue`, `createdAt`, `updatedAt`) VALUES
+	(1, '1', 'delhi', 'A', 'TRADERS', 'PIG IRON', '1-1-23', 'Arun', '1234567891', '1', 'high price', 'UNVERIFIED', '1', 'A', 'a', '1', 'a', '2023-01-03 06:57:39', '2023-01-31 16:20:24'),
+	(3, '11', 'meerut', 'A', 'WHOLESALE', 'PIG IRON', '1-1-23', 'Shekhar', '2233445566', '1', '', 'UNVERIFIED', '1', 'A', 'q', '1', 'q', '2023-01-07 16:32:14', '2023-01-30 02:04:40'),
+	(7, '12', 'delhi', 'C', 'RETAIL', 'PIG IRON', '1-1-23', 'Arun', '9876543210', '1', 'q', 'VERIFIED', '', 'B', '', '', '', '2023-01-13 06:50:02', '2023-01-30 02:04:39'),
+	(8, '15', 'muzafarnagar', 'B', 'RETAIL', 'PIG IRON', '1-1-23', 'Rohit', '0003336663', '', '', 'UNVERIFIED', '', 'C', '', '', '', '2023-01-14 03:34:46', '2023-01-30 02:04:38'),
+	(9, '1', 'delhi', 'A', '	TRADERS', '	HARD COKE', '1-1-23', 'Rohit', '1234567891', '15', 'not known', 'UNVERIFIED', '20', 'B', '', '', '', '2023-01-30 01:56:14', '2023-01-30 02:04:41'),
+	(11, 'q', 'agra', 'B', 'PIGIRON', 'MET COKE 80-150', '1-1-23', 'Rohit', '11', '1', 'q', 'VERIFIED', '1', 'q', 'q', '1', 'q', '2023-02-14 04:18:28', '2023-02-14 04:18:28'),
+	(12, 'PAL AGRO', 'delhi', 'A', 'PIGIRON', 'HARD COKE', '1-1-23', 'Rohit', '5533559704', '1', 'q', 'VERIFIED', '1', 'q', 'q', '1', 'q', '2023-02-14 05:00:46', '2023-02-14 05:00:46');
 
 -- Dumping structure for table jindaltrading.market_plan_quantity_ledgers
 CREATE TABLE IF NOT EXISTS `market_plan_quantity_ledgers` (
@@ -194,13 +263,14 @@ CREATE TABLE IF NOT EXISTS `market_plan_quantity_ledgers` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`serialNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.market_plan_quantity_ledgers: ~2 rows (approximately)
+-- Dumping data for table jindaltrading.market_plan_quantity_ledgers: ~3 rows (approximately)
 DELETE FROM `market_plan_quantity_ledgers`;
 INSERT INTO `market_plan_quantity_ledgers` (`serialNumber`, `customerId`, `category`, `product`, `quantity`, `createdAt`, `updatedAt`) VALUES
-	(1, '1', 'vehicle', 'cars', 1, '2023-01-21 19:54:42', '2023-01-21 19:54:43'),
-	(2, '11', 'gift', 'flower', 5, '2023-01-21 19:55:11', '2023-01-21 19:55:11');
+	(1, '1', '	WHOLESALE', '	24% LOW ASH', 1, '2023-01-21 19:54:42', '2023-01-23 02:22:43'),
+	(2, '11', '	RETAIL', '	CAST IRON', 5, '2023-01-21 19:55:11', '2023-01-23 02:22:06'),
+	(4, '12', 'FERRO ALLOYS', 'MET COKE 65-80', 15, '2023-01-23 02:00:00', '2023-01-23 02:00:00');
 
 -- Dumping structure for table jindaltrading.masterteam
 CREATE TABLE IF NOT EXISTS `masterteam` (
@@ -208,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `masterteam` (
   `leader` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.masterteam: ~2 rows (approximately)
+-- Dumping data for table jindaltrading.masterteam: ~3 rows (approximately)
 DELETE FROM `masterteam`;
 INSERT INTO `masterteam` (`member`, `leader`) VALUES
 	('ashok', 'sachin'),
@@ -223,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `master_areas` (
   UNIQUE KEY `area` (`area`)
 ) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.master_areas: ~7 rows (approximately)
+-- Dumping data for table jindaltrading.master_areas: ~6 rows (approximately)
 DELETE FROM `master_areas`;
 INSERT INTO `master_areas` (`areaId`, `area`) VALUES
 	(12, 'agra'),
@@ -262,20 +332,20 @@ CREATE TABLE IF NOT EXISTS `master_customers` (
   `pincode` int NOT NULL,
   `address` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `referenceNumber1` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `referenceNumber2` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `creditLimit` int NOT NULL,
-  `creditDays` int NOT NULL,
+  `referenceNumber2` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
+  `creditLimit` varchar(50) NOT NULL DEFAULT '',
+  `creditDays` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`customerId`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table jindaltrading.master_customers: ~5 rows (approximately)
 DELETE FROM `master_customers`;
 INSERT INTO `master_customers` (`customerId`, `customerName`, `area`, `status`, `grade`, `pincode`, `address`, `referenceNumber1`, `referenceNumber2`, `creditLimit`, `creditDays`) VALUES
-	(1, 'PAL AGRO ', 'MEERUT', 'VERIFIED', 'A', 250003, 'PAL AGRO INDUSTRIES GULATHA ROAD NEAR SAMSHAN GHAT', 'SACHIN', 'SANDEEP', 2500000, 8),
-	(2, 'RAM INDUSTRIES PANIPAT', 'PANIPAT', 'VERIFIED', 'A', 132103, 'GNGA RAM COLONY NEAR KABARI PHATAK ', 'SACHIN', 'VICKEY', 700000, 30),
-	(10, 'Ujjwal Raturi', 'agra', 'VERIFIED', 'C', 248005, 'Vansthalipuram', 'Ishu', 'Kios', 150, 21),
-	(11, 'new', 'agra', 'UNVERIFIED', 'B', 248005, 'puram', 'a', 'ss', 1, 21),
-	(12, 'check user', 'chittor', 'UNVERIFIED', 'C', 248005, 'Haridwar Road', 'a', 'a', 1, 1);
+	(12, 'check user', 'chittor', 'UNVERIFIED', 'C', 248005, 'Haridwar Road', 'a', 'a', '1', '1'),
+	(24, 'Ujjwal Raturi', 'agra', 'UNVERIFIED', 'A', 248005, 'Lane-1', '', '', '', ''),
+	(45, 'ABC', 'delhi', 'VERIFIED', 'A', 110001, 'Meerut Road', '', '', '', ''),
+	(47, 'PAL AGRO', 'meerut', 'VERIFIED', 'A', 250003, 'PAL AGRO INDUSTRIES GULATHA ROAD NEAR SAMSHAN GHAT', 'SACHIN', 'SANDEEP', '2500000', '8'),
+	(48, 'q', 'chittor', 'VERIFIED', 'B', 248005, 'Road', '', '', '', '');
 
 -- Dumping structure for table jindaltrading.master_employees
 CREATE TABLE IF NOT EXISTS `master_employees` (
@@ -321,14 +391,13 @@ CREATE TABLE IF NOT EXISTS `master_grades` (
   PRIMARY KEY (`gradeId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.master_grades: ~6 rows (approximately)
+-- Dumping data for table jindaltrading.master_grades: ~4 rows (approximately)
 DELETE FROM `master_grades`;
 INSERT INTO `master_grades` (`gradeId`, `gradeType`) VALUES
 	(1, 'A'),
 	(2, 'B'),
 	(3, 'C'),
-	(4, 'D'),
-	(8, 'E');
+	(4, 'D');
 
 -- Dumping structure for table jindaltrading.master_products
 CREATE TABLE IF NOT EXISTS `master_products` (
@@ -336,9 +405,9 @@ CREATE TABLE IF NOT EXISTS `master_products` (
   `productName` varchar(50) DEFAULT NULL,
   `productGroup` int NOT NULL,
   PRIMARY KEY (`productId`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.master_products: ~7 rows (approximately)
+-- Dumping data for table jindaltrading.master_products: ~8 rows (approximately)
 DELETE FROM `master_products`;
 INSERT INTO `master_products` (`productId`, `productName`, `productGroup`) VALUES
 	(1, 'HARD COKE', 0),
@@ -347,7 +416,8 @@ INSERT INTO `master_products` (`productId`, `productName`, `productGroup`) VALUE
 	(4, 'MET COKE 80-150', 0),
 	(5, '24% LOW ASH', 0),
 	(6, 'PIG IRON', 0),
-	(7, 'CAST IRON', 0);
+	(7, 'CAST IRON', 0),
+	(10, 'COAL DUST', 0);
 
 -- Dumping structure for table jindaltrading.master_teams
 CREATE TABLE IF NOT EXISTS `master_teams` (
@@ -363,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `master_teams` (
 -- Dumping data for table jindaltrading.master_teams: ~3 rows (approximately)
 DELETE FROM `master_teams`;
 INSERT INTO `master_teams` (`teamId`, `teamMember`, `teamLeader`, `createdAt`, `updatedAt`) VALUES
-	(1, 'Vishal', 'Sachin', '2023-01-14 08:43:41', '2023-01-14 08:43:42'),
+	(1, 'Shekhar', 'Sachin', '2023-01-14 08:43:41', '2023-01-14 08:43:42'),
 	(2, 'Rohit', 'Sachin', '2023-01-14 08:44:05', '2023-01-14 03:23:21'),
 	(3, 'Arun', 'Ashok', '2023-01-14 08:44:23', '2023-01-14 08:44:25');
 
@@ -397,6 +467,23 @@ CREATE TABLE IF NOT EXISTS `transport` (
 -- Dumping data for table jindaltrading.transport: ~0 rows (approximately)
 DELETE FROM `transport`;
 
+-- Dumping structure for table jindaltrading.transportstations
+CREATE TABLE IF NOT EXISTS `transportstations` (
+  `transportId` int NOT NULL AUTO_INCREMENT,
+  `transportName` varchar(255) DEFAULT NULL,
+  `transportSource` varchar(255) DEFAULT NULL,
+  `transportDestination` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`transportId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table jindaltrading.transportstations: ~2 rows (approximately)
+DELETE FROM `transportstations`;
+INSERT INTO `transportstations` (`transportId`, `transportName`, `transportSource`, `transportDestination`, `createdAt`, `updatedAt`) VALUES
+	(1, 'Ujjwal', 'agra', 'delhi', '2023-02-10 05:32:47', '2023-02-10 05:35:58'),
+	(3, 'All india', '11', '11', '2023-02-11 01:15:36', '2023-02-11 01:15:36');
+
 -- Dumping structure for table jindaltrading.transport_contact
 CREATE TABLE IF NOT EXISTS `transport_contact` (
   `transport_id` varchar(50) DEFAULT NULL,
@@ -406,15 +493,52 @@ CREATE TABLE IF NOT EXISTS `transport_contact` (
 -- Dumping data for table jindaltrading.transport_contact: ~0 rows (approximately)
 DELETE FROM `transport_contact`;
 
--- Dumping structure for table jindaltrading.transport_stations
-CREATE TABLE IF NOT EXISTS `transport_stations` (
+-- Dumping structure for table jindaltrading.transport_contacts
+CREATE TABLE IF NOT EXISTS `transport_contacts` (
+  `transportId` int NOT NULL AUTO_INCREMENT,
+  `transportName` varchar(255) DEFAULT NULL,
+  `transportContact` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`transportId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table jindaltrading.transport_contacts: ~2 rows (approximately)
+DELETE FROM `transport_contacts`;
+INSERT INTO `transport_contacts` (`transportId`, `transportName`, `transportContact`, `createdAt`, `updatedAt`) VALUES
+	(1, 'Ujjwal', '1234', '2023-02-10 05:05:35', '2023-02-10 05:08:10'),
+	(4, 'All india', '753', '2023-02-11 01:15:36', '2023-02-11 01:15:36');
+
+-- Dumping structure for table jindaltrading.transport_details
+CREATE TABLE IF NOT EXISTS `transport_details` (
+  `transportId` int NOT NULL AUTO_INCREMENT,
+  `transportName` varchar(255) DEFAULT NULL,
+  `transportArea` varchar(255) DEFAULT NULL,
+  `transportStation` varchar(255) DEFAULT NULL,
+  `transportOwner` varchar(255) DEFAULT NULL,
+  `bankName` varchar(255) NOT NULL,
+  `bankAccountNumber` bigint NOT NULL DEFAULT '0',
+  `ifscCode` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`transportId`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table jindaltrading.transport_details: ~2 rows (approximately)
+DELETE FROM `transport_details`;
+INSERT INTO `transport_details` (`transportId`, `transportName`, `transportArea`, `transportStation`, `transportOwner`, `bankName`, `bankAccountNumber`, `ifscCode`, `createdAt`, `updatedAt`) VALUES
+	(1, 'ABCD', 'agra', 'agra', 'xyz', 'SBI', 123, '456', '2023-02-10 07:55:55', '2023-02-10 04:27:31'),
+	(9, 'All india', NULL, 'aaaaa', 'aaa', 'aa', 159, 'aa', '2023-02-11 01:15:36', '2023-02-11 01:15:36');
+
+-- Dumping structure for table jindaltrading.transport_station
+CREATE TABLE IF NOT EXISTS `transport_station` (
   `transport_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `station _From` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `station_to` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table jindaltrading.transport_stations: ~0 rows (approximately)
-DELETE FROM `transport_stations`;
+-- Dumping data for table jindaltrading.transport_station: ~0 rows (approximately)
+DELETE FROM `transport_station`;
 
 -- Dumping structure for table jindaltrading.transport_truck
 CREATE TABLE IF NOT EXISTS `transport_truck` (
@@ -424,6 +548,22 @@ CREATE TABLE IF NOT EXISTS `transport_truck` (
 
 -- Dumping data for table jindaltrading.transport_truck: ~0 rows (approximately)
 DELETE FROM `transport_truck`;
+
+-- Dumping structure for table jindaltrading.transport_trucks
+CREATE TABLE IF NOT EXISTS `transport_trucks` (
+  `transportId` int NOT NULL AUTO_INCREMENT,
+  `transportName` varchar(255) DEFAULT NULL,
+  `transportTruck` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`transportId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table jindaltrading.transport_trucks: ~2 rows (approximately)
+DELETE FROM `transport_trucks`;
+INSERT INTO `transport_trucks` (`transportId`, `transportName`, `transportTruck`, `createdAt`, `updatedAt`) VALUES
+	(1, 'Ujjwal', 'UK07 0005', '2023-02-10 13:36:29', '2023-02-10 13:36:35'),
+	(4, 'All india', 'sc', '2023-02-11 01:15:36', '2023-02-11 01:15:36');
 
 -- Dumping structure for table jindaltrading.truck number details
 CREATE TABLE IF NOT EXISTS `truck number details` (
