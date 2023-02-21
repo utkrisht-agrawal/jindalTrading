@@ -34,16 +34,31 @@ const getMarketPlanPigIron = (req,res,next)=>{
                         .then((productData)=>{
                             masterCategoriesModel.findAll()
                             .then((catdata)=>{
-                                res.render('marketPlanPigIron',{
-                                    username : req.session.username,
-                                    level: req.session.userLevel,
-                                    data:data,
-                                    dataFil:[],
-                                    areaData:areaData,
-                                    gradeData:gradeData,
-                                    catdata:catdata,
-                                    productData:productData
+                                masterCustomerModel.findAll()
+                                .then((custdata)=>{
+                                    masterTeamsModel.findAll()
+                                    .then((teamData)=>{
+
+                                        res.render('marketPlanPigIron',{
+                                            username : req.session.username,
+                                            level: req.session.userLevel,
+                                            data:data,
+                                            dataFil:[],
+                                            areaData:areaData,
+                                            gradeData:gradeData,
+                                            catdata:catdata,
+                                            custdata:custdata,
+                                            teamData:teamData,
+                                            productData:productData
+                                        })
+                                    })
+                                    .catch((err)=>
+                                        console.log(err)
+                                    )
                                 })
+                                .catch((err)=>
+                                    console.log(err)
+                                )    
                             })
                             .catch((err)=>
                             console.log(err)
