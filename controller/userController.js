@@ -179,6 +179,14 @@ const getRegisteredUsers = (req,res,next)=>{
                 console.log(err)
                 )
         }
+        else 
+        {
+            res.redirect('/userDashboard')
+        }
+    }
+    else
+    {
+        res.redirect('/');
     }
 }
 

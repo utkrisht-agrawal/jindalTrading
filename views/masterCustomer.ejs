@@ -154,6 +154,9 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/register" class="nav-link">User-Register</a></li>
 							</ul>
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/registeredUsers" class="nav-link">Register-List</a></li>
+							</ul>
 						</li>
 
 						<li class="nav-item nav-item-submenu">
@@ -173,12 +176,11 @@
 						</li>
 
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Master</span></a>
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
@@ -187,9 +189,10 @@
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
-
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Customers</span></a>
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -232,7 +235,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Customer</span> - Master</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Customers</span> - Master</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -250,15 +253,15 @@
 							
 							<div class="errInfo" id="errInfo" style=" background-color: rgb(255, 0, 0); margin: 1%;">
 								<% if(msg){ %>
-									<h6 style="text-align: center;"><%=msg%></h6>
+									<h6 style="text-align: center; font-weight: 600"><%=msg%></h6>
 								<% } %>
 							</div>
 							
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Style combinations</h5>
+								<h5 class="card-title">Master Customers</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Customer <i class="icon-play3 ml-2"></i></button></td>
-									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical"data-popup="popover" title="Add Master Customer" data-trigger="hover" data-content="Click to Create New Master Customer">Add new Master Customer</button></td>
+									
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -321,10 +324,10 @@
 												<td class="creditLimit" contenteditable="true"><%= data[i].creditLimit%></td>
 												<td class="creditDays" contenteditable="true"><%= data[i].creditDays%></td>
 												<td>
-													<button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" >Edit</button>
+													<button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
 												</td>
 												<td >
-													<button onclick="del('<%= data[i].customerId %>')" name="foo" value="check" >Delete</button>
+													<button onclick="del('<%= data[i].customerId %>')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
 												</td>
 											<%}else if(level>1){%>
 												<td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
@@ -338,7 +341,7 @@
 												<td class="creditLimit" contenteditable="true"><%= data[i].creditLimit%></td>
 												<td class="creditDays" contenteditable="true"><%= data[i].creditDays%></td>
 												<td>
-													<button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" >Edit</button>
+													<button onclick="edit('<%= data[i].customerId%>customer')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
 												</td>
 											<%}%>
 										</tr>
@@ -437,6 +440,53 @@
 									<h4>No new data</h4>
 								<%}%>
 							</div>		
+
+
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-2">
+										<label for="customerName" class="form-control"><span class="font-weight-semibold">customerName</span></label>
+										<select name="customerName" class="form-control multiselect-filtering customerName" id="customerNameFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].customerName%>"><%=data[i].customerName%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="area" class="form-control"><span class="font-weight-semibold">area</span></label>
+										<select name="area" class="form-control multiselect-filtering  area" id="areaFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].area%>"><%=data[i].area%></option>
+                                            <% } %>	
+										</select>
+									</div>																	
+									<div class="col-sm-2">
+										<label for="status" class="form-control"><span class="font-weight-semibold">status</span></label>
+										<select name="status" class="form-control multiselect-filtering  status" id="statusFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].status%>"><%=data[i].status%></option>
+                                            <% } %>	
+										</select>
+									</div>																	
+									<div class="col-sm-2">
+										<label for="grade" class="form-control"><span class="font-weight-semibold">grade</span></label>
+										<select name="grade" class="form-control multiselect-filtering  grade" id="gradeFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].grade%>"><%=data[i].grade%></option>
+                                            <% } %>	
+										</select>
+									</div>																	
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<button onclick="fil()" class="form-control bg-teal-400" type="button">Filter</button>
+								</div>
+							</div>
+							<div class="card" style="overflow-x: auto;" id="koiBhi"></div>
+							<div class="card" style="overflow-x: auto;" id="chlna"></div>
+							
 							
 							
 							<!-- Vertical form modal -->
@@ -527,10 +577,10 @@
 										<div class="row">
 											
 											<div class="col-sm-12">
-												<label>Products</label>
-												<select name="productFil" class="form-control multiselect-filtering productFil" id="productFil" multiple="multiple" data-fouc>
+												<label>Products<span class="text-danger">*</span></label>
+												<select name="productFil" required class="form-control multiselect-filtering productFil" id="productFil" multiple="multiple" data-fouc>
 													<% for(var i=0; i<productData.length; i++) {%>
-														<option value="<%=productData[i].productName%>"><%=productData[i].productName%></option>
+														<option value="<%=productData[i].customerName%>"><%=productData[i].customerName%></option>
 													<% } %>	
 												</select>
 												
@@ -542,12 +592,12 @@
 										<div class="row">
 											<div class="col-sm-4">
 												<label>Pincode<span class="text-danger">*</span></label>
-												<input type="number" required placeholder="110001" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}">
+												<input type="tel" required placeholder="6-digit-format" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}">
 											</div>
 
 											<div class="col-sm-8">
 												<label>Address<span class="text-danger">*</span></label>
-												<input type="text" required placeholder="Meerut" class="form-control address" name="address" id="address">
+												<input type="text" required placeholder="address" class="form-control address" name="address" id="address">
 											</div>
 
 										</div>
@@ -557,14 +607,13 @@
 										<div class="row">
 											<div class="col-sm-6">
 												<label>Reference Number 1</label>
-												<input type="text" placeholder="Ishu" class="form-control referenceNumber1" name="referenceNumber1" id="referenceNumber1">
-												<!-- <span class="form-text text-muted">name@domain.com</span> -->
+												<input type="text" placeholder="name" class="form-control referenceNumber1" name="referenceNumber1" id="referenceNumber1">
+												
 											</div>
 
 											<div class="col-sm-6">
 												<label>Reference Number 2</label>
-												<input type="text" placeholder="Kios" class="form-control referenceNumber2" name="referenceNumber2"  id="referenceNumber2">
-												<!-- <span class="form-text text-muted">+99-99-9999-9999</span> -->
+												<input type="text" placeholder="name" class="form-control referenceNumber2" name="referenceNumber2"  id="referenceNumber2">
 											</div>
 										</div>
 									</div>
@@ -573,14 +622,12 @@
 										<div class="row">
 											<div class="col-sm-6">
 												<label>Credit Limit</label>
-												<input type="number" placeholder="150" class="form-control creditLimit" name="creditLimit" id="creditLimit">
-												<!-- <span class="form-text text-muted">150</span> -->
+												<input type="number" placeholder="amount" class="form-control creditLimit" name="creditLimit" id="creditLimit">									
 											</div>
 
 											<div class="col-sm-6">
 												<label>Credit Days</label>
-												<input type="number" placeholder="21" class="form-control creditDays" name="creditDays" id="creditDays">
-												<!-- <span class="form-text text-muted">21</span> -->
+												<input type="number" placeholder="time period" class="form-control creditDays" name="creditDays" id="creditDays">
 											</div>
 										</div>
 									</div>
@@ -716,6 +763,12 @@
 
 
 <script>
+
+	if ( window.history.replaceState ) {
+	window.history.replaceState( null, null, window.location.href );
+	}
+
+
     function edit(value)
     {
         console.log(value);
@@ -778,40 +831,105 @@
             );
     }
 
-
-    function abc()
-    {
-        console.log("000000000000000000000000000000000000000")
-        console.log("000000000000000000000000000000000000000000")
-        console.log("00000000000000000000000000000000000000000000")
-        console.log("0000000000000000000000000000000000000000000")
-        console.log("000000000000000000000000000000000000000000000")
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+		}
+		
+		function fil()
+		{
+			var mySelcust = document.getElementById("customerNameFil").value;
+			var mySelArea = document.getElementById("areaFil").value;
+			var mySelStat = document.getElementById("statusFil").value;
+			var mySelGrad = document.getElementById("gradeFil").value;
+			
+			console.log(mySelcust);
+			console.log(mySelArea);
+			console.log(mySelStat);
+			console.log(mySelGrad);
+			
+			console.log("ujjwal");
         $.post("/masterCustomer",
-            {
-				a:"abc",
-                op:"abc"
-            },
-            function (dataFil, status) {
-				$("#errInfo").html("a");
-                console.log("oooooooooooooooooooooooooooooooooooooooo");
-                console.log("oooooooooooooooooooooooooooooooooooooooo");
-                console.log("oooooooooooooooooooooooooooooooooooooooo");
-                console.log("oooooooooooooooooooooooooooooooooooooooo");
-                console.log(dataFil);
-                console.log(status);
-            }
-            );
+        {
+			customerNameFil: mySelcust,
+            areaFil: mySelArea,
+            statusFil: mySelStat,
+            gradeFil: mySelGrad,
+            op:"fil"
+        },
+        function (dataFil, status) {
+			console.log("filter kios");
+            console.log(dataFil);
+			check(dataFil);
+            console.log(status);
+        }
+        );
     }
 
+	function check(tableData)
+		{
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>customerName</th> <th>area</th> <th>status</th> <th>grade</th> <th>pincode</th> <th>address</th> <th>referenceNumber1</th> <th>referenceNumber2</th> <th>creditLimit</th> <th>creditDays</th></thead> <tbody> "
+			for(var i=0;i<tableData.length;i++)
+			{
+				table+="<tr>"
+					table+="<td class='customerName'>"+tableData[i].customerName+"</td>"	
+					table+="<td class='area'>"+tableData[i].area+"</td>"	                   
+					table+="<td class='status'>"+tableData[i].status+"</td>"	                   
+					table+="<td class='grade'>"+tableData[i].grade+"</td>"	                   
+					table+="<td class='pincode'>"+tableData[i].pincode+"</td>"	                   
+					table+="<td class='address'>"+tableData[i].address+"</td>"	                   
+					table+="<td class='referenceNumber1'>"+tableData[i].referenceNumber1+"</td>"	                   
+					table+="<td class='referenceNumber2'>"+tableData[i].referenceNumber2+"</td>"	                   
+					table+="<td class='creditLimit'>"+tableData[i].creditLimit+"</td>"	                   
+					table+="<td class='creditDays'>"+tableData[i].creditDays+"</td>"	                   
+				table+="</tr>"
+			}
+			table+="</tbody> </table>"
+			document.getElementById("koiBhi").innerHTML=table;
+			var button = "<button class='btn-link' onclick=exportData()> Download list</button>"
+			document.getElementById("chlna").innerHTML=button;
 
-</script>
+		}
 
-
-<script>
-	function check(msg)
+	function exportData()
 	{
-		console.log(msg);
-		var alert="<h5 class='modal-title'>Customer Name Already Exists</h5>"
-		document.getElementById("errInfo").innerHTML=alert;
+			console.log("a")
+			
+			var table = document.getElementById("tbl");
+			console.log(table)
+
+			
+			var rows =[];
+ 
+      
+			for(var i=0,row; row = table.rows[i];i++){
+				
+				column1 = row.cells[0].innerText;
+				column2 = row.cells[1].innerText;
+				column3 = row.cells[2].innerText;
+				rows.push(
+					[
+						column1,
+						column2,
+						column3
+					]
+				);
+ 
+        	}
+			console.log(rows)
+        	csvContent = "data:text/csv;charset=utf-8,";
+         
+			rows.forEach(function(rowArray){
+				row = rowArray.join(",");
+				csvContent += row + "\r\n";
+			});
+ 
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "Master_Customers.csv");
+			document.body.appendChild(link);
+			link.click();
 	}
+
+
 </script>

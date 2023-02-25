@@ -155,6 +155,9 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/register" class="nav-link">User-Register</a></li>
 							</ul>
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/registeredUsers" class="nav-link">Register-List</a></li>
+							</ul>
 						</li>
 
 						<li class="nav-item nav-item-submenu">
@@ -179,7 +182,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link ">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link active">MasterProducts</a></li>
@@ -189,8 +191,9 @@
 						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
-
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -207,14 +210,7 @@
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Team</span></a>
-
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="index.html" class="nav-link">Contact Details</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Add Member</a></li>
-							</ul>
-						</li>
+						
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -233,7 +229,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Product</span> - Master</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Products</span> - Master</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -247,11 +243,16 @@
 				<!-- Dashboard content -->
 				<div class="row">
 					<div class="col-md-12">
+						<div class="errInfo" id="errInfo" style=" background-color: rgb(255, 0, 0); margin: 1%;">
+							<% if(msg){ %>
+								<h6 style="text-align: center; font-weight: 600"><%=msg%></h6>
+							<% } %>
+						</div>
 						<div class="card">
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Style combinations</h5>
+								<h5 class="card-title">Master Products</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Product<i class="icon-play3 ml-2"></i></button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Product" data-trigger="hover" data-content="Click to Create New Master Product">Add new Master Product</button></td>
 									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
 								<%}%>
 								<div class="header-elements">
@@ -290,16 +291,16 @@
                                                 <td class="productName" contenteditable="true"><%= data[i].productName%></td>
                                                 <td class="productGroup" contenteditable="true"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].productId%>product')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="edit('<%= data[i].productId%>product')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].productName%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button onclick="del('<%= data[i].productId %>')" name="foo" value="check" >Delete</button>
+                                                    <button onclick="del('<%= data[i].productId %>')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].productName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Product and reload page to see changes">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="productName" contenteditable="true"><%= data[i].productName%></td>
                                                 <td class="productGroup" contenteditable="true"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].productId%>product')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="edit('<%= data[i].productId%>product')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].productName%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
                                                 </td>
                                             <%}%>
                                         </tr>
@@ -309,6 +310,34 @@
 							<%}else{%>
 								<h4>No new data</h4>
 							<%}%>
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-2">
+										<label for="productName" class="form-control"><span class="font-weight-semibold">productName</span></label>
+										<select name="productName" class="form-control multiselect-filtering productName" id="productNameFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].productName%>"><%=data[i].productName%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="productGroup" class="form-control"><span class="font-weight-semibold">productGroup</span></label>
+										<select name="productGroup" class="form-control multiselect-filtering  productGroup" id="productGroupFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].productGroup%>"><%=data[i].productGroup%></option>
+                                            <% } %>	
+										</select>
+									</div>																	
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<button onclick="fil()" class="form-control bg-teal-400" type="button">Filter</button>
+								</div>
+							</div>
+							<div class="card" style="overflow-x: auto;" id="koiBhi"></div>
+							<div class="card" style="overflow-x: auto;" id="chlna"></div>
 							
 							
 							<!-- Vertical form modal -->
@@ -325,20 +354,20 @@
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>productName</label>
-												            <input type="text" placeholder="ganji" class="form-control productName" name="productName" id="productName">
+												            <label>Product Name<span class="text-danger">*</span></label>
+												            <input type="text" required placeholder="productName" class="form-control productName" name="productName" id="productName">
 											            </div>
 											            <div class="col-sm-6">
-												            <label>productGroup</label>
-												            <input type="text" placeholder="heroine" class="form-control productGroup" name="productGroup" id="productGroup">
+												            <label>Product Group<span class="text-danger">*</span></label>
+												            <input type="text" required placeholder="productGroup" class="form-control productGroup" name="productGroup" id="productGroup">
 											            </div>
 										            </div>
 									            </div>
 								            </div>
 
 								            <div class="modal-footer">
-									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									            <button type="submit" class="btn bg-primary">Add</button>
+									            <button type="button" class="btn btn-link" style="color: teal;" data-dismiss="modal">Close</button>
+									            <button type="submit" class="btn bg-teal-400">Add</button>
 								            </div>
 							            </form>
 						            </div>
@@ -415,6 +444,91 @@
             );
         });
     }
+
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+		}
+		
+		function fil()
+		{
+			var mySelPrd = document.getElementById("productNameFil").value;
+			var mySelPgrp = document.getElementById("productGroupFil").value;
+			
+			console.log(mySelPrd);
+			console.log(mySelPgrp);
+			
+			console.log("ujjwal");
+        $.post("/masterProducts",
+        {
+			productNameFil: mySelPrd,
+            productGroupFil: mySelPgrp,
+            op:"fil"
+        },
+        function (dataFil, status) {
+			console.log("filter kios");
+            console.log(dataFil);
+			check(dataFil);
+            console.log(status);
+        }
+        );
+    }
+
+	function check(tableData)
+		{
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>productName</th> <th>productGroup</th> </thead> <tbody> "
+			for(var i=0;i<tableData.length;i++)
+			{
+
+				table+="<tr> "
+					table+="<td class='productName'>"+tableData[i].productName+"</td>"	
+					table+="<td class='productGroup'>"+tableData[i].productGroup+"</td>"	                   
+				table+="</tr>"
+			}
+			table+="</tbody> </table>"
+			document.getElementById("koiBhi").innerHTML=table;
+			var button = "<button class='btn-link' onclick=exportData()> Download list</button>"
+			document.getElementById("chlna").innerHTML=button;
+
+		}
+
+	function exportData()
+	{
+			console.log("a")
+			
+			var table = document.getElementById("tbl");
+			console.log(table)
+
+			
+			var rows =[];
+ 
+      
+			for(var i=0,row; row = table.rows[i];i++){
+				
+				column1 = row.cells[0].innerText;
+				column2 = row.cells[1].innerText;
+				rows.push(
+					[
+						column1,
+						column2
+					]
+				);
+ 
+        	}
+			console.log(rows)
+        	csvContent = "data:text/csv;charset=utf-8,";
+         
+			rows.forEach(function(rowArray){
+				row = rowArray.join(",");
+				csvContent += row + "\r\n";
+			});
+ 
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "Master_Products.csv");
+			document.body.appendChild(link);
+			link.click();
+	}
 </script>
 
 

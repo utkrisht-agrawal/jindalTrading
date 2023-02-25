@@ -41,7 +41,6 @@ const postTransportDetails =(req,res,next)=>{
         transportDetailModel.destroy({
             where: { transportId : id}
         })
-        res.redirect('/transportDetails');
         
     }
     else if(req.body.op==="edt")
@@ -92,18 +91,7 @@ const postTransportDetails =(req,res,next)=>{
                     })
                     .then((res4)=>{
                         console.log(res4)
-                        transportDetailModel.findAll()
-                        .then((data)=>{
-                            console.log(data);
-                            res.render('transportDetail',{
-                                username : req.session.username,
-                                data:data,
-                                level:req.session.userLevel
-                            })
-                        })
-                        .catch((err)=>
-                            console.log(err)
-                        )
+                        res.redirect('/transportDetails')
 
                     })
                     .catch((err)=>
@@ -164,7 +152,7 @@ const postTransportContacts =(req,res,next)=>{
         transportContactModel.destroy({
             where: { transportId : id}
         });
-        res.redirect('/transportContacts');
+        
         
     }
     else if(req.body.op==="edt")
@@ -191,11 +179,7 @@ const postTransportContacts =(req,res,next)=>{
             transportContactModel.findAll()
             .then((data)=>{
                 console.log(data);
-                res.render('transportContact',{
-                    username : req.session.username,
-                    data:data,
-                    level:req.session.userLevel
-                })
+                res.redirect('/transportContacts');
             })
             .catch((err)=>
                 console.log(err)
@@ -251,7 +235,7 @@ const postTransportStations =(req,res,next)=>{
         transportStationModel.destroy({
             where: { transportId : id}
         });
-        res.redirect('/transportStations');
+        
         
     }
     else if(req.body.op==="edt")
@@ -282,11 +266,7 @@ const postTransportStations =(req,res,next)=>{
             transportStationModel.findAll()
             .then((data)=>{
                 console.log(data);
-                res.render('transportStation',{
-                    username : req.session.username,
-                    data:data,
-                    level:req.session.userLevel
-                })
+                res.redirect('/transportStations');
             })
             .catch((err)=>
                 console.log(err)
@@ -343,14 +323,7 @@ const postTransportTrucks =(req,res,next)=>{
     {
         transportTruckModel.destroy({
             where: { transportId : id}
-        })
-        .then((result)=>
-            console.log("kios check"),
-            res.redirect('/transportTrucks')
-        )
-        .catch((err)=>
-            console.log(err)
-        )
+        });
         
     }
     else if(req.body.op==="edt")
@@ -379,11 +352,7 @@ const postTransportTrucks =(req,res,next)=>{
             transportTruckModel.findAll()
             .then((data)=>{
                 console.log(data);
-                res.render('transportTruck',{
-                    username : req.session.username,
-                    data:data,
-                    level:req.session.userLevel
-                })
+                res.redirect('/transportTrucks')
             })
             .catch((err)=>
                 console.log(err)

@@ -155,6 +155,9 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/register" class="nav-link">User-Register</a></li>
 							</ul>
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/registeredUsers" class="nav-link">Register-List</a></li>
+							</ul>
 						</li>
 
 						<li class="nav-item nav-item-submenu">
@@ -179,7 +182,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
@@ -189,8 +191,9 @@
 						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
-
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -207,14 +210,7 @@
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Team</span></a>
-
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="index.html" class="nav-link">Contact Details</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Add Member</a></li>
-							</ul>
-						</li>
+						
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -233,7 +229,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Vendor</span> - Master</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Vendors</span> - Master</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -248,11 +244,16 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card">
+							<div class="errInfo" id="errInfo" style=" background-color: rgb(255, 0, 0); margin: 1%;">
+								<% if(msg){ %>
+									<h6 style="text-align: center; font-weight: 600;"><%=msg%></h6>
+								<% } %>
+							</div>
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Style combinations</h5>
+								<h5 class="card-title">Master Vendors</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Vendor<i class="icon-play3 ml-2"></i></button></td>
-									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Vendor" data-trigger="hover" data-content="Click to Create New Master Vendor">Add new Master Vendor</button></td>
+									
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -290,16 +291,16 @@
                                                 <td class="vendorAddress" contenteditable="true"><%= data[i].vendorAddress%></td>
                                                 <td class="vendorArea" contenteditable="true"><%= data[i].area%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].vendorId%>vendor')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="edit('<%= data[i].vendorId%>vendor')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button onclick="del('<%= data[i].vendorId %>')" name="foo" value="check" >Delete</button>
+                                                    <button onclick="del('<%= data[i].vendorId %>')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete" data-trigger="hover" data-content="Click Delete Button to remove Master Vendor and reload page to see changes">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="vendorAddress" contenteditable="true"><%= data[i].vendorAddress%></td>
                                                 <td class="vendorArea" contenteditable="true"><%= data[i].area%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].vendorId%>vendor')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="edit('<%= data[i].vendorId%>vendor')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
                                                 </td>
                                             <%}%>
                                             </tr>
@@ -311,6 +312,36 @@
 							<%}%>
 							
 							
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-2">
+										<label for="vendorAddress" class="form-control"><span class="font-weight-semibold">vendorAddress</span></label>
+										<select name="vendorAddress" class="form-control multiselect-filtering vendorAddress" id="vendorAddressFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].vendorAddress%>"><%=data[i].vendorAddress%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="vendorArea" class="form-control"><span class="font-weight-semibold">vendorArea</span></label>
+										<select name="vendorArea" class="form-control multiselect-filtering  vendorArea" id="vendorAreaFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].area%>"><%=data[i].area%></option>
+                                            <% } %>	
+										</select>
+									</div>																	
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<button onclick="fil()" class="form-control bg-teal-400" type="button">Filter</button>
+								</div>
+							</div>
+							<div class="card" style="overflow-x: auto;" id="koiBhi"></div>
+							<div class="card" style="overflow-x: auto;" id="chlna"></div>
+							
+
 							<!-- Vertical form modal -->
 							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
 					            <div class="modal-dialog">
@@ -325,12 +356,12 @@
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>vendorAddress</label>
-												            <input type="text" placeholder="Katchra seth" class="form-control vendorAddress" name="vendorAddress" id="vendorAddress">
+												            <label>Vendor Address<span class="text-danger">*</span></label>
+												            <input type="text" placeholder="address" class="form-control vendorAddress" name="vendorAddress" id="vendorAddress" required>
 											            </div>
 											            <div class="col-sm-6">
-												            <label>Area</label>
-												            <select id="area" name="area" class="form-control area" id="area">
+												            <label>Area<span class="text-danger">*</span></label>
+												            <select id="area" name="area" class="form-control area" id="area" required>
                                                                 <option value="" disabled selected>-Select-</option>
                                                                 <% for(var i=0; i<areaData.length; i++) {%>
                                                                     <option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
@@ -342,8 +373,8 @@
 								            </div>
 
 								            <div class="modal-footer">
-									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									            <button type="submit" class="btn bg-primary">Add</button>
+									            <button type="button" class="btn btn-link" style="color: teal;" data-dismiss="modal">Close</button>
+									            <button type="submit" class="btn bg-teal-400">Add</button>
 								            </div>
 							            </form>
 						            </div>
@@ -420,126 +451,99 @@
             }
             );
     }
-</script>
 
-
-
-
-
-
-
-
-
-
-
-<!-- <h2>masterVendors</h2>
-<h3>User level <%=level%></h3>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity=
-        "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-        crossorigin="anonymous">
-    </script>
-
-<% if(data.length>0) {%>
-    
-    <table >
-        
-        <thead>
-            <tr>
-                <th>Vendor-Address</th>
-                <th>Vendor-Area</th>
-                <% if(level>2) {%>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                <%}else if(level>1){%>
-                    <th>Edit</th>
-                <%}else{%>
-                <%}%>
-
-            </tr>
-        </thead >
-        
-        <% for(var i=0; i<data.length; i++) {%>
-            <tr  class="<%= data[i].vendorId%>vendor">
-            <%if(level==1) {%>
-                <td class="vendorAddress"><%= data[i].vendorAddress%></td>
-            <%} else if(level>2) {%>
-                <td class="vendorAddress" contenteditable="true"><%= data[i].vendorAddress%></td>
-                <td class="vendorArea" contenteditable="true"><%= data[i].area%></td>
-                <td>
-                    <button onclick="edit('<%= data[i].vendorId%>vendor')" name="foo" value="check" >Edit</button>
-                </td>
-                <td >
-                    <button onclick="del('<%= data[i].vendorId %>')" name="foo" value="check" >Delete</button>
-                </td>
-            <%}else if(level>1){%>
-                <td class="vendorAddress" contenteditable="true"><%= data[i].vendorAddress%></td>
-                <td class="vendorArea" contenteditable="true"><%= data[i].area%></td>
-                <td>
-                    <button onclick="edit('<%= data[i].vendorId%>vendor')" name="foo" value="check" >Edit</button>
-                </td>
-            <%}%>
-            </tr>
-        <% } %>
-    </table>
-
-<%}else{%>
-    <h4>No new data</h4>
-<%}%>
-
-<% if(level>2) {%>
-    <p><a href="/addMasterVendors">Add new Master Vendor</a></p>
-<%}%>
-
-<p><a href="/userDashboard">Dashboard</a></p>
-<p><a href="/">Back to Home Page</a></p>
-
-<script>
-    function edit(value)
-    {
-        console.log(value);
-        var sub = 'vendor';
-        var result = value.replace(sub,'');
-        console.log(result);
-        
-        $('.'+value).each(function() 
-        {
-            
-            var vendorAddress = $(this).find(".vendorAddress").html();    
-            var vendorArea = $(this).find(".vendorArea").html();    
-            console.log(vendorAddress);
-            console.log(vendorArea);
-            console.log("ujjwal");
-            $.post("/masterVendors",
-            {
-                id: result,
-                vendorAddress: vendorAddress,
-                vendorArea: vendorArea,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
-    }
-</script>
-
-<script>
-    function del(value)
-    {
-        console.log(value);
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+		}
+		
+		function fil()
+		{
+			var mySelAdd = document.getElementById("vendorAddressFil").value;
+			var mySelArea = document.getElementById("vendorAreaFil").value;
+			
+			console.log(mySelAdd);
+			console.log(mySelArea);
+			
+			console.log("ujjwal");
         $.post("/masterVendors",
-            {
-                id: value,
-                op:"del"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
+        {
+			vendorAddressFil: mySelAdd,
+            vendorAreaFil: mySelArea,
+            op:"fil"
+        },
+        function (dataFil, status) {
+			console.log("filter kios");
+            console.log(dataFil);
+			check(dataFil);
+            console.log(status);
+        }
+        );
     }
-</script> -->
+
+	function check(tableData)
+		{
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>vendorAddress</th> <th>vendorArea</th> </thead> <tbody> "
+			for(var i=0;i<tableData.length;i++)
+			{
+
+				table+="<tr> "
+					table+="<td class='vendorAddress'>"+tableData[i].vendorAddress+"</td>"	
+					table+="<td class='vendorArea'>"+tableData[i].area+"</td>"	                   
+				table+="</tr>"
+			}
+			table+="</tbody> </table>"
+			document.getElementById("koiBhi").innerHTML=table;
+			var button = "<button class='btn-link' onclick=exportData()> Download list</button>"
+			document.getElementById("chlna").innerHTML=button;
+
+		}
+
+	function exportData(){
+			console.log("a")
+			
+			var table = document.getElementById("tbl");
+			console.log(table)
+
+			
+			var rows =[];
+ 
+      
+			for(var i=0,row; row = table.rows[i];i++){
+				
+				column1 = row.cells[0].innerText;
+				column2 = row.cells[1].innerText;
+				rows.push(
+					[
+						column1,
+						column2
+					]
+				);
+ 
+        	}
+			console.log(rows)
+        	csvContent = "data:text/csv;charset=utf-8,";
+         
+			rows.forEach(function(rowArray){
+				row = rowArray.join(",");
+				csvContent += row + "\r\n";
+			});
+ 
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "Master_Vendors.csv");
+			document.body.appendChild(link);
+			link.click();
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+

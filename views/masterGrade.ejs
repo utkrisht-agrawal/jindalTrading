@@ -155,6 +155,9 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/register" class="nav-link">User-Register</a></li>
 							</ul>
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/registeredUsers" class="nav-link">Register-List</a></li>
+							</ul>
 						</li>
 
 						<li class="nav-item nav-item-submenu">
@@ -179,7 +182,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link active">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
@@ -189,8 +191,9 @@
 						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
-
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -207,14 +210,7 @@
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Team</span></a>
-
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="index.html" class="nav-link">Contact Details</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Add Member</a></li>
-							</ul>
-						</li>
+						
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -233,7 +229,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Grade</span> - Master</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Grades</span> - Master</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -248,11 +244,16 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card">
+							<div class="errInfo" id="errInfo" style=" background-color: rgb(255, 0, 0); margin: 1%;">
+								<% if(msg){ %>
+									<h6 style="text-align: center; font-weight: 600"><%=msg%></h6>
+								<% } %>
+							</div>
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Style combinations</h5>
+								<h5 class="card-title">Master Grades</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Grade<i class="icon-play3 ml-2"></i></button></td>
-									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Grade" data-trigger="hover" data-content="Click to Create New Master Grade">Add new Master Grade</button></td>
+									
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -265,7 +266,7 @@
 
 							<% if(data.length>0) {%>
     
-								<table class="table datatable-basic table-bordered table-striped table-hover">
+								<table id="tbl" class="table datatable-basic table-bordered table-striped table-hover">
 									
 									<thead>
 										<tr>
@@ -287,15 +288,15 @@
                                             <%} else if(level>2) {%>
                                                 <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].gradeType%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" >Delete</button>
+                                                    <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].gradeType%>" data-trigger="hover" data-content="Click Delete Button to remove Master Grade and reload page to see changes">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
+                                                    <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].gradeType%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
                                                 </td>
                                             <%}%>
                                             
@@ -307,6 +308,7 @@
 								<h4>No new data</h4>
 							<%}%>
 							
+							<button class="btn-link" onclick=exportData()>Download</button>
 							
 							<!-- Vertical form modal -->
 							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
@@ -322,8 +324,8 @@
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>Grade</label>
-												            <input type="text" placeholder="chl koi ni" class="form-control gradeType" name="gradeType" id="gradeType">
+												            <label>Grade<span class="text-danger">*</span></label>
+												            <input type="text" required placeholder="grade" class="form-control gradeType" name="gradeType" id="gradeType">
 											            </div>
 										            </div>
 									            </div>
@@ -404,66 +406,46 @@
             );
         });
     }
+
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+		}
+
+	function exportData(){
+			console.log("a")
+			
+			var table = document.getElementById("tbl");
+			console.log(table)
+
+			
+			var rows =[];
+ 
+      
+			for(var i=0,row; row = table.rows[i];i++){
+				
+				column1 = row.cells[0].innerText;
+				rows.push(
+					[
+						column1
+					]
+				);
+ 
+        	}
+			console.log(rows)
+        	csvContent = "data:text/csv;charset=utf-8,";
+         
+			rows.forEach(function(rowArray){
+				row = rowArray.join(",");
+				csvContent += row + "\r\n";
+			});
+ 
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "Master_Grades.csv");
+			document.body.appendChild(link);
+			link.click();
+	}
 </script>
 
-
-<!-- <h2>masterGrade</h2>
-<h3>User level <%=level%></h3>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity=
-        "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-        crossorigin="anonymous">
-    </script>
-
-<% if(data.length>0) {%>
-    
-    <table >
-        
-        <thead>
-            <tr>
-                <th>gradeType</th>
-                <% if(level>2) {%>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                <%}else if(level>1){%>
-                    <th>Edit</th>
-                <%}else{%>
-                <%}%>
-
-            </tr>
-        </thead >
-        
-        <% for(var i=0; i<data.length; i++) {%>
-            <tr class="<%= data[i].gradeId%>grade">
-                <%if(level==1) {%>
-                    <td class="gradeType" ><%= data[i].gradeType%></td>
-                <%} else if(level>2) {%>
-                    <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                    <td>
-                        <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                    </td>
-                    <td >
-                        <button onclick="del('<%= data[i].gradeId %>')" name="foo" value="check" >Delete</button>
-                    </td>
-                <%}else if(level>1){%>
-                    <td class="gradeType" contenteditable="true"><%= data[i].gradeType%></td>
-                    <td>
-                        <button onclick="edit('<%= data[i].gradeId%>grade')" name="foo" value="check" >Edit</button>
-                    </td>
-                <%}%>
-                
-            </tr>
-        <% } %>
-    </table>
-
-<%}else{%>
-    <h4>No new data</h4>
-<%}%>
-
-<% if(level>2) {%>
-    <p><a href="/addMasterGrade">Add new Master Grade</a></p>
-<%}%>
-<p><a href="/userDashboard">Dashboard</a></p>
-<p><a href="/">Back to Home Page</a></p> -->
 

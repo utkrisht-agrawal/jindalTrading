@@ -155,6 +155,9 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/register" class="nav-link">User-Register</a></li>
 							</ul>
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/registeredUsers" class="nav-link">Register-List</a></li>
+							</ul>
 						</li>
 
 						<li class="nav-item nav-item-submenu">
@@ -180,7 +183,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
@@ -190,8 +192,9 @@
 						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
-
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -208,14 +211,7 @@
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Team</span></a>
-
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="index.html" class="nav-link">Contact Details</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Add Member</a></li>
-							</ul>
-						</li>
+						
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -252,10 +248,10 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Market-Plan</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Plan<i class="icon-play3 ml-2"></i></button>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Plan</button>
 								<%}%>
 								<% if(level==1) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#customer_form_vertical">Add new Customer<i class="icon-play3 ml-2"></i></button>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#customer_form_vertical">Add new Customer</button>
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -400,7 +396,7 @@
                                                     <button onclick="del('<%= data[i].serialNumber%>')" name="foo" value="check" >Delete</button>
                                                 </td>
 											<%}else if(level>1){%>
-                                                <td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
+                                                <td class="customerName"><button type="button" class="btn btn-light" data-toggle="modal" onclick="custInfo('<%= data[i].customerName%>')" data-target="#customer_information"><%= data[i].customerName%></button></td>
                                                 <td name="area" class="area">
 													<select name="aSelect" class="aSelect">
 														<option value="<%= data[i].area%>"><%= data[i].area%></option>
@@ -714,9 +710,9 @@
 							<!-- Vertical form modal -->
 								<div id="customer_information" class="modal fade" tabindex="-1">
 									<div class="modal-dialog">
-										<div class="modal-content bg-teal-300">
+										<div class="modal-content ">
 											<div class="modal-header">
-												<h5 class="modal-title">Master Customer </h5>
+												<h4 class="modal-title">Master Customer </h4>
 												
 												<button type="button" class="close" data-dismiss="modal">&times;</button>
 											</div>
@@ -751,110 +747,153 @@
 
 
 
-
-							<div id="customer_form_vertical" class="modal fade" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title">New Master Customer</h5>
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<div id="customer_form_vertical" class="modal fade" tabindex="-1">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">New Master Customer</h5>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+				
+											<form action="/masterCustomer" method="POST">
+												<div class="modal-body">
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-6">
+																<label>Customer Name<span class="text-danger">*</span></label>
+																<input type="text" placeholder="Ujjwal Raturi" class="form-control customerName" required name="customerName" id="customerName">
+															</div>
+				
+														</div>
+													</div>
+				
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-12">
+																<label>Firm<span class="text-danger">*</span></label>
+																<input type="text" placeholder="Firm" class="form-control firm" required name="firm" id="firm">
+															</div>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-4">
+																<label>Area<span class="text-danger">*</span></label>
+																<select id="area" name="area" class="form-control area" id="area" required>
+																	<option value="" disabled selected>-Select-</option>
+																	<% for(var i=0; i<areaData.length; i++) {%>
+																		<option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
+																	<% } %>
+																</select>
+																
+															</div>
+															
+															<div class="col-sm-4">
+																<label>grade<span class="text-danger">*</span></label>
+																<select id="grade" name="grade" class="form-control grade" id="grade" required>
+																	<option value="" disabled selected>-Select-</option>
+																	<% for(var i=0; i<gradeData.length; i++) {%>
+																		<option value="<%=gradeData[i].gradeType%>"><%=gradeData[i].gradeType%></option>
+																	<% } %>
+																</select>
+															</div>											
+														</div>
+													</div>
+				
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-4">
+																<label>Contact<span class="text-danger">*</span></label>
+																<input type="tel" required placeholder="10-digit-format" class="form-control contact" name="contact" id="contact" pattern="[0-9]{10}">
+															</div>
+				
+															<div class="col-sm-4">
+																<label>Category<span class="text-danger">*</span></label>
+																<select name="category" class="category form-control" required>
+																	<option value="" disabled selected>-Select-</option>
+																	<% for(var j=0; j<catdata.length; j++) {%>
+																		<option value="	<%=catdata[j].categoriesType%>"><%=catdata[j].categoriesType%></option>
+																	<% } %>
+																</select>
+															</div>
+				
+															
+															
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<div class="row">
+															
+															<div class="col-sm-12">
+																<label>Products<span class="text-danger">*</span></label>
+																<select name="productFil" class="form-control multiselect-filtering productFil" required id="productFil" multiple="multiple" data-fouc >
+																	<% for(var i=0; i<productData.length; i++) {%>
+																		<option value="<%=productData[i].productName%>"><%=productData[i].productName%></option>
+																	<% } %>	
+																</select>
+																
+															</div>
+				
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-4">
+																<label>Pincode<span class="text-danger">*</span></label>
+																<input type="tel" required placeholder="6-digit-format" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}">
+															</div>
+				
+															<div class="col-sm-8">
+																<label>Address<span class="text-danger">*</span></label>
+																<input type="text" required placeholder="Meerut" class="form-control address" name="address" id="address">
+															</div>
+				
+														</div>
+													</div>
+				
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-6">
+																<label>Reference Number 1</label>
+																<input type="text" placeholder="Ishu" class="form-control referenceNumber1" name="referenceNumber1" id="referenceNumber1">
+																<!-- <span class="form-text text-muted">name@domain.com</span> -->
+															</div>
+				
+															<div class="col-sm-6">
+																<label>Reference Number 2</label>
+																<input type="text" placeholder="Kios" class="form-control referenceNumber2" name="referenceNumber2"  id="referenceNumber2">
+																<!-- <span class="form-text text-muted">+99-99-9999-9999</span> -->
+															</div>
+														</div>
+													</div>
+				
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-6">
+																<label>Credit Limit</label>
+																<input type="number" placeholder="150" class="form-control creditLimit" name="creditLimit" id="creditLimit">
+																<!-- <span class="form-text text-muted">150</span> -->
+															</div>
+				
+															<div class="col-sm-6">
+																<label>Credit Days</label>
+																<input type="number" placeholder="21" class="form-control creditDays" name="creditDays" id="creditDays">
+																<!-- <span class="form-text text-muted">21</span> -->
+															</div>
+														</div>
+													</div>
+												</div>
+				
+												<div class="modal-footer">
+													<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+													<button  class="btn bg-primary">Add</button>
+												</div>
+											</form>
 										</div>
-			
-										<form action="/masterCustomer" method="POST">
-											<div class="modal-body">
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-6">
-															<label>Customer Name</label>
-															<input type="text" placeholder="Ujjwal Raturi" class="form-control customerName" name="customerName" id="customerName">
-														</div>
-			
-													</div>
-												</div>
-												
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-4">
-															<label>Area</label>
-															<select id="area" name="area" class="form-control area" id="area">
-																<option value="" disabled selected>-Select-</option>
-																<% for(var i=0; i<areaData.length; i++) {%>
-																	<option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
-																<% } %>
-															</select>
-															<!-- <input type="text" placeholder="Dehradun" class="form-control"> -->
-														</div>
-														<div class="col-sm-4">
-															<label>grade</label>
-															<select id="grade" name="grade" class="form-control grade" id="grade">
-																<option value="" disabled selected>-Select-</option>
-																<% for(var i=0; i<gradeData.length; i++) {%>
-																	<option value="<%=gradeData[i].gradeType%>"><%=gradeData[i].gradeType%></option>
-																<% } %>
-															</select>
-															<!-- <input type="text" placeholder="Dehradun" class="form-control"> -->
-														</div>
-														<div class="col-sm-4">
-															<label>Pincode</label>
-															<input type="number" placeholder="248001" class="form-control pincode" name="pincode" id="pincode">
-														</div>
-			
-														
-													</div>
-												</div>
-			
-												<div class="form-group">
-													<div class="row">
-			
-														<div class="col-sm-12">
-															<label>Address</label>
-															<input type="text" placeholder="Miyanwala" class="form-control address" name="address" id="address">
-														</div>
-			
-													</div>
-												</div>
-			
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-6">
-															<label>Reference Number 1</label>
-															<input type="text" placeholder="Ishu" class="form-control referenceNumber1" name="referenceNumber1" id="referenceNumber1">
-															<!-- <span class="form-text text-muted">name@domain.com</span> -->
-														</div>
-			
-														<div class="col-sm-6">
-															<label>Reference Number 2</label>
-															<input type="text" placeholder="Kios" class="form-control referenceNumber2" name="referenceNumber2"  id="referenceNumber2">
-															<!-- <span class="form-text text-muted">+99-99-9999-9999</span> -->
-														</div>
-													</div>
-												</div>
-			
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-6">
-															<label>Credit Limit</label>
-															<input type="text" placeholder="150" class="form-control creditLimit" name="creditLimit" id="creditLimit">
-															<span class="form-text text-muted">150 rupiya dega</span>
-														</div>
-			
-														<div class="col-sm-6">
-															<label>Credit Days</label>
-															<input type="text" placeholder="21" class="form-control creditDays" name="creditDays" id="creditDays">
-															<span class="form-text text-muted">21 din mei paisa dabal</span>
-														</div>
-													</div>
-												</div>
-											</div>
-			
-											<div class="modal-footer">
-												<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-												<button type="submit" class="btn bg-primary">Add</button>
-											</div>
-										</form>
 									</div>
 								</div>
-				            </div>
 
 
 
@@ -901,8 +940,7 @@
         
         $('.'+value).each(function() 
         {
-            console.log("new yr");
-            var customerName = $(this).find(".customerName").html();   
+            console.log("new yr");  
             var area = $(this).find(".aSelect").val();    
             var grade = $(this).find(".gSelect").val();  
             var category = $(this).find(".ctSelect").val();   
@@ -924,7 +962,6 @@
             $.post("/marketPlanPigIron",
             {
                 id: result,
-                customerName:customerName,
                 area: area,
                 grade:grade,
                 category: category,
@@ -1162,7 +1199,7 @@
 			table+="</tbody> </table>"
 			document.getElementById("koiBhi").innerHTML=table;
 			// console.log(tableData );
-			var button = "<button onclick=exportData()> Download list</button>"
+			var button = "<button class='btn-link' onclick=exportData()> Download list</button>"
 			document.getElementById("chlna").innerHTML=button;
 
 		}
@@ -1171,8 +1208,6 @@
 	<script>
 		
 		function exportData(){
-			console.log("a")
-			
 			var table = document.getElementById("tbl");
 			console.log(table)
 
@@ -1252,8 +1287,8 @@
         function (data, status) {
             console.log(data);
 			console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-			console.log(Object.keys(data).length)
-			console.log(data[0].product)
+			// console.log(Object.keys(data).length)
+			// console.log(data[0].product)
 			custmod(data);
             console.log(status);
         }
@@ -1262,10 +1297,15 @@
 
 	function custmod(data)
 	{
+		console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
 		if(data)
 		{
+			console.log("---------------------------------------------------------------------------")
+			console.log(data)
+			console.log("---------------------------------------------------------------------------")
 			var index=Object.keys(data).length;
-			index=index-15;
+			console.log(index)
+			index=index-17;
 			var ishuProd="";
 			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 			console.log(ishuProd);
@@ -1274,12 +1314,13 @@
 				if(i>0)
 				{
 					ishuProd=ishuProd.concat("  ,  ")
+					// ishuProd+="<br>"
 				}
 				ishuProd=ishuProd.concat(data[i].product)
 				console.log(ishuProd);
 			}
 			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'>  <tbody> "
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>  <tbody> "
 					
 					table+="<tr> "
 						table+="<td >Customer Name</td>"                       
@@ -1304,14 +1345,41 @@
 					table+="<tr> "
 						table+="<td >Address</td>"
 						table+="<td class='address'>"+data.address+"</td>"                       
-					table+="</tr>"
-					table+="</tbody> </table>"
-					var tek="<div class='card' style='background-color: aqua;'> <div class='card-header header-elements-inline'> <h6 class='card-title'>Colored justified</h6> <div class='header-elements'> <div class='list-icons'> <a class='list-icons-item' data-action='collapse'></a> <a class='list-icons-item' data-action='reload'></a> <a class='list-icons-item' data-action='remove'></a> </div> </div> </div> <div class='card-body'> <ul class='nav nav-tabs nav-tabs-solid bg-teal-400 border-0 nav-justified'> <li class='nav-item'><a href='#colored-justified-tab1' class='nav-link active' data-toggle='tab'>Active</a></li> <li class='nav-item'><a href='#colored-justified-tab2' class='nav-link' data-toggle='tab'>Inactive</a></li> <li class='nav-item dropdown'> <a href='#' class='nav-link dropdown-toggle' data-toggle='dropdown'>Dropdown</a> <div class='dropdown-menu dropdown-menu-right'> <a href='#colored-justified-tab3' class='dropdown-item' data-toggle='tab'>Dropdown tab</a> <a href='#colored-justified-tab4' class='dropdown-item' data-toggle='tab'>Another tab</a> </div> </li> </ul> <div class='tab-content'> <div class='tab-pane fade show active' id='colored-justified-tab1'> To use in tabs with equal widths add <code>.nav-justified .bg-* .border-0</code> classes. </div> <div class='tab-pane fade' id='colored-justified-tab2'> Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid laeggin. </div> <div class='tab-pane fade' id='colored-justified-tab3'> DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg whatever. </div> <div class='tab-pane fade' id='colored-justified-tab4'> Aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthet. </div> </div> </div></div>"
+						table+="</tr>"
+						table+="</tbody> </table>"
+					var	tek="<ul class='nav nav-tabs nav-tabs-solid bg-teal-400 border-0 nav-justified'>"	
+
+					tek+=" <li class='nav-item'><a href='#customer-tab1' class='nav-link active' data-toggle='tab'>Detail</a></li>"
+
+					tek+="<li class='nav-item'><a href='#customer-tab2' class='nav-link' data-toggle='tab'>Contact</a></li>"	
+
+					tek+="<li class='nav-item'><a href='#customer-tab3' class='nav-link' data-toggle='tab'>Category</a></li>"	
+
+					tek+="<li class='nav-item'><a href='#customer-tab4' class='nav-link' data-toggle='tab'>Firm</a></li>"	
+					
+					tek+="<li class='nav-item'><a href='#customer-tab5' class='nav-link' data-toggle='tab'>Product</a></li>"	
+
+					tek+="</ul> <div class='tab-content'> "	
+
+					tek+="<div class='tab-pane fade show active' id='customer-tab1' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td>Customer Name</td> <td>"+data.customerName+"</td> </tr> <tr> <td>Area</td> <td>"+data.area+"</td> </tr> <tr> <td>Status</td> <td>"+data.status+"</td> </tr> <tr> <td>Grade</td> <td>"+data.grade+"</td> </tr> <tr> <td>Pincode</td> <td>"+data.pincode+"</td> </tr> <tr> <td>Address</td> <td>"+data.address+"</td> </tr> <tr> <td>REF_NO_1</td> <td>"+data.referenceNumber1+"</td> </tr> <tr> <td>REF_NO_2</td> <td>"+data.referenceNumber2+"</td> </tr> <tr> <td>Credit Limit</td> <td>"+data.creditLimit+"</td> </tr> <tr> <td>Credit Days</td> <td>"+data.creditDays+"</td> </tr> </table> </div>"
+					
+					tek+="<div class='tab-pane fade' id='customer-tab2' style='text-align:center;'> <h5>"+data.mobileNumber+"</h5> </div> "
+
+					tek+="<div class='tab-pane fade' id='customer-tab3' style='text-align:center;'> <h5>"+data.category+"</h5> </div> "
+					
+					tek+="<div class='tab-pane fade' id='customer-tab4' style='text-align:center;'> <h5>"+data.firm+"</h5> </div> "
+
+					tek+="<div class='tab-pane fade' id='customer-tab5' style='text-align:center;'> <h5>"+ishuProd+"</h5> </div>"
+
+
+
+					tek+="</div>"
+					
 					document.getElementById("ekdin").innerHTML=tek;
 		}
 		else
 		{
-			var table="<h3>Master Customer does not exist</h3>"
+			var table="<h5>Verified Master Customer does not exist</h5>"
 			document.getElementById("ekdin").innerHTML=table;
 		}
 	}

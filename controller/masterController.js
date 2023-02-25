@@ -1,3 +1,5 @@
+const { QueryTypes } = require('sequelize');
+const sequelize = require('../database/connect');
 const masterAreaModel = require('../model/masterAreaModel');
 const masterCategoriesModel = require('../model/masterCategoriesModel');
 const masterCustomerModel = require('../model/masterCustomerModel');
@@ -24,7 +26,8 @@ const getMasterArea =(req,res,next)=>{
             res.render('masterArea',{
                 username : req.session.username,
                 data:data,
-                level: req.session.userLevel
+                level: req.session.userLevel,
+                msg:""
             })
         })
         .catch((err)=>
@@ -72,28 +75,48 @@ const postMasterArea =(req,res,next)=>{
     else
     {
         const area = req.body.area;
-        masterAreaModel.create({
-            area :area
-        })
-        .then((result)=>{
-            console.log(result),
-            console.log('New Master Area added'),
-            masterAreaModel.findAll()
-            .then((data)=>{
-                console.log(data);
-                res.render('masterArea',{
-                    username : req.session.username,
-                    data:data,
-                    level:req.session.userLevel
+        masterAreaModel.findAll(
+            {
+                where : {area : area}
+            }
+        )
+        .then((arearepdata)=>{
+            if(arearepdata.length==0)
+            {
+                masterAreaModel.create({
+                    area :area
                 })
-            })
-            .catch((err)=>
-                console.log(err)
-            )
+                .then((result)=>{
+                    console.log(result),
+                    console.log('New Master Area added'),
+                    res.redirect('/masterArea')
+                })
+                .catch((err)=>
+                    console.log(err)
+                )
+            }
+            else
+            {
+                masterAreaModel.findAll()
+                    .then((data)=>{
+                        console.log(data);
+                        res.render('masterArea',{
+                            username : req.session.username,
+                            data:data,
+                            level:req.session.userLevel,
+                            msg:"Area Already Exists"
+                        })
+                    })
+                    .catch((err)=>
+                        console.log(err)
+                    )
+            }
         })
         .catch((err)=>
-            console.log(err)
-        )
+                console.log(err)
+            )
+        
+        
     }
     
 }
@@ -122,16 +145,17 @@ const getMasterCategories =(req,res,next)=>{
     {
 
         masterCategoriesModel.findAll()
-        .then((data)=>{
-            res.render('masterCategories',{
-                username : req.session.username,
-                data:data,
-                level:req.session.userLevel
+            .then((data)=>{
+                res.render('masterCategories',{
+                    username : req.session.username,
+                    data:data,
+                    level:req.session.userLevel,
+                    msg:""
+                })
             })
-        })
-        .catch((err)=>
-        console.log(err)
-        )
+            .catch((err)=>
+            console.log(err)
+            )
     }
     else 
     {
@@ -169,17 +193,43 @@ const postMasterCategories =(req,res,next)=>{
     }
     else{
         const categoriesType = req.body.categoriesType;
-        masterCategoriesModel.create({
-            categoriesType : categoriesType
+        masterCategoriesModel.findAll(
+            {
+                where : {categoriesType : categoriesType}
+            }
+        )
+        .then((catrepdata)=>{
+            if(catrepdata.length==0)
+            {
+                masterCategoriesModel.create({
+                    categoriesType : categoriesType
+                })
+                .then((result)=>
+                    console.log(result),
+                    console.log('New Master Category added'),
+                    res.redirect('/masterCategories')
+                )
+                .catch((err)=>
+                    console.log(err)
+                )
+            }
+            else 
+            {
+                masterCategoriesModel.findAll()
+                    .then((data)=>{
+                        res.render('masterCategories',{
+                            username : req.session.username,
+                            data:data,
+                            level:req.session.userLevel,
+                            msg:"Category Already Exists"
+                        })
+                    })
+                    .catch((err)=>
+                    console.log(err)
+                    )
+            }
         })
-        .then((result)=>
-            console.log(result),
-            console.log('New Master Category added'),
-            res.redirect('/masterCategories')
-        )
-        .catch((err)=>
-            console.log(err)
-        )
+        
     }
 }
 
@@ -281,6 +331,33 @@ const postMasterCustomer =(req,res,next)=>{
               where: {customerId: req.body.id}
           }
         )
+    }
+    else if(req.body.op==="fil")
+    {
+        console.log(req.body.customerNameFil);
+        console.log(req.body.areaFil);
+        console.log(req.body.statusFil);
+        console.log(req.body.gradeFil);
+        let cust=req.body.customerNameFil;
+        let area=req.body.areaFil;
+        let stat=req.body.statusFil;
+        let grad=req.body.gradeFil;
+
+        sequelize.query("SELECT * FROM master_customers AS master_customer WHERE (customerName IN (CASE WHEN ? !='' THEN (?) ELSE customerName END)) AND (area IN (CASE WHEN ? !='' THEN(?) ELSE area END)) AND (status IN (CASE WHEN ? !='' THEN(?) ELSE status END)) AND (grade IN (CASE WHEN ? !='' THEN(?) ELSE grade END))",
+        {
+            replacements: [cust,cust,area,area,stat,stat,grad,grad],
+            type: QueryTypes.SELECT
+        })
+        .then((dataFil)=>{
+            console.log(dataFil);
+            res.send(dataFil);
+                
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+        
+        
     }
     else {
         console.log("9999999999999999999999999999999999999999999")
@@ -480,7 +557,8 @@ const getMasterEmployee =(req,res,next)=>{
                     areaData:areaData,
                     username : req.session.username,
                     data:data,
-                    level:req.session.userLevel
+                    level:req.session.userLevel,
+                    msg:""
                 })
             })
             .catch((err)=>
@@ -542,6 +620,29 @@ const postMasterEmployee =(req,res,next)=>{
           }
         )
     }
+    else if(req.body.op==="fil")
+    {
+        console.log(req.body.employeeNameFil);
+        console.log(req.body.designationFil);
+        let emp=req.body.employeeNameFil;
+        let des=req.body.designationFil;
+
+        sequelize.query("SELECT * FROM master_employees AS master_employee WHERE (employeeName IN (CASE WHEN ? !='' THEN (?) ELSE employeeName END)) AND (designation IN (CASE WHEN ? !='' THEN(?) ELSE designation END)) ",
+        {
+            replacements: [emp,emp,des,des],
+            type: QueryTypes.SELECT
+        })
+        .then((dataFil)=>{
+            console.log(dataFil);
+            res.send(dataFil);
+                
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+        
+        
+    }
     else 
     {
         const employeeName = req.body.employeeName
@@ -569,42 +670,75 @@ const postMasterEmployee =(req,res,next)=>{
         const reference = req.body.reference
         const gender = req.body.gender
         const photo = req.body.photo
-    
-        masterEmployeeModel.create({
-            employeeName:employeeName,
-            designation:designation,
-            employeeCategories:employeeCategories,
-            dateOfBirth:dateOfBirth,
-            fatherName:fatherName,
-            motherName:motherName,
-            address:address,
-            primaryMobileNumber:primaryMobileNumber,
-            officeMobileNumber:officeMobileNumber,
-            fatherMobileNumber:fatherMobileNumber,
-            motherMobileNumber:motherMobileNumber,
-            spouseName:spouseName,
-            spouseMobileNumber:spouseMobileNumber,
-            emailId:emailId,
-            officeEmailId:officeEmailId,
-            area:area,
-            bankName:bankName,
-            bankAccountNumber:bankAccountNumber,
-            ifscCode:ifscCode,
-            dateOfJoining:dateOfJoining,
-            aadharNumber:aadharNumber,
-            panNumber:panNumber,
-            reference:reference,
-            gender:gender,
-            photo:photo
+
+
+        masterEmployeeModel.findAll(
+            {
+                where : {employeeName : employeeName}
+            }
+        )
+        .then((emprepdata)=>{
+            if(emprepdata.length==0)
+            {
+                masterEmployeeModel.create({
+                    employeeName:employeeName,
+                    designation:designation,
+                    employeeCategories:employeeCategories,
+                    dateOfBirth:dateOfBirth,
+                    fatherName:fatherName,
+                    motherName:motherName,
+                    address:address,
+                    primaryMobileNumber:primaryMobileNumber,
+                    officeMobileNumber:officeMobileNumber,
+                    fatherMobileNumber:fatherMobileNumber,
+                    motherMobileNumber:motherMobileNumber,
+                    spouseName:spouseName,
+                    spouseMobileNumber:spouseMobileNumber,
+                    emailId:emailId,
+                    officeEmailId:officeEmailId,
+                    area:area,
+                    bankName:bankName,
+                    bankAccountNumber:bankAccountNumber,
+                    ifscCode:ifscCode,
+                    dateOfJoining:dateOfJoining,
+                    aadharNumber:aadharNumber,
+                    panNumber:panNumber,
+                    reference:reference,
+                    gender:gender,
+                    photo:photo
+                })
+                .then((result)=>
+                    console.log(result),
+                    console.log('New Master Employee added'),
+                    res.redirect('/masterEmployee')
+                )
+                .catch((err)=>
+                    console.log(err)
+                )
+            }
+            else 
+            {
+                masterAreaModel.findAll()
+                    .then((areaData)=>{
+                        masterEmployeeModel.findAll()
+                        .then((data)=>{
+                            res.render('masterEmployee',{
+                                areaData:areaData,
+                                username : req.session.username,
+                                data:data,
+                                level:req.session.userLevel,
+                                msg:"Employee Already Exists"
+                            })
+                        })
+                        .catch((err)=>
+                        console.log(err)
+                        )
+                    })
+                    .catch((err)=>
+                        console.log(err)
+                    )
+            }
         })
-        .then((result)=>
-            console.log(result),
-            console.log('New Master Employee added'),
-            res.redirect('/masterEmployee')
-        )
-        .catch((err)=>
-            console.log(err)
-        )
     }
 }
 
@@ -632,7 +766,9 @@ const getMasterGrade =(req,res,next)=>{
             res.render('masterGrade',{
                 username : req.session.username,
                 data:data,
-                level:req.session.userLevel})
+                level:req.session.userLevel,
+                msg:""
+            })
         })
         .catch((err)=>
         console.log(err)
@@ -667,17 +803,46 @@ const postMasterGrade =(req,res,next)=>{
     {
         const gradeType = req.body.gradeType;
         console.log(`noooooooooooooooooooooooooooooooooooo ${gradeType}`)
-        masterGradeModel.create({
-            gradeType : gradeType
-        }) 
-        .then((result)=>
-            console.log(result),
-            console.log('New Master Grade added'),
-            res.redirect('/masterGrade')
+       
+        masterGradeModel.findAll(
+            {
+                where : {gradeType : gradeType}
+            }
         )
+        .then((grdrepdata)=>{
+            if(grdrepdata.length==0)
+            {
+                masterGradeModel.create({
+                    gradeType :gradeType
+                })
+                    .then((result)=>
+                        console.log(result),
+                        console.log('New Master Grade added'),
+                        res.redirect('/masterGrade')
+                    )           
+                    .catch((err)=>
+                        console.log(err)
+                    )
+            }
+            else
+            {
+                masterGradeModel.findAll()
+                .then((data)=>{
+                    res.render('masterGrade',{
+                        username : req.session.username,
+                        data:data,
+                        level:req.session.userLevel,
+                        msg:"Grade already present"
+                    })
+                })
+                .catch((err)=>
+                    console.log(err)
+                )
+            }
+        })
         .catch((err)=>
-            console.log(err)
-        )
+                console.log(err)
+            )
     }
 }
 
@@ -706,7 +871,8 @@ const getMasterProducts =(req,res,next)=>{
             res.render('masterProducts',{
                 username : req.session.username,
                 data:data,
-                level:req.session.userLevel
+                level:req.session.userLevel,
+                msg:""
             })
         })
         .catch((err)=>
@@ -740,21 +906,73 @@ const postMasterProducts =(req,res,next)=>{
         }
         )
     }
-    else{
-        const productName = req.body.productName;
-        const productGroup = req.body.productGroup;
-        masterProductsModel.create({
-            productName :productName,
-            productGroup :productGroup
-        }) 
-        .then((result)=>
-            console.log(result),
-            console.log('New Master Product added'),
-            res.redirect('/masterProducts')
-        )
+    else if(req.body.op==="fil")
+    {
+        console.log(req.body.productNameFil);
+        console.log(req.body.productGroupFil);
+        let prd=req.body.productNameFil;
+        let pgrp=req.body.productGroupFil;
+
+        sequelize.query("SELECT * FROM master_products AS master_products WHERE (productName IN (CASE WHEN ? !='' THEN (?) ELSE productName END)) AND (productGroup IN (CASE WHEN ? !='' THEN(?) ELSE productGroup END)) ",
+        {
+            replacements: [prd,prd,pgrp,pgrp],
+            type: QueryTypes.SELECT
+        })
+        .then((dataFil)=>{
+            console.log(dataFil);
+            res.send(dataFil);
+                
+        })
         .catch((err)=>
             console.log(err)
         )
+        
+        
+    }
+    else{
+        const productName = req.body.productName;
+        const productGroup = req.body.productGroup;
+       
+        masterProductsModel.findAll(
+            {
+                where : {productName : productName}
+            }
+        )
+        .then((prdrepdata)=>{
+            if(prdrepdata.length==0)
+            {
+                masterProductsModel.create({
+                    productName :productName,
+                    productGroup :productGroup
+                })
+                    .then((result)=>
+                    console.log(result),
+                    console.log('New Master Product added'),
+                    res.redirect('/masterProducts')
+                    )           
+                    .catch((err)=>
+                        console.log(err)
+                    )
+            }
+            else
+            {
+                masterProductsModel.findAll()
+                .then((data)=>{
+                    res.render('masterProducts',{
+                        username : req.session.username,
+                        data:data,
+                        level:req.session.userLevel,
+                        msg:"Product already present"
+                    })
+                })
+                .catch((err)=>
+                console.log(err)
+                )
+            }
+        })
+        .catch((err)=>
+                console.log(err)
+            )
     }
 }
 
@@ -782,7 +1000,8 @@ const getMasterTeams =(req,res,next)=>{
                     res.render('masterTeams',{
                         username : req.session.username,
                         data:data,
-                        level:req.session.userLevel
+                        level:req.session.userLevel,
+                        msg:""
                     })
                 })
                 .catch((err)=>
@@ -816,22 +1035,75 @@ const postMasterTeams =(req,res,next)=>{
         }
         )
     }
+    else if(req.body.op==="fil")
+    {
+        console.log(req.body.teamMemberFil);
+        console.log(req.body.teamLeaderFil);
+        let mem=req.body.teamMemberFil;
+        let lead=req.body.teamLeaderFil;
+
+        sequelize.query("SELECT * FROM master_teams AS master_teams WHERE (teamMember IN (CASE WHEN ? !='' THEN (?) ELSE teamMember END)) AND (teamLeader IN (CASE WHEN ? !='' THEN(?) ELSE teamLeader END)) ",
+        {
+            replacements: [mem,mem,lead,lead],
+            type: QueryTypes.SELECT
+        })
+        .then((dataFil)=>{
+            console.log(dataFil);
+            res.send(dataFil);
+                
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+        
+        
+    }
     else
     {
         const teamMember = req.body.teamMember;
         const teamLeader = req.body.teamLeader;
-        masterTeamsModel.create({
-            teamMember :teamMember,
-            teamLeader :teamLeader
-        }) 
-        .then((result)=>
-            console.log(result),
-            console.log('New Master Team added'),
-            res.redirect('/masterTeams')
+        
+        masterTeamsModel.findAll(
+            {
+                where : {teamMember : teamMember}
+            }
         )
+        .then((memrepdata)=>{
+            if(memrepdata.length==0)
+            {
+                masterTeamsModel.create({
+                    teamMember :teamMember,
+                    teamLeader :teamLeader
+                })
+                    .then((result)=>
+                        console.log(result),
+                        console.log('New Master Team added'),
+                        res.redirect('/masterTeams')
+                    )           
+                    .catch((err)=>
+                        console.log(err)
+                    )
+            }
+            else
+            {
+                masterTeamsModel.findAll()
+                .then((data)=>{
+                    res.render('masterTeams',{
+                        username : req.session.username,
+                        data:data,
+                        level:req.session.userLevel,
+                        msg:"Member Already Present"
+                    })
+                })
+                .catch((err)=>
+                    console.log(err)
+                )
+            }
+        })
         .catch((err)=>
-            console.log(err)
-        )
+                console.log(err)
+            )
+        
     }
 }
 
@@ -840,7 +1112,6 @@ const postMasterTeams =(req,res,next)=>{
 const getMasterVendors =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
-
         masterAreaModel.findAll()
             .then((areaData)=>{
                 masterVendorsModel.findAll()
@@ -849,7 +1120,8 @@ const getMasterVendors =(req,res,next)=>{
                         areaData:areaData,
                         username : req.session.username,
                         data:data,
-                        level:req.session.userLevel
+                        level:req.session.userLevel,
+                        msg:""
                     })
                 })
                 .catch((err)=>
@@ -883,31 +1155,90 @@ const postMasterVendors =(req,res,next)=>{
         console.log(req.body.id);
         masterVendorsModel.update({
             vendorAddress: req.body.vendorAddress,
-            vendorArea: req.body.vendorArea
+            area: req.body.vendorArea
         },
         {
             where: {vendorId: req.body.id}
         }
         )
     }
+    else if(req.body.op==="fil")
+    {
+        console.log(req.body.vendorAddressFil);
+        console.log(req.body.vendorAreaFil);
+        let add=req.body.vendorAddressFil;
+        let area=req.body.vendorAreaFil;
+
+        sequelize.query("SELECT * FROM master_vendors AS master_vendors WHERE (vendorAddress IN (CASE WHEN ? !='' THEN (?) ELSE vendorAddress END)) AND (area IN (CASE WHEN ? !='' THEN(?) ELSE area END)) ",
+        {
+            replacements: [add,add,area,area],
+            type: QueryTypes.SELECT
+        })
+        .then((dataFil)=>{
+            console.log(dataFil);
+            res.send(dataFil);
+                
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+        
+        
+    }
     else
     {
         // const vendorId = req.body.vendorId;
         const vendorAddress = req.body.vendorAddress;
         const area = req.body.area;
-        masterVendorsModel.create({
-            // vendorId :vendorId,
-            vendorAddress :vendorAddress,
-            area :area
-        }) 
-        .then((result)=>
-            console.log(result),
-            console.log('New Master Vendor added'),
-            res.redirect('/masterVendors')
+       
+        masterVendorsModel.findAll(
+            {
+                where : {vendorAddress : vendorAddress}
+            }
         )
+        .then((venrepdata)=>{
+            if(venrepdata.length==0)
+            {
+                masterVendorsModel.create({
+                    vendorAddress :vendorAddress,
+                    area :area
+                })
+                    .then((result)=>
+                    console.log(result),
+                    console.log('New Master Vendor added'),
+                    res.redirect('/masterVendors')
+                    )           
+                    .catch((err)=>
+                        console.log(err)
+                    )
+            }
+            else
+            {
+                masterAreaModel.findAll()
+                .then((areaData)=>{
+                    masterVendorsModel.findAll()
+                    .then((data)=>{
+                        res.render('masterVendors',{
+                            areaData:areaData,
+                            username : req.session.username,
+                            data:data,
+                            level:req.session.userLevel,
+                            msg:"Vendor Address already exist"
+                        })
+                    })
+                    .catch((err)=>
+                        console.log(err)
+                    )
+                
+            })
+            .catch((err)=>
+                console.log(err)
+            )
+            }
+        })
         .catch((err)=>
-            console.log(err)
-        )
+                console.log(err)
+            )
     }
 }
 

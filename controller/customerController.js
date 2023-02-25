@@ -9,21 +9,19 @@ const masterCustomerModel = require('../model/masterCustomerModel');
 const getCustomerContact =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
-        
         console.log(`User Level :  ${req.session.userLevel}`);
         customerContactModel.findAll()
-        .then((data)=>{
-            console.log(data);
-            res.render('customerContact',{
-                username : req.session.username,
-                data:data,
-                level: req.session.userLevel
+            .then((data)=>{
+                console.log(data);
+                res.render('customerContact',{
+                    username : req.session.username,
+                    data:data,
+                    level: req.session.userLevel
+                })
             })
-        })
-        .catch((err)=>
-        console.log(err)
-        )
-
+            .catch((err)=>
+                console.log(err)
+            )
     }
     else 
     {
@@ -34,15 +32,12 @@ const getCustomerContact =(req,res,next)=>{
 const postCustomerContact =(req,res,next)=>{
     console.log(`check1 ${req.body.id}`);
     console.log(`check2 ${req.body.op}`);
-    console.log(`check3 ${req.body.area}`);
     const id = req.body.id;
     if(req.body.op==="del")
     {
         customerContactModel.destroy({
             where: { customerId : id}
         });
-        res.redirect('/customerContact');
-        
     }
     else if(req.body.op==="edt")
     {
@@ -66,18 +61,7 @@ const postCustomerContact =(req,res,next)=>{
         })
         .then((result)=>{
             console.log(result),
-            customerContactModel.findAll()
-            .then((data)=>{
-                console.log(data);
-                res.render('customerContact',{
-                    username : req.session.username,
-                    data:data,
-                    level:req.session.userLevel
-                })
-            })
-            .catch((err)=>
-                console.log(err)
-            )
+            res.redirect('/customerContact')
         })
         .catch((err)=>
             console.log(err)
@@ -145,18 +129,7 @@ const postCustomerCategory =(req,res,next)=>{
         })
         .then((result)=>{
             console.log(result),
-            customerCategoryModel.findAll()
-            .then((data)=>{
-                console.log(data);
-                res.render('customerCategory',{
-                    username : req.session.username,
-                    data:data,
-                    level:req.session.userLevel
-                })
-            })
-            .catch((err)=>
-                console.log(err)
-            )
+            res.redirect('/customerCategory')
         })
         .catch((err)=>
             console.log(err)
@@ -209,7 +182,6 @@ const postCustomerFirm =(req,res,next)=>{
         customerFirmModel.destroy({
             where: { customerId : id}
         });
-        res.redirect('/customerFirm');
         
     }
     else if(req.body.op==="edt")
@@ -234,18 +206,7 @@ const postCustomerFirm =(req,res,next)=>{
         })
         .then((result)=>{
             console.log(result),
-            customerFirmModel.findAll()
-            .then((data)=>{
-                console.log(data);
-                res.render('customerFirm',{
-                    username : req.session.username,
-                    data:data,
-                    level:req.session.userLevel
-                })
-            })
-            .catch((err)=>
-                console.log(err)
-            )
+            res.redirect('/customerFirm')
         })
         .catch((err)=>
             console.log(err)
@@ -299,14 +260,7 @@ const postCustomerProduct =(req,res,next)=>{
     {
         customerProductModel.destroy({
             where: { customerId : id}
-        })
-        .then((result)=>
-            console.log("kios check"),
-            res.redirect('/customerProduct')
-        )
-        .catch((err)=>
-            console.log(err)
-        )
+        });
         
     }
     else if(req.body.op==="edt")
@@ -332,18 +286,7 @@ const postCustomerProduct =(req,res,next)=>{
         })
         .then((result)=>{
             console.log(result),
-            customerProductModel.findAll()
-            .then((data)=>{
-                console.log(data);
-                res.render('customerProduct',{
-                    username : req.session.username,
-                    data:data,
-                    level:req.session.userLevel
-                })
-            })
-            .catch((err)=>
-                console.log(err)
-            )
+            res.redirect('/customerProduct')
         })
         .catch((err)=>
             console.log(err)

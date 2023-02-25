@@ -10,6 +10,8 @@ const masterCustomerModel = require('../model/masterCustomerModel');
 const masterProductsModel = require('../model/masterProductsModel');
 const masterTeamsModel = require('../model/masterTeamsModel');
 const customerContactModel = require('../model/customerContactModel');
+const customerCategoryModel = require('../model/customerCategoryModel');
+const customerFirmModel = require('../model/customerFirmModel');
 const customerProductModel = require('../model/customerProductModel');
 
 
@@ -170,7 +172,6 @@ const postMarketPlanPigIron = (req,res,next)=>{
     {
         console.log(req.body.serialNumber);
         marketPlanPigIronModel.update({
-            customerName: req.body.customerName,
             area: req.body.area,
             grade: req.body.grade,
             category: req.body.category,
@@ -193,52 +194,58 @@ const postMarketPlanPigIron = (req,res,next)=>{
     }
     else if(req.body.op==="cinf")
     {
-        console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
         console.log(req.body.value);
-        console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
         
         customerContactModel.findAll({
             where : {customerName : req.body.value}
         })
-        .then((cntctdata)=>{
-            console.log("oooooooooooooooooooooooooooooooooooooooo")           
-            console.log(cntctdata[0].dataValues)           
+        .then((cntctdata)=>{        
             masterCustomerModel.findAll({
                 where : {customerName : req.body.value}
             })
             .then((data)=>
             {
-                console.log(data[0].dataValues)
                 // Object.assign(cntctdata, data);
                 customerProductModel.findAll({
                     where : {customerName : req.body.value}
                 })
-                .then((prdctdata)=>{      
-                    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-                    console.log(prdctdata[0].product)
-                    console.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
-                    console.log(prdctdata[1])
-                    let sub=[];
-                    for(let i=0;i<prdctdata.length;i++)
-                    {
-                        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                        console.log(prdctdata[i])
-                        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                    }
-                    // Object.assign(prdctdata, data);
-                    let sData = {
-                        ...data[0].dataValues,
-                        ...cntctdata[0].dataValues
-                    };
-                    let fData = { 
-                        ...sData,
-                        ...prdctdata
-                    }
-                    console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")           
-                    console.log(sData)
-                    console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")           
-                    console.log(fData)
-                    res.send(fData)
+                .then((prdctdata)=>{
+                    customerCategoryModel.findAll({
+                        where : {customerName : req.body.value}
+                    })    
+                    .then((catdata)=>{
+                        customerFirmModel.findAll({
+                            where : {customerName : req.body.value}
+                        })
+                        .then((firmData)=>{
+                            if(data.length!=0 && cntctdata.length!=0 && prdctdata.length!=0 && catdata.length!=0  )
+                            {
+                                let sData = {
+                                    ...data[0].dataValues,
+                                    ...cntctdata[0].dataValues,
+                                    ...catdata[0].dataValues,
+                                    ...firmData[0].dataValues
+                                };
+                                let fData = { 
+                                    ...sData,
+                                    ...prdctdata
+                                }
+                                console.log(sData)          
+                                console.log(fData)
+                                res.send(fData)
+                            }
+                            else
+                            {
+                                res.send(null)
+                            }
+                        })
+                        .catch((err)=>{
+                            console.log(err);
+                        })    
+                    })
+                    .catch((err)=>{
+                        console.log(err);
+                    })  
                 })
                 .catch((err)=>{
                     console.log(err);
@@ -251,7 +258,6 @@ const postMarketPlanPigIron = (req,res,next)=>{
         .catch((err)=>{
             console.log(err)
         })
-        // res.send("kaam aka data")
     
         
     }
@@ -285,6 +291,7 @@ const postMarketPlanPigIron = (req,res,next)=>{
         if(req.session.userLevel==1)
         {
             sequelize.query("SELECT * FROM market_plan_pig_irons AS market_plan_pig_iron WHERE (customerName IN (CASE WHEN ? !='' THEN (?) ELSE customerName END)) AND (area IN (CASE WHEN ? !='' THEN(?) ELSE area END)) AND (grade IN (CASE WHEN ? !='' THEN(?) ELSE grade END)) AND (category IN (CASE WHEN ? !='' THEN(?) ELSE category END)) AND (product IN (CASE WHEN ? !='' THEN(?) ELSE product END)) AND (representative IN (CASE WHEN ? !='' THEN(?) ELSE representative END)) AND (representative IN (CASE WHEN ? !='' THEN(?) ELSE representative END))",
+            
             {
                 replacements: [cust,cust,area,area,grad,grad,cate,cate,prod,prod,represent,represent,repUser,repUser],
                 type: QueryTypes.SELECT
@@ -329,6 +336,7 @@ const postMarketPlanPigIron = (req,res,next)=>{
         const representative = req.body.representative;
         const phoneNumber = req.body.phoneNumber;
         const meetingDates = req.body.meetingDates;
+        const lastDelivery = req.body.lastDelivery;
         const currentRemark = req.body.currentRemark;
         const remarkStatus = req.body.remarkStatus;
         const nextDate = req.body.nextDate;
@@ -345,6 +353,7 @@ const postMarketPlanPigIron = (req,res,next)=>{
             representative: representative,
             phoneNumber: phoneNumber,
             meetingDates: meetingDates,
+            lastDelivery: lastDelivery,
             currentRemark: currentRemark,
             remarkStatus: remarkStatus,
             nextDate: nextDate,

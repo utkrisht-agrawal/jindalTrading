@@ -13,100 +13,76 @@ const masterEmployeeModel = sequelize.define('master_employee',{
         allowNull: false
     },
     designation: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     employeeCategories: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     dateOfBirth: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     fatherName: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     motherName: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     address: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     primaryMobileNumber: {
-        type: Sequelize.BIGINT,
-        allowNull: true
+        type: Sequelize.BIGINT
     },
     officeMobileNumber: {
         type: Sequelize.INTEGER,
-        allowNull: true
     },
     fatherMobileNumber: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     },
     motherMobileNumber: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     },
     spouseName: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     spouseMobileNumber: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     },
     emailId: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     officeEmailId: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     area: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     bankName: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     bankAccountNumber: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     },
     ifscCode: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     },
     dateOfJoining: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     },
     aadharNumber: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     },
     panNumber: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+        type: Sequelize.INTEGER
     },
     reference: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     gender: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     },
     photo: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
     }
 },{
     timestamps: false
