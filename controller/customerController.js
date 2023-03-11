@@ -99,12 +99,12 @@ const postCustomerCategory =(req,res,next)=>{
     console.log(`check1 ${req.body.customerName}`);
     console.log(`check2 ${req.body.category}`);
     const id = req.body.id;
+    console.log(`check3  ${id}`);
     if(req.body.op==="del")
     {
         customerCategoryModel.destroy({
             where: { customerId : id}
         });
-        res.redirect('/customerCategory');
         
     }
     else if(req.body.op==="edt")

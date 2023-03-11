@@ -366,7 +366,7 @@
 												<td class="lastDelivery" contenteditable="true"><%= data[i].lastDelivery%></td>
 												<td class="representative" >
 													<select name="repSelect" class="repSelect">
-														<option value="<%= data[i].product%>"><%= data[i].representative%></option>
+														<option value="<%= data[i].representative%>"><%= data[i].representative%></option>
 														<% for(var j=0; j<teamData.length; j++) {%>
 															<option value="<%=teamData[j].teamMember%>"><%=teamData[j].teamMember%></option>
 														<% } %>
@@ -1285,6 +1285,7 @@
             op:"cinf"
         },
         function (data, status) {
+			console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
             console.log(data);
 			console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 			// console.log(Object.keys(data).length)
@@ -1297,18 +1298,20 @@
 
 	function custmod(data)
 	{
-		console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
+		// console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
 		if(data)
 		{
-			console.log("---------------------------------------------------------------------------")
-			console.log(data)
-			console.log("---------------------------------------------------------------------------")
+			// console.log("---------------------------------------------------------------------------")
+			// console.log(data)
+			// console.log("---------------------------------------------------------------------------")
 			var index=Object.keys(data).length;
 			console.log(index)
 			index=index-17;
 			var ishuProd="";
 			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-			console.log(ishuProd);
+			var holiname=data[0].customerId
+			console.log(holiname);
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 			for(let i=0;i<=index;i++)
 			{
 				if(i>0)
@@ -1317,9 +1320,9 @@
 					// ishuProd+="<br>"
 				}
 				ishuProd=ishuProd.concat(data[i].product)
-				console.log(ishuProd);
+				// console.log(ishuProd);
 			}
-			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+			// console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>  <tbody> "
 					
 					table+="<tr> "
@@ -1358,6 +1361,8 @@
 					tek+="<li class='nav-item'><a href='#customer-tab4' class='nav-link' data-toggle='tab'>Firm</a></li>"	
 					
 					tek+="<li class='nav-item'><a href='#customer-tab5' class='nav-link' data-toggle='tab'>Product</a></li>"	
+					
+					tek+="<li class='nav-item' onclick='holi'><a href='#customer-tab6' class='nav-link' data-toggle='tab' onclick='holi("+holiname+")' >Report</a></li>"	
 
 					tek+="</ul> <div class='tab-content'> "	
 
@@ -1370,7 +1375,8 @@
 					tek+="<div class='tab-pane fade' id='customer-tab4' style='text-align:center;'> <h5>"+data.firm+"</h5> </div> "
 
 					tek+="<div class='tab-pane fade' id='customer-tab5' style='text-align:center;'> <h5>"+ishuProd+"</h5> </div>"
-
+					
+					tek+="<div class='tab-pane fade' id='customer-tab6' style='text-align:center;'> </div>"
 
 
 					tek+="</div>"
@@ -1381,6 +1387,55 @@
 		{
 			var table="<h5>Verified Master Customer does not exist</h5>"
 			document.getElementById("ekdin").innerHTML=table;
+		}
+	}
+	
+	function holi (value)
+	{
+		console.log("hhhhhhhhhhhhhhooooooooooooooolllllllllliiiiiiiiii");
+		console.log(value);
+		$.post("/marketPlanPigIron",
+        {
+            value:value,
+            op:"marktrep"
+        },
+        function (data, status) {
+			console.log("***********************************************")
+            console.log(data);
+			console.log("***********************************************")
+			markrep(data);
+            console.log(status);
+        }
+		)
+	}
+
+	function markrep(repdata)
+	{
+		console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
+		console.log(repdata)
+		if(repdata)
+		{
+			var holi="<table class='table repdatatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>";
+			
+			holi+="<thead> <tr> <th>area</th> <th>product</th> <th>lastDelivery</th> <th>representative</th> <th>currentIssue</th> </tr> </thead>";
+			
+			for(var i=0; i<repdata.length; i++)
+			{
+				holi+="<tr>"
+				holi+="<td >"+ repdata[i].area+"</td>"
+				holi+="<td >"+ repdata[i].product+"</td>"
+				holi+="<td >"+ repdata[i].lastDelivery+"</td>"
+				holi+="<td >"+ repdata[i].representative+"</td>"
+				holi+="<td >"+ repdata[i].currentIssue+"</td>"
+				holi+="</tr>"
+			}
+			holi+="</table>";
+			document.getElementById("customer-tab6").innerHTML=holi;
+		}
+		else
+		{
+			var holi="<h3>NO data </h3>";
+			document.getElementById("customer-tab6").innerHTML=holi;
 		}
 	}
 </script>

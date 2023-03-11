@@ -159,14 +159,12 @@ const postMarketPlanPigIron = (req,res,next)=>{
         marketPlanPigIronModel.destroy({
             where: { serialNumber : id}
         })
-        .then((result)=>
-            console.log("kios check"),
-            res.redirect('/marketPlanPigIron'),
-            console.log("kios check2")
-        )
-        .catch((err)=>
-        console.log(err)
-    )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="edt")
     {
@@ -176,6 +174,7 @@ const postMarketPlanPigIron = (req,res,next)=>{
             grade: req.body.grade,
             category: req.body.category,
             product: req.body.product,
+            lastDelivery: req.body.lastDelivery,
             representative: req.body.representative,
             phoneNumber: req.body.phoneNumber,
             meetingDates: req.body.meetingDates,
@@ -191,6 +190,38 @@ const postMarketPlanPigIron = (req,res,next)=>{
             where: {serialNumber: req.body.id}
         }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+    else if(req.body.op==="marktrep")
+    {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        customerProductModel.findAll({
+            where : {customerId : req.body.value}
+        })
+        .then((holidata)=>{
+            console.log(holidata);
+            let custname=holidata[0].customerName;
+            marketPlanPigIronModel.findAll({
+                where : {customerName : custname}
+            })
+            .then((reprtData)=>
+            {
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                console.log(reprtData)
+                res.send(reprtData)
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="cinf")
     {
@@ -218,26 +249,48 @@ const postMarketPlanPigIron = (req,res,next)=>{
                             where : {customerName : req.body.value}
                         })
                         .then((firmData)=>{
-                            if(data.length!=0 && cntctdata.length!=0 && prdctdata.length!=0 && catdata.length!=0  )
-                            {
-                                let sData = {
-                                    ...data[0].dataValues,
-                                    ...cntctdata[0].dataValues,
-                                    ...catdata[0].dataValues,
-                                    ...firmData[0].dataValues
-                                };
-                                let fData = { 
-                                    ...sData,
-                                    ...prdctdata
+                            marketPlanPigIronModel.findAll({
+                                where : {customerName : req.body.value}
+                            })
+                            .then((reprtData)=>{
+                                console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                console.log(prdctdata);
+                                console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                                console.log(reprtData);
+                                console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                               if(data.length!=0 && cntctdata.length!=0 && prdctdata.length!=0 && catdata.length!=0  )
+                                {
+                                    let sData = {
+                                        ...data[0].dataValues,
+                                        ...cntctdata[0].dataValues,
+                                        ...catdata[0].dataValues,
+                                        ...firmData[0].dataValues
+                                    };
+                                    let fData = { 
+                                        ...sData,
+                                        ...prdctdata
+                                    }
+                                    let tData = { 
+                                        ...fData,
+                                        ...reprtData
+                                    }
+                                    console.log("----------------------------------------------")        
+                                    console.log(sData)  
+                                    console.log("----------------------------------------------")        
+                                    console.log(fData)
+                                    console.log("----------------------------------------------")        
+                                    console.log(tData)
+                                    console.log("----------------------------------------------")        
+                                    res.send(fData)
                                 }
-                                console.log(sData)          
-                                console.log(fData)
-                                res.send(fData)
-                            }
-                            else
-                            {
-                                res.send(null)
-                            }
+                                else
+                                {
+                                    res.send(null)
+                                }
+                            })
+                            .catch((err)=>{
+                                console.log(err);
+                            })
                         })
                         .catch((err)=>{
                             console.log(err);

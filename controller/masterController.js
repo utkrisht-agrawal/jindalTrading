@@ -50,31 +50,63 @@ const postMasterArea =(req,res,next)=>{
     {
         masterAreaModel.destroy({
             where: { areaId : id}
-        });
-        res.redirect('/masterArea');
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
     }
     else if(req.body.op==="edt")
     {
         console.log("new yr");
         masterAreaModel.update({
-            area: req.body.area
-          },
-          {
-              where: {areaId: req.body.id}
-          }
-        )
-        masterCategoriesModel.update({
-            categoriesType: req.body.categoriesType
+            area: req.body.eArea,
+            district: req.body.eDistrict,
+            zone: req.body.eZone
         },
         {
-            where: {categoriesId: req.body.id}
-        }
+            where: {areaId: req.body.id}
+        })
+        .then((qwe)=>{
+            res.send(qwe)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        
+    }
+    else if(req.body.op==="fil")
+    {
+        console.log(req.body.areaFil);
+        console.log(req.body.districtFil);
+        let areaFil=req.body.areaFil;
+        let districtFil=req.body.districtFil;
+        let zoneFil=req.body.zoneFil;
+
+        sequelize.query("SELECT * FROM master_areas AS master_area WHERE (area IN (CASE WHEN ? !='' THEN (?) ELSE area END)) AND (district IN (CASE WHEN ? !='' THEN(?) ELSE district END)) AND (zone IN (CASE WHEN ? !='' THEN(?) ELSE zone END))",
+        {
+            replacements: [areaFil,areaFil,districtFil,districtFil,zoneFil,zoneFil],
+            type: QueryTypes.SELECT
+        })
+        .then((dataFil)=>{
+            console.log(dataFil);
+            res.send(dataFil);
+                
+        })
+        .catch((err)=>
+            console.log(err)
         )
+        
+        
     }
     else
     {
         const area = req.body.area;
+        const district = req.body.district;
+        const zone = req.body.zone;
         masterAreaModel.findAll(
             {
                 where : {area : area}
@@ -84,7 +116,9 @@ const postMasterArea =(req,res,next)=>{
             if(arearepdata.length==0)
             {
                 masterAreaModel.create({
-                    area :area
+                    area :area,
+                    district :district,
+                    zone :zone
                 })
                 .then((result)=>{
                     console.log(result),
@@ -171,25 +205,28 @@ const postMasterCategories =(req,res,next)=>{
         masterCategoriesModel.destroy({
             where: { categoriesId : id}
         })
-        .then((result)=>
-            console.log("kios check"),
-            res.redirect('/masterCategories'),
-            console.log("kios check2")
-        )
-        .catch((err)=>
-        console.log(err)
-    )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="edt")
     {
-        console.log(req.body.categoriesType);
+        console.log(req.body.ecategory);
         masterCategoriesModel.update({
-            categoriesType: req.body.categoriesType
+            categoriesType: req.body.ecategory
         },
         {
             where: {categoriesId: req.body.id}
-        }
-        )
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else{
         const categoriesType = req.body.categoriesType;
@@ -304,10 +341,17 @@ const getMasterCustomer =(req,res,next)=>{
 
 const postMasterCustomer =(req,res,next)=>{
     var id = req.body.id;
+    
     if(req.body.op==="del")
     {
         masterCustomerModel.destroy({
             where: { customerId : id}
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
         })
     }
     
@@ -331,6 +375,12 @@ const postMasterCustomer =(req,res,next)=>{
               where: {customerId: req.body.id}
           }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="fil")
     {
@@ -782,22 +832,34 @@ const getMasterGrade =(req,res,next)=>{
 
 const postMasterGrade =(req,res,next)=>{
     var id = req.body.id;
+    
     if(req.body.op==="del")
     {
         masterGradeModel.destroy({
             where: { gradeId : id}
         })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="edt")
     {
-        console.log(req.body.gradeType);
+        console.log(req.body.egrade);
         masterGradeModel.update({
-            gradeType: req.body.gradeType
+            gradeType: req.body.egrade
         },
         {
             where: {gradeId: req.body.id}
-        }
-        )
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else
     {
@@ -887,24 +949,38 @@ const getMasterProducts =(req,res,next)=>{
 
 const postMasterProducts =(req,res,next)=>{
     var id = req.body.id;
+    
+    
     if(req.body.op==="del")
     {
         masterProductsModel.destroy({
             where: { productId : id}
         })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="edt")
     {
-        console.log(req.body.productGroup);
+        console.log(req.body.eproductGroup);
         console.log(req.body.id);
         masterProductsModel.update({
-            productName: req.body.productName,
-            productGroup: req.body.productGroup
+            productName: req.body.eproductName,
+            productGroup: req.body.eproductGroup
         },
         {
             where: {productId: req.body.id}
         }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="fil")
     {
@@ -1015,25 +1091,38 @@ const getMasterTeams =(req,res,next)=>{
 }
 const postMasterTeams =(req,res,next)=>{
     var id = req.body.id;
+    
     if(req.body.op==="del")
     {
         masterTeamsModel.destroy({
             where: { teamId : id}
         })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="edt")
     {
-        console.log(req.body.teamMember);
-        console.log(req.body.teamLeader);
+        console.log(req.body.eteamMember);
+        console.log(req.body.eteamLeader);
         console.log(req.body.id);
         masterTeamsModel.update({
-            teamMember: req.body.teamMember,
-            teamLeader: req.body.teamLeader
+            teamMember: req.body.eteamMember,
+            teamLeader: req.body.eteamLeader
         },
         {
             where: {teamId: req.body.id}
         }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="fil")
     {
@@ -1109,6 +1198,12 @@ const postMasterTeams =(req,res,next)=>{
 
 
 
+
+
+
+
+
+
 const getMasterVendors =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
@@ -1142,25 +1237,38 @@ const getMasterVendors =(req,res,next)=>{
 
 const postMasterVendors =(req,res,next)=>{
     var id = req.body.id;
+    
     if(req.body.op==="del")
     {
         masterVendorsModel.destroy({
             where: { vendorId : id}
         })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="edt")
     {
-        console.log(req.body.vendorArea);
-        console.log(req.body.vendorAddress);
+        console.log(req.body.evendorArea);
+        console.log(req.body.evendorAddress);
         console.log(req.body.id);
         masterVendorsModel.update({
-            vendorAddress: req.body.vendorAddress,
-            area: req.body.vendorArea
+            vendorAddress: req.body.evendorAddress,
+            area: req.body.evendorArea
         },
         {
             where: {vendorId: req.body.id}
         }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="fil")
     {

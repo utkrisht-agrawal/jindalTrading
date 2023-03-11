@@ -269,10 +269,12 @@
 
 							<% if(data.length>0) {%>
 									
-								<table  id='tbl' class="table datatable-basic table-bordered table-striped table-hover">
+								<table  class="table datatable-basic table-bordered table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Area</th>
+											<th>District</th>
+											<th>Zone</th>
 											<% if(level>2) {%>
 												<th>Edit</th>
 												<th>Delete</th>
@@ -288,20 +290,27 @@
 										<tr class="<%= data[i].areaId%>apnaarea">
 											<%if(level==1) {%>
 												<td class="area"><%= data[i].area%></td>
+												<td class="district"><%= data[i].district%></td>
+												<td class="zone"><%= data[i].zone%></td>
 											<%} else if(level>2) {%>
-												<td class="area" contenteditable="true"><%= data[i].area%></td>
+												<td class="area" ><%= data[i].area%></td>
+												<td class="district" ><%= data[i].district%></td>
+												<td class="zone" ><%= data[i].zone%></td>
 												<td>
-													<button onclick="edit('<%= data[i].areaId%>apnaarea')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].area%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].areaId%>apnaarea')" title="Edit <%= data[i].area%>" data-trigger="hover" data-content="Click to change data">Edit</button>
 												</td>
+												
 												<td>
-													<button onclick="del('<%= data[i].areaId %>')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].area%>" data-trigger="hover" data-content="Click Delete Button to remove Master Area and reload page to see changes">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].areaId%>apnaarea')" title="Delete <%= data[i].area%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
 												</td>
 												
 													
 											<%}else if(level>1){%>
-												<td class="area" contenteditable="true"><%= data[i].area%></td>
+												<td class="area" ><%= data[i].area%></td>
+												<td class="district" ><%= data[i].district%></td>
+												<td class="zone" ><%= data[i].zone%></td>
 												<td>
-												<button onclick="edit('<%= data[i].areaId%>apnaarea')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].area%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].areaId%>apnaarea')" title="Edit <%= data[i].area%>" data-trigger="hover" data-content="Click to change data">Edit</button>
 												</td>
 											<%}%> 
 										</tr>
@@ -314,7 +323,41 @@
 							<%}%>
 
 
-							<button class="btn-link" onclick=exportData()>Download</button>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-2">
+										<label for="area" class="form-control"><span class="font-weight-semibold">area</span></label>
+										<select name="area" class="form-control multiselect-filtering area" id="areaFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].area%>"><%=data[i].area%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2" >
+										<label for="district" class="form-control"><span class="font-weight-semibold">district</span></label>
+										<select name="district" class="form-control multiselect-filtering district" id="districtFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].district%>"><%=data[i].district%></option>
+                                            <% } %>	
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<label for="zone" class="form-control"><span class="font-weight-semibold">zone</span></label>
+										<select name="zone" class="form-control multiselect-filtering  zone" id="zoneFil" multiple="multiple" data-fouc>
+                                            <% for(var i=0; i<data.length; i++) {%>
+                                                <option value="<%=data[i].zone%>"><%=data[i].zone%></option>
+                                            <% } %>	
+										</select>
+									</div>																	
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<button onclick="fil()" class="form-control bg-teal-400" type="button">Filter</button>
+								</div>
+							</div>
+							<div class="card" style="overflow-x: auto;" id="koiBhi"></div>
+							<div class="card" style="overflow-x: auto;" id="chlna"></div>
 							
 							<!-- Vertical form modal -->
 							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
@@ -329,19 +372,72 @@
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-6">
+											            <div class="col-sm-4">
 												            <label>Area<span class="text-danger">*</span></label>
 												            <input type="text" placeholder="area" class="form-control area" required name="area" id="area">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>district<span class="text-danger">*</span></label>
+												            <input type="text" placeholder="district" class="form-control district" required name="district" id="district">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>zone<span class="text-danger">*</span></label>
+												            <input type="text" placeholder="zone" class="form-control zone" required name="zone" id="zone">
 											            </div>
 										            </div>
 									            </div>
 								            </div>
 
 								            <div class="modal-footer">
-									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									            <button type="submit" class="btn bg-primary">Add</button>
+									            <button type="button" style='color:teal' class="btn btn-link" data-dismiss="modal">Close</button>
+									            <button type="submit" class="btn  bg-teal-400">Add</button>
 								            </div>
 							            </form>
+						            </div>
+					            </div>
+				            </div>
+
+
+
+
+							<!-- EDIT modal -->
+							<div id="modal_edit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Master Area</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="off">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+							
+							
+							
+							<!-- DEL modal -->
+							<div id="modal_del" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Delete Master Area</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blasto">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="offo">
+									        
+								        </div>
 						            </div>
 					            </div>
 				            </div>
@@ -374,8 +470,8 @@
 
 <script>
     if ( window.history.replaceState ) {
-  window.history.replaceState( null, null, window.location.href );
-}
+ 		window.history.replaceState( null, null, window.location.href );
+	}
 
     function del(value)
     {
@@ -388,10 +484,64 @@
             function (data, status) {
                 console.log(data);
                 console.log(status);
+				setInterval('refreshPage()', 50);
             }
             );
     }
 	function edit(value)
+    {
+		console.log(value);
+        var eArea = document.getElementById("eArea").value;
+		console.log(eArea);
+        var eDistrict = document.getElementById("eDistrict").value;
+		console.log(eDistrict);
+        var eZone = document.getElementById("eZone").value;
+		console.log(eZone);
+        
+		$.post("/masterArea",
+            {
+                id: value,
+                eArea: eArea,
+                eDistrict: eDistrict,
+                eZone: eZone,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+				setInterval('refreshPage()', 50);
+
+            }
+            );
+
+        // $('.'+value).each(function() 
+        // {   
+        //     var area = $(this).find(".earea").html();    
+        //     console.log(area);
+        //     var district = $(this).find(".edistrict").html();    
+        //     console.log(district);
+        //     var zone = $(this).find(".ezone").html();    
+        //     console.log(zone);
+        //     console.log("ujjwal");
+        //     $.post("/masterArea",
+        //     {
+        //         id: result,
+        //         area: area,
+        //         op:"edt"
+        //     },
+        //     function (data, status) {
+        //         console.log(data);
+        //         console.log(status);
+        //     }
+        //     );
+        // });
+    }
+
+	function refreshPage() {
+    	location.reload(true);
+	}
+
+	function eedit(value)
     {
         console.log(value);
         var sub = 'apnaarea';
@@ -401,24 +551,99 @@
         $('.'+value).each(function() 
         {   
             var area = $(this).find(".area").html();    
+            var district = $(this).find(".district").html();    
+            var zone = $(this).find(".zone").html();    
             console.log(area);
-            console.log("ujjwal");
-            $.post("/masterArea",
-            {
-                id: result,
-                area: area,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
+            console.log(district);
+            console.log(zone);
+			console.log(result)
+
+
+            var tek = "<div class='card' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td >AREA</td> <td><input type='text' value="+area+" class='form-control eArea' name='eArea' id='eArea'></td> </tr> <tr> <td>DISTRICT</td> <td><input type='text' value="+district+" class='form-control eDistrict' name='eDistrict' id='eDistrict'> </tr> <tr> <td>ZONE</td><td><input type='text' value="+zone+" class='form-control eZone' name='eZone' id='eZone'> </tr> </table> </div>"
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			document.getElementById("blast").innerHTML=tek;
+			document.getElementById("off").innerHTML=bt;
+		});
     }
 
+	function ddel(value)
+    {
+        console.log(value);
+        var sub = 'apnaarea';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+            var area = $(this).find(".area").html();    
+            var district = $(this).find(".district").html();    
+            var zone = $(this).find(".zone").html();    
+            console.log(area);
+            console.log(district);
+            console.log(zone);
+			console.log(result)
 
-	function exportData(){
+
+            var tek = "<div class='card' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td >AREA</td> <td>"+area+"</td> </tr> <tr> <td>DISTRICT</td> <td>"+district+" </td> </tr> <tr> <td>ZONE</td><td>"+zone+"</td> </tr> </table> </div>"
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
+			console.log("Ujjwal")
+			document.getElementById("blasto").innerHTML=tek;
+			document.getElementById("offo").innerHTML=bt;
+		});
+    }
+
+	function fil()
+		{
+			var areaFil = document.getElementById("areaFil").value;
+			var districtFil = document.getElementById("districtFil").value;
+			var zoneFil = document.getElementById("zoneFil").value;
+			
+			console.log(areaFil);
+			console.log(districtFil);
+			console.log(zoneFil);
+			
+			console.log("ujjwal");
+        $.post("/masterArea",
+        {
+			areaFil: areaFil,
+            districtFil: districtFil,
+            zoneFil: zoneFil,
+            op:"fil"
+        },
+        function (dataFil, status) {
+			console.log("filter kios");
+            console.log(dataFil);
+			check(dataFil);
+            console.log(status);
+        }
+        );
+    }
+
+	function check(tableData)
+		{
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>area</th> <th>district</th> <th>zone</th></thead> <tbody> "
+			for(var i=0;i<tableData.length;i++)
+			{
+
+				table+="<tr> "
+					table+="<td class='area'>"+tableData[i].area+"</td>"	
+					table+="<td class='district'>"+tableData[i].district+"</td>"	                   
+					table+="<td class='zone'>"+tableData[i].zone+"</td>"	                   
+				table+="</tr>"
+			}
+			table+="</tbody> </table>"
+			document.getElementById("koiBhi").innerHTML=table;
+			var button = "<button class='btn-link teal-400' style='color:teal' onclick=exportData()> Download list</button>"
+			document.getElementById("chlna").innerHTML=button;
+
+		}
+
+	function exportData()
+	{
 			console.log("a")
 			
 			var table = document.getElementById("tbl");
@@ -431,9 +656,13 @@
 			for(var i=0,row; row = table.rows[i];i++){
 				
 				column1 = row.cells[0].innerText;
+				column2 = row.cells[1].innerText;
+				column3 = row.cells[2].innerText;
 				rows.push(
 					[
-						column1
+						column1,
+						column2,
+						column3
 					]
 				);
  
@@ -453,4 +682,6 @@
 			document.body.appendChild(link);
 			link.click();
 	}
+
+
     </script>`

@@ -288,19 +288,19 @@
                                                 <td class="productName"><%= data[i].productName%></td>
                                                 <td class="productGroup"><%= data[i].productGroup%></td>
                                             <%} else if(level>2) {%>
-                                                <td class="productName" contenteditable="true"><%= data[i].productName%></td>
-                                                <td class="productGroup" contenteditable="true"><%= data[i].productGroup%></td>
+                                                <td class="productName"><%= data[i].productName%></td>
+                                                <td class="productGroup"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].productId%>product')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].productName%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].productId%>product')"data-popup="popover" title="Edit <%= data[i].productName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button onclick="del('<%= data[i].productId %>')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].productName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Product and reload page to see changes">Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].productId%>product')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].productName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
-                                                <td class="productName" contenteditable="true"><%= data[i].productName%></td>
-                                                <td class="productGroup" contenteditable="true"><%= data[i].productGroup%></td>
+                                                <td class="productName"><%= data[i].productName%></td>
+                                                <td class="productGroup"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].productId%>product')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].productName%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].productId%>product')"data-popup="popover" title="Edit <%= data[i].productName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                             <%}%>
                                         </tr>
@@ -373,6 +373,60 @@
 						            </div>
 					            </div>
 				            </div>
+
+
+
+
+
+
+							<!-- EDIT modal -->
+							<div id="modal_edit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Master Product</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="off">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+							
+							
+							
+							<!-- DEL modal -->
+							<div id="modal_del" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Delete Master Product</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blasto">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="offo">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+
+
+
+
+
+
+
 			            </div>
 		            </div>
 					
@@ -398,6 +452,12 @@
 
 
 <script>
+	
+	
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+		}
+	
     function del(value)
     {
         console.log(value);
@@ -405,18 +465,48 @@
             {
                 id: value,
                 op:"del"
+            },	
+            function (data, status) {
+                console.log(data);	
+                console.log(status);
+				setInterval('refreshPage()', 50);
+            }
+            );
+    }		
+	
+
+    function edit(value)
+    {
+        
+		console.log(value);
+        var eproductName = document.getElementById("eproductName").value;
+		console.log(eproductName);
+        var eproductGroup = document.getElementById("eproductGroup").value;
+		console.log(eproductGroup);
+        
+        $.post("/masterProducts",
+            {
+                id: value,
+                eproductName: eproductName,
+                eproductGroup: eproductGroup,
+                op:"edt"
             },
             function (data, status) {
                 console.log(data);
                 console.log(status);
+				setInterval('refreshPage()', 50);
             }
-            );
+		);
+
     }
-</script>
 
 
-<script>
-    function edit(value)
+	function refreshPage() {
+    	location.reload(true);
+	}
+
+
+	function eedit(value)
     {
         console.log(value);
         var sub = 'product';
@@ -424,40 +514,62 @@
         console.log(result);
         
         $('.'+value).each(function() 
-        {
-            
-            var productGroup = $(this).find(".productGroup").html();    
+        {   
             var productName = $(this).find(".productName").html();    
+            var productGroup = $(this).find(".productGroup").html();   
+            console.log(productName);
+			
             console.log(productGroup);
-            console.log("ujjwal");
-            $.post("/masterProducts",
-            {
-                id: result,
-                productName: productName,
-                productGroup: productGroup,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
+			console.log(result)
+			
+			
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >productName</td> <td><input type="text" value="'+productName+'" class="form-control eproductName" name="eproductName" id="eproductName"></td> </tr> <tr> <td>productGroup</td> <td><input type="text" value="'+productGroup+'" class="form-control eproductGroup" name="eproductGroup" id="eproductGroup"> </tr> </table> </div>'
+				
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			console.log(productName);
+			console.log(productGroup);
+			document.getElementById("blast").innerHTML=tek;
+			document.getElementById("off").innerHTML=bt;
+		});
     }
 
-	if ( window.history.replaceState ) {
-		window.history.replaceState( null, null, window.location.href );
-		}
+	function ddel(value)
+    {
+        console.log(value);
+        var sub = 'product';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+            var productName = $(this).find(".productName").html();    
+            var productGroup = $(this).find(".productGroup").html();    
+            console.log(productName);
+            console.log(productGroup);
+			console.log(result)
+
+
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >productName</td> <td>'+productName+'</td> </tr> <tr> <td>productGroup</td> <td>'+productGroup+' </td> </tr> </table> </div>'
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
+			console.log("Ujjwal")
+			document.getElementById("blasto").innerHTML=tek;
+			document.getElementById("offo").innerHTML=bt;
+		});
+    }
+
 		
-		function fil()
-		{
-			var mySelPrd = document.getElementById("productNameFil").value;
-			var mySelPgrp = document.getElementById("productGroupFil").value;
-			
-			console.log(mySelPrd);
-			console.log(mySelPgrp);
-			
-			console.log("ujjwal");
+	function fil()
+	{
+		var mySelPrd = document.getElementById("productNameFil").value;
+		var mySelPgrp = document.getElementById("productGroupFil").value;
+		
+		console.log(mySelPrd);
+		console.log(mySelPgrp);
+		
+		console.log("ujjwal");
         $.post("/masterProducts",
         {
 			productNameFil: mySelPrd,

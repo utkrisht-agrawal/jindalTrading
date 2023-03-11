@@ -288,19 +288,19 @@
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
 												<td class="vendorArea"><%= data[i].area%></td>
                                             <%} else if(level>2) {%>
-                                                <td class="vendorAddress" contenteditable="true"><%= data[i].vendorAddress%></td>
-                                                <td class="vendorArea" contenteditable="true"><%= data[i].area%></td>
+                                                <td class="vendorAddress"><%= data[i].vendorAddress%></td>
+                                                <td class="vendorArea"><%= data[i].area%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].vendorId%>vendor')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].vendorId%>vendor')" data-popup="popover" title="Edit" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button onclick="del('<%= data[i].vendorId %>')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete" data-trigger="hover" data-content="Click Delete Button to remove Master Vendor and reload page to see changes">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].vendorId%>vendor')" data-popup="popover" title="Delete" data-trigger="hover" data-content="Click to delete data">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
-                                                <td class="vendorAddress" contenteditable="true"><%= data[i].vendorAddress%></td>
-                                                <td class="vendorArea" contenteditable="true"><%= data[i].area%></td>
+                                                <td class="vendorAddress"><%= data[i].vendorAddress%></td>
+                                                <td class="vendorArea"><%= data[i].area%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].vendorId%>vendor')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].vendorId%>vendor')" data-popup="popover" title="Edit" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                             <%}%>
                                             </tr>
@@ -380,6 +380,62 @@
 						            </div>
 					            </div>
 				            </div>
+
+
+
+
+
+
+
+							<!-- EDIT modal -->
+							<div id="modal_edit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Master Vendor</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="off">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+							
+							
+							
+							<!-- DEL modal -->
+							<div id="modal_del" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Delete Master Vendor</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blasto">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="offo">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+
+
+
+
+
+
+
+
 			            </div>
 		            </div>
 					
@@ -405,38 +461,41 @@
 
 
 <script>
-    function edit(value)
-    {
-        console.log(value);
-        var sub = 'vendor';
-        var result = value.replace(sub,'');
-        console.log(result);
-        
-        $('.'+value).each(function() 
-        {
-            
-            var vendorAddress = $(this).find(".vendorAddress").html();    
-            var vendorArea = $(this).find(".vendorArea").html();    
-            console.log(vendorAddress);
-            console.log(vendorArea);
-            console.log("ujjwal");
-            $.post("/masterVendors",
-            {
-                id: result,
-                vendorAddress: vendorAddress,
-                vendorArea: vendorArea,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
-    }
-</script>
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+		}
 
-<script>
+
+
+	function edit(value)
+    {
+
+		console.log(value);
+        var evendorAddress = document.getElementById("evendorAddress").value;
+		console.log(evendorAddress);
+        var evendorArea = document.getElementById("evendorArea").value;
+		console.log(evendorArea);
+        
+        $.post("/masterVendors",
+		{
+			id: value,
+			evendorAddress: evendorAddress,
+			evendorArea: evendorArea,
+			op:"edt"
+		},
+		function (data, status) {
+			console.log(data);
+			console.log(status);
+			setInterval('refreshPage()', 50);
+		}
+		);
+    }
+
+
+	function refreshPage() {
+    	location.reload(true);
+	}
+
     function del(value)
     {
         console.log(value);
@@ -448,23 +507,78 @@
             function (data, status) {
                 console.log(data);
                 console.log(status);
+				setInterval('refreshPage()', 50);
             }
             );
     }
 
-	if ( window.history.replaceState ) {
-		window.history.replaceState( null, null, window.location.href );
-		}
+
+
+	function eedit(value)
+    {
+        console.log(value);
+        var sub = 'vendor';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+            var vendorAddress = $(this).find(".vendorAddress").html();    
+            var vendorArea = $(this).find(".vendorArea").html();   
+            console.log(vendorAddress);
+			
+            console.log(vendorArea);
+			console.log(result)
+			
+			
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorAddress</td> <td><input type="text" value="'+vendorAddress+'" class="form-control evendorAddress" name="evendorAddress" id="evendorAddress"></td> </tr> <tr> <td>vendorArea</td> <td><input type="text" value="'+vendorArea+'" class="form-control evendorArea" name="evendorArea" id="evendorArea"> </tr> </table> </div>'
+				
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			console.log(vendorAddress);
+			console.log(vendorArea);
+			document.getElementById("blast").innerHTML=tek;
+			document.getElementById("off").innerHTML=bt;
+		});
+    }
+
+	function ddel(value)
+    {
+        console.log(value);
+        var sub = 'vendor';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+            var vendorAddress = $(this).find(".vendorAddress").html();    
+            var vendorArea = $(this).find(".vendorArea").html();    
+            console.log(vendorAddress);
+            console.log(vendorArea);
+			console.log(result)
+
+
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorAddress</td> <td>'+vendorAddress+'</td> </tr> <tr> <td>vendorArea</td> <td>'+vendorArea+' </td> </tr> </table> </div>'
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
+			console.log("Ujjwal")
+			document.getElementById("blasto").innerHTML=tek;
+			document.getElementById("offo").innerHTML=bt;
+		});
+    }
+
+
 		
-		function fil()
-		{
-			var mySelAdd = document.getElementById("vendorAddressFil").value;
-			var mySelArea = document.getElementById("vendorAreaFil").value;
-			
-			console.log(mySelAdd);
-			console.log(mySelArea);
-			
-			console.log("ujjwal");
+	function fil()
+	{
+		var mySelAdd = document.getElementById("vendorAddressFil").value;
+		var mySelArea = document.getElementById("vendorAreaFil").value;
+		
+		console.log(mySelAdd);
+		console.log(mySelArea);
+		
+		console.log("ujjwal");
         $.post("/masterVendors",
         {
 			vendorAddressFil: mySelAdd,

@@ -11,6 +11,12 @@ const masterAreaModel = sequelize.define('master_area',{
     area: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    district: {
+        type: Sequelize.STRING
+    },
+    zone: {
+        type: Sequelize.STRING
     }
 },{
     timestamps: false
