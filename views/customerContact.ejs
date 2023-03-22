@@ -168,10 +168,10 @@
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
 							
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+							<!-- <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
 						    </ul>
-							
+							 -->
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
@@ -186,15 +186,16 @@
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
+								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
-								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
 							<a href="#" class="nav-link  active"><i class="icon-copy"></i> <span>Customers</span></a>
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link active">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -211,7 +212,13 @@
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Vendor</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -247,7 +254,9 @@
 						<div class="card" style="overflow-x: auto;">
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Customer</h5>
-								
+								<% if(level>2) {%>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add New Customer Contact</button></td>
+								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
 										<a class="list-icons-item" data-action="collapse"></a>
@@ -263,8 +272,10 @@
 									
 									<thead>
 										<tr>
-											<th>customerName</th>
-											<th>mobileNumber</th>
+											<th>CustomerName</th>
+											<th>Designation</th>
+											<th>MobileNumber</th>
+											<th>Email</th>
 											<% if(level>2) {%>
 												<th>Edit</th>
 												<th>Delete</th>
@@ -279,21 +290,27 @@
 										<tr class="<%= data[i].customerId%>cust">
 											<%if(level==1) {%>
 												<td class="customerName"><%= data[i].customerName%></td>
+												<td class="designation"><%= data[i].designation%></td>
 												<td class="mobileNumber"><%= data[i].mobileNumber%></td>
+												<td class="email"><%= data[i].email%></td>
 											<%} else if(level>2) {%>
-												<td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
-												<td class="mobileNumber" contenteditable="true"><%= data[i].mobileNumber%></td>
+												<td class="customerName"><%= data[i].customerName%></td>
+												<td class="designation"><%= data[i].designation%></td>
+												<td class="mobileNumber"><%= data[i].mobileNumber%></td>
+												<td class="email"><%= data[i].email%></td>
 												<td>
-													<button onclick="edit('<%= data[i].customerId%>cust')" name="foo" value="check" >Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>cust')" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
 													</td>
 												<td>
-													<button onclick="del('<%= data[i].customerId%>')" name="foo" value="check" >Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>cust')" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
 													</td>
 											<%}else if(level>1){%>
-                                                <td class="customerName" contenteditable="true"><%= data[i].customerName%></td>
-												<td class="mobileNumber" contenteditable="true"><%= data[i].mobileNumber%></td>
+                                                <td class="customerName"><%= data[i].customerName%></td>
+												<td class="designation"><%= data[i].designation%></td>
+												<td class="mobileNumber"><%= data[i].mobileNumber%></td>
+												<td class="email"><%= data[i].email%></td>
 												<td>
-													<button onclick="edit('<%= data[i].customerId%>cust')" name="foo" value="check" >Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>cust')" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
 													</td>
 											<%}%> 
 										</tr>
@@ -320,11 +337,28 @@
 										            <div class="row">
 											            <div class="col-sm-6">
 												            <label>customerName</label>
-												            <input type="text" placeholder="Dehradun" class="form-control customerName" name="customerName" id="customerName">
+												            <select name="customerName" class="form-control customerName" id="customerName" required>
+																<option value="" disabled selected>-Select-</option>
+																<% for(var i=0; i<custData.length; i++) {%>
+																	<option value="<%=custData[i].customerName%>"><%=custData[i].customerName%></option>
+																<% } %>
+															</select>
 											            </div>
 											            <div class="col-sm-6">
-												            <label>mobileNumber</label>
-												            <input type="text" placeholder="Dehradun" class="form-control mobileNumber" name="mobileNumber" id="mobileNumber">
+												            <label>designation</label>
+												            <input type="text" placeholder="Dehradun" class="form-control designation" name="designation" id="designation">
+											            </div>
+										            </div>
+									            </div>
+									            <div class="form-group">
+										            <div class="row">
+														<div class="col-sm-6">
+															<label>mobileNumber</label>
+															<input type="text" placeholder="Dehradun" class="form-control mobileNumber" name="mobileNumber" id="mobileNumber">
+														</div>
+											            <div class="col-sm-6">
+												            <label>email</label>
+												            <input type="text" placeholder="Dehradun" class="form-control email" name="email" id="email">
 											            </div>
 										            </div>
 									            </div>
@@ -339,6 +373,50 @@
 					            </div>
 				            </div>
 							
+							<!-- EDIT modal -->
+							<div id="modal_edit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Customer Contact</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="off">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+							
+							
+							
+							<!-- DEL modal -->
+							<div id="modal_del" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Delete Customer Contact</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blasto">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="offo">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+
+
+
 			            </div>
 		            </div>
 					
@@ -378,10 +456,41 @@
             function (data, status) {
                 console.log(data);
                 console.log(status);
+				setInterval('refreshPage()', 500);
             }
             );
     }
 	function edit(value)
+    {
+		var ecustomerName = document.getElementById("ecustomerName").value;
+        var edesignation = document.getElementById("edesignation").value;
+        var emobileNumber = document.getElementById("emobileNumber").value;
+        var eemail = document.getElementById("eemail").value;
+        $.post("/customerContact",
+		{
+			id: value,
+			customerName:ecustomerName,
+			designation: edesignation,
+			mobileNumber:emobileNumber,
+			email: eemail,
+			op:"edt"
+		},
+		function (data, status) {
+			console.log(data);
+			console.log(status);
+			setInterval('refreshPage()', 500);
+		}
+		);
+        
+    }
+
+
+	function refreshPage() {
+    	location.reload(true);
+	}
+
+
+	function eedit(value)
     {
         console.log(value);
         var sub = 'cust';
@@ -391,21 +500,52 @@
         $('.'+value).each(function() 
         {   
             var customerName = $(this).find(".customerName").html();    
+            var designation = $(this).find(".designation").html();    
             var mobileNumber = $(this).find(".mobileNumber").html();    
-            console.log(customerName);
-            console.log("ujjwal");
-            $.post("/customerContact",
-            {
-                id: result,
-                customerName: customerName,
-                mobileNumber: mobileNumber,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
+            var email = $(this).find(".email").html();     
+            
+
+
+			console.log(customerName)
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			console.log(result)
+			
+			
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td><input type="text" value="'+customerName+'" class="form-control ecustomerName" name="ecustomerName" id="ecustomerName"></td> </tr> <tr> <td>designation</td> <td><input type="text" value="'+designation+'" class="form-control edesignation" name="edesignation" id="edesignation"></td> </tr> <tr> <td>mobileNumber</td> <td><input type="tel" value="'+mobileNumber+'" class="form-control emobileNumber" name="emobileNumber" id="emobileNumber"></td> </tr> <tr> <td>email</td> <td><input type="email" value="'+email+'" class="form-control eemail" name="eemail" id="eemail"></td> </tr>  </table> </div>'
+				
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			document.getElementById("blast").innerHTML=tek;
+			document.getElementById("off").innerHTML=bt;
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			
+		});
+    }
+	
+	function ddel(value)
+    {
+        console.log(value);
+        var sub = 'cust';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			var customerName = $(this).find(".customerName").html();    
+            var designation = $(this).find(".designation").html();    
+            var mobileNumber = $(this).find(".mobileNumber").html();    
+            var email = $(this).find(".email").html();   
+                
+			console.log(result)
+
+
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td>'+customerName+'</td> </tr> <tr> <td>designation</td> <td>'+designation+' </td> </tr> <tr> <td>mobileNumber</td> <td>'+mobileNumber+' </td> </tr> <tr> <td>email</td> <td>'+email+' </td> </tr> </table> </div>'
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
+			console.log("Ujjwal")
+			document.getElementById("blasto").innerHTML=tek;
+			document.getElementById("offo").innerHTML=bt;
+
+		});
     }
     </script>

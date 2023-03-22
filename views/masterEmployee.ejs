@@ -167,16 +167,16 @@
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
 							
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+							<!-- <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
-						    </ul>
+						    </ul> -->
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
 						</li>
 
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
 							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
@@ -185,8 +185,8 @@
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
+								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
-								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -194,6 +194,7 @@
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -210,7 +211,13 @@
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Vendor</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -360,10 +367,10 @@
                                                 <td class="gender" contenteditable="true"><%= data[i].gender%></td>
                                                 <td class="photo" contenteditable="true"><%= data[i].photo%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].employeeNumber%>employee')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].employeeName%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].employeeNumber%>employee')" data-popup="popover" title="Edit <%= data[i].employeeName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button onclick="del('<%= data[i].employeeNumber %>')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].employeeName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Employee and reload page to see changes">Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].employeeNumber%>employee')" data-popup="popover" title="Delete <%= data[i].employeeName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="employeeName" contenteditable="true"><%= data[i].employeeName%></td>
@@ -392,7 +399,7 @@
                                                 <td class="gender" contenteditable="true"><%= data[i].gender%></td>
                                                 <td class="photo" contenteditable="true"><%= data[i].photo%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].employeeNumber%>employee')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Edit <%= data[i].employeeName%>" data-trigger="hover" data-content="Click Edit to save changes">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].employeeNumber%>employee')" data-popup="popover" title="Edit <%= data[i].employeeName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                             <%}%>  
                                             
@@ -436,7 +443,54 @@
 							
 
 
+
+
+							<!-- EDIT modal -->
+							<div id="modal_edit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Master Customer</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="off">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
 							
+							
+							
+							<!-- DEL modal -->
+							<div id="modal_del" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Delete Master Customer</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blasto">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="offo">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+
+
+
+							
+
 							<!-- Vertical form modal -->
 							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
 					            <div class="modal-dialog">
@@ -651,14 +705,102 @@
     function edit(value)
     {
         console.log(value);
+		var eemployeeName = document.getElementById("eemployeeName").value;
+        var edesignation = document.getElementById("edesignation").value;
+        var eemployeeCategories = document.getElementById("eemployeeCategories").value;
+        var edateOfBirth = document.getElementById("edateOfBirth").value;
+        var efatherName = document.getElementById("efatherName").value;
+        var emotherName = document.getElementById("emotherName").value;
+        var eaddress = document.getElementById("eaddress").value;
+        var eprimaryMobileNumber = document.getElementById("eprimaryMobileNumber").value;
+        var eofficeMobileNumber = document.getElementById("eofficeMobileNumber").value;
+        var efatherMobileNumber = document.getElementById("efatherMobileNumber").value;
+        var emotherMobileNumber = document.getElementById("emotherMobileNumber").value;
+        var espouseName = document.getElementById("espouseName").value;
+        var espouseMobileNumber = document.getElementById("espouseMobileNumber").value;
+        var eofficeEmailId = document.getElementById("eofficeEmailId").value;
+        var earea = document.getElementById("earea").value;
+        var ebankName = document.getElementById("ebankName").value;
+        var ebankAccountNumber = document.getElementById("ebankAccountNumber").value;
+        var eifscCode = document.getElementById("eifscCode").value;
+        var edateOfJoining = document.getElementById("edateOfJoining").value;
+        var eaadharNumber = document.getElementById("eaadharNumber").value;
+        var epanNumber = document.getElementById("epanNumber").value;
+        var ereference = document.getElementById("ereference").value;
+        var egender = document.getElementById("egender").value;
+        var ephoto = document.getElementById("ephoto").value;
+        $.post("/masterEmployee",
+		{
+			id: value,
+			employeeName: eemployeeName,
+			designation: edesignation,
+			employeeCategories: eemployeeCategories,
+			dateOfBirth: edateOfBirth,
+			fatherName: efatherName,
+			motherName: emotherName,
+			address: eaddress,
+			primaryMobileNumber: eprimaryMobileNumber,
+			officeMobileNumber: eofficeMobileNumber,
+			fatherMobileNumber: efatherMobileNumber,
+			motherMobileNumber: emotherMobileNumber,
+			spouseName: espouseName,
+			spouseMobileNumber: espouseMobileNumber,
+			officeEmailId: eofficeEmailId,
+			area: earea,
+			bankName: ebankName,
+			bankAccountNumber: ebankAccountNumber,
+			ifscCode: eifscCode,
+			dateOfJoining: edateOfJoining,
+			aadharNumber: eaadharNumber,
+			panNumber: epanNumber,
+			reference: ereference,
+			gender: egender,
+			photo: ephoto,
+			op:"edt"
+		},
+		function (data, status) {
+			console.log(data);
+			console.log(status);
+			setInterval('refreshPage()', 50);
+		}
+		);
+    }
+</script>
+
+
+<script>
+    function del(value)
+    {
+        console.log(value);
+        $.post("/masterEmployee",
+            {
+                id: value,
+                op:"del"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+				setInterval('refreshPage()', 50);
+            }
+            );
+    }
+
+	function refreshPage() {
+    	location.reload(true);
+	}
+
+
+	function eedit(value)
+    {
+        console.log(value);
         var sub = 'employee';
         var result = value.replace(sub,'');
         console.log(result);
         
         $('.'+value).each(function() 
-        {
-            
-            var employeeName = $(this).find(".employeeName").html();    
+        {   
+
+			var employeeName = $(this).find(".employeeName").html();    
             var designation = $(this).find(".designation").html();    
             var employeeCategories = $(this).find(".employeeCategories").html();    
             var dateOfBirth = $(this).find(".dateOfBirth").html();    
@@ -681,61 +823,68 @@
             var panNumber = $(this).find(".panNumber").html();    
             var reference = $(this).find(".reference").html();    
             var gender = $(this).find(".gender").html();    
-            var photo = $(this).find(".photo").html();  
-               
-            $.post("/masterEmployee",
-            {
-                id: result,
-                employeeName: employeeName,
-                designation: designation,
-                employeeCategories: employeeCategories,
-                dateOfBirth: dateOfBirth,
-                fatherName: fatherName,
-                motherName: motherName,
-                address: address,
-                primaryMobileNumber: primaryMobileNumber,
-                officeMobileNumber: officeMobileNumber,
-                fatherMobileNumber: fatherMobileNumber,
-                motherMobileNumber: motherMobileNumber,
-                spouseName: spouseName,
-                spouseMobileNumber: spouseMobileNumber,
-                officeEmailId: officeEmailId,
-                area: area,
-                bankName: bankName,
-                bankAccountNumber: bankAccountNumber,
-                ifscCode: ifscCode,
-                dateOfJoining: dateOfJoining,
-                aadharNumber: aadharNumber,
-                panNumber: panNumber,
-                reference: reference,
-                gender: gender,
-                photo: photo,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
+            var photo = $(this).find(".photo").html();    
+            
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			console.log(result)
+			
+			
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >employeeName</td> <td><input type="text" value="'+employeeName+'" class="form-control eemployeeName" name="eemployeeName" id="eemployeeName"></td> </tr> <tr> <td>designation</td> <td><input type="text" value="'+designation+'" class="form-control edesignation" name="edesignation" id="edesignation"></td> </tr> <tr> <td>employeeCategories</td> <td><input type="tel" value="'+employeeCategories+'" class="form-control eemployeeCategories" name="eemployeeCategories" id="eemployeeCategories"></td> </tr> <tr> <td>dateOfBirth</td> <td><input type="tel" value="'+dateOfBirth+'" class="form-control edateOfBirth" name="edateOfBirth" id="edateOfBirth"></td> </tr> <tr> <td>fatherName</td> <td><input type="tel" value="'+fatherName+'" class="form-control efatherName" name="efatherName" id="efatherName"></td> </tr>  <tr> <td>motherName</td> <td><input type="tel" value="'+motherName+'" class="form-control emotherName" name="emotherName" id="emotherName"></td> </tr>  <tr> <td>address</td> <td><input type="tel" value="'+address+'" class="form-control eaddress" name="eaddress" id="eaddress"></td> </tr>  <tr> <td>primaryMobileNumber</td> <td><input type="tel" value="'+primaryMobileNumber+'" class="form-control eprimaryMobileNumber" name="eprimaryMobileNumber" id="eprimaryMobileNumber"></td> </tr>  <tr> <td>officeMobileNumber</td> <td><input type="tel" value="'+officeMobileNumber+'" class="form-control eofficeMobileNumber" name="eofficeMobileNumber" id="eofficeMobileNumber"></td> </tr>  <tr> <td>fatherMobileNumber</td> <td><input type="tel" value="'+fatherMobileNumber+'" class="form-control efatherMobileNumber" name="efatherMobileNumber" id="efatherMobileNumber"></td> </tr>  <tr> <td>motherMobileNumber</td> <td><input type="tel" value="'+motherMobileNumber+'" class="form-control emotherMobileNumber" name="emotherMobileNumber" id="emotherMobileNumber"></td> </tr>  <tr> <td>spouseName</td> <td><input type="tel" value="'+spouseName+'" class="form-control espouseName" name="espouseName" id="espouseName"></td> </tr>  <tr> <td>spouseMobileNumber</td> <td><input type="tel" value="'+spouseMobileNumber+'" class="form-control espouseMobileNumber" name="espouseMobileNumber" id="espouseMobileNumber"></td> </tr>  <tr> <td>officeEmailId</td> <td><input type="tel" value="'+officeEmailId+'" class="form-control eofficeEmailId" name="eofficeEmailId" id="eofficeEmailId"></td> </tr>  <tr> <td>area</td> <td><input type="tel" value="'+area+'" class="form-control earea" name="earea" id="earea"></td> </tr>  <tr> <td>bankName</td> <td><input type="tel" value="'+bankName+'" class="form-control ebankName" name="ebankName" id="ebankName"></td> </tr>  <tr> <td>bankAccountNumber</td> <td><input type="tel" value="'+bankAccountNumber+'" class="form-control ebankAccountNumber" name="ebankAccountNumber" id="ebankAccountNumber"></td> </tr>  <tr> <td>ifscCode</td> <td><input type="tel" value="'+ifscCode+'" class="form-control eifscCode" name="eifscCode" id="eifscCode"></td> </tr>  <tr> <td>dateOfJoining</td> <td><input type="tel" value="'+dateOfJoining+'" class="form-control edateOfJoining" name="edateOfJoining" id="edateOfJoining"></td> </tr>  <tr> <td>aadharNumber</td> <td><input type="tel" value="'+aadharNumber+'" class="form-control eaadharNumber" name="eaadharNumber" id="eaadharNumber"></td> </tr>  <tr> <td>panNumber</td> <td><input type="tel" value="'+panNumber+'" class="form-control epanNumber" name="epanNumber" id="epanNumber"></td> </tr>  <tr> <td>reference</td> <td><input type="tel" value="'+reference+'" class="form-control ereference" name="ereference" id="ereference"></td> </tr>  <tr> <td>gender</td> <td><input type="tel" value="'+gender+'" class="form-control egender" name="egender" id="egender"></td> </tr>  <tr> <td>photo</td> <td><input type="tel" value="'+photo+'" class="form-control ephoto" name="ephoto" id="ephoto"></td> </tr>  <tr> </table> </div>'
+				
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			document.getElementById("blast").innerHTML=tek;
+			document.getElementById("off").innerHTML=bt;
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			
+		});
     }
-</script>
-
-
-<script>
-    function del(value)
+	
+	function ddel(value)
     {
         console.log(value);
-        $.post("/masterEmployee",
-            {
-                id: value,
-                op:"del"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
+        var sub = 'employee';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			var employeeName = $(this).find(".employeeName").html();    
+            var designation = $(this).find(".designation").html();    
+            var employeeCategories = $(this).find(".employeeCategories").html();    
+            var dateOfBirth = $(this).find(".dateOfBirth").html();    
+            var fatherName = $(this).find(".fatherName").html();    
+            var motherName = $(this).find(".motherName").html();    
+            var address = $(this).find(".address").html();    
+            var primaryMobileNumber = $(this).find(".primaryMobileNumber").html();    
+            var officeMobileNumber = $(this).find(".officeMobileNumber").html();    
+            var fatherMobileNumber = $(this).find(".fatherMobileNumber").html();    
+            var motherMobileNumber = $(this).find(".motherMobileNumber").html();    
+            var spouseName = $(this).find(".spouseName").html();    
+            var spouseMobileNumber = $(this).find(".spouseMobileNumber").html();    
+            var officeEmailId = $(this).find(".officeEmailId").html();    
+            var area = $(this).find(".area").html();    
+            var bankName = $(this).find(".bankName").html();    
+            var bankAccountNumber = $(this).find(".bankAccountNumber").html();    
+            var ifscCode = $(this).find(".ifscCode").html();    
+            var dateOfJoining = $(this).find(".dateOfJoining").html();    
+            var aadharNumber = $(this).find(".aadharNumber").html();    
+            var panNumber = $(this).find(".panNumber").html();    
+            var reference = $(this).find(".reference").html();    
+            var gender = $(this).find(".gender").html();    
+            var photo = $(this).find(".photo").html(); 
+                
+			console.log(result)
+
+
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >employeeName</td> <td>'+employeeName+'</td> </tr> <tr> <td>designation</td> <td>'+designation+' </td> </tr> <tr> <td>employeeCategories</td> <td>'+employeeCategories+' </td> </tr> <tr> <td>dateOfBirth</td> <td>'+dateOfBirth+' </td> </tr> <tr> <td>fatherName</td> <td>'+fatherName+' </td> </tr> <tr> <td>motherName</td> <td>'+motherName+' </td> </tr> <tr> <td>address</td> <td>'+address+' </td> </tr> <tr> <td>primaryMobileNumber</td> <td>'+primaryMobileNumber+' </td> </tr> <tr> <td>officeMobileNumber</td> <td>'+officeMobileNumber+' </td> </tr> <tr> <td>fatherMobileNumber</td> <td>'+fatherMobileNumber+' </td> </tr> <tr> <td>motherMobileNumber</td> <td>'+motherMobileNumber+' </td> </tr> <tr> <td>spouseName</td> <td>'+spouseName+' </td> </tr> <tr> <td>spouseMobileNumber</td> <td>'+spouseMobileNumber+' </td> </tr> <tr> <td>officeEmailId</td> <td>'+officeEmailId+' </td> </tr> <tr> <td>area</td> <td>'+area+' </td> </tr> <tr> <td>bankName</td> <td>'+bankName+' </td> </tr> <tr> <td>bankAccountNumber</td> <td>'+bankAccountNumber+' </td> </tr> <tr> <td>ifscCode</td> <td>'+ifscCode+' </td> </tr> <tr> <td>dateOfJoining</td> <td>'+dateOfJoining+' </td> </tr> <tr> <td>aadharNumber</td> <td>'+aadharNumber+' </td> </tr> <tr> <td>panNumber</td> <td>'+panNumber+' </td> </tr> <tr> <td>reference</td> <td>'+reference+' </td> </tr> <tr> <td>gender</td> <td>'+gender+' </td> </tr> <tr> <td>photo</td> <td>'+photo+' </td> </tr> </table> </div>'
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
+			console.log("Ujjwal")
+			document.getElementById("blasto").innerHTML=tek;
+			document.getElementById("offo").innerHTML=bt;
+
+		});
     }
 
 

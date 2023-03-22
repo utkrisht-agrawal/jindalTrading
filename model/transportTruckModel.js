@@ -14,6 +14,12 @@ const transportTruckModel = sequelize.define('transport_Truck',{
     transportTruck: {
         type: Sequelize.STRING
     },
+    ownerMobileNumber: {
+        type: Sequelize.INTEGER
+    },
+    driverMobileNumber: {
+        type: Sequelize.INTEGER
+    },
 }); 
 
 module.exports = transportTruckModel

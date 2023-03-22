@@ -144,7 +144,7 @@
 					<ul class="nav nav-sidebar" data-nav-type="accordion">
 
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
 							<a href="/userDashboard" class="nav-link active">
 								<i class="icon-home4"></i>
 								<span>
@@ -166,9 +166,9 @@
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
 
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+							<!-- <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
-							</ul>
+							</ul> -->
 
                             <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
@@ -184,8 +184,8 @@
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
+								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
-								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -193,6 +193,7 @@
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Firms</a></li>
@@ -209,7 +210,13 @@
 								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
 							</ul>
 						</li>
-						
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Vendor</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -284,36 +291,24 @@
 										<tr class="<%= data[i].id%>RegisterList">
 											<%if(level>2) {%>
                                                 
-                                                <td class="username" contenteditable="true"><%= data[i].username%></td>
-                                                <td class="password" contenteditable="true"><%= data[i].password%></td>
-                                                <td name="role" class="role">
-													<select name="rSelect" class="rSelect">
-														<option value="<%= data[i].role%>"><%= data[i].role%></option>
-														<option value="User">User</option>
-														<option value="Moderator">Moderator</option>
-														<option value="Admin">Admin</option>
-													</select>
-												</td>
+                                                <td class="username"><%= data[i].username%></td>
+                                                <td class="password"><%= data[i].password%></td>
+                                                <td class="role"><%= data[i].role%></td>
+                                                
 												<td>
-                                                    <button onclick="edit('<%= data[i].id%>RegisterList')" name="foo" value="check" >Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].id%>RegisterList')" title="Edit <%= data[i].username%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                                 <td>
-                                                    <button onclick="del('<%= data[i].id%>')" name="foo" value="check" >Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].id%>RegisterList')" title="Delete <%= data[i].username%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
                                                 </td>
                                                
 											<%}else if(level>1){%>
-												<td class="username" contenteditable="true"><%= data[i].username%></td>
-                                                <td class="password" contenteditable="true"><%= data[i].password%></td>
-                                                <td name="role" class="role">
-													<select name="rSelect" class="rSelect">
-														<option value="<%= data[i].role%>"><%= data[i].role%></option>
-														<option value="User">User</option>
-														<option value="Moderator">Moderator</option>
-														<option value="Admin">Admin</option>
-													</select>
-												</td>
+												<td class="username"><%= data[i].username%></td>
+                                                <td class="password"><%= data[i].password%></td>
+                                                <td class="role"><%= data[i].role%></td>
+                                                
 												<td>
-                                                    <button onclick="edit('<%= data[i].id%>RegisterList')" name="foo" value="check" >Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].id%>RegisterList')" title="Edit <%= data[i].username%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
 											<%}%>
 										</tr>
@@ -324,6 +319,50 @@
 								<h4>No data</h4>
 							<%}%>
 								
+
+							<!-- EDIT modal -->
+							<div id="modal_edit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Master Area</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="off">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+							
+							
+							
+							
+							<!-- DEL modal -->
+							<div id="modal_del" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Delete Master Area</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blasto">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="offo">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+
 						</div>
 					</div>
 				</div>
@@ -347,36 +386,31 @@
 <script>
     function edit(value)
     {
-        console.log(`EDIT  ${value}`);
-        var sub = 'RegisterList';
-        var result = value.replace(sub,'');
-        console.log(result);
+        console.log(value);
+        var eUsername = document.getElementById("eUsername").value;
+		console.log(eUsername);
+        var ePassword = document.getElementById("ePassword").value;
+		console.log(ePassword);
+        var erole = document.getElementById("eRole").value;
+		
+		console.log(erole);
         
-        $('.'+value).each(function() 
-        {
-            console.log("new yr");
-            var username = $(this).find(".username").html();   
-            var password = $(this).find(".password").html();   
-            var role = $(this).find(".rSelect").val();         
-            console.log(username);
-            console.log(password);
-            console.log(role);
-            console.log("ujjwal");
-            $.post("/registeredUsers",
-            {
-                id: result,
-                username:username,
-                password:password,
-                role: role,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log("check edit wala data");
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
+        
+        $.post("/registeredUsers",
+		{
+			id: value,
+			username:eUsername,
+			password:ePassword,
+			role: erole,
+			op:"edt"
+		},
+		function (data, status) {
+			console.log("check edit wala data");
+			console.log(data);
+			console.log(status);
+			setInterval('refreshPage()', 50);
+		}
+		);
     }
     
 </script>
@@ -385,7 +419,7 @@
     
     function del(value)
     {
-        console.log(value);
+		console.log(value);
         $.post("/registeredUsers",
             {
                 id: value,
@@ -394,8 +428,74 @@
             function (data, status) {
                 console.log(data);
                 console.log(status);
+				setInterval('refreshPage()', 50);
             }
             );
+    }
+
+	if ( window.history.replaceState ) {
+ 		window.history.replaceState( null, null, window.location.href );
+	}
+	
+
+	function refreshPage() {
+    	location.reload(true);
+	}
+
+	function eedit(value)
+    {
+        console.log(value);
+        var sub = 'RegisterList';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+            var username = $(this).find(".username").html();    
+            var password = $(this).find(".password").html();    
+            var role = $(this).find(".role").html();    
+            console.log(username);
+            console.log(password);
+            console.log(role);
+			console.log(result)
+			
+
+
+            var tek = "<div class='card' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td >Username</td> <td><input type='text' value="+username+" class='form-control eUsername' name='eUsername' id='eUsername'></td> </tr> <tr> <td>password</td> <td><input type='text' value="+password+" class='form-control ePassword' name='ePassword' id='ePassword'> </td> </tr> <tr> <td>Role</td> <td> <select name='eRole' class='eRole form-control' id='eRole'> <option value="+role+">"+role+"</option> <option value='User'>User</option> <option value='Moderator'>Moderator</option> <option value='Admin'>Admin</option> </td> </tr> </table> </div>"
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			document.getElementById("blast").innerHTML=tek;
+			document.getElementById("off").innerHTML=bt;
+		});
+    }
+
+	function ddel(value)
+    {
+        console.log(value);
+        var sub = 'RegisterList';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+            var username = $(this).find(".username").html();    
+            var password = $(this).find(".password").html();    
+            var role = $(this).find(".role").html();    
+            console.log(username);
+            console.log(password);
+            console.log(role);
+			console.log(result)
+
+
+            var tek = "<div class='card' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td >username</td> <td>"+username+"</td> </tr> <tr> <td>password</td> <td>"+password+" </td> </tr> <tr> <td>role</td><td>"+role+"</td> </tr> </table> </div>"
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
+			console.log("Ujjwal")
+			document.getElementById("blasto").innerHTML=tek;
+			document.getElementById("offo").innerHTML=bt;
+		});
     }
 
 	

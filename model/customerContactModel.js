@@ -14,6 +14,12 @@ const customerContactModel = sequelize.define('cust_contact',{
     mobileNumber: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    designation: {
+        type: Sequelize.STRING
+    },
+    email: {
+        type: Sequelize.STRING
     }
 }); 
 

@@ -11,9 +11,15 @@ const transportContactModel = sequelize.define('transport_Contact',{
     transportName: {
         type: Sequelize.STRING
     },
-    transportContact: {
+    designation: {
         type: Sequelize.STRING
     },
+    mobileNumber: {
+        type: Sequelize.INTEGER
+    },
+    email: {
+        type: Sequelize.STRING
+    }
 }); 
 
 module.exports = transportContactModel

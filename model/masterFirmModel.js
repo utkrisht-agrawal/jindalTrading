@@ -2,40 +2,41 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../database/connect');
 
-const marketPlanQuantityLedgerModel = sequelize.define('market_plan_quantity_ledger',{
-    serialNumber:{
+const masterFirmModel = sequelize.define('master_firm',{
+    firmId:{
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    customerName: {
+    firmName: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    category: {
+    address: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    product: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    quantity: {
+    pincode:{
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    invoiceNumber: {
+    GSTNumber: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    delivery : {
+    accountNumber:{
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    bankName:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    IFSCcode:{
         type: Sequelize.STRING,
         allowNull: false
     }
-    
-    
-},{
-    timestamps: true
+
 }); 
 
-module.exports = marketPlanQuantityLedgerModel
+module.exports = masterFirmModel

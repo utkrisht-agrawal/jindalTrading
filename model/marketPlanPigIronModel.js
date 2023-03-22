@@ -46,7 +46,7 @@ const marketPlanPigIronModel = sequelize.define('market_plan_pig_iron',{
     },
     currentRemark: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     remarkStatus: {
         type: Sequelize.ENUM("VERIFIED","UNVERIFIED")

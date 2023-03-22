@@ -24,6 +24,9 @@ router.post('/masterGrade',masterCtrl.postMasterGrade);
 router.get('/masterProducts',masterCtrl.getMasterProducts);
 router.post('/masterProducts',masterCtrl.postMasterProducts);
 
+router.get('/masterProductGroup',masterCtrl.getMasterProductGroup);
+router.post('/masterProductGroup',masterCtrl.postMasterProductGroup);
+
 router.get('/masterTeams',masterCtrl.getMasterTeams);
 router.post('/masterTeams',masterCtrl.postMasterTeams);
 

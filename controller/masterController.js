@@ -6,12 +6,14 @@ const masterCustomerModel = require('../model/masterCustomerModel');
 const masterEmployeeModel = require('../model/masterEmployeeModel');
 const masterGradeModel = require('../model/masterGradeModel');
 const masterProductsModel = require('../model/masterProductsModel');
+const masterProductGroupModel = require('../model/masterProductGroupModel');
 const masterTeamsModel = require('../model/masterTeamsModel');
 const masterVendorsModel = require('../model/masterVendorsModel');
 const customerContactModel = require('../model/customerContactModel');
 const customerCategoryModel = require('../model/customerCategoryModel');
 const customerFirmModel = require('../model/customerFirmModel');
 const customerProductModel = require('../model/customerProductModel');
+const masterFirmModel = require('../model/masterFirmModel');
 
 
 
@@ -297,20 +299,27 @@ const getMasterCustomer =(req,res,next)=>{
                     .then((productData)=>{
                         masterCategoriesModel.findAll()
                         .then((categorydata)=>{
-                        masterCustomerModel.findAll()
-                            .then((data)=>{
-                                res.render('masterCustomer',
-                                {
-                                    username : req.session.username,
-                                    data:data,
-                                    categorydata:categorydata,
-                                    productData:productData,
-                                    level:req.session.userLevel,
-                                    gradeData:gradeData,
-                                    areaData:areaData,
-                                    msg:""
+                            masterFirmModel.findAll()
+                            .then((firmData)=>{
+                                masterCustomerModel.findAll()
+                                .then((data)=>{
+                                    res.render('masterCustomer',
+                                    {
+                                        username : req.session.username,
+                                        data:data,
+                                        categorydata:categorydata,
+                                        productData:productData,
+                                        level:req.session.userLevel,
+                                        gradeData:gradeData,
+                                        areaData:areaData,
+                                        firmData:firmData,
+                                        msg:""
+                                    })
+                    
                                 })
-                
+                                .catch((err)=>
+                                    console.log(err)
+                                )
                             })
                             .catch((err)=>
                                 console.log(err)
@@ -409,6 +418,129 @@ const postMasterCustomer =(req,res,next)=>{
         
         
     }
+    else if(req.body.op==="cinf")
+    {
+        console.log(req.body.value);
+        
+        customerContactModel.findAll({
+            where : {customerName : req.body.value}
+        })
+        .then((cntctdata)=>{   
+            console.log("11111111111111111111111111111111111111111111111111");     
+            console.log(cntctdata);     
+            masterCustomerModel.findAll({
+                where : {customerName : req.body.value}
+            })
+            .then((data)=>
+            {
+                console.log("222222222222222222222222222222222222222222222222");     
+                console.log(data);     
+                // Object.assign(cntctdata, data);
+                customerProductModel.findAll({
+                    where : {customerName : req.body.value}
+                })
+                .then((prdctdata)=>{
+                    console.log("333333333333333333333333333333333333333333");     
+                    console.log(prdctdata);     
+                    customerCategoryModel.findAll({
+                        where : {customerName : req.body.value}
+                    })    
+                    .then((catdata)=>{
+                        console.log("44444444444444444444444444444444444444444444444444");     
+                        console.log(catdata);     
+                        customerFirmModel.findAll({
+                            where : {customerName : req.body.value}
+                        })
+                        .then((firmData)=>{
+                            console.log(firmData);     
+                            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                            console.log(prdctdata);
+                            console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                            if(data.length!=0 && cntctdata.length!=0 && prdctdata.length!=0 && catdata.length!=0  )
+                            {
+                                console.log("1111111111111111111111111111111111111111");
+                                console.log(data[0].dataValues)
+                                console.log("222222222222222222222222222222222222222222");
+                                console.log(cntctdata[0].dataValues)
+                                console.log("3333333333333333333333333333333333333333333333");
+                                console.log(catdata[0].dataValues)
+                                console.log("444444444444444444444444444444444444");
+                                console.log(firmData[0].dataValues)
+                                console.log("55555555555555555555555555555555555");
+                                let sData = {
+                                    ...data[0].dataValues,
+                                    ...cntctdata[0].dataValues,
+                                    ...catdata[0].dataValues,
+                                    ...firmData[0].dataValues
+                                };
+                                let fData = { 
+                                    ...sData,
+                                    ...prdctdata
+                                }
+                                
+                                console.log("----------------------------------------------")        
+                                console.log(sData)  
+                                console.log("----------------------------------------------")        
+                                console.log(fData)
+                                
+                                console.log("----------------------------------------------")        
+                                res.send(fData)
+                            }
+                            else
+                            {
+                                res.send(null)
+                            }
+                            
+                        })
+                        .catch((err)=>{
+                            console.log(err);
+                        })    
+                    })
+                    .catch((err)=>{
+                        console.log(err);
+                    })  
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })          
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    
+        
+    }
+    else if(req.body.op==="marktrep")
+    {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        customerProductModel.findAll({
+            where : {customerId : req.body.value}
+        })
+        .then((holidata)=>{
+            console.log(holidata);
+            let custname=holidata[0].customerName;
+            marketPlanPigIronModel.findAll({
+                where : {customerName : custname}
+            })
+            .then((reprtData)=>
+            {
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                console.log(reprtData)
+                res.send(reprtData)
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+   
     else {
         console.log("9999999999999999999999999999999999999999999")
         console.log(req.body.customerName)
@@ -432,6 +564,8 @@ const postMasterCustomer =(req,res,next)=>{
                     const grade = req.body.grade
                     const productFil = req.body.productFil
                     const contact = req.body.contact
+                    const designation = req.body.designation
+                    const email = req.body.email
                     const category = req.body.category
                     const pincode = req.body.pincode
                     const address = req.body.address
@@ -456,6 +590,8 @@ const postMasterCustomer =(req,res,next)=>{
                         customerContactModel.create({
                             customerName :customerName,
                             mobileNumber :contact,
+                            designation :designation,
+                            email :email
                         })
                         .then((res2)=>{
                             customerCategoryModel.create({
@@ -633,6 +769,12 @@ const postMasterEmployee =(req,res,next)=>{
         masterEmployeeModel.destroy({
             where: { employeeNumber : id}
         })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="edt")
     {
@@ -669,6 +811,12 @@ const postMasterEmployee =(req,res,next)=>{
               where: {employeeNumber: req.body.id}
           }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="fil")
     {
@@ -691,8 +839,9 @@ const postMasterEmployee =(req,res,next)=>{
             console.log(err)
         )
         
-        
+    
     }
+    
     else 
     {
         const employeeName = req.body.employeeName
@@ -927,18 +1076,25 @@ const postMasterGrade =(req,res,next)=>{
 const getMasterProducts =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
+        masterProductGroupModel.findAll()
+        .then((prodGrp)=>{
 
-        masterProductsModel.findAll()
-        .then((data)=>{
-            res.render('masterProducts',{
-                username : req.session.username,
-                data:data,
-                level:req.session.userLevel,
-                msg:""
+            masterProductsModel.findAll()
+            .then((data)=>{
+                res.render('masterProducts',{
+                    username : req.session.username,
+                    data:data,
+                    level:req.session.userLevel,
+                    msg:"",
+                    prodGrp:prodGrp
+                })
             })
+            .catch((err)=>
+            console.log(err)
+            )
         })
         .catch((err)=>
-        console.log(err)
+            console.log(err)
         )
     }
     else 
@@ -1032,13 +1188,138 @@ const postMasterProducts =(req,res,next)=>{
             }
             else
             {
-                masterProductsModel.findAll()
+                masterProductGroupModel.findAll()
+                .then((prodGrp)=>{
+        
+                    masterProductsModel.findAll()
+                    .then((data)=>{
+                        res.render('masterProducts',{
+                            username : req.session.username,
+                            data:data,
+                            level:req.session.userLevel,
+                            msg:"Product Already Present",
+                            prodGrp:prodGrp
+                        })
+                    })
+                    .catch((err)=>
+                    console.log(err)
+                    )
+                })
+                .catch((err)=>
+                    console.log(err)
+                )
+            }
+        })
+        .catch((err)=>
+                console.log(err)
+            )
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const getMasterProductGroup =(req,res,next)=>{
+    if(req.session.isLoggedIn)
+    {
+        masterProductGroupModel.findAll()
+        .then((data)=>{
+            res.render('masterProductGroup',{
+                username : req.session.username,
+                data:data,
+                level:req.session.userLevel,
+                msg:""
+            })
+        })
+        .catch((err)=>
+        console.log(err)
+        )
+    }
+    else 
+    {
+        res.redirect('/')
+    }
+}
+
+const postMasterProductGroup =(req,res,next)=>{
+    
+    var id = req.body.id;
+    console.log("pppppppppppppppppppppppppp")    
+    if(req.body.op==="del")
+    {
+        masterProductGroupModel.destroy({
+            where: { id : id}
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+    else if(req.body.op==="edt")
+    {
+        console.log(req.body.eproductGroup);
+        console.log(req.body.id);
+        masterProductGroupModel.update({
+            productGroup: req.body.eproductGroup
+        },
+        {
+            where: {id: req.body.id}
+        }
+        )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+    
+    else{
+        const productGroup = req.body.productGroup;
+       
+        masterProductGroupModel.findAll(
+            {
+                where : {productGroup : productGroup}
+            }
+        )
+        .then((prdrepdata)=>{
+            if(prdrepdata.length==0)
+            {
+                masterProductGroupModel.create({
+                    productGroup :productGroup
+                })
+                    .then((result)=>
+                    console.log(result),
+                    console.log('New Master Product added'),
+                    res.redirect('/masterProductGroup')
+                    )           
+                    .catch((err)=>
+                        console.log(err)
+                    )
+            }
+            else
+            {
+                masterProductGroupModel.findAll()
                 .then((data)=>{
-                    res.render('masterProducts',{
+                    res.render('masterProductGroup',{
                         username : req.session.username,
                         data:data,
                         level:req.session.userLevel,
-                        msg:"Product already present"
+                        msg:"Product Group already present"
                     })
                 })
                 .catch((err)=>
@@ -1071,18 +1352,26 @@ const postMasterProducts =(req,res,next)=>{
 const getMasterTeams =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
-        masterTeamsModel.findAll()
-                .then((data)=>{
-                    res.render('masterTeams',{
-                        username : req.session.username,
-                        data:data,
-                        level:req.session.userLevel,
-                        msg:""
-                    })
+        masterEmployeeModel.findAll()
+        .then((empData)=>{
+            masterTeamsModel.findAll()
+            .then((data)=>{
+                res.render('masterTeams',{
+                    username : req.session.username,
+                    data:data,
+                    empData:empData,
+                    level:req.session.userLevel,
+                    msg:""
                 })
-                .catch((err)=>
-                    console.log(err)
-                )
+            })
+            .catch((err)=>
+                console.log(err)
+            )
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+        
     }
     else 
     {
@@ -1175,18 +1464,25 @@ const postMasterTeams =(req,res,next)=>{
             }
             else
             {
-                masterTeamsModel.findAll()
-                .then((data)=>{
-                    res.render('masterTeams',{
-                        username : req.session.username,
-                        data:data,
-                        level:req.session.userLevel,
-                        msg:"Member Already Present"
-                    })
+                masterEmployeeModel.findAll()
+        .then((empData)=>{
+            masterTeamsModel.findAll()
+            .then((data)=>{
+                res.render('masterTeams',{
+                    username : req.session.username,
+                    data:data,
+                    empData:empData,
+                    level:req.session.userLevel,
+                    msg:"Member Already Present"
                 })
-                .catch((err)=>
-                    console.log(err)
-                )
+            })
+            .catch((err)=>
+                console.log(err)
+            )
+        })
+        .catch((err)=>
+            console.log(err)
+        )
             }
         })
         .catch((err)=>
@@ -1377,6 +1673,9 @@ module.exports = {
 
     getMasterProducts,
     postMasterProducts,
+
+    getMasterProductGroup,
+    postMasterProductGroup,
 
     getMasterTeams,
     postMasterTeams,

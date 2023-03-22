@@ -41,6 +41,12 @@ const postTransportDetails =(req,res,next)=>{
         transportDetailModel.destroy({
             where: { transportId : id}
         })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
     }
     else if(req.body.op==="edt")
@@ -58,7 +64,13 @@ const postTransportDetails =(req,res,next)=>{
           {
               where: {transportId: req.body.id}
           }
-        );
+        )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else
     {
@@ -75,7 +87,9 @@ const postTransportDetails =(req,res,next)=>{
             console.log(result),
             transportContactModel.create({
                 transportName :req.body.transportName,
-                transportContact :req.body.transportContact
+                mobileNumber :req.body.mobileNumber,
+                designation :req.body.designation,
+                email :req.body.email
             })
             .then((res2)=>{
                 console.log(res2);
@@ -87,7 +101,9 @@ const postTransportDetails =(req,res,next)=>{
                 .then((res3)=>{
                     transportTruckModel.create({
                         transportName :req.body.transportName,
-                        transportTruck :req.body.transportTruck                       
+                        transportTruck :req.body.transportTruck,
+                        ownerMobileNumber :req.body.ownerMobileNumber,
+                        driverMobileNumber :req.body.driverMobileNumber                      
                     })
                     .then((res4)=>{
                         console.log(res4)
@@ -120,21 +136,28 @@ const postTransportDetails =(req,res,next)=>{
 const getTransportContacts =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
-        
-        console.log(`User Level :  ${req.session.userLevel}`);
-        transportContactModel.findAll()
-        .then((data)=>{
-            console.log(data);
-            res.render('transportContact',{
-                username : req.session.username,
-                data:data,
-                level: req.session.userLevel
+        transportDetailModel.findAll()
+        .then((transData)=>{
+
+            console.log(`User Level :  ${req.session.userLevel}`);
+            transportContactModel.findAll()
+            .then((data)=>{
+                
+                console.log(data);
+                res.render('transportContact',{
+                    username : req.session.username,
+                    data:data,
+                    transData:transData,
+                    level: req.session.userLevel
+                })
             })
+            .catch((err)=>
+            console.log(err)
+            )
         })
         .catch((err)=>
-        console.log(err)
+            console.log(err)
         )
-
     }
     else 
     {
@@ -151,7 +174,13 @@ const postTransportContacts =(req,res,next)=>{
     {
         transportContactModel.destroy({
             where: { transportId : id}
-        });
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
         
     }
@@ -160,19 +189,28 @@ const postTransportContacts =(req,res,next)=>{
         console.log("new yr");
         transportContactModel.update({
             transportName: req.body.transportName,
-            transportContact: req.body.transportContact
+            mobileNumber: req.body.mobileNumber,
+            designation :req.body.designation,
+            email :req.body.email
           },
           {
               where: {transportId: req.body.id}
           }
-        );
-        res.redirect('/transportContacts');
+        )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else
     {
         transportContactModel.create({
             transportName :req.body.transportName,
-            transportContact :req.body.transportContact
+            mobileNumber :req.body.mobileNumber,
+            designation :req.body.designation,
+            email :req.body.email
         })
         .then((result)=>{
             console.log(result),
@@ -234,7 +272,13 @@ const postTransportStations =(req,res,next)=>{
     {
         transportStationModel.destroy({
             where: { transportId : id}
-        });
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
         
     }
@@ -250,6 +294,12 @@ const postTransportStations =(req,res,next)=>{
               where: {transportId: req.body.id}
           }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else
     {
@@ -297,12 +347,19 @@ const getTransportTrucks =(req,res,next)=>{
         console.log(`User Level :  ${req.session.userLevel}`);
         transportTruckModel.findAll()
         .then((data)=>{
-            console.log(data);
-            res.render('transportTruck',{
-                username : req.session.username,
-                data:data,
-                level: req.session.userLevel
+            transportDetailModel.findAll()
+            .then((transData)=>{            
+                console.log(data);
+                res.render('transportTruck',{
+                    username : req.session.username,
+                    data:data,
+                    transData:transData,
+                    level: req.session.userLevel
+                })
             })
+            .catch((err)=>
+                console.log(err)
+            )
         })
         .catch((err)=>
         console.log(err)
@@ -323,7 +380,13 @@ const postTransportTrucks =(req,res,next)=>{
     {
         transportTruckModel.destroy({
             where: { transportId : id}
-        });
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
     }
     else if(req.body.op==="edt")
@@ -331,21 +394,33 @@ const postTransportTrucks =(req,res,next)=>{
         console.log("new yr");
         transportTruckModel.update({
             transportName: req.body.transportName,
-            transportTruck: req.body.transportTruck
+            transportTruck: req.body.transportTruck,
+            ownerMobileNumber: req.body.ownerMobileNumber,
+            driverMobileNumber: req.body.driverMobileNumber
           },
           {
               where: {transportId: req.body.id}
           }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
     }
     else
     {
         const transportName = req.body.transportName;
         const transportTruck = req.body.transportTruck;
+        const ownerMobileNumber = req.body.ownerMobileNumber;
+        const driverMobileNumber = req.body.driverMobileNumber;
         transportTruckModel.create({
             transportName :transportName,
-            transportTruck :transportTruck
+            transportTruck :transportTruck,
+            ownerMobileNumber :ownerMobileNumber,
+            driverMobileNumber :driverMobileNumber
         })
         .then((result)=>{
             console.log(result),

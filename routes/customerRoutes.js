@@ -5,6 +5,8 @@ const customerCtrl = require('../controller/customerController');
 const router = express.Router();
 
 
+router.get('/masterFirm',customerCtrl.getmasterFirm);
+router.post('/masterFirm',customerCtrl.postmasterFirm);
 
 router.get('/customerContact',customerCtrl.getCustomerContact);
 router.post('/customerContact',customerCtrl.postCustomerContact);

@@ -3,17 +3,18 @@ const customerCategoryModel = require('../model/customerCategoryModel');
 const customerFirmModel = require('../model/customerFirmModel');
 const customerProductModel = require('../model/customerProductModel');
 const masterCustomerModel = require('../model/masterCustomerModel');
+const masterFirmModel = require('../model/masterFirmModel');
 
 
 
-const getCustomerContact =(req,res,next)=>{
+const getmasterFirm =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
         console.log(`User Level :  ${req.session.userLevel}`);
-        customerContactModel.findAll()
+        masterFirmModel.findAll()
             .then((data)=>{
                 console.log(data);
-                res.render('customerContact',{
+                res.render('masterFirm',{
                     username : req.session.username,
                     data:data,
                     level: req.session.userLevel
@@ -29,6 +30,110 @@ const getCustomerContact =(req,res,next)=>{
     }
 }
 
+const postmasterFirm =(req,res,next)=>{
+    console.log(`check1 ${req.body.id}`);
+    console.log(`check2 ${req.body.op}`);
+    const id = req.body.id;
+    if(req.body.op==="del")
+    {
+        masterFirmModel.destroy({
+            where: { firmId : id}
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+    else if(req.body.op==="edt")
+    {
+        console.log("new yr");
+        masterFirmModel.update({
+            firmName: req.body.firmName,
+            address: req.body.address,
+            pincode: req.body.pincode,
+            GSTNumber: req.body.GSTNumber,
+            accountNumber: req.body.accountNumber,
+            bankName: req.body.bankName,
+            IFSCcode: req.body.IFSCcode
+          },
+          {
+              where: {firmId: req.body.id}
+          }
+        )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+    else
+    {
+        masterFirmModel.create({
+            firmName: req.body.firmName,
+            address: req.body.address,
+            pincode: req.body.pincode,
+            GSTNumber: req.body.GSTNumber,
+            accountNumber: req.body.accountNumber,
+            bankName: req.body.bankName,
+            IFSCcode: req.body.IFSCcode
+        })
+        .then((result)=>{
+            console.log(result),
+            res.redirect('/masterFirm')
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const getCustomerContact =(req,res,next)=>{
+    if(req.session.isLoggedIn)
+    {
+        console.log(`User Level :  ${req.session.userLevel}`);
+        masterCustomerModel.findAll()
+        .then((custData)=>{
+            customerContactModel.findAll()
+            .then((data)=>{
+                console.log(data);
+                res.render('customerContact',{
+                    username : req.session.username,
+                    data:data,
+                    level: req.session.userLevel,
+                    custData:custData
+                })
+            })
+            .catch((err)=>
+            console.log(err)
+            )
+        })
+        .catch((err)=>
+        console.log(err)
+        )
+    }
+    else 
+    {
+        res.redirect('/')
+    }
+}
+
 const postCustomerContact =(req,res,next)=>{
     console.log(`check1 ${req.body.id}`);
     console.log(`check2 ${req.body.op}`);
@@ -37,27 +142,45 @@ const postCustomerContact =(req,res,next)=>{
     {
         customerContactModel.destroy({
             where: { customerId : id}
-        });
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else if(req.body.op==="edt")
     {
         console.log("new yr");
         customerContactModel.update({
             customerName: req.body.customerName,
-            mobileNumber: req.body.mobileNumber
+            designation: req.body.designation,
+            mobileNumber: req.body.mobileNumber,
+            email: req.body.email
           },
           {
               where: {customerId: req.body.id}
           }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else
     {
         const customerName = req.body.customerName;
+        const designation = req.body.designation;
         const mobileNumber = req.body.mobileNumber;
+        const email = req.body.email;
         customerContactModel.create({
             customerName :customerName,
-            mobileNumber :mobileNumber
+            designation :designation,
+            mobileNumber :mobileNumber,
+            email :email
         })
         .then((result)=>{
             console.log(result),
@@ -69,6 +192,23 @@ const postCustomerContact =(req,res,next)=>{
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const getCustomerCategory =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
@@ -104,7 +244,13 @@ const postCustomerCategory =(req,res,next)=>{
     {
         customerCategoryModel.destroy({
             where: { customerId : id}
-        });
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
     }
     else if(req.body.op==="edt")
@@ -118,6 +264,12 @@ const postCustomerCategory =(req,res,next)=>{
               where: {customerId: req.body.id}
           }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else
     {
@@ -181,7 +333,13 @@ const postCustomerFirm =(req,res,next)=>{
     {
         customerFirmModel.destroy({
             where: { customerId : id}
-        });
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
     }
     else if(req.body.op==="edt")
@@ -195,6 +353,12 @@ const postCustomerFirm =(req,res,next)=>{
               where: {customerId: req.body.id}
           }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     else
     {
@@ -260,7 +424,13 @@ const postCustomerProduct =(req,res,next)=>{
     {
         customerProductModel.destroy({
             where: { customerId : id}
-        });
+        })
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
     }
     else if(req.body.op==="edt")
@@ -274,6 +444,12 @@ const postCustomerProduct =(req,res,next)=>{
               where: {customerId: req.body.id}
           }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         
     }
     else
@@ -306,6 +482,8 @@ const postCustomerProduct =(req,res,next)=>{
 
 
 module.exports = {
+    getmasterFirm,
+    postmasterFirm,
     getCustomerContact,
     postCustomerContact,
     getCustomerCategory,

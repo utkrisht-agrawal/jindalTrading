@@ -42,6 +42,7 @@ const postRegister = (req,res,next)=>{
     .then(result=> {
         console.log(result),
         console.log("new hrUser registered "),
+        
         res.redirect('/userDashboard')
     })
     .catch(err=>{
@@ -222,6 +223,12 @@ const postRegisteredUsers =(req,res,next)=>{
             where: {id: id}
         }
         )
+        .then((qwe)=>{
+            res.send("kyu")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
 }
 

@@ -167,9 +167,9 @@
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
 							
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+							<!-- <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
-						    </ul>
+						    </ul> -->
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
@@ -185,8 +185,8 @@
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
+								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
-								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -194,13 +194,14 @@
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
 								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
 							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Transport</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
@@ -210,7 +211,13 @@
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Vendor</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -247,7 +254,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Style combinations</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Transporter<i class="icon-play3 ml-2"></i></button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Transporter</button></td>
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -292,29 +299,31 @@
 												<td class="bankAccountNumber"><%= data[i].bankAccountNumber%></td>
 												<td class="ifscCode"><%= data[i].ifscCode%></td>
                                             <%} else if(level>2) {%>
-                                                <td class="transportName" contenteditable="true"><%= data[i].transportName%></td>
-                                                <td class="transportArea" contenteditable="true"><%= data[i].transportArea%></td>
-                                                <td class="transportStation" contenteditable="true"><%= data[i].transportStation%></td>
-                                                <td class="transportOwner" contenteditable="true"><%= data[i].transportOwner%></td>
-                                                <td class="bankName" contenteditable="true"><%= data[i].bankName%></td>
-                                                <td class="bankAccountNumber" contenteditable="true"><%= data[i].bankAccountNumber%></td>
-                                                <td class="ifscCode" contenteditable="true"><%= data[i].ifscCode%></td>
+                                                <td class="transportName"><%= data[i].transportName%></td>
+                                                <td class="transportArea"><%= data[i].transportArea%></td>
+                                                <td class="transportStation"><%= data[i].transportStation%></td>
+                                                <td class="transportOwner"><%= data[i].transportOwner%></td>
+                                                <td class="bankName"><%= data[i].bankName%></td>
+                                                <td class="bankAccountNumber"><%= data[i].bankAccountNumber%></td>
+                                                <td class="ifscCode"><%= data[i].ifscCode%></td>
                                                 <td>
-                                                    <button onclick="edit('<%= data[i].transportId%>transport')" name="foo" value="check" >Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].transportId%>transport')" title="Edit <%= data[i].transportName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
-                                                <td >
-                                                    <button onclick="del('<%= data[i].transportId %>')" name="foo" value="check" >Delete</button>
+                                                <td >  
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].transportId%>transport')" title="Delete <%= data[i].transportName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
-                                                <td class="transportName" contenteditable="true"><%= data[i].transportName%></td>
-                                                <td class="transportArea" contenteditable="true"><%= data[i].transportArea%></td>
-                                                <td class="transportStation" contenteditable="true"><%= data[i].transportStation%></td>
-                                                <td class="transportOwner" contenteditable="true"><%= data[i].transportOwner%></td>
-                                                <td class="bankName" contenteditable="true"><%= data[i].bankName%></td>
-                                                <td class="bankAccountNumber" contenteditable="true"><%= data[i].bankAccountNumber%></td>
-                                                <td class="ifscCode" contenteditable="true"><%= data[i].ifscCode%></td>
-                                                    <button onclick="edit('<%= data[i].transportId%>transport')" name="foo" value="check" >Edit</button>
+                                                <td class="transportName"><%= data[i].transportName%></td>
+                                                <td class="transportArea"><%= data[i].transportArea%></td>
+                                                <td class="transportStation"><%= data[i].transportStation%></td>
+                                                <td class="transportOwner"><%= data[i].transportOwner%></td>
+                                                <td class="bankName"><%= data[i].bankName%></td>
+                                                <td class="bankAccountNumber"><%= data[i].bankAccountNumber%></td>
+                                                <td class="ifscCode"><%= data[i].ifscCode%></td>
+												<td>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].transportId%>transport')" title="Edit <%= data[i].transportName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
+                                                
                                             <%}%>
                                             </tr>
 									<% } %>
@@ -339,12 +348,12 @@
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>Transport Name</label>
-												            <input type="text"class="form-control transportName" name="transportName" id="transportName">
+												            <label>Transport Name<span class="text-danger">*</span></label>
+												            <input required type="text"class="form-control transportName" name="transportName" id="transportName">
 											            </div>
 											            <div class="col-sm-6">
-												            <label>Transport Area</label>
-															<input type="text"class="form-control transportArea" name="transportArea" id="transportArea">
+												            <label>Transport Area<span class="text-danger">*</span></label>
+															<input required type="text"class="form-control transportArea" name="transportArea" id="transportArea">
 											            </div>
 										            </div>
 										        </div>
@@ -363,47 +372,78 @@
                                                 <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>Bank Name</label>
-												            <input type="text"class="form-control bankName" name="bankName" id="bankName">
+												            <label>Bank Name<span class="text-danger">*</span></label>
+												            <input type="text" required class="form-control bankName" name="bankName" id="bankName">
 											            </div>
 											            <div class="col-sm-6">
-												            <label>ifsc Code</label>
-												            <input type="text"class="form-control ifscCode" name="ifscCode" id="ifscCode">
+												            <label>ifsc Code<span class="text-danger">*</span></label>
+												            <input type="text" required class="form-control ifscCode" name="ifscCode" id="ifscCode">
 											            </div>
 										            </div>
 										        </div>
                                                 <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-10">
-												            <label>Bank Account Number</label>
-												            <input type="number"class="form-control bankAccountNumber" name="bankAccountNumber" id="bankAccountNumber">
+												            <label>Bank Account Number<span class="text-danger">*</span></label>
+												            <input type="number" required class="form-control bankAccountNumber" name="bankAccountNumber" id="bankAccountNumber">
 											            </div>
 										            </div>
 									            </div>
+
+												<legend class="font-weight-semibold text-uppercase font-size-sm">Contact</legend>
+
                                                 <div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>Contact</label>
-												            <input type="number"class="form-control transportContact" name="transportContact" id="transportContact">
+											            <div class="col-sm-4">
+												            <label>Mobile Number <span class="text-danger">*</span></label>
+															<input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control mobileNumber" name="mobileNumber" id="mobileNumber">
 											            </div>
-											            <div class="col-sm-6">
-												            <label>Truck</label>
-												            <input type="text"class="form-control transportTruck" name="transportTruck" id="transportTruck">
+											            <div class="col-sm-4">
+												            <label>Designation<span class="text-danger">*</span></label>
+                                                            <input required type="text" class="form-control designation" name="designation" id="designation">
 											            </div>
-											            
+											            <div class="col-sm-4">
+												            <label>E-mail</label>
+												            <input type="email" class="form-control email" name="email" id="email">
+											            </div>
+											            														
 														
 										            </div>
 									            </div>
+
+												<legend class="font-weight-semibold text-uppercase font-size-sm">Station</legend>
+
                                                 <div class="form-group">
-										            <div class="row">
-															<div class="col-sm-6">
-																<label>transportSource</label>
-																<input type="text"class="form-control transportSource" name="transportSource" id="transportSource">
-															</div>
-															<div class="col-sm-6">
-																<label>transportDestination</label>
-																<input type="text"class="form-control transportDestination" name="transportDestination" id="transportDestination">
-															</div>
+													<div class="row">
+														<div class="col-sm-6">
+															<label>transportSource</label>
+															<input type="text"class="form-control transportSource" name="transportSource" id="transportSource">
+														</div>
+														<div class="col-sm-6">
+															<label>transportDestination</label>
+															<input type="text"class="form-control transportDestination" name="transportDestination" id="transportDestination">
+														</div>
+										            </div>
+									            </div>
+                                                
+												<legend class="font-weight-semibold text-uppercase font-size-sm">Truck</legend>
+
+
+
+                                                <div class="form-group">
+													<div class="row">
+														<div class="col-sm-4">
+															<label>Truck Number<span class="text-danger">*</span></label>
+															<input required type="text"class="form-control transportTruck" name="transportTruck" id="transportTruck">
+														</div>
+														<div class="col-sm-4">
+															<label>Owner Mobile Number<span class="text-danger">*</span></label>
+												            <input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control ownerMobileNumber" name="ownerMobileNumber" id="ownerMobileNumber">
+														</div>
+														<div class="col-sm-4">
+															<label>Driver Mobile Number<span class="text-danger">*</span></label>
+															<input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control driverMobileNumber" name="driverMobileNumber" id="driverMobileNumber">
+														</div>
 										            </div>
 									            </div>
                                                 
@@ -417,6 +457,54 @@
 						            </div>
 					            </div>
 				            </div>
+
+
+
+							<!-- EDIT modal -->
+							<div id="modal_edit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Customer Product</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="off">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+							
+							
+							
+							<!-- DEL modal -->
+							<div id="modal_del" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Delete Customer Product</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blasto">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="offo">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+
+
+
+
 			            </div>
 		            </div>
 					
@@ -445,41 +533,32 @@
     function edit(value)
     {
         console.log(value);
-        var sub = 'transport';
-        var result = value.replace(sub,'');
-        console.log(result);
-        
-        $('.'+value).each(function() 
-        {
-            
-            var transportName = $(this).find(".transportName").html();    
-            var transportArea = $(this).find(".transportArea").html();    
-            var transportStation = $(this).find(".transportStation").html();    
-            var transportOwner = $(this).find(".transportOwner").html();    
-            var bankName = $(this).find(".bankName").html();    
-            var bankAccountNumber = $(this).find(".bankAccountNumber").html();    
-            var ifscCode = $(this).find(".ifscCode").html();    
-            console.log(transportName);
-            console.log(transportArea);
-            console.log("ujjwal");
-            $.post("/transportDetails",
-            {
-                id: result,
-                transportName: transportName,
-                transportArea: transportArea,
-                transportStation: transportStation,
-                transportOwner: transportOwner,
-                bankName: bankName,
-                bankAccountNumber: bankAccountNumber,
-                ifscCode: ifscCode,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
+        var etransportName = document.getElementById("etransportName").value;
+        var etransportArea = document.getElementById("etransportArea").value;
+        var etransportStation = document.getElementById("etransportStation").value;
+        var etransportOwner = document.getElementById("etransportOwner").value;
+        var ebankName = document.getElementById("ebankName").value;
+        var ebankAccountNumber = document.getElementById("ebankAccountNumber").value;
+        var eifscCode = document.getElementById("eifscCode").value;
+
+		$.post("/transportDetails",
+		{
+			id: value,
+			transportName: etransportName,
+			transportArea: etransportArea,
+			transportStation: etransportStation,
+			transportOwner: etransportOwner,
+			bankName: ebankName,
+			bankAccountNumber: ebankAccountNumber,
+			ifscCode: eifscCode,
+			op:"edt"
+		},
+		function (data, status) {
+			console.log(data);
+			console.log(status);
+			setInterval('refreshPage()', 50);
+		}
+		);
     }
 </script>
 
@@ -495,8 +574,77 @@
             function (data, status) {
                 console.log(data);
                 console.log(status);
+				setInterval('refreshPage()', 50);
             }
             );
+    }
+
+	function refreshPage() {
+    	location.reload(true);
+	}
+
+
+	function eedit(value)
+    {
+        console.log(value);
+        var sub = 'transport';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+
+			var transportName = $(this).find(".transportName").html();    
+            var transportArea = $(this).find(".transportArea").html();    
+            var transportStation = $(this).find(".transportStation").html();    
+            var transportOwner = $(this).find(".transportOwner").html();    
+            var bankName = $(this).find(".bankName").html();    
+            var bankAccountNumber = $(this).find(".bankAccountNumber").html();    
+            var ifscCode = $(this).find(".ifscCode").html();    
+            
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			console.log(result)
+			
+			
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >transportName</td> <td><input type="text" value="'+transportName+'" class="form-control etransportName" name="etransportName" id="etransportName"></td> </tr> <tr> <td>transportArea</td> <td><input type="text" value="'+transportArea+'" class="form-control etransportArea" name="etransportArea" id="etransportArea"></td> </tr> <tr> <td>transportStation</td> <td><input type="text" value="'+transportStation+'" class="form-control etransportStation" name="etransportStation" id="etransportStation"></td> </tr> <tr> <td>transportOwner</td> <td><input type="text" value="'+transportOwner+'" class="form-control etransportOwner" name="etransportOwner" id="etransportOwner"></td> </tr> <tr> <td>bankName</td> <td><input type="text" value="'+bankName+'" class="form-control ebankName" name="ebankName" id="ebankName"></td> </tr> <tr> <td>bankAccountNumber</td> <td><input type="number" value="'+bankAccountNumber+'" class="form-control ebankAccountNumber" name="ebankAccountNumber" id="ebankAccountNumber"></td> </tr> <tr> <td>ifscCode</td> <td><input type="text" value="'+ifscCode+'" class="form-control eifscCode" name="eifscCode" id="eifscCode"></td> </tr> </table> </div>'
+				
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			document.getElementById("blast").innerHTML=tek;
+			document.getElementById("off").innerHTML=bt;
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			
+		});
+    }
+	
+	function ddel(value)
+    {
+        console.log(value);
+        var sub = 'transport';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			var transportName = $(this).find(".transportName").html();    
+            var transportArea = $(this).find(".transportArea").html();    
+            var transportStation = $(this).find(".transportStation").html();    
+            var transportOwner = $(this).find(".transportOwner").html();    
+            var bankName = $(this).find(".bankName").html();    
+            var bankAccountNumber = $(this).find(".bankAccountNumber").html();    
+            var ifscCode = $(this).find(".ifscCode").html();    
+                
+			console.log(result)
+
+
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >transportName</td> <td>'+transportName+'</td> </tr> <tr> <td>transportArea</td> <td>'+transportArea+' </td> </tr> <tr> <td>transportStation</td> <td>'+transportStation+' </td> </tr> <tr> <td>transportOwner</td> <td>'+transportOwner+' </td> </tr> <tr> <td>bankName</td> <td>'+bankName+' </td> </tr> <tr> <td>bankAccountNumber</td> <td>'+bankAccountNumber+' </td> </tr> <tr> <td>ifscCode</td> <td>'+ifscCode+' </td> </tr> </table> </div>'
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
+			console.log("Ujjwal")
+			document.getElementById("blasto").innerHTML=tek;
+			document.getElementById("offo").innerHTML=bt;
+
+		});
     }
 </script>
 

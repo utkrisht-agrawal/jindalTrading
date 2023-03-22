@@ -166,16 +166,16 @@
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
 							
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+							<!-- <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
-						    </ul>
+						    </ul> -->
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
 						</li>
 
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu ">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
@@ -184,15 +184,16 @@
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
+								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
-								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
 							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Customers</span></a>
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterCustomer" class="nav-link active">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -210,11 +211,10 @@
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Team</span></a>
-
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Vendor</span></a>
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="index.html" class="nav-link">Contact Details</a></li>
-								<li class="nav-item"><a href="https://demo.interface.club/limitless/demo/Template/layout_3/LTR/default/full/index.html" class="nav-link">Add Member</a></li>
+								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -313,7 +313,8 @@
 												<td class="creditLimit" ><%= data[i].creditLimit%></td>
 												<td class="creditDays" ><%= data[i].creditDays%></td>
 											<%} else if(level>2) {%>
-												<td class="customerName"><%= data[i].customerName%></td>
+												<td class="customerName"><button type="button" class="btn btn-light" data-toggle="modal" onclick="custInfo('<%= data[i].customerName%>')" data-target="#customer_information"><%= data[i].customerName%></button></td>
+												
 												<td class="area"><%= data[i].area%></td>
 												<td class="status"><%= data[i].status%></td>
 												<td class="grade"><%= data[i].grade%></td>
@@ -501,8 +502,8 @@
 														<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
 													</td>
 													<td >
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
-												</td>
+														<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
+													</td>
 													<%}else if(level>1){%>
 														<td class="customerName"><%= data[i].customerName%></td>
 														<td class="area"><%= data[i].area%></td>
@@ -592,7 +593,7 @@
 										<div class="row">
 											<div class="col-sm-6">
 												<label>Customer Name<span class="text-danger">*</span></label>
-												<input type="text" placeholder="Ujjwal Raturi" class="form-control customerName" required name="customerName" id="customerName">
+												<input type="text" class="form-control customerName" required name="customerName" id="customerName">
 											</div>
 
 										</div>
@@ -602,7 +603,12 @@
 										<div class="row">
 											<div class="col-sm-12">
 												<label>Firm<span class="text-danger">*</span></label>
-												<input type="text" placeholder="Firm" class="form-control firm" required name="firm" id="firm">
+												<select name="firm" class="form-control firm" id="firm" required>
+													<option value="" disabled selected>-Select-</option>
+													<% for(var i=0; i<firmData.length; i++) {%>
+														<option value="<%=firmData[i].firmName%>"><%=firmData[i].firmName%></option>
+													<% } %>
+												</select>
 											</div>
 										</div>
 									</div>
@@ -642,11 +648,27 @@
 
 									<div class="form-group">
 										<div class="row">
+											
+											
+											<div class="col-sm-4">
+												<label>designation<span class="text-danger">*</span></label>
+												<input type="text" required class="form-control designation" name="designation" id="designation" >
+											</div>
 											<div class="col-sm-4">
 												<label>Contact<span class="text-danger">*</span></label>
 												<input type="tel" required placeholder="10-digit-format" class="form-control contact" name="contact" id="contact" pattern="[0-9]{10}">
 											</div>
-
+											<div class="col-sm-4">
+												<label>email<span class="text-danger">*</span></label>
+												<input type="email" required class="form-control email" name="email" id="email" >
+											</div>
+											
+											
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<div class="row">
 											<div class="col-sm-4">
 												<label>Category<span class="text-danger">*</span></label>
 												<select name="category" class="category form-control" required>
@@ -656,16 +678,8 @@
 													<% } %>
 												</select>
 											</div>
-
 											
-											
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<div class="row">
-											
-											<div class="col-sm-12">
+											<div class="col-sm-8">
 												<label>Products<span class="text-danger">*</span></label>
 												<select name="productFil" required class="form-control multiselect-filtering productFil" id="productFil" multiple="multiple" data-fouc>
 													<% for(var i=0; i<productData.length; i++) {%>
@@ -686,7 +700,7 @@
 
 											<div class="col-sm-8">
 												<label>Address<span class="text-danger">*</span></label>
-												<input type="text" required placeholder="address" class="form-control address" name="address" id="address">
+												<input type="text" required class="form-control address" name="address" id="address">
 											</div>
 
 										</div>
@@ -785,7 +799,24 @@
 
 
 
-
+							<div id="customer_information" class="modal fade" tabindex="-1">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content ">
+										<div class="modal-header">
+											<h4 class="modal-title">Master Customer </h4>
+											
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+			
+										<div class="modal-body" id="ekdin">
+										</div>
+			
+										<div class="modal-footer">
+											<button type="button" class="btn btn-link text-white" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
 
 							<!-- /vertical form modal -->
 		
@@ -926,8 +957,8 @@
         var egrade = document.getElementById("egrade").value;
         var epincode = document.getElementById("epincode").value;
         var eaddress = document.getElementById("eaddress").value;
-        var ereferenceNumber1 = document.getElementById("earea").value;
-        var ereferenceNumber2 = document.getElementById("earea").value;
+        var ereferenceNumber1 = document.getElementById("ereferenceNumber1").value;
+        var ereferenceNumber2 = document.getElementById("ereferenceNumber2").value;
         var ecreditLimit = document.getElementById("ecreditLimit").value;
         var ecreditDays = document.getElementById("ecreditDays").value;
 		console.log(ecustomerName);
@@ -982,10 +1013,6 @@
 
 
 
-	if ( window.history.replaceState ) {
-		window.history.replaceState( null, null, window.location.href );
-		}
-		
 		function fil()
 		{
 			var mySelcust = document.getElementById("customerNameFil").value;
@@ -1027,7 +1054,7 @@
         $('.'+value).each(function() 
         {   
 			console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
-            var customerName = $(this).find(".customerName").html();    
+            var customerName = $(this).find(".customerName")[0].innerText;    
             var area = $(this).find(".area").html();    
             var status = $(this).find(".status").html();    
             var grade = $(this).find(".grade").html();    
@@ -1038,6 +1065,10 @@
             var creditLimit = $(this).find(".creditLimit").html();    
             var creditDays = $(this).find(".creditDays").html();     
             
+
+
+			console.log(customerName)
+			console.log("++++++++++++++++++++++++++++++++++++++++")
 			console.log(result)
 			
 			
@@ -1153,5 +1184,227 @@
 			link.click();
 	}
 
+
+
+
+	function custInfo(value){
+		console.log(value);
+		$.post("/masterCustomer",
+        {
+            value:value,
+            op:"cinf"
+        },
+        function (data, status) {
+			console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+            console.log(data);
+			console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+			// console.log(Object.keys(data).length)
+			// console.log(data[0].product)
+			custmod(data);
+            console.log(status);
+        }
+		)
+	}
+
+	function custmod(data)
+	{
+		// console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
+		if(data)
+		{
+			// console.log("---------------------------------------------------------------------------")
+			// console.log(data)
+			// console.log("---------------------------------------------------------------------------")
+			var index=Object.keys(data).length;
+			console.log(index)
+			index=index-19;
+			var ishuProd="";
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+			var holiname=data[0].customerId
+			console.log(holiname);
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+			for(let i=0;i<=index;i++)
+			{
+				if(i>0)
+				{
+					ishuProd=ishuProd.concat("  ,  ")
+					// ishuProd+="<br>"
+				}
+				ishuProd=ishuProd.concat(data[i].product)
+				console.log(ishuProd);
+			}
+			// console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>  <tbody> "
+					
+					table+="<tr> "
+						table+="<td >Customer Name</td>"                       
+						table+="<td class='customerName'>"+data.customerName+"</td>"                       
+					table+="</tr>"
+					table+="<tr> "
+						table+="<td >Mobile Number</td>"                       
+						table+="<td class='mobileNumber'>"+data.mobileNumber+"</td>"                       
+					table+="</tr>"
+					table+="<tr> "
+						table+="<td >Product</td>"                       
+						table+="<td class='product'>"+ishuProd+"</td>"                       
+					table+="</tr>"
+					table+="<tr> "
+						table+="<td >Area</td>"
+						table+="<td class='area'>"+data.area+"</td>"                       
+					table+="</tr>"
+					table+="<tr> "
+						table+="<td >Status</td>"
+						table+="<td class='status'>"+data.status+"</td>"                       
+					table+="</tr>"
+					table+="<tr> "
+						table+="<td >Address</td>"
+						table+="<td class='address'>"+data.address+"</td>"                       
+						table+="</tr>"
+						table+="</tbody> </table>"
+					var	tek="<ul class='nav nav-tabs nav-tabs-solid bg-teal-400 border-0 nav-justified'>"	
+
+					tek+=" <li class='nav-item'><a href='#customer-tab1' class='nav-link active' data-toggle='tab'>Detail</a></li>"
+
+					tek+="<li class='nav-item'><a href='#customer-tab2' class='nav-link' data-toggle='tab'>Contact</a></li>"	
+
+					tek+="<li class='nav-item'><a href='#customer-tab3' class='nav-link' data-toggle='tab'>Category</a></li>"	
+
+					tek+="<li class='nav-item'><a href='#customer-tab4' class='nav-link' data-toggle='tab'>Firm</a></li>"	
+					
+					tek+="<li class='nav-item'><a href='#customer-tab5' class='nav-link' data-toggle='tab'>Product</a></li>"	
+					
+					tek+="<li class='nav-item' onclick='holi'><a href='#customer-tab6' class='nav-link' data-toggle='tab' onclick='holi("+holiname+")' >Report</a></li>"	
+
+					tek+="</ul> <div class='tab-content'> "	
+
+					tek+="<div class='tab-pane fade show active' id='customer-tab1' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td>Customer Name</td> <td>"+data.customerName+"</td> </tr> <tr> <td>Area</td> <td>"+data.area+"</td> </tr> <tr> <td>Status</td> <td>"+data.status+"</td> </tr> <tr> <td>Grade</td> <td>"+data.grade+"</td> </tr> <tr> <td>Pincode</td> <td>"+data.pincode+"</td> </tr> <tr> <td>Address</td> <td>"+data.address+"</td> </tr> <tr> <td>REF_NO_1</td> <td>"+data.referenceNumber1+"</td> </tr> <tr> <td>REF_NO_2</td> <td>"+data.referenceNumber2+"</td> </tr> <tr> <td>Credit Limit</td> <td>"+data.creditLimit+"</td> </tr> <tr> <td>Credit Days</td> <td>"+data.creditDays+"</td> </tr> </table> </div>"
+					
+					tek+="<div class='tab-pane fade' id='customer-tab2' style='text-align:center;'> <h5>"+data.mobileNumber+"</h5> </div> "
+
+					tek+="<div class='tab-pane fade' id='customer-tab3' style='text-align:center;'> <h5>"+data.category+"</h5> </div> "
+					
+					tek+="<div class='tab-pane fade' id='customer-tab4' style='text-align:center;'> <h5>"+data.firm+"</h5> </div> "
+
+					tek+="<div class='tab-pane fade' id='customer-tab5' style='text-align:center;'> <h5>"+ishuProd+"</h5> </div>"
+					
+					tek+="<div class='tab-pane fade' id='customer-tab6' style='text-align:center;'> <div class='cardRep' id='cardRep'></div> <div class='downloadReport card' id='downloadReport'></div> </div>"
+
+
+					tek+="</div>"
+					
+					document.getElementById("ekdin").innerHTML=tek;
+		}
+		else
+		{
+			var table="<h5>Verified Master Customer does not exist</h5>"
+			document.getElementById("ekdin").innerHTML=table;
+		}
+	}
+
+
+	function holi (value)
+	{
+		console.log("hhhhhhhhhhhhhhooooooooooooooolllllllllliiiiiiiiii");
+		console.log(value);
+		$.post("/marketPlanPigIron",
+        {
+            value:value,
+            op:"marktrep"
+        },
+        function (data, status) {
+			console.log("***********************************************")
+            console.log(data);
+			console.log("***********************************************")
+			markrep(data);
+            console.log(status);
+        }
+		)
+	}
+
+	function markrep(repdata)
+	{
+		console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
+		console.log(repdata)
+		if(repdata)
+		{
+			var holi="<table id='tRep' class='table repdatatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>";
+			
+			holi+="<thead> <tr> <th>area</th> <th>product</th> <th>lastDelivery</th> <th>representative</th> <th>currentRemark</th> <th>remarkStatus</th> <th>currentIssue</th> </tr> </thead>";
+			
+			for(var i=0; i<repdata.length; i++)
+			{
+				holi+="<tr>"
+				holi+="<td >"+ repdata[i].area+"</td>"
+				holi+="<td >"+ repdata[i].product+"</td>"
+				holi+="<td >"+ repdata[i].lastDelivery+"</td>"
+				holi+="<td >"+ repdata[i].representative+"</td>"
+				holi+="<td >"+ repdata[i].currentRemark+"</td>"
+				holi+="<td >"+ repdata[i].remarkStatus+"</td>"
+				holi+="<td >"+ repdata[i].currentIssue+"</td>"
+				holi+="</tr>"
+			}
+			holi+="</table>";
+			
+			document.getElementById("cardRep").innerHTML=holi;
+
+			var hbtn="<button class='btn-link' onclick=exportReport()> Download list</button>"
+
+			document.getElementById("downloadReport").innerHTML=hbtn;
+		}
+		else
+		{
+			var holi="<h3>NO data </h3>";
+			document.getElementById("customer-tab6").innerHTML=holi;
+		}
+	}
+
+	function exportReport()
+	{
+			console.log("a")
+			
+			var table = document.getElementById("tRep");
+			console.log(table)
+
+			
+			var rows =[];
+ 
+      
+			for(var i=0,row; row = table.rows[i];i++){
+				
+				column1 = row.cells[0].innerText;
+				column2 = row.cells[1].innerText;
+				column3 = row.cells[2].innerText;
+				column4 = row.cells[3].innerText;
+				column5 = row.cells[4].innerText;
+				column6 = row.cells[5].innerText;
+				column7 = row.cells[6].innerText;
+				rows.push(
+					[
+						column1,
+						column2,
+						column3,
+						column4,
+						column5,
+						column6,
+						column7
+					]
+				);
+ 
+        	}
+
+			console.log(rows)
+        	csvContent = "data:text/csv;charset=utf-8,";
+         
+			rows.forEach(function(rowArray){
+				row = rowArray.join(",");
+				csvContent += row + "\r\n";
+			});
+ 
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "Market_Report.csv");
+			document.body.appendChild(link);
+			link.click();
+	}
 
 </script>

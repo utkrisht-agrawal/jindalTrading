@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Jindal Trading | Dashboard</title>
 
+	
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
@@ -146,7 +147,7 @@
 
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item nav-item-submenu">
-							<a href="/userDashboard" class="nav-link">
+							<a href="/userDashboard" class="nav-link ">
 								<i class="icon-home4"></i>
 								<span>
 									Dashboard
@@ -175,17 +176,17 @@
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
 						</li>
-						
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
+
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
+								<li class="nav-item"><a href="/masterArea" class="nav-link ">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
-								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
+								<li class="nav-item"><a href="/masterProductGroup" class="nav-link active">MasterProductGroup</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
 							</ul>
 						</li>
@@ -201,14 +202,14 @@
 								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Transport</span></a>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Transport</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/transportDetails" class="nav-link">Details</a></li>
 								<li class="nav-item"><a href="/transportContacts" class="nav-link">Contacts</a></li>
 								<li class="nav-item"><a href="/transportStations" class="nav-link">Stations</a></li>
-								<li class="nav-item"><a href="/transportTrucks" class="nav-link active">Trucks</a></li>
+								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -236,7 +237,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transport</span> - Trucks</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Master Area</span> - Master</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -250,11 +251,19 @@
 				<!-- Dashboard content -->
 				<div class="row">
 					<div class="col-md-12">
+
+						<div class="errInfo" id="errInfo" style=" background-color: rgb(255, 0, 0); margin: 1%;">
+							<% if(msg){ %>
+								<h6 style="text-align: center;"><%=msg%></h6>
+							<% } %>
+						</div>
+
 						<div class="card">
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Style combinations</h5>
+								<h5 class="card-title">Master Product Group</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Transporter Truck</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Group" data-trigger="hover" data-content="Click to Create New Master Group">Add new Master Group</button></td>
+									
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -266,15 +275,12 @@
 							</div>
 
 							<% if(data.length>0) {%>
-    
-								<table class="table datatable-basic table-bordered table-striped table-hover">
+									
+								<table id="tbl" class="table datatable-basic table-bordered table-striped table-hover">
 									
 									<thead>
 										<tr>
-											<th>transportName</th>
-                                            <th>transportTruck</th>
-                                            <th>ownerMobileNumber</th>
-                                            <th>driverMobileNumber</th>
+                                            <th>Product Group</th>
 											<% if(level>2) {%>
 												<th>Edit</th>
 												<th>Delete</th>
@@ -286,40 +292,33 @@
 									</thead >
 									
 									<% for(var i=0; i<data.length; i++) {%>
-										<tr  class="<%= data[i].transportId%>transport">
+										<tr class="<%= data[i].id%>productGroup">
                                             <%if(level==1) {%>
-                                                <td class="transportName"><%= data[i].transportName%></td>
-												<td class="transportTruck"><%= data[i].transportTruck%></td>
-												<td class="ownerMobileNumber"><%= data[i].ownerMobileNumber%></td>
-												<td class="driverMobileNumber"><%= data[i].driverMobileNumber%></td>
+                                                <td class="productGroup"><%= data[i].productGroup%></td>
                                             <%} else if(level>2) {%>
-                                                <td class="transportName" contenteditable="true"><%= data[i].transportName%></td>
-                                                <td class="transportTruck" contenteditable="true"><%= data[i].transportTruck%></td>
-                                                <td class="ownerMobileNumber" contenteditable="true"><%= data[i].ownerMobileNumber%></td>
-                                                <td class="driverMobileNumber" contenteditable="true"><%= data[i].driverMobileNumber%></td>
+                                                <td class="productGroup"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].transportId%>transport')" title="Edit <%= data[i].transportName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].id%>productGroup')"data-popup="popover" title="Edit <%= data[i].productGroup%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
-                                                <td >  
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].transportId%>transport')" title="Delete <%= data[i].transportName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
+                                                <td >
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].id%>productGroup')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].productGroup%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
-                                                <td class="transportName" contenteditable="true"><%= data[i].transportName%></td>
-                                                <td class="transportTruck" contenteditable="true"><%= data[i].transportTruck%></td>
-												<td class="ownerMobileNumber" contenteditable="true"><%= data[i].ownerMobileNumber%></td>
-                                                <td class="driverMobileNumber" contenteditable="true"><%= data[i].driverMobileNumber%></td>
+                                                <td class="productGroup"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].transportId%>transport')" title="Edit <%= data[i].transportName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].id%>productGroup')"data-popup="popover" title="Edit <%= data[i].productGroup%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                             <%}%>
-                                            </tr>
+                                        </tr>
 									<% } %>
 								</table>
 							
 							<%}else{%>
 								<h4>No new data</h4>
 							<%}%>
-
+							
+							
+							<button class="btn-link teal-400" style="color:teal" onclick=exportData()>Download</button>
 							
 							
 							<!-- Vertical form modal -->
@@ -327,45 +326,25 @@
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">New Transporter Truck</h5>
+								            <h5 class="modal-title">New Master Product Group</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
-							            <form action="/transportTrucks" method="POST">
+							            <form action="/masterProductGroup" method="POST">
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>Transport Name<span class="text-danger">*</span></label>
-												            <select required name="transportName" class="form-control transportName" id="transportName">
-                                                                <option value="" disabled selected>-Select-</option>
-                                                                <% for(var i=0; i<transData.length; i++) {%>
-                                                                    <option value="<%=transData[i].transportName%>"><%=transData[i].transportName%></option>
-                                                                <% } %>
-                                                            </select>
-											            </div>
-											            <div class="col-sm-6">
-												            <label>Truck Number<span class="text-danger">*</span></label>
-                                                            <input required type="text"class="form-control transportTruck" name="transportTruck" id="transportTruck">
+												            <label>Product Group<span class="text-danger">*</span></label>
+												            <input type="text" required placeholder="productGroup" class="form-control productGroup" name="productGroup" id="productGroup">
 											            </div>
 										            </div>
-										        </div>
-									            <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>Owner Mobile Number<span class="text-danger">*</span></label>
-												            <input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control ownerMobileNumber" name="ownerMobileNumber" id="ownerMobileNumber">
-											            </div>
-											            <div class="col-sm-6">
-												            <label>Driver Mobile Number<span class="text-danger">*</span></label>
-                                                            <input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control driverMobileNumber" name="driverMobileNumber" id="driverMobileNumber">
-											            </div>
-										            </div>
-										        </div>
-											</div>	
+									            </div>
+								            </div>
+
 								            <div class="modal-footer">
-									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									            <button type="submit" class="btn bg-primary">Add</button>
+									            <button type="button" class="btn btn-link" style="color: teal;" data-dismiss="modal">Close</button>
+									            <button type="submit" class="btn bg-teal-400">Add</button>
 								            </div>
 							            </form>
 						            </div>
@@ -373,12 +352,16 @@
 				            </div>
 
 
+
+
+
+
 							<!-- EDIT modal -->
 							<div id="modal_edit" class="modal fade" tabindex="-1">
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">Edit Customer Product</h5>
+								            <h5 class="modal-title">Edit Master Product Group</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
@@ -400,7 +383,7 @@
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">Delete Customer Product</h5>
+								            <h5 class="modal-title">Delete Master Product Group</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
@@ -440,37 +423,18 @@
 </html>
 
 
-<script>
-    function edit(value)
-    {
-		console.log("/-/-/-/-")
-		var etransportName = document.getElementById("etransportName").value;
-        var etransportTruck = document.getElementById("etransportTruck").value;
-        var eownerMobileNumber = document.getElementById("eownerMobileNumber").value;
-        var edriverMobileNumber = document.getElementById("edriverMobileNumber").value;
-        $.post("/transportTrucks",
-            {
-                id: value,
-                transportName: etransportName,
-                transportTruck: etransportTruck,
-                ownerMobileNumber: eownerMobileNumber,
-                driverMobileNumber: edriverMobileNumber,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log(data);
-                console.log(status);
-				setInterval('refreshPage()', 50);
-            }
-            );
-    }
-</script>
+
 
 <script>
+    if ( window.history.replaceState ) {
+ 		window.history.replaceState( null, null, window.location.href );
+	}
+
     function del(value)
     {
         console.log(value);
-        $.post("/transportTrucks",
+        console.log("ppppppppppppppppppppppppp")
+        $.post("/masterProductGroup",
             {
                 id: value,
                 op:"del"
@@ -482,70 +446,116 @@
             }
             );
     }
+	function edit(value)
+    {
+		var eproductGroup = document.getElementById("eproductGroup").value;
+		console.log(eproductGroup);
+        
+		$.post("/masterProductGroup",
+            {
+                id: value,
+                eproductGroup: eproductGroup,
+                op:"edt"
+            },
+            function (data, status) {
+                console.log(data);
+                console.log(status);
+				setInterval('refreshPage()', 50);
+
+            }
+            );
+
+    }
 
 	function refreshPage() {
     	location.reload(true);
 	}
 
-
 	function eedit(value)
     {
         console.log(value);
-        var sub = 'transport';
+        var sub = 'productGroup';
         var result = value.replace(sub,'');
         console.log(result);
         
         $('.'+value).each(function() 
         {   
-
-			var transportName = $(this).find(".transportName").html();    
-            var transportTruck = $(this).find(".transportTruck").html(); 
-            var ownerMobileNumber = $(this).find(".ownerMobileNumber").html(); 
-            var driverMobileNumber = $(this).find(".driverMobileNumber").html();     
-            
-			console.log("++++++++++++++++++++++++++++++++++++++++")
+            var productGroup = $(this).find(".productGroup").html();  
+            console.log(productGroup);
 			console.log(result)
-			
-			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >transportName</td> <td><input type="text" value="'+transportName+'" class="form-control etransportName" name="etransportName" id="etransportName"></td> </tr> <tr> <td>transportTruck</td> <td><input type="text" value="'+transportTruck+'" class="form-control etransportTruck" name="etransportTruck" id="etransportTruck"></td> </tr> <tr> <td>ownerMobileNumber</td> <td><input type="tel" value="'+ownerMobileNumber+'" class="form-control eownerMobileNumber" name="eownerMobileNumber" id="eownerMobileNumber"></td> </tr> <tr> <td>driverMobileNumber</td> <td><input type="tel" value="'+driverMobileNumber+'" class="form-control edriverMobileNumber" name="edriverMobileNumber" id="edriverMobileNumber"></td> </tr>  </table> </div>'
-				
+
+
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td>productGroup</td> <td><input type="text" value="'+productGroup+'" class="form-control eproductGroup" name="eproductGroup" id="eproductGroup"> </tr> </table> </div>'
+
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")
 			document.getElementById("blast").innerHTML=tek;
 			document.getElementById("off").innerHTML=bt;
-			console.log("++++++++++++++++++++++++++++++++++++++++")
-			
 		});
     }
-	
+
 	function ddel(value)
     {
         console.log(value);
-        var sub = 'transport';
+        var sub = 'productGroup';
         var result = value.replace(sub,'');
         console.log(result);
         
         $('.'+value).each(function() 
         {   
-			var transportName = $(this).find(".transportName").html();    
-            var transportTruck = $(this).find(".transportTruck").html();    
-            var ownerMobileNumber = $(this).find(".ownerMobileNumber").html();    
-            var driverMobileNumber = $(this).find(".driverMobileNumber").html(); 
-                
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+            var productGroup = $(this).find(".productGroup").html();     
+            console.log(productGroup);
+            
 			console.log(result)
 
 
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >transportName</td> <td>'+transportName+'</td> </tr> <tr> <td>transportTruck</td> <td>'+transportTruck+' </td> </tr> <tr> <td>ownerMobileNumber</td> <td>'+ownerMobileNumber+' </td> </tr> <tr> <td>driverMobileNumber</td> <td>'+driverMobileNumber+' </td> </tr> </table> </div>'
+            var tek = "<div class='card' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td>productGroup</td> <td>"+productGroup+" </td> </tr> </table> </div>"
 
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
 			console.log("Ujjwal")
 			document.getElementById("blasto").innerHTML=tek;
 			document.getElementById("offo").innerHTML=bt;
-
 		});
     }
-</script>
+
+	
+	function exportData()
+	{
+        console.log("a")
+			
+			var table = document.getElementById("tbl");
+			console.log(table)
+
+			
+			var rows =[];
+ 
+      
+			for(var i=0,row; row = table.rows[i];i++){
+				
+				column1 = row.cells[0].innerText;
+				rows.push(
+					[
+						column1
+					]
+				);
+ 
+        	}
+			console.log(rows)
+        	csvContent = "data:text/csv;charset=utf-8,";
+         
+			rows.forEach(function(rowArray){
+				row = rowArray.join(",");
+				csvContent += row + "\r\n";
+			});
+ 
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "Master_Product_Group.csv");
+			document.body.appendChild(link);
+			link.click();
+	}
 
 
-
-
+    </script>`

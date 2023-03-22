@@ -160,7 +160,7 @@
 							</ul>
 						</li>
 
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
 							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Market-Plan</span></a>
 
 							
@@ -168,9 +168,9 @@
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link active">Pig-Iron</a></li>
 							</ul>
 							
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+							<!-- <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 							   <li class="nav-item"><a href="/marketPlanAllotment" class="nav-link">Allotment</a></li>
-						    </ul>
+						    </ul> -->
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
@@ -186,8 +186,8 @@
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
+								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
-								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -195,6 +195,7 @@
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
+								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
 								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
 								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
 								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
@@ -211,7 +212,13 @@
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Vendor</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -299,163 +306,85 @@
 										<tr class="<%= data[i].serialNumber%>pigIron">
 											<%if(level==1) {%>
                                                 <td class="customerName"><%= data[i].customerName%></td>
-                                                <td class="aSelect"><%= data[i].area%></td>
-                                                <td class="gSelect"><%= data[i].grade%></td>
-                                                <td class="ctSelect"><%= data[i].category%></td>
-                                                <td class="product"><%= data[i].product%></td>
-												<td class="lastDelivery"><%= data[i].lastDelivery%></td>
-                                                <td class="representative"><%= data[i].representative%></td>
-                                                <td class="phoneNumber"><%= data[i].phoneNumber%></td>
-                                                <td class="meetingDates"><%= data[i].meetingDates%></td>
-                                                <td class="currentRemark" contenteditable="true"><%= data[i].currentRemark%></td>
-                                                <td class="remarkStatus"><%= data[i].remarkStatus%></td>
-                                                <td class="nextDate"><%= data[i].nextDate%></td>
-												<td name="currentIssue" class="currentIssue">
-													<select name="ciSelect" class="ciSelect">
-														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
-														<option value="A">A</option>
-														<option value="B">B</option>
-														<option value="C">C</option>
-														
-													</select>
-												</td>
-                                                <td class="analysed"><%= data[i].analysed%></td>
-                                                <td class="updateTimeStamp"><%= data[i].updateTimeStamp%></td>
-                                                <td class="totalIssue"><%= data[i].totalIssue%></td>
+                                                <td name="area" class="area"><%= data[i].area%></td> 
+                                                <td name="grade" class="grade"><%= data[i].grade%></td> 
+                                               											
+                                                
+                                                <td name="category" class="category"><%= data[i].category%></td>
+
+                                                <td name="product" class="product"><%= data[i].product%></td> 
+												<td class="lastDelivery" ><%= data[i].lastDelivery%></td>
+												<td class="representative" ><%= data[i].representative%></td>
+                                                <td class="phoneNumber" ><%= data[i].phoneNumber%></td>
+                                                <td class="meetingDates" ><%= data[i].meetingDates%></td>
+                                                <td class="currentRemark" ><%= data[i].currentRemark%></td>
+												<td class="remarkStatus" ><%= data[i].remarkStatus%></td>
+                                                <td class="nextDate" ><%= data[i].nextDate%></td>
+                                                <td name="currentIssue" class="currentIssue"><%= data[i].currentIssue%></td>
+                                                <td class="analysed" ><%= data[i].analysed%></td>
+                                                <td class="updateTimeStamp" ><%= data[i].updateTimeStamp%></td>
+                                                <td class="totalIssue" ><%= data[i].totalIssue%></td>
 												<td>
-                                                    <button onclick="uEdit('<%= data[i].serialNumber%>pigIron')" name="foo" value="check" >Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_uedit" data-popup="popover" onclick="ueedit('<%= data[i].serialNumber %>pigIron')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
 											<%} else if(level>2) {%>
                                                 
                                                 <td class="customerName"><button type="button" class="btn btn-light" data-toggle="modal" onclick="custInfo('<%= data[i].customerName%>')" data-target="#customer_information"><%= data[i].customerName%></button></td>
-                                                <td name="area" class="area">
-													<select name="aSelect" class="aSelect">
-														<option value="<%= data[i].area%>"><%= data[i].area%></option>
-														<% for(var j=0; j<areaData.length; j++) {%>
-															<option value="	<%=areaData[j].area%>"><%=areaData[j].area%></option>
-														<% } %>
-													</select>
-												</td> 
-                                                <td name="grade" class="grade">
-													<select name="gSelect" class="gSelect">
-														<option value="<%= data[i].grade%>"><%= data[i].grade%></option>
-														<% for(var j=0; j<gradeData.length; j++) {%>
-															<option value="	<%=gradeData[j].gradeType%>"><%=gradeData[j].gradeType%></option>
-														<% } %>
-													</select>
-												</td> 
+                                                <td name="area" class="area"><%= data[i].area%></td> 
+                                                <td name="grade" class="grade"><%= data[i].grade%></td> 
                                                											
                                                 
-                                                <td name="category" class="category">
-													<select name="ctSelect" class="ctSelect">
-														<option value="<%= data[i].category%>"><%= data[i].category%></option>
-														<% for(var j=0; j<catdata.length; j++) {%>
-															<option value="	<%=catdata[j].categoriesType%>"><%=catdata[j].categoriesType%></option>
-														<% } %>
-													</select>
-												</td>
+                                                <td name="category" class="category"><%= data[i].category%></td>
 
-                                                <td name="product" class="product">
-													<select name="pSelect" class="pSelect">
-														<option value="<%= data[i].product%>"><%= data[i].product%></option>
-														<% for(var j=0; j<productData.length; j++) {%>
-															<option value="	<%=productData[j].productName%>"><%=productData[j].productName%></option>
-														<% } %>
-													</select>
-												</td> 
-												<td class="lastDelivery" contenteditable="true"><%= data[i].lastDelivery%></td>
-												<td class="representative" >
-													<select name="repSelect" class="repSelect">
-														<option value="<%= data[i].representative%>"><%= data[i].representative%></option>
-														<% for(var j=0; j<teamData.length; j++) {%>
-															<option value="<%=teamData[j].teamMember%>"><%=teamData[j].teamMember%></option>
-														<% } %>
-													</select>
-												</td>
-                                                <td class="phoneNumber" contenteditable="true"><%= data[i].phoneNumber%></td>
-                                                <td class="meetingDates" contenteditable="true"><%= data[i].meetingDates%></td>
-                                                <td class="currentRemark" contenteditable="true"><%= data[i].currentRemark%></td>
-												<td class="remarkStatus" contenteditable="true"><%= data[i].remarkStatus%></td>
-                                                <td class="nextDate" contenteditable="true"><%= data[i].nextDate%></td>
-                                                <td name="currentIssue" class="currentIssue">
-													<select name="ciSelect" class="ciSelect">
-														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
-														<option value="A">A</option>
-														<option value="B">B</option>
-														<option value="C">C</option>
-														
-													</select>
-												</td>
-                                                <td class="analysed" contenteditable="true"><%= data[i].analysed%></td>
-                                                <td class="updateTimeStamp" contenteditable="true"><%= data[i].updateTimeStamp%></td>
-                                                <td class="totalIssue" contenteditable="true"><%= data[i].totalIssue%></td>
+                                                <td name="product" class="product"><%= data[i].product%></td> 
+												<td class="lastDelivery" ><%= data[i].lastDelivery%></td>
+												<td class="representative" ><%= data[i].representative%></td>
+                                                <td class="phoneNumber" ><%= data[i].phoneNumber%></td>
+                                                <td class="meetingDates" ><%= data[i].meetingDates%></td>
+                                                <td class="currentRemark" ><%= data[i].currentRemark%></td>
+												<td class="remarkStatus" ><%= data[i].remarkStatus%></td>
+                                                <td class="nextDate" ><%= data[i].nextDate%></td>
+                                                <td name="currentIssue" class="currentIssue"><%= data[i].currentIssue%></td>
+                                                <td class="analysed" ><%= data[i].analysed%></td>
+                                                <td class="updateTimeStamp" ><%= data[i].updateTimeStamp%></td>
+                                                <td class="totalIssue" ><%= data[i].totalIssue%></td>
 												<td>
-                                                    <button onclick="edit('<%= data[i].serialNumber%>pigIron')" name="foo" value="check" >Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].serialNumber %>pigIron')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
                                                 <td>
-                                                    <button onclick="del('<%= data[i].serialNumber%>')" name="foo" value="check" >Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].serialNumber%>pigIron')" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
                                                 </td>
 											<%}else if(level>1){%>
                                                 <td class="customerName"><button type="button" class="btn btn-light" data-toggle="modal" onclick="custInfo('<%= data[i].customerName%>')" data-target="#customer_information"><%= data[i].customerName%></button></td>
                                                 <td name="area" class="area">
-													<select name="aSelect" class="aSelect">
-														<option value="<%= data[i].area%>"><%= data[i].area%></option>
-														<% for(var j=0; j<areaData.length; j++) {%>
-															<option value="	<%=areaData[j].area%>"><%=areaData[j].area%></option>
-														<% } %>
-													</select>
+													<%= data[i].area%>
 												</td> 
                                                 <td name="grade" class="grade">
-													<select name="gSelect" class="gSelect">
-														<option value="<%= data[i].grade%>"><%= data[i].grade%></option>
-														<% for(var j=0; j<gradeData.length; j++) {%>
-															<option value="	<%=gradeData[j].gradeType%>"><%=gradeData[j].gradeType%></option>
-														<% } %>
-													</select>
+													<%= data[i].grade%>
 												</td> 
                                                 <td name="category" class="category">
-													<select name="ctSelect" class="ctSelect">
-														<option value="<%= data[i].category%>"><%= data[i].category%></option>
-														<% for(var j=0; j<catdata.length; j++) {%>
-															<option value="	<%=catdata[j].categoriesType%>"><%=catdata[j].categoriesType%></option>
-														<% } %>
-													</select>
+													<%= data[i].category%>
 												</td>
                                                 <td name="product" class="product">
-													<select name="pSelect" class="pSelect">
-														<option value="<%= data[i].product%>"><%= data[i].product%></option>
-														<% for(var j=0; j<productData.length; j++) {%>
-															<option value="	<%=productData[j].productName%>"><%=productData[j].productName%></option>
-															<% } %>
-														</select>
+													<%= data[i].product%>
 													</td> 
-												<td class="lastDelivery" contenteditable="true"><%= data[i].lastDelivery%></td>
+												<td class="lastDelivery" ><%= data[i].lastDelivery%></td>
                                                 <td class="representative" >
-													<select name="repSelect" class="repSelect">
-														<option value="<%= data[i].product%>"><%= data[i].representative%></option>
-														<% for(var j=0; j<teamData.length; j++) {%>
-															<option value="<%=teamData[j].teamMember%>"><%=teamData[j].teamMember%></option>
-														<% } %>
-													</select>
+													<%= data[i].representative%>
 												</td>
-                                                <td class="phoneNumber" contenteditable="true"><%= data[i].phoneNumber%></td>
-                                                <td class="meetingDates" contenteditable="true"><%= data[i].meetingDates%></td>
-                                                <td class="currentRemark" contenteditable="true"><%= data[i].currentRemark%></td>
-												<td class="remarkStatus" contenteditable="true"><%= data[i].remarkStatus%></td>
-                                                <td class="nextDate" contenteditable="true"><%= data[i].nextDate%></td>
+                                                <td class="phoneNumber" ><%= data[i].phoneNumber%></td>
+                                                <td class="meetingDates" ><%= data[i].meetingDates%></td>
+                                                <td class="currentRemark" ><%= data[i].currentRemark%></td>
+												<td class="remarkStatus" ><%= data[i].remarkStatus%></td>
+                                                <td class="nextDate" ><%= data[i].nextDate%></td>
                                                 <td name="currentIssue" class="currentIssue">
-													<select name="ciSelect" class="ciSelect">
-														<option value="<%= data[i].currentIssue%>"><%= data[i].currentIssue%></option>
-														<option value="A">A</option>
-														<option value="B">B</option>
-														<option value="C">C</option>
-													</select>
+													<%= data[i].currentIssue%>
 												</td>
-                                                <td class="analysed" contenteditable="true"><%= data[i].analysed%></td>
-                                                <td class="updateTimeStamp" contenteditable="true"><%= data[i].updateTimeStamp%></td>
-                                                <td class="totalIssue" contenteditable="true"><%= data[i].totalIssue%></td>
+                                                <td class="analysed" ><%= data[i].analysed%></td>
+                                                <td class="updateTimeStamp" ><%= data[i].updateTimeStamp%></td>
+                                                <td class="totalIssue" ><%= data[i].totalIssue%></td>
 												<td>
-                                                <button onclick="edit('<%= data[i].serialNumber %>pigIron')" name="foo" value="check" >Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].serialNumber %>pigIron')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
                                                 </td>
 											<%}%>
 										</tr>
@@ -545,44 +474,53 @@
 
 							            <form action="/marketPlanPigIron" method="POST">
 								            <div class="modal-body">
-									            <div class="form-group">
+									            
+												<div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>customerName </label>
-												            <select id="customerName" name="customerName" class="customerName form-control" id="customerName">
+											            
+														<div class="col-sm-6">
+												            <label>Customer Name<span class="text-danger">*</span></label>
+												            <select required id="customerName" name="customerName" class="customerName form-control" id="customerName">
                                                                 <option value="" disabled selected>-Select-</option>
                                                                 <% for(var i=0; i<custdata.length; i++) {%>
                                                                     <option value="<%=custdata[i].customerName%>"><%=custdata[i].customerName%></option>
                                                                 <% } %>
                                                             </select>
 											            </div>
-                                                        <div class="col-sm-6">
-												            <label>Area</label>
-												            <select id="area" name="area" class="area form-control" id="area">
-                                                                <option value="" disabled selected>-Select-</option>
-                                                                <% for(var i=0; i<areaData.length; i++) {%>
-                                                                    <option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
-                                                                <% } %>
+
+														<div class="col-sm-6">
+															
+															<label>Category-Product<span class="text-danger">*</span></label>
+															<select name="categoryProduct" required class="form-control categoryProduct" id="categoryProduct">
+																<option value="" disabled selected>-Select-</option>
+                                                                <optgroup label="Retail">
+																	<% for(var i=0; i<productData.length; i++) {%>
+																		<option value="R<%=productData[i].productName%>">RETAIL <%=productData[i].productName%></option>
+																	<% } %>
+																	
+																</optgroup>
+																<optgroup label="Trader">
+																	<% for(var i=0; i<productData.length; i++) {%>
+																		<option value="T<%=productData[i].productName%>">TRADER <%=productData[i].productName%></option>
+																	<% } %>
+																</optgroup>
+																<optgroup label="Wholesale">
+																	<% for(var i=0; i<productData.length; i++) {%>
+																		<option value="W<%=productData[i].productName%>">WHOLESALE <%=productData[i].productName%></option>
+																	<% } %>
+																</optgroup>
                                                             </select>
 											            </div>
-											            
 
 										            </div>
 									            </div>
                                                 
 									            <div class="form-group">
 										            <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <label>grade</label>
-                                                            <select id="grade" name="grade" class="form-control grade" id="grade">
-                                                                <option value="" disabled selected>-Select-</option>
-                                                                <% for(var i=0; i<gradeData.length; i++) {%>
-                                                                    <option value="<%=gradeData[i].gradeType%>"><%=gradeData[i].gradeType%></option>
-                                                                <% } %>
-                                                            </select>
-											            </div>
+                                                       
+											            
 
-											            <div class="col-sm-4">
+											            <!-- <div class="col-sm-4">
 												            <label>Category</label>
 															<select id="category" name="category" class="form-control category" id="category">
                                                                 <option value="" disabled selected>-Select-</option>
@@ -599,15 +537,16 @@
                                                                     <option value="<%=productData[i].productName%>"><%=productData[i].productName%></option>
                                                                 <% } %>
                                                             </select>
-											            </div>
+											            </div> -->
+
 										            </div>
 									            </div>
 
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-4">
-												            <label>representative</label>
-												            <select id="representative" name="representative" class="form-control representative" id="representative">
+												            <label>Representative<span class="text-danger">*</span></label>
+												            <select required id="representative" name="representative" class="form-control representative" id="representative">
                                                                 <option value="" disabled selected>-Select-</option>
                                                                 <% for(var i=0; i<teamData.length; i++) {%>
                                                                     <option value="<%=teamData[i].teamMember%>"><%=teamData[i].teamMember%></option>
@@ -615,12 +554,12 @@
                                                             </select>
 											            </div>
 											            <div class="col-sm-4">
-												            <label>phoneNumber</label>
-												            <input type="text" placeholder="phoneNumber" class="form-control phoneNumber" name="phoneNumber" id="phoneNumber">
+												            <label>Phone Number<span class="text-danger">*</span></label>
+												            <input type="number" required placeholder="10-digit-format" pattern="[0-9]{10}" class="form-control phoneNumber" name="phoneNumber" id="phoneNumber">
 											            </div>
 											            <div class="col-sm-4">
-												            <label>meetingDates</label>
-												            <input type="text" placeholder="meetingDates" class="form-control meetingDates" name="meetingDates" id="meetingDates">
+												            <label>Meeting Dates<span class="text-danger">*</span></label>
+												            <input required type="date" placeholder="meetingDates" class="form-control meetingDates" name="meetingDates" id="meetingDates">
 											            </div>
 										            </div>
 									            </div>
@@ -628,10 +567,10 @@
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-4">
-												            <label>lastDelivery</label>
-												            <input type="text" placeholder="lastDelivery" class="form-control lastDelivery" name="lastDelivery" id="lastDelivery">
+												            <label>lastDelivery<span class="text-danger">*</span></label>
+												            <input required type="date" placeholder="lastDelivery" class="form-control lastDelivery" name="lastDelivery" id="lastDelivery">
 											            </div>
-											            <div class="col-sm-4">
+											            <!-- <div class="col-sm-4">
 												            <label>currentRemark</label>
 												            <input type="text" placeholder="currentRemark" class="form-control currentRemark" name="currentRemark" id="currentRemark">
 											            </div>
@@ -642,11 +581,11 @@
 																<option value="VERIFIED">VERIFIED</option>
 																<option value="UNVERIFIED">UNVERIFIED</option>
 															</select>
-														</div>
+														</div> -->
 										            </div>
 									            </div>
 
-									            <div class="form-group">
+									            <!-- <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
 												            <label>nextDate</label>
@@ -680,7 +619,7 @@
 											            </div>
 											            
 										            </div>
-									            </div>
+									            </div> -->
 									            
 
 								            </div>
@@ -698,6 +637,76 @@
 
 
 
+							
+
+
+
+
+
+							<!-- EDIT modal -->
+							<div id="modal_edit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Market Plan</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="off">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+							
+							
+							<!-- EDIT modal -->
+							<div id="modal_uedit" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Edit Market Plan</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="ublast">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="uoff">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+							
+							
+							
+							<!-- DEL modal -->
+							<div id="modal_del" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">Delete Market Plan</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+								        <div class="modal-body" id="blasto">
+									        
+								        </div>
+
+								        <div class="modal-footer" id="offo">
+									        
+								        </div>
+						            </div>
+					            </div>
+				            </div>
+
+
 
 
 
@@ -709,7 +718,7 @@
 
 							<!-- Vertical form modal -->
 								<div id="customer_information" class="modal fade" tabindex="-1">
-									<div class="modal-dialog">
+									<div class="modal-dialog modal-lg">
 										<div class="modal-content ">
 											<div class="modal-header">
 												<h4 class="modal-title">Master Customer </h4>
@@ -771,7 +780,12 @@
 														<div class="row">
 															<div class="col-sm-12">
 																<label>Firm<span class="text-danger">*</span></label>
-																<input type="text" placeholder="Firm" class="form-control firm" required name="firm" id="firm">
+																<select name="firm" class="form-control firm" id="firm" required>
+																	<option value="" disabled selected>-Select-</option>
+																	<% for(var i=0; i<firmData.length; i++) {%>
+																		<option value="<%=firmData[i].firmName%>"><%=firmData[i].firmName%></option>
+																	<% } %>
+																</select>
 															</div>
 														</div>
 													</div>
@@ -931,124 +945,115 @@
 
 
 <script>
-    function edit(value)
-    {
-        console.log(`EDIT  ${value}`);
-        var sub = 'pigIron';
-        var result = value.replace(sub,'');
-        console.log(result);
-        
-        $('.'+value).each(function() 
-        {
-            console.log("new yr");  
-            var area = $(this).find(".aSelect").val();    
-            var grade = $(this).find(".gSelect").val();  
-            var category = $(this).find(".ctSelect").val();   
-            var product = $(this).find(".pSelect").val();  
-            var lastDelivery = $(this).find(".lastDelivery").html();    
-            var representative = $(this).find(".repSelect").val();    
-            var phoneNumber = $(this).find(".phoneNumber").html();    
-            var meetingDates = $(this).find(".meetingDates").html();    
-            var currentRemark = $(this).find(".currentRemark").html();    
-            var remarkStatus = $(this).find(".remarkStatus").html();    
-            var nextDate = $(this).find(".nextDate").html();    
-            var currentIssue = $(this).find(".ciSelect").val();    
-            var analysed = $(this).find(".analysed").html();    
-            var updateTimeStamp = $(this).find(".updateTimeStamp").html();    
-            var totalIssue = $(this).find(".totalIssue").html();  
-            console.log(area);
-            console.log(grade);
-            console.log("ujjwal");
-            $.post("/marketPlanPigIron",
-            {
-                id: result,
-                area: area,
-                grade:grade,
-                category: category,
-                product: product,
-                lastDelivery: lastDelivery,
-                representative: representative,
-                phoneNumber: phoneNumber,
-                meetingDates: meetingDates,
-                currentRemark: currentRemark,
-                remarkStatus: remarkStatus,
-                nextDate: nextDate,
-                currentIssue: currentIssue,
-                analysed: analysed,
-                updateTimeStamp: updateTimeStamp,
-                totalIssue:totalIssue,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log("check edit wala data");
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
-    }
     function uEdit(value)
     {
-        console.log(`EDIT  ${value}`);
-        var sub = 'pigIron';
-        var result = value.replace(sub,'');
-        console.log(result);
+		console.log("uEdit")
+		var ecustomerName = document.getElementById("ecustomerName").innerText;
+        var earea = document.getElementById("earea").innerText;
+        var egrade = document.getElementById("egrade").innerText;
+        var ecategory = document.getElementById("ecategory").innerText;
+        var eproduct = document.getElementById("eproduct").innerText;
+        var elastDelivery = document.getElementById("elastDelivery").innerText;
+        var erepresentative = document.getElementById("erepresentative").innerText;
+        var ephoneNumber = document.getElementById("ephoneNumber").innerText;
+
+        var ecurrentRemark = document.getElementById("ecurrentRemark").value;
+        var enextDate = document.getElementById("enextDate").value;
+        var ecurrentIssue = document.getElementById("ecurrentIssue").value;
         
-        $('.'+value).each(function() 
-        {
-            console.log("new yr");
-            var customerName = $(this).find(".customerName").html();
-            var area = $(this).find(".aSelect").html();    
-            var grade = $(this).find(".gSelect").html();  
-            var category = $(this).find(".ctSelect").html();    
-            var product = $(this).find(".product").html();    
-            var lastDelivery = $(this).find(".lastDelivery").html();    
-            var representative = $(this).find(".representative").html();    
-            var phoneNumber = $(this).find(".phoneNumber").html();    
-            var meetingDates = $(this).find(".meetingDates").html();    
-            var currentRemark = $(this).find(".currentRemark").html();    
-            var remarkStatus = $(this).find(".remarkStatus").html();    
-            var nextDate = $(this).find(".nextDate").html();    
-            var currentIssue = $(this).find(".ciSelect").val();    
-            var analysed = $(this).find(".analysed").html();    
-            var updateTimeStamp = $(this).find(".updateTimeStamp").html();    
-            var totalIssue = $(this).find(".totalIssue").html();  
-            console.log(area);
-            console.log(grade);
-            console.log("ujjwal");
-            $.post("/marketPlanPigIron",
-            {
-                id: result,
-                customerName:customerName,
-                area: area,
-                grade:grade,
-                category: category,
-                product: product,
-				lastDelivery : lastDelivery,
-                representative: representative,
-                phoneNumber: phoneNumber,
-                meetingDates: meetingDates,
-                currentRemark: currentRemark,
-                remarkStatus: remarkStatus,
-                nextDate: nextDate,
-                currentIssue: currentIssue,
-                analysed: analysed,
-                updateTimeStamp: updateTimeStamp,
-                totalIssue:totalIssue,
-                op:"edt"
-            },
-            function (data, status) {
-                console.log("check edit wala data");
-                console.log(data);
-                console.log(status);
-            }
-            );
-        });
+        $.post("/marketPlanPigIron",
+		{
+			id: value,
+			customerName:ecustomerName,
+			area: earea,
+			grade: egrade,
+			category: ecategory,
+			product: eproduct,
+			lastDelivery: elastDelivery,
+			representative: erepresentative,
+			phoneNumber: ephoneNumber,
+			
+			currentRemark: ecurrentRemark,
+			
+			nextDate: enextDate,
+			currentIssue: ecurrentIssue,
+			
+			op:"uedt"
+		},
+		function (data, status) {
+			console.log("check edit wala data");
+			console.log(data);
+			console.log(status);
+			setInterval('refreshPage()', 500);
+		}
+		);
     }
 </script>
 
 <script>
     
+	if ( window.history.replaceState ) {
+	window.history.replaceState( null, null, window.location.href );
+	}
+
+
+    function edit(value)
+    {
+        console.log("3333333333333333333333333333333");
+        console.log(value);
+		
+		var ecustomerName = document.getElementById("ecustomerName").value;
+        var earea = document.getElementById("earea").value;
+        var egrade = document.getElementById("egrade").value;
+        var ecategory = document.getElementById("ecategory").value;
+        var eproduct = document.getElementById("eproduct").value;
+        var elastDelivery = document.getElementById("elastDelivery").value;
+        var erepresentative = document.getElementById("erepresentative").value;
+        var ephoneNumber = document.getElementById("ephoneNumber").value;
+        var emeetingDates = document.getElementById("emeetingDates").value;
+        var ecurrentRemark = document.getElementById("ecurrentRemark").value;
+        var eremarkStatus = document.getElementById("eremarkStatus").value;
+        var enextDate = document.getElementById("enextDate").value;
+        var ecurrentIssue = document.getElementById("ecurrentIssue").value;
+        var eanalysed = document.getElementById("eanalysed").value;
+        var eupdateTimeStamp = document.getElementById("eupdateTimeStamp").value;
+        var etotalIssue = document.getElementById("etotalIssue").value;
+        
+
+
+        $.post("/marketPlanPigIron",
+            {
+                id: value,
+                customerName:ecustomerName,
+                area: earea,
+                grade: egrade,
+                category: ecategory,
+                product: eproduct,
+                lastDelivery: elastDelivery,
+                representative: erepresentative,
+                phoneNumber: ephoneNumber,
+                meetingDates: emeetingDates,
+                currentRemark: ecurrentRemark,
+                remarkStatus: eremarkStatus,
+                nextDate: enextDate,
+                currentIssue: ecurrentIssue,
+                analysed: eanalysed,
+                updateTimeStamp: eupdateTimeStamp,
+                totalIssue: etotalIssue,
+                op:"edt"
+            },
+            function (data, status) 
+			{
+                console.log(data);
+                console.log(status);
+				setInterval('refreshPage()', 500);
+            });
+        
+    }
+</script>
+
+
+<script>
     function del(value)
     {
         console.log(value);
@@ -1060,8 +1065,146 @@
             function (data, status) {
                 console.log(data);
                 console.log(status);
+				setInterval('refreshPage()', 500);
             }
             );
+    }
+
+	function refreshPage() {
+    	location.reload(true);
+	}
+
+
+	function ueedit(value)
+    {
+        console.log(value);
+        var sub = 'pigIron';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+            var customerName = $(this).find(".customerName")[0].innerText;    
+            var area = $(this).find(".area").html();    
+            var grade = $(this).find(".grade").html();    
+            var category = $(this).find(".category").html();    
+            var product = $(this).find(".product").html();    
+            var lastDelivery = $(this).find(".lastDelivery").html();    
+            var representative = $(this).find(".representative").html();    
+            var phoneNumber = $(this).find(".phoneNumber").html();    
+            var meetingDates = $(this).find(".meetingDates").html();    
+            var currentRemark = $(this).find(".currentRemark").html();    
+            var remarkStatus = $(this).find(".remarkStatus").html();    
+            var nextDate = $(this).find(".nextDate").html();    
+            var currentIssue = $(this).find(".currentIssue").html();    
+            var analysed = $(this).find(".analysed").html();     
+            var updateTimeStamp = $(this).find(".updateTimeStamp").html();     
+            var totalIssue = $(this).find(".totalIssue").html();     
+            
+
+
+			console.log(customerName)
+			console.log(area)
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			console.log(result)
+			
+			
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td class="form-control ecustomerName" name="ecustomerName" id="ecustomerName">'+customerName+'</td> </tr> <tr> <td>area</td> <td class="form-control earea" name="earea" id="earea">'+area+' </td> </tr> </tr> <tr> <td>grade</td> <td class="form-control egrade" name="egrade" id="egrade">'+grade+' </td> </tr> <tr> <td>category</td> <td class="form-control ecategory" name="ecategory" id="ecategory">'+category+' </td> </tr> <tr> <td>product</td> <td class="form-control eproduct" name="eproduct" id="eproduct">'+product+' </td> </tr> <tr> <td>lastDelivery</td> <td class="form-control elastDelivery" name="elastDelivery" id="elastDelivery">'+lastDelivery+' </td> </tr> <tr> <td>representative</td> <td class="form-control erepresentative" name="erepresentative" id="erepresentative">'+representative+' </td> </tr> <tr> <td>phoneNumber</td> <td class="form-control ephoneNumber" name="ephoneNumber" id="ephoneNumber">'+phoneNumber+' </td> </tr> <tr> <td>meetingDates</td> <td class="form-control emeetingDates" name="emeetingDates" id="emeetingDates">'+meetingDates+' </td> </tr>  <tr> <td>currentRemark</td> <td><input type="text" value="'+currentRemark+'" class="form-control ecurrentRemark" name="ecurrentRemark" id="ecurrentRemark"></td> </tr> <tr> <td>remarkStatus</td> <td>'+remarkStatus+' </td> </tr> <tr> <td>nextDate</td> <td><input type="date" value="'+nextDate+'" class="form-control enextDate" name="enextDate" id="enextDate"></td> </tr> <tr> <td>currentIssue</td> <td><input type="text" value="'+currentIssue+'" class="form-control ecurrentIssue" name="ecurrentIssue" id="ecurrentIssue"></td> </tr> <tr> <td>analysed</td> <td>'+analysed+' </td> </tr> <tr> <td>updateTimeStamp</td> <td>'+updateTimeStamp+' </td> </tr> <tr> <td>totalIssue</td> <td>'+totalIssue+' </td> </tr> </table> </div>'
+				
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='uEdit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			document.getElementById("ublast").innerHTML=tek;
+			document.getElementById("uoff").innerHTML=bt;
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			
+		});
+    }
+	
+	function eedit(value)
+    {
+        console.log(value);
+        var sub = 'pigIron';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+            var customerName = $(this).find(".customerName")[0].innerText;    
+            var area = $(this).find(".area").html();    
+            var grade = $(this).find(".grade").html();    
+            var category = $(this).find(".category").html();    
+            var product = $(this).find(".product").html();    
+            var lastDelivery = $(this).find(".lastDelivery").html();    
+            var representative = $(this).find(".representative").html();    
+            var phoneNumber = $(this).find(".phoneNumber").html();    
+            var meetingDates = $(this).find(".meetingDates").html();    
+            var currentRemark = $(this).find(".currentRemark").html();    
+            var remarkStatus = $(this).find(".remarkStatus").html();    
+            var nextDate = $(this).find(".nextDate").html();    
+            var currentIssue = $(this).find(".currentIssue").html();    
+            var analysed = $(this).find(".analysed").html();     
+            var updateTimeStamp = $(this).find(".updateTimeStamp").html();     
+            var totalIssue = $(this).find(".totalIssue").html();     
+            
+
+
+			console.log(customerName)
+			console.log(area)
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			console.log(result)
+			
+			
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td><input type="text" value="'+customerName+'" class="form-control ecustomerName" name="ecustomerName" id="ecustomerName"></td> </tr> <tr> <td>area</td> <td><input type="text" value="'+area+'" class="form-control earea" name="earea" id="earea"></td> </tr> <tr> <td>grade</td> <td><input type="text" value="'+grade+'" class="form-control egrade" name="egrade" id="egrade"></td> </tr> <tr> <td>category</td> <td><input type="text" value="'+category+'" class="form-control ecategory" name="ecategory" id="ecategory"></td> </tr> <tr> <td>product</td> <td><input type="text" value="'+product+'" class="form-control eproduct" name="eproduct" id="eproduct"></td> </tr> <tr> <td>lastDelivery</td> <td><input type="text" value="'+lastDelivery+'" class="form-control elastDelivery" name="elastDelivery" id="elastDelivery"></td> </tr> <tr> <td>representative</td> <td><input type="text" value="'+representative+'" class="form-control erepresentative" name="erepresentative" id="erepresentative"></td> </tr> <tr> <td>phoneNumber</td> <td><input type="text" value="'+phoneNumber+'" class="form-control ephoneNumber" name="ephoneNumber" id="ephoneNumber"></td> </tr>   <tr> <td>meetingDates</td> <td><input type="date" value="'+meetingDates+'" class="form-control emeetingDates" name="emeetingDates" id="emeetingDates"></td> </tr>  <tr> <td>currentRemark</td> <td><input type="text" value="'+currentRemark+'" class="form-control ecurrentRemark" name="ecurrentRemark" id="ecurrentRemark"></td> </tr> <tr> <td>remarkStatus</td> <td><input type="text" value="'+remarkStatus+'" class="form-control eremarkStatus" name="eremarkStatus" id="eremarkStatus"></td> </tr> <tr> <td>nextDate</td> <td><input type="date" value="'+nextDate+'" class="form-control enextDate" name="enextDate" id="enextDate"></td> </tr> <tr> <td>currentIssue</td> <td><input type="text" value="'+currentIssue+'" class="form-control ecurrentIssue" name="ecurrentIssue" id="ecurrentIssue"></td> </tr> <tr> <td>analysed</td> <td><input type="text" value="'+analysed+'" class="form-control eanalysed" name="eanalysed" id="eanalysed"></td> </tr> <tr> <td>updateTimeStamp</td> <td><input type="text" value="'+updateTimeStamp+'" class="form-control eupdateTimeStamp" name="eupdateTimeStamp" id="eupdateTimeStamp"></td> </tr> <tr> <td>totalIssue</td> <td><input type="text" value="'+totalIssue+'" class="form-control etotalIssue" name="etotalIssue" id="etotalIssue"></td> </tr> </table> </div>'
+				
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
+			console.log("Ujjwal")
+			document.getElementById("blast").innerHTML=tek;
+			document.getElementById("off").innerHTML=bt;
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			
+		});
+    }
+	
+	function ddel(value)
+    {
+        console.log(value);
+        var sub = 'pigIron';
+        var result = value.replace(sub,'');
+        console.log(result);
+        
+        $('.'+value).each(function() 
+        {   
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+            var customerName = $(this).find(".customerName")[0].innerText;    
+            var area = $(this).find(".area").html();    
+            var grade = $(this).find(".grade").html();    
+            var category = $(this).find(".category").html();    
+            var product = $(this).find(".product").html();    
+            var lastDelivery = $(this).find(".lastDelivery").html();    
+            var representative = $(this).find(".representative").html();    
+            var phoneNumber = $(this).find(".phoneNumber").html();    
+            var meetingDates = $(this).find(".meetingDates").html();    
+            var currentRemark = $(this).find(".currentRemark").html();    
+            var remarkStatus = $(this).find(".remarkStatus").html();    
+            var nextDate = $(this).find(".nextDate").html();    
+            var currentIssue = $(this).find(".currentIssue").html();    
+            var analysed = $(this).find(".analysed").html();     
+            var updateTimeStamp = $(this).find(".updateTimeStamp").html();     
+            var totalIssue = $(this).find(".totalIssue").html();     
+                
+			console.log(result)
+
+
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td>'+customerName+'</td> </tr> <tr> <td>area</td> <td>'+area+' </td> </tr> </tr> <tr> <td>grade</td> <td>'+grade+' </td> </tr> <tr> <td>category</td> <td>'+category+' </td> </tr> <tr> <td>product</td> <td>'+product+' </td> </tr> <tr> <td>lastDelivery</td> <td>'+lastDelivery+' </td> </tr> <tr> <td>representative</td> <td>'+representative+' </td> </tr> <tr> <td>phoneNumber</td> <td>'+phoneNumber+' </td> </tr> <tr> <td>meetingDates</td> <td>'+meetingDates+' </td> </tr> <tr> <td>currentRemark</td> <td>'+currentRemark+' </td> </tr> <tr> <td>remarkStatus</td> <td>'+remarkStatus+' </td> </tr> <tr> <td>nextDate</td> <td>'+nextDate+' </td> </tr> <tr> <td>currentIssue</td> <td>'+currentIssue+' </td> </tr> <tr> <td>analysed</td> <td>'+analysed+' </td> </tr> <tr> <td>updateTimeStamp</td> <td>'+updateTimeStamp+' </td> </tr> <tr> <td>totalIssue</td> <td>'+totalIssue+' </td> </tr> </table> </div>'
+
+			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
+			console.log("Ujjwal")
+			document.getElementById("blasto").innerHTML=tek;
+			document.getElementById("offo").innerHTML=bt;
+
+		});
     }
 
 	function fil()
@@ -1306,7 +1449,7 @@
 			// console.log("---------------------------------------------------------------------------")
 			var index=Object.keys(data).length;
 			console.log(index)
-			index=index-17;
+			index=index-19;
 			var ishuProd="";
 			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 			var holiname=data[0].customerId
@@ -1376,7 +1519,7 @@
 
 					tek+="<div class='tab-pane fade' id='customer-tab5' style='text-align:center;'> <h5>"+ishuProd+"</h5> </div>"
 					
-					tek+="<div class='tab-pane fade' id='customer-tab6' style='text-align:center;'> </div>"
+					tek+="<div class='tab-pane fade' id='customer-tab6' style='text-align:center;'> <div class='cardRep' id='cardRep'></div> <div class='downloadReport card' id='downloadReport'></div> </div>"
 
 
 					tek+="</div>"
@@ -1415,9 +1558,9 @@
 		console.log(repdata)
 		if(repdata)
 		{
-			var holi="<table class='table repdatatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>";
+			var holi="<table id='tRep' class='table repdatatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>";
 			
-			holi+="<thead> <tr> <th>area</th> <th>product</th> <th>lastDelivery</th> <th>representative</th> <th>currentIssue</th> </tr> </thead>";
+			holi+="<thead> <tr> <th>area</th> <th>product</th> <th>lastDelivery</th> <th>representative</th> <th>currentRemark</th> <th>remarkStatus</th> <th>currentIssue</th> </tr> </thead>";
 			
 			for(var i=0; i<repdata.length; i++)
 			{
@@ -1426,11 +1569,17 @@
 				holi+="<td >"+ repdata[i].product+"</td>"
 				holi+="<td >"+ repdata[i].lastDelivery+"</td>"
 				holi+="<td >"+ repdata[i].representative+"</td>"
+				holi+="<td >"+ repdata[i].currentRemark+"</td>"
+				holi+="<td >"+ repdata[i].remarkStatus+"</td>"
 				holi+="<td >"+ repdata[i].currentIssue+"</td>"
 				holi+="</tr>"
 			}
 			holi+="</table>";
-			document.getElementById("customer-tab6").innerHTML=holi;
+			document.getElementById("cardRep").innerHTML=holi;
+
+			var hbtn="<button class='btn-link' onclick=exportReport()> Download list</button>"
+
+			document.getElementById("downloadReport").innerHTML=hbtn;
 		}
 		else
 		{
@@ -1438,4 +1587,58 @@
 			document.getElementById("customer-tab6").innerHTML=holi;
 		}
 	}
+
+	function exportReport()
+	{
+			console.log("a")
+			
+			var table = document.getElementById("tRep");
+			console.log(table)
+
+			
+			var rows =[];
+ 
+      
+			for(var i=0,row; row = table.rows[i];i++){
+				
+				column1 = row.cells[0].innerText;
+				column2 = row.cells[1].innerText;
+				column3 = row.cells[2].innerText;
+				column4 = row.cells[3].innerText;
+				column5 = row.cells[4].innerText;
+				column6 = row.cells[5].innerText;
+				column7 = row.cells[6].innerText;
+				rows.push(
+					[
+						column1,
+						column2,
+						column3,
+						column4,
+						column5,
+						column6,
+						column7
+					]
+				);
+ 
+        	}
+
+			console.log(rows)
+        	csvContent = "data:text/csv;charset=utf-8,";
+         
+			rows.forEach(function(rowArray){
+				row = rowArray.join(",");
+				csvContent += row + "\r\n";
+			});
+ 
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "Market_Report.csv");
+			document.body.appendChild(link);
+			link.click();
+	}
 </script>
+
+
+
+
