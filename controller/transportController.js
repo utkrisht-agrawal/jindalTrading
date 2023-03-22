@@ -246,12 +246,20 @@ const getTransportStations =(req,res,next)=>{
         console.log(`User Level :  ${req.session.userLevel}`);
         transportStationModel.findAll()
         .then((data)=>{
-            console.log(data);
-            res.render('transportStation',{
-                username : req.session.username,
-                data:data,
-                level: req.session.userLevel
+            transportDetailModel.findAll()
+            .then((transData)=>{
+                console.log(data);
+                res.render('transportStation',{
+                    username : req.session.username,
+                    data:data,
+                    transData:transData,
+                    level: req.session.userLevel
+                })
             })
+            .catch((err)=>
+                console.log(err)
+            )
+            
         })
         .catch((err)=>
         console.log(err)

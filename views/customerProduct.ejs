@@ -255,7 +255,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Customer</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add New Customer Product</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add New Customer Product</button>
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -329,11 +329,21 @@
 										            <div class="row">
 											            <div class="col-sm-6">
 												            <label>customerName</label>
-												            <input type="text" placeholder="Dehradun" class="form-control customerName" name="customerName" id="customerName">
+												            <select name="customerName" class="form-control customerName" id="customerName" required>
+																<option value="" disabled selected>-Select-</option>
+																<% for(var i=0; i<custData.length; i++) {%>
+																	<option value="<%=custData[i].customerName%>"><%=custData[i].customerName%></option>
+																<% } %>
+															</select>
 											            </div>
 											            <div class="col-sm-6">
 												            <label>product</label>
-												            <input type="text" placeholder="Dehradun" class="form-control product" name="product" id="product">
+															<select name="product" class="form-control product" id="product" required>
+																<option value="" disabled selected>-Select-</option>
+																<% for(var i=0; i<prodData.length; i++) {%>
+																	<option value="<%=prodData[i].productName%>"><%=prodData[i].productName%></option>
+																<% } %>
+															</select>
 											            </div>
 										            </div>
 									            </div>

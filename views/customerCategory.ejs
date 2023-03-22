@@ -329,11 +329,22 @@
 										            <div class="row">
 											            <div class="col-sm-6">
 												            <label>customerName</label>
-												            <input type="text" placeholder="Dehradun" class="form-control customerName" name="customerName" id="customerName">
+												            <select name="customerName" class="form-control customerName" id="customerName" required>
+																<option value="" disabled selected>-Select-</option>
+																<% for(var i=0; i<custData.length; i++) {%>
+																	<option value="<%=custData[i].customerName%>"><%=custData[i].customerName%></option>
+																<% } %>
+															</select>
 											            </div>
 											            <div class="col-sm-6">
 												            <label>category</label>
-												            <input type="text" placeholder="Dehradun" class="form-control category" name="category" id="category">
+															<select name="category" class="form-control category" id="category" required>
+																<option value="" disabled selected>-Select-</option>
+																<option value="Retail">Retail</option>
+																<option value="Trader">Trader</option>
+																<option value="Wholesale">Wholesale</option>
+																
+															</select>
 											            </div>
 										            </div>
 									            </div>

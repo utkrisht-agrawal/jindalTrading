@@ -2,6 +2,7 @@ const customerContactModel = require('../model/customerContactModel');
 const customerCategoryModel = require('../model/customerCategoryModel');
 const customerFirmModel = require('../model/customerFirmModel');
 const customerProductModel = require('../model/customerProductModel');
+const masterProductsModel = require('../model/masterProductsModel');
 const masterCustomerModel = require('../model/masterCustomerModel');
 const masterFirmModel = require('../model/masterFirmModel');
 
@@ -214,17 +215,25 @@ const getCustomerCategory =(req,res,next)=>{
     {
         
         console.log(`User Level :  ${req.session.userLevel}`);
-        customerCategoryModel.findAll()
-        .then((data)=>{
-            console.log(data);
-            res.render('customerCategory',{
-                username : req.session.username,
-                data:data,
-                level: req.session.userLevel
+        masterCustomerModel.findAll()
+        .then((custData)=>{
+
+            customerCategoryModel.findAll()
+            .then((data)=>{
+                console.log(data);
+                res.render('customerCategory',{
+                    username : req.session.username,
+                    data:data,
+                    custData: custData,
+                    level: req.session.userLevel
+                })
             })
+            .catch((err)=>
+            console.log(err)
+            )
         })
         .catch((err)=>
-        console.log(err)
+            console.log(err)
         )
 
     }
@@ -304,18 +313,36 @@ const getCustomerFirm =(req,res,next)=>{
     {
         
         console.log(`User Level :  ${req.session.userLevel}`);
-        customerFirmModel.findAll()
-        .then((data)=>{
-            console.log(data);
-            res.render('customerFirm',{
-                username : req.session.username,
-                data:data,
-                level: req.session.userLevel
+
+        masterCustomerModel.findAll()
+        .then((custData)=>{
+            masterFirmModel.findAll()
+            .then((firmData)=>{
+                customerFirmModel.findAll()
+                .then((data)=>{
+                    console.log(data);
+                    res.render('customerFirm',{
+                        username : req.session.username,
+                        data:data,
+                        firmData:firmData,
+                        level: req.session.userLevel,
+                        custData: custData
+                    })
+                })
+                .catch((err)=>
+                console.log(err)
+                )
             })
+            .catch((err)=>
+            console.log(err)
+            )
+            
         })
         .catch((err)=>
-        console.log(err)
+            console.log(err)
         )
+        
+        
 
     }
     else 
@@ -395,19 +422,38 @@ const getCustomerProduct =(req,res,next)=>{
     {
         
         console.log(`User Level :  ${req.session.userLevel}`);
-        customerProductModel.findAll()
-        .then((data)=>{
-            console.log(data);
-            res.render('customerProduct',{
-                username : req.session.username,
-                data:data,
-                level: req.session.userLevel
+
+        masterCustomerModel.findAll()
+        .then((custData)=>{
+            masterProductsModel.findAll()
+            .then((prodData)=>{
+                
+                customerProductModel.findAll()
+                .then((data)=>{
+                    console.log(data);
+                    res.render('customerProduct',{
+                        username : req.session.username,
+                        data:data,
+                        custData:custData,
+                        prodData:prodData,
+                        level: req.session.userLevel
+                    })
+                })
+                .catch((err)=>
+                console.log(err)
+                )
             })
+            .catch((err)=>
+            console.log(err)
+            )
+
+
         })
         .catch((err)=>
-        console.log(err)
+            console.log(err)
         )
 
+        
     }
     else 
     {
