@@ -14,7 +14,7 @@ const customerFirmModel = sequelize.define('cust_firm',{
     },
     firm: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     }
 }); 
 

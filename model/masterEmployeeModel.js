@@ -34,19 +34,19 @@ const masterEmployeeModel = sequelize.define('master_employee',{
         type: Sequelize.BIGINT
     },
     officeMobileNumber: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
     },
     fatherMobileNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     motherMobileNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     spouseName: {
         type: Sequelize.STRING
     },
     spouseMobileNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     emailId: {
         type: Sequelize.STRING
@@ -61,21 +61,24 @@ const masterEmployeeModel = sequelize.define('master_employee',{
         type: Sequelize.STRING
     },
     bankAccountNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     ifscCode: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     dateOfJoining: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     aadharNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     panNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     reference: {
+        type: Sequelize.STRING
+    },
+    referenceContactNumber: {
         type: Sequelize.STRING
     },
     gender: {

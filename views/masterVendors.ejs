@@ -468,10 +468,6 @@
 
 
 <script>
-	if ( window.history.replaceState ) {
-		window.history.replaceState( null, null, window.location.href );
-		}
-
 
 
 	function edit(value)
@@ -493,7 +489,7 @@
 		function (data, status) {
 			console.log(data);
 			console.log(status);
-			setInterval('refreshPage()', 50);
+			setInterval('refreshPage()', 500);
 		}
 		);
     }
@@ -514,7 +510,7 @@
             function (data, status) {
                 console.log(data);
                 console.log(status);
-				setInterval('refreshPage()', 50);
+				setInterval('refreshPage()', 500);
             }
             );
     }

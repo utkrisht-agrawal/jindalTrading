@@ -1,12 +1,7 @@
 <h1>Hello buddy</h1>
 
 
-<%if(data) {%>
-    <p><a href="/userDashboard">Dashboard</a></p>
-    <p><a href="/logout">Log-Out</a></p>
-<%} else {%>
-    <p><a href="/login">Login</a></p>
-<%}%>
-
-
-
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="image">
+    <button type="submit">Upload</button>
+  </form>

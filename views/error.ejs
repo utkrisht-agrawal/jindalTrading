@@ -1,9 +1,0 @@
-<h2>Customer Already Exists</h2>
-<%=message%>
-
-
-
-
-var holi="<% if(repdata.length>0) {%> <table class='table repdatatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'> <thead> <tr> <th>customerName</th> <th>area</th> <th>grade</th> <th>category</th> <th>product</th> <th>lastDelivery</th> <th>representative</th> <th>phoneNumber</th> <th>meetingDates</th> <th>currentRemark</th> <th>remarkStatus</th> <th>nextDate</th> <th>currentIssue</th> <th>analysed</th> <th>updateTimeStamp</th> <th>totalIssue</th> </tr> </thead> <% for(var i=0; i<repdata.length; i++) {%> <tr> <td ><%= repdata[i].customerName%></td> <td ><%= repdata[i].area%></td> <td ><%= repdata[i].grade%></td> <td ><%= repdata[i].category%></td> <td ><%= repdata[i].product%></td> <td ><%= repdata[i].lastDelivery%></td> <td ><%= repdata[i].representative%></td> <td ><%= repdata[i].phoneNumber%></td> <td ><%= repdata[i].meetingDates%></td> <td ><%= repdata[i].currentRemark%></td> <td ><%= repdata[i].remarkStatus%></td> <td ><%= repdata[i].nextDate%></td> <td ><%= repdata[i].currentIssue%></td> <td ><%= repdata[i].analysed%></td> <td ><%= repdata[i].updateTimeStamp%></td> <td ><%= repdata[i].totalIssue%></td> </tr> <% } %> </table> <%}else{%> <h4>No repdata</h4> <%}%>"
-			
-			document.getElementById("customer-tab6").innerHTML=holi;

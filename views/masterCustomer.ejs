@@ -260,7 +260,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Customers</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical"data-popup="popover" title="Add Master Customer" data-trigger="hover" data-content="Click to Create New Master Customer">Add new Master Customer</button></td>
+									<button onclick="validation()" type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical"data-popup="popover" title="Add Master Customer" data-trigger="hover" data-content="Click to Create New Master Customer">Add new Master Customer</button></td>
 									
 								<%}%>
 								<div class="header-elements">
@@ -285,7 +285,9 @@
 											<th>PIN_CODE</th>
 											<th>ADDRESS</th>
 											<th>REF_NO_1</th>
+											<th>reference1ContactNumber</th>
 											<th>REF_NO_2</th>
+											<th>reference2ContactNumber</th>
 											<th>CREDIT_LIMIT</th>
 											<th>CREDIT_DAYS</th>
 											<% if(level>2) {%>
@@ -309,7 +311,9 @@
 												<td class="pincode" ><%= data[i].pincode%></td>
 												<td class="address" ><%= data[i].address%></td>
 												<td class="referenceNumber1" ><%= data[i].referenceNumber1%></td>
+												<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
 												<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+												<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 												<td class="creditLimit" ><%= data[i].creditLimit%></td>
 												<td class="creditDays" ><%= data[i].creditDays%></td>
 											<%} else if(level>2) {%>
@@ -321,7 +325,9 @@
 												<td class="pincode"><%= data[i].pincode%></td>
 												<td class="address"><%= data[i].address%></td>
 												<td class="referenceNumber1"><%= data[i].referenceNumber1%></td>
-												<td class="referenceNumber2"><%= data[i].referenceNumber2%></td>
+												<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
+												<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+												<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 												<td class="creditLimit"><%= data[i].creditLimit%></td>
 												<td class="creditDays"><%= data[i].creditDays%></td>
 												<td>
@@ -338,7 +344,9 @@
 												<td class="pincode"><%= data[i].pincode%></td>
 												<td class="address"><%= data[i].address%></td>
 												<td class="referenceNumber1"><%= data[i].referenceNumber1%></td>
-												<td class="referenceNumber2"><%= data[i].referenceNumber2%></td>
+												<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
+												<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+												<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 												<td class="creditLimit"><%= data[i].creditLimit%></td>
 												<td class="creditDays"><%= data[i].creditDays%></td>
 												<td>
@@ -373,7 +381,9 @@
 												<th>PIN_CODE</th>
 												<th>ADDRESS</th>
 												<th>REF_NO_1</th>
+												<th>reference1ContactNumber</th>
 												<th>REF_NO_2</th>
+												<th>reference2ContactNumber</th>
 												<th>CREDIT_LIMIT</th>
 												<th>CREDIT_DAYS</th>
 												<% if(level>2) {%>
@@ -397,7 +407,9 @@
 													<td class="pincode" ><%= data[i].pincode%></td>
 													<td class="address" ><%= data[i].address%></td>
 													<td class="referenceNumber1" ><%= data[i].referenceNumber1%></td>
+													<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
 													<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+													<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 													<td class="creditLimit" ><%= data[i].creditLimit%></td>
 													<td class="creditDays" ><%= data[i].creditDays%></td>
 												<%} else if(level>2) {%>
@@ -408,7 +420,9 @@
 													<td class="pincode"><%= data[i].pincode%></td>
 													<td class="address"><%= data[i].address%></td>
 													<td class="referenceNumber1"><%= data[i].referenceNumber1%></td>
-													<td class="referenceNumber2"><%= data[i].referenceNumber2%></td>
+													<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
+													<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+													<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 													<td class="creditLimit"><%= data[i].creditLimit%></td>
 													<td class="creditDays"><%= data[i].creditDays%></td>
 													<td>
@@ -425,7 +439,9 @@
 													<td class="pincode"><%= data[i].pincode%></td>
 													<td class="address"><%= data[i].address%></td>
 													<td class="referenceNumber1"><%= data[i].referenceNumber1%></td>
-													<td class="referenceNumber2"><%= data[i].referenceNumber2%></td>
+													<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
+													<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+													<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 													<td class="creditLimit"><%= data[i].creditLimit%></td>
 													<td class="creditDays"><%= data[i].creditDays%></td>
 													<td>
@@ -460,7 +476,9 @@
 												<th>PIN_CODE</th>
 												<th>ADDRESS</th>
 												<th>REF_NO_1</th>
+												<th>reference1ContactNumber</th>
 												<th>REF_NO_2</th>
+												<th>reference2ContactNumber</th>
 												<th>CREDIT_LIMIT</th>
 												<th>CREDIT_DAYS</th>
 												<% if(level>2) {%>
@@ -484,7 +502,9 @@
 															<td class="pincode" ><%= data[i].pincode%></td>
 															<td class="address" ><%= data[i].address%></td>
 															<td class="referenceNumber1" ><%= data[i].referenceNumber1%></td>
+															<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
 															<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+															<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 															<td class="creditLimit" ><%= data[i].creditLimit%></td>
 															<td class="creditDays" ><%= data[i].creditDays%></td>
 															<%} else if(level>2) {%>
@@ -494,8 +514,10 @@
 													<td class="grade"><%= data[i].grade%></td>
 													<td class="pincode"><%= data[i].pincode%></td>
 													<td class="address"><%= data[i].address%></td>
-													<td class="referenceNumber1"><%= data[i].referenceNumber1%></td>
-													<td class="referenceNumber2"><%= data[i].referenceNumber2%></td>
+													<td class="referenceNumber1" ><%= data[i].referenceNumber1%></td>
+													<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
+													<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+													<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 													<td class="creditLimit"><%= data[i].creditLimit%></td>
 													<td class="creditDays"><%= data[i].creditDays%></td>
 													<td>
@@ -511,8 +533,10 @@
 														<td class="grade"><%= data[i].grade%></td>
 														<td class="pincode"><%= data[i].pincode%></td>
 														<td class="address"><%= data[i].address%></td>
-														<td class="referenceNumber1"><%= data[i].referenceNumber1%></td>
-														<td class="referenceNumber2"><%= data[i].referenceNumber2%></td>
+														<td class="referenceNumber1" ><%= data[i].referenceNumber1%></td>
+														<td class="reference1ContactNumber" ><%= data[i].reference1ContactNumber%></td>
+														<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
+														<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 														<td class="creditLimit"><%= data[i].creditLimit%></td>
 														<td class="creditDays"><%= data[i].creditDays%></td>
 														<td>
@@ -596,6 +620,16 @@
 												<input type="text" class="form-control customerName" required name="customerName" id="customerName">
 											</div>
 
+											<div class="col-sm-6">
+												<label>Category<span class="text-danger">*</span></label>
+												<select name="category" class="category form-control" id="category" required>
+													<option value="" disabled selected>-Select-</option>
+													<% for(var j=0; j<categorydata.length; j++) {%>
+														<option value="<%=categorydata[j].categoriesType%>"><%=categorydata[j].categoriesType%></option>
+													<% } %>
+												</select>
+											</div>
+
 										</div>
 									</div>
 
@@ -603,7 +637,7 @@
 										<div class="row">
 											<div class="col-sm-12">
 												<label>Firm<span class="text-danger">*</span></label>
-												<select name="firm" class="form-control firm" id="firm" required>
+												<select name="firm" class="form-control firm" id="firm">
 													<option value="" disabled selected>-Select-</option>
 													<% for(var i=0; i<firmData.length; i++) {%>
 														<option value="<%=firmData[i].firmName%>"><%=firmData[i].firmName%></option>
@@ -617,7 +651,7 @@
 										<div class="row">
 											<div class="col-sm-4">
 												<label>Area<span class="text-danger">*</span></label>
-												<select id="area" name="area" class="form-control area" id="area" required>
+												<select id="area" name="area" class="form-control area" id="area" >
 													<option value="" disabled selected>-Select-</option>
 													<% for(var i=0; i<areaData.length; i++) {%>
 														<option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
@@ -636,7 +670,7 @@
 											</div>
 											<div class="col-sm-4">
 												<label>grade<span class="text-danger">*</span></label>
-												<select id="grade" name="grade" class="form-control grade" id="grade" required>
+												<select id="grade" name="grade" class="form-control grade" id="grade" >
 													<option value="" disabled selected>-Select-</option>
 													<% for(var i=0; i<gradeData.length; i++) {%>
 														<option value="<%=gradeData[i].gradeType%>"><%=gradeData[i].gradeType%></option>
@@ -652,15 +686,15 @@
 											
 											<div class="col-sm-4">
 												<label>designation<span class="text-danger">*</span></label>
-												<input type="text" required class="form-control designation" name="designation" id="designation" >
+												<input type="text" class="form-control designation" name="designation" id="designation" >
 											</div>
 											<div class="col-sm-4">
 												<label>Contact<span class="text-danger">*</span></label>
-												<input type="tel" required placeholder="10-digit-format" class="form-control contact" name="contact" id="contact" pattern="[0-9]{10}">
+												<input type="tel" placeholder="10-digit-format" class="form-control contact" name="contact" id="contact" pattern="[0-9]{10}">
 											</div>
 											<div class="col-sm-4">
-												<label>email<span class="text-danger">*</span></label>
-												<input type="email" required class="form-control email" name="email" id="email" >
+												<label>email</label>
+												<input type="email" class="form-control email" name="email" id="email" >
 											</div>
 											
 											
@@ -669,19 +703,11 @@
 									
 									<div class="form-group">
 										<div class="row">
-											<div class="col-sm-4">
-												<label>Category<span class="text-danger">*</span></label>
-												<select name="category" class="category form-control" required>
-													<option value="" disabled selected>-Select-</option>
-													<% for(var j=0; j<categorydata.length; j++) {%>
-														<option value="<%=categorydata[j].categoriesType%>"><%=categorydata[j].categoriesType%></option>
-													<% } %>
-												</select>
-											</div>
+											
 											
 											<div class="col-sm-8">
 												<label>Products<span class="text-danger">*</span></label>
-												<select name="productFil" required class="form-control multiselect-filtering productFil" id="productFil" multiple="multiple" data-fouc>
+												<select name="productFil" class="form-control multiselect-filtering productFil" id="productFil" multiple="multiple" data-fouc>
 													<% for(var i=0; i<productData.length; i++) {%>
 														<option value="<%=productData[i].productName%>"><%=productData[i].productName%></option>
 													<% } %>	
@@ -694,13 +720,13 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-4">
-												<label>Pincode<span class="text-danger">*</span></label>
-												<input type="tel" required placeholder="6-digit-format" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}">
+												<label>Pincode</label>
+												<input type="number"  placeholder="6-digit-format" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}">
 											</div>
 
 											<div class="col-sm-8">
 												<label>Address<span class="text-danger">*</span></label>
-												<input type="text" required class="form-control address" name="address" id="address">
+												<input type="text"  class="form-control address" name="address" id="address">
 											</div>
 
 										</div>
@@ -715,9 +741,24 @@
 											</div>
 
 											<div class="col-sm-6">
+												<label>Reference Number 1 Contact Number</label>
+												<input type="text" placeholder="Contact Number" class="form-control reference1ContactNumber" name="reference1ContactNumber"  id="reference1ContactNumber">
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											
+											<div class="col-sm-6">
 												<label>Reference Number 2</label>
 												<input type="text" placeholder="name" class="form-control referenceNumber2" name="referenceNumber2"  id="referenceNumber2">
 											</div>
+											
+											<div class="col-sm-6">
+												<label>Reference Number 1 Contact Number</label>
+												<input type="text" placeholder="Contact Number" class="form-control reference2ContactNumber" name="reference2ContactNumber"  id="reference2ContactNumber">
+											</div>
+
 										</div>
 									</div>
 
@@ -936,14 +977,52 @@
 </html>
 
 
+<script>
+	function validation()
+	{
+		
+		const categorySelect = document.getElementById('category');
+		const firm = document.getElementById('firm');
+		const area = document.getElementById('area');
+		const grade = document.getElementById('grade');
+		const designation = document.getElementById('designation');
+		const contact = document.getElementById('contact');
+		const productFil = document.getElementById('productFil');
+		const pincode = document.getElementById('pincode');
+		const address = document.getElementById('address');
+
+		categorySelect.addEventListener('change', () => {
+			console.log("change")
+			console.log(categorySelect.value)
+
+		if (categorySelect.value === 'Retail') {
+			firm.required = false;
+			area.required = false;
+			grade.required = false;
+			designation.required = false;
+			contact.required = false;
+			productFil.required = false;
+			pincode.required = false;
+			address.required = false;
+		} else {
+			firm.required = true;
+			area.required = true;
+			grade.required = true;
+			designation.required = true;
+			contact.required = true;
+			productFil.required = true;
+			pincode.required = true;
+			address.required = true;
+	}
+
+	});
+	}
+</script>
+
 
 
 
 <script>
-
-	if ( window.history.replaceState ) {
-	window.history.replaceState( null, null, window.location.href );
-	}
 
 
     function edit(value)
@@ -958,7 +1037,9 @@
         var epincode = document.getElementById("epincode").value;
         var eaddress = document.getElementById("eaddress").value;
         var ereferenceNumber1 = document.getElementById("ereferenceNumber1").value;
+        var ereference1ContactNumber = document.getElementById("ereference1ContactNumber").value;
         var ereferenceNumber2 = document.getElementById("ereferenceNumber2").value;
+        var ereference2ContactNumber = document.getElementById("ereference2ContactNumber").value;
         var ecreditLimit = document.getElementById("ecreditLimit").value;
         var ecreditDays = document.getElementById("ecreditDays").value;
 		console.log(ecustomerName);
@@ -975,6 +1056,8 @@
                 address: eaddress,
                 referenceNumber1: ereferenceNumber1,
                 referenceNumber2: ereferenceNumber2,
+				reference1ContactNumber:ereference1ContactNumber,
+				reference2ContactNumber:ereference2ContactNumber,
                 creditLimit: ecreditLimit,
                 creditDays: ecreditDays,
                 op:"edt"
@@ -983,7 +1066,7 @@
 			{
                 console.log(data);
                 console.log(status);
-				setInterval('refreshPage()', 50);
+				setInterval('refreshPage()', 500);
             });
         
     }
@@ -1002,7 +1085,7 @@
             function (data, status) {
                 console.log(data);
                 console.log(status);
-				setInterval('refreshPage()', 50);
+				setInterval('refreshPage()', 500);
             }
             );
     }
@@ -1061,7 +1144,9 @@
             var pincode = $(this).find(".pincode").html();    
             var address = $(this).find(".address").html();    
             var referenceNumber1 = $(this).find(".referenceNumber1").html();    
+            var reference1ContactNumber = $(this).find(".reference1ContactNumber").html();    
             var referenceNumber2 = $(this).find(".referenceNumber2").html();    
+            var reference2ContactNumber = $(this).find(".reference2ContactNumber").html();    
             var creditLimit = $(this).find(".creditLimit").html();    
             var creditDays = $(this).find(".creditDays").html();     
             
@@ -1072,7 +1157,7 @@
 			console.log(result)
 			
 			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td><input type="text" value="'+customerName+'" class="form-control ecustomerName" name="ecustomerName" id="ecustomerName"></td> </tr> <tr> <td>area</td> <td><input type="text" value="'+area+'" class="form-control earea" name="earea" id="earea"> </tr> <tr> <td>status</td> <td><input type="text" value="'+status+'" class="form-control estatus" name="estatus" id="estatus"> </tr> <tr> <td>grade</td> <td><input type="text" value="'+grade+'" class="form-control egrade" name="egrade" id="egrade"> </tr> <tr> <td>pincode</td> <td><input type="text" value="'+pincode+'" class="form-control epincode" name="epincode" id="epincode"> </tr> <tr> <td>address</td> <td><input type="text" value="'+address+'" class="form-control eaddress" name="eaddress" id="eaddress"> </tr> <tr> <td>referenceNumber1</td> <td><input type="text" value="'+referenceNumber1+'" class="form-control ereferenceNumber1" name="ereferenceNumber1" id="ereferenceNumber1"> </tr> <tr> <td>referenceNumber2</td> <td><input type="text" value="'+referenceNumber2+'" class="form-control ereferenceNumber2" name="ereferenceNumber2" id="ereferenceNumber2"> </tr> <tr> <td>creditLimit</td> <td><input type="text" value="'+creditLimit+'" class="form-control ecreditLimit" name="ecreditLimit" id="ecreditLimit"> </tr>   <tr> <td>creditDays</td> <td><input type="text" value="'+creditDays+'" class="form-control ecreditDays" name="ecreditDays" id="ecreditDays"> </tr></table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td><input type="text" value="'+customerName+'" class="form-control ecustomerName" name="ecustomerName" id="ecustomerName"></td> </tr> <tr> <td>area</td> <td><input type="text" value="'+area+'" class="form-control earea" name="earea" id="earea"> </tr> <tr> <td>status</td> <td><input type="text" value="'+status+'" class="form-control estatus" name="estatus" id="estatus"> </tr> <tr> <td>grade</td> <td><input type="text" value="'+grade+'" class="form-control egrade" name="egrade" id="egrade"> </tr> <tr> <td>pincode</td> <td><input type="text" value="'+pincode+'" class="form-control epincode" name="epincode" id="epincode"> </tr> <tr> <td>address</td> <td><input type="text" value="'+address+'" class="form-control eaddress" name="eaddress" id="eaddress"> </tr> <tr> <td>referenceNumber1</td> <td><input type="text" value="'+referenceNumber1+'" class="form-control ereferenceNumber1" name="ereferenceNumber1" id="ereferenceNumber1"> </tr> <tr> <td>reference1ContactNumber</td> <td><input type="text" value="'+reference1ContactNumber+'" class="form-control ereference1ContactNumber" name="ereference1ContactNumber" id="ereference1ContactNumber"> </tr> <tr> <td>referenceNumber2</td> <td><input type="text" value="'+referenceNumber2+'" class="form-control ereferenceNumber2" name="ereferenceNumber2" id="ereferenceNumber2"> </tr> <tr> <td>reference2ContactNumber</td> <td><input type="text" value="'+reference2ContactNumber+'" class="form-control ereference2ContactNumber" name="ereference2ContactNumber" id="ereference2ContactNumber"> </tr> <tr> <td>creditLimit</td> <td><input type="text" value="'+creditLimit+'" class="form-control ecreditLimit" name="ecreditLimit" id="ecreditLimit"> </tr>   <tr> <td>creditDays</td> <td><input type="text" value="'+creditDays+'" class="form-control ecreditDays" name="ecreditDays" id="ecreditDays"> </tr></table> </div>'
 				
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")
@@ -1098,13 +1183,15 @@
             var pincode = $(this).find(".pincode").html();    
             var address = $(this).find(".address").html();    
             var referenceNumber1 = $(this).find(".referenceNumber1").html();    
+            var reference1ContactNumber = $(this).find(".reference1ContactNumber").html();    
             var referenceNumber2 = $(this).find(".referenceNumber2").html();    
+            var reference2ContactNumber = $(this).find(".reference2ContactNumber").html();    
             var creditLimit = $(this).find(".creditLimit").html();    
             var creditDays = $(this).find(".creditDays").html();     
 			console.log(result)
 
 
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td>'+customerName+'</td> </tr> <tr> <td>area</td> <td>'+area+' </td> </tr> <tr> <td>status</td> <td>'+status+' </td> </tr> <tr> <td>grade</td> <td>'+grade+' </td> </tr> <tr> <td>pincode</td> <td>'+pincode+' </td> </tr> <tr> <td>address</td> <td>'+address+' </td> </tr> <tr> <td>referenceNumber1</td> <td>'+referenceNumber1+' </td> </tr> <tr> <td>referenceNumber2</td> <td>'+referenceNumber2+' </td> </tr> <tr> <td>creditLimit</td> <td>'+creditLimit+' </td> </tr> <tr> <td>creditDays</td> <td>'+creditDays+' </td> </tr>  </table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td>'+customerName+'</td> </tr> <tr> <td>area</td> <td>'+area+' </td> </tr> <tr> <td>status</td> <td>'+status+' </td> </tr> <tr> <td>grade</td> <td>'+grade+' </td> </tr> <tr> <td>pincode</td> <td>'+pincode+' </td> </tr> <tr> <td>address</td> <td>'+address+' </td> </tr> <tr> <td>referenceNumber1</td> <td>'+referenceNumber1+' </td> </tr> <tr> <td>reference1ContactNumber</td> <td>'+reference1ContactNumber+' </td> </tr> <tr> <td>referenceNumber2</td> <td>'+referenceNumber2+' </td> </tr> <tr> <td>reference1ContactNumber</td> <td>'+reference1ContactNumber+' </td> </tr> <tr> <td>creditLimit</td> <td>'+creditLimit+' </td> </tr> <tr> <td>creditDays</td> <td>'+creditDays+' </td> </tr>  </table> </div>'
 
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
 			console.log("Ujjwal")
@@ -1120,7 +1207,7 @@
 
 	function check(tableData)
 		{
-			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>customerName</th> <th>area</th> <th>status</th> <th>grade</th> <th>pincode</th> <th>address</th> <th>referenceNumber1</th> <th>referenceNumber2</th> <th>creditLimit</th> <th>creditDays</th></thead> <tbody> "
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>customerName</th> <th>area</th> <th>status</th> <th>grade</th> <th>pincode</th> <th>address</th> <th>referenceNumber1</th> <th>reference1ContactNumber</th> <th>referenceNumber2</th> <th>reference2ContactNumber</th> <th>creditLimit</th> <th>creditDays</th></thead> <tbody> "
 			for(var i=0;i<tableData.length;i++)
 			{
 				table+="<tr>"
@@ -1131,7 +1218,9 @@
 					table+="<td class='pincode'>"+tableData[i].pincode+"</td>"	                   
 					table+="<td class='address'>"+tableData[i].address+"</td>"	                   
 					table+="<td class='referenceNumber1'>"+tableData[i].referenceNumber1+"</td>"	                   
+					table+="<td class='reference1ContactNumber'>"+tableData[i].reference1ContactNumber+"</td>"	                   
 					table+="<td class='referenceNumber2'>"+tableData[i].referenceNumber2+"</td>"	                   
+					table+="<td class='reference2ContactNumber'>"+tableData[i].reference2ContactNumber+"</td>"	                   
 					table+="<td class='creditLimit'>"+tableData[i].creditLimit+"</td>"	                   
 					table+="<td class='creditDays'>"+tableData[i].creditDays+"</td>"	                   
 				table+="</tr>"

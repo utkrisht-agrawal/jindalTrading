@@ -17,7 +17,10 @@ const masterAreaModel = sequelize.define('master_area',{
     },
     zone: {
         type: Sequelize.STRING
-    }
+    },
+    state: {
+        type: Sequelize.STRING
+    },
 },{
     timestamps: false
 }); 

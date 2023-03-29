@@ -15,6 +15,8 @@ const customerFirmModel = require('../model/customerFirmModel');
 const customerProductModel = require('../model/customerProductModel');
 const masterFirmModel = require('../model/masterFirmModel');
 
+const fs = require('fs');
+
 
 
 const getMasterArea =(req,res,next)=>{
@@ -67,7 +69,8 @@ const postMasterArea =(req,res,next)=>{
         masterAreaModel.update({
             area: req.body.eArea,
             district: req.body.eDistrict,
-            zone: req.body.eZone
+            zone: req.body.eZone,
+            state: req.body.eState,
         },
         {
             where: {areaId: req.body.id}
@@ -87,10 +90,11 @@ const postMasterArea =(req,res,next)=>{
         let areaFil=req.body.areaFil;
         let districtFil=req.body.districtFil;
         let zoneFil=req.body.zoneFil;
+        let stateFil=req.body.stateFil;
 
-        sequelize.query("SELECT * FROM master_areas AS master_area WHERE (area IN (CASE WHEN ? !='' THEN (?) ELSE area END)) AND (district IN (CASE WHEN ? !='' THEN(?) ELSE district END)) AND (zone IN (CASE WHEN ? !='' THEN(?) ELSE zone END))",
+        sequelize.query("SELECT * FROM master_areas AS master_area WHERE (area IN (CASE WHEN ? !='' THEN (?) ELSE area END)) AND (district IN (CASE WHEN ? !='' THEN(?) ELSE district END)) AND (zone IN (CASE WHEN ? !='' THEN(?) ELSE zone END)) AND (state IN (CASE WHEN ? !='' THEN(?) ELSE state END))",
         {
-            replacements: [areaFil,areaFil,districtFil,districtFil,zoneFil,zoneFil],
+            replacements: [areaFil,areaFil,districtFil,districtFil,zoneFil,zoneFil,stateFil,stateFil],
             type: QueryTypes.SELECT
         })
         .then((dataFil)=>{
@@ -109,6 +113,7 @@ const postMasterArea =(req,res,next)=>{
         const area = req.body.area;
         const district = req.body.district;
         const zone = req.body.zone;
+        const state = req.body.state;
         masterAreaModel.findAll(
             {
                 where : {area : area}
@@ -120,7 +125,8 @@ const postMasterArea =(req,res,next)=>{
                 masterAreaModel.create({
                     area :area,
                     district :district,
-                    zone :zone
+                    zone :zone,
+                    state :state
                 })
                 .then((result)=>{
                     console.log(result),
@@ -372,10 +378,12 @@ const postMasterCustomer =(req,res,next)=>{
             area: req.body.area,
             status: req.body.status,
             grade: req.body.grade,
-            pincode: req.body.pincode,
+            pincode: req.body.pincode  || null,
             address: req.body.address,
             referenceNumber1: req.body.referenceNumber1,
+            reference1ContactNumber: req.body.reference1ContactNumber || null,
             referenceNumber2: req.body.referenceNumber2,
+            reference2ContactNumber: req.body.reference2ContactNumber || null,
             creditLimit: req.body.creditLimit,
             creditDays: req.body.creditDays
 
@@ -563,16 +571,18 @@ const postMasterCustomer =(req,res,next)=>{
                     const status = req.body.status
                     const grade = req.body.grade
                     const productFil = req.body.productFil
-                    const contact = req.body.contact
+                    const contact = req.body.contact || null
                     const designation = req.body.designation
                     const email = req.body.email
                     const category = req.body.category
-                    const pincode = req.body.pincode
+                    const pincode = req.body.pincode || null
                     const address = req.body.address
                     const referenceNumber1 = req.body.referenceNumber1
+                    const reference1ContactNumber = req.body.reference1ContactNumber || null
                     const referenceNumber2 = req.body.referenceNumber2
-                    const creditLimit = req.body.creditLimit
-                    const creditDays = req.body.creditDays
+                    const reference2ContactNumber = req.body.reference2ContactNumber  || null
+                    const creditLimit = req.body.creditLimit || null
+                    const creditDays = req.body.creditDays || null
             
                     masterCustomerModel.create({
                         customerName:customerName,
@@ -582,7 +592,9 @@ const postMasterCustomer =(req,res,next)=>{
                         pincode:pincode,
                         address:address,
                         referenceNumber1:referenceNumber1,
+                        reference1ContactNumber:reference1ContactNumber,
                         referenceNumber2:referenceNumber2,
+                        reference2ContactNumber:reference2ContactNumber,
                         creditLimit:creditLimit,
                         creditDays:creditDays
                     })
@@ -604,19 +616,40 @@ const postMasterCustomer =(req,res,next)=>{
                                     firm :firm
                                 })
                                 .then((res4)=>{
-                                    for(let i=0;i<productFil.length;i++)
+                                    if(productFil)
                                     {
-                                        console.log(productFil[i])
-                                        customerProductModel.create({
-                                            customerName : customerName,
-                                            product : productFil[i]
-                                        })
-                                        .then((reso)=>{
-                                            console.log(reso)
-                                        })
-                                        .catch((err)=>{
-                                            console.log(err)
-                                        })
+                                        if(Array.isArray(productFil))
+                                        {
+                                            console.log("::::::::::::::::::::::::::::::::::::::::::::::::::")
+                                            console.log(productFil)
+                                            for(let i=0;i<productFil.length;i++)
+                                            {
+                                                console.log(productFil[i])
+                                                customerProductModel.create({
+                                                    customerName : customerName,
+                                                    product : productFil[i]
+                                                })
+                                                .then((reso)=>{
+                                                    console.log(reso)
+                                                })
+                                                .catch((err)=>{
+                                                    console.log(err)
+                                                })
+                                            }
+                                        }
+                                        else
+                                        {
+                                            customerProductModel.create({
+                                                customerName : customerName,
+                                                product : productFil
+                                            })
+                                            .then((reso)=>{
+                                                console.log(reso)
+                                            })
+                                            .catch((err)=>{
+                                                console.log(err)
+                                            })
+                                        }
                                     }
                                     console.log(result),
                                     console.log(res2),
@@ -644,18 +677,9 @@ const postMasterCustomer =(req,res,next)=>{
                 }
                 else
                 {
-                    console.log("000000000000000000000000000000000000000")
-                    console.log("000000000000000000000000000000000000000000")
-                    console.log("0000000000000000000000000000000000000000000")
                     console.log(req.session.username)
-                    console.log("000000000000000000000000000000000000000000000")
                     var dataFil="abc";
                     console.log(dataFil);
-                    // res.send(dataFil);
-                    // res.render('error', { message: req.flash('successMessage')})
-                    // res.render('masterCustomer',{
-                    //     msg:"Customer Already exists"
-                    // })
                     if(req.session.isLoggedIn)
                     {
                         masterGradeModel.findAll()
@@ -803,9 +827,8 @@ const postMasterEmployee =(req,res,next)=>{
             aadharNumber: req.body.aadharNumber,
             panNumber: req.body.panNumber,
             reference: req.body.reference,
-            gender: req.body.gender,
-            photo: req.body.photo
-
+            referenceContactNumber: req.body.referenceContactNumber,
+            gender: req.body.gender
           },
           {
               where: {employeeNumber: req.body.id}
@@ -822,12 +845,14 @@ const postMasterEmployee =(req,res,next)=>{
     {
         console.log(req.body.employeeNameFil);
         console.log(req.body.designationFil);
+        console.log(req.body.employeeCategoriesFil);
         let emp=req.body.employeeNameFil;
         let des=req.body.designationFil;
+        let cat=req.body.employeeCategoriesFil;
 
-        sequelize.query("SELECT * FROM master_employees AS master_employee WHERE (employeeName IN (CASE WHEN ? !='' THEN (?) ELSE employeeName END)) AND (designation IN (CASE WHEN ? !='' THEN(?) ELSE designation END)) ",
+        sequelize.query("SELECT * FROM master_employees AS master_employee WHERE (employeeName IN (CASE WHEN ? !='' THEN (?) ELSE employeeName END)) AND (designation IN (CASE WHEN ? !='' THEN(?) ELSE designation END)) AND (employeeCategories IN (CASE WHEN ? !='' THEN(?) ELSE employeeCategories END)) ",
         {
-            replacements: [emp,emp,des,des],
+            replacements: [emp,emp,des,des,cat,cat],
             type: QueryTypes.SELECT
         })
         .then((dataFil)=>{
@@ -867,9 +892,13 @@ const postMasterEmployee =(req,res,next)=>{
         const aadharNumber = req.body.aadharNumber
         const panNumber = req.body.panNumber
         const reference = req.body.reference
+        const referenceContactNumber = req.body.referenceContactNumber
         const gender = req.body.gender
-        const photo = req.body.photo
-
+        const photo = req.file
+        
+        console.log(photo);
+        imagePath=photo.path
+        console.log(imagePath)
 
         masterEmployeeModel.findAll(
             {
@@ -903,8 +932,9 @@ const postMasterEmployee =(req,res,next)=>{
                     aadharNumber:aadharNumber,
                     panNumber:panNumber,
                     reference:reference,
+                    referenceContactNumber:referenceContactNumber,
                     gender:gender,
-                    photo:photo
+                    photo:imagePath
                 })
                 .then((result)=>
                     console.log(result),

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../database/connect');
 
-const masterCustomerModel = sequelize.define('master_customer',{
+const masterCustomerModel = sequelize.define('master_Customer',{
     customerId:{
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -13,7 +13,7 @@ const masterCustomerModel = sequelize.define('master_customer',{
     },
     area: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     status: {
         type: Sequelize.ENUM("VERIFIED","UNVERIFIED","INACTIVE")
@@ -22,7 +22,8 @@ const masterCustomerModel = sequelize.define('master_customer',{
         type: Sequelize.STRING
     },
     pincode: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true
     },
     address: {
         type: Sequelize.STRING
@@ -30,14 +31,22 @@ const masterCustomerModel = sequelize.define('master_customer',{
     referenceNumber1: {
         type: Sequelize.STRING
     },
+    reference1ContactNumber: {
+        type: Sequelize.INTEGER
+    },
     referenceNumber2: {
         type: Sequelize.STRING
     },
-    creditLimit: {
+    reference2ContactNumber: {
         type: Sequelize.INTEGER
     },
+    creditLimit: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
     creditDays: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true
     }
 },{
     timestamps: false

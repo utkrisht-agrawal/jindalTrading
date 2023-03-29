@@ -1,14 +1,36 @@
 const express = require('express'); 
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const flash = require('req-flash');
 const path = require('path');
+const multer = require('multer');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,'public')))      
+app.use('/images',express.static(path.join(__dirname,'images')))      
 app.use(session({secret: 'my secret',resave: false, saveUninitialized: false}));
-app.use(flash());
+
+
+
+const fileStorage = multer.diskStorage({
+  destination: (req,file,cb) =>{
+    cb(null,'images');
+  },
+  filename:(req,file,cb)=>{
+    cb(null,new Date().toISOString().replace(/:/g, '-')+'-'+file.originalname)
+  }
+})
+
+const fileFilter = (req,file,cb)=>{
+  if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg')
+  {
+    cb(null,true)
+  }else{
+    cb(null,false)
+  }
+}
+
+
 
 app.set("view engine","ejs"); 
 app.set("views","./views");
@@ -21,6 +43,7 @@ const transportRoutes = require('./routes/transportRoutes');
 const marketPlanRoutes = require('./routes/marketPlanRoutes');
 
 
+app.use(multer({ storage : fileStorage,fileFilter: fileFilter}).single('photo'))
 
 app.use(userRoutes);
 app.use(masterRoutes);
@@ -30,14 +53,16 @@ app.use(marketPlanRoutes);
 
 app.use('/',(req,res,next)=>{
     console.log(req.session);
-    res.render('index',
-    {data : req.session.isLoggedIn}
-    );
+    res.render('index',{
+      data:req.session.isLoggedIn
+    });
 });
 
+  
 
 
-const port = process.env.PORT || 3000;
+
+const port = process.env.PORT || 4000;
 
 sequelize.sync()
     .then(result => {
