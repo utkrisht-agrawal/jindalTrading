@@ -701,6 +701,7 @@ const postMasterCustomer =(req,res,next)=>{
                                                     level:req.session.userLevel,
                                                     gradeData:gradeData,
                                                     areaData:areaData,
+                                                    firmData:firmData,
                                                     msg:"Customer Name Already Exists"
                                                 })
                                 
