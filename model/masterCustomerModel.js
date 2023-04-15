@@ -32,13 +32,13 @@ const masterCustomerModel = sequelize.define('master_Customer',{
         type: Sequelize.STRING
     },
     reference1ContactNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     referenceNumber2: {
         type: Sequelize.STRING
     },
     reference2ContactNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     creditLimit: {
         type: Sequelize.INTEGER,

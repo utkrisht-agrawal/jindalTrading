@@ -898,8 +898,9 @@ const postMasterEmployee =(req,res,next)=>{
         const photo = req.file
         
         console.log(photo);
-        imagePath=photo.path
+        imagePath=photo?photo.path:"No image";
         console.log(imagePath)
+        
 
         masterEmployeeModel.findAll(
             {

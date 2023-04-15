@@ -12,7 +12,7 @@ const customerContactModel = sequelize.define('cust_contact',{
         type: Sequelize.STRING
     },
     mobileNumber: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: true
     },
     designation: {
