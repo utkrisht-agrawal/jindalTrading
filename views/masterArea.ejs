@@ -263,7 +263,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Area</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Area" data-trigger="hover" data-content="Click to Create New Master Area">Add new Master Area</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" >Add new Master Area</button></td>
 									
 								<%}%>
 								<div class="header-elements">
@@ -309,11 +309,11 @@
 												<td class="state"><%= data[i].state%></td>
 
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].areaId%>apnaarea')" title="Edit <%= data[i].area%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].areaId%>apnaarea')">Edit</button>
 												</td>
 												
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].areaId%>apnaarea')" title="Delete <%= data[i].area%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del"  onclick="ddel('<%= data[i].areaId%>apnaarea')" >Delete</button>
 												</td>
 												
 													
@@ -324,7 +324,7 @@
 												<td class="state"><%= data[i].state%></td>
 
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].areaId%>apnaarea')" title="Edit <%= data[i].area%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].areaId%>apnaarea')">Edit</button>
 												</td>
 											<%}%> 
 										</tr>

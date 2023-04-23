@@ -306,9 +306,9 @@
                                                 <td class="invoiceNumber" ><%= data[i].invoiceNumber%></td>
                                                 <td class="delivery" ><%= data[i].delivery%></td>
 												<td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].serialNumber%>quantityLedger')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit"  onclick="eedit('<%= data[i].serialNumber%>quantityLedger')" >Edit</button>
                                                 <td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].serialNumber%>quantityLedger')" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del"  onclick="ddel('<%= data[i].serialNumber%>quantityLedger')">Delete</button>
                                                 </td>
 											<%}else if(level>1){%>
                                                 <td class="customerName" ><%= data[i].customerName%></td>
@@ -317,7 +317,7 @@
                                                 <td class="quantity" ><%= data[i].quantity%></td>
 												<td class="invoiceNumber" ><%= data[i].invoiceNumber%></td>
                                                 <td class="delivery" ><%= data[i].delivery%></td>
-                                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].serialNumber%>quantityLedger')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit"  onclick="eedit('<%= data[i].serialNumber%>quantityLedger')">Edit</button>
                                                 </td>
 											<%}%>
 										</tr>

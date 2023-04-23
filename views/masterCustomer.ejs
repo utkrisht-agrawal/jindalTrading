@@ -260,7 +260,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Customers</h5>
 								<% if(level>2) {%>
-									<button onclick="validation()" type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical"data-popup="popover" title="Add Master Customer" data-trigger="hover" data-content="Click to Create New Master Customer">Add new Master Customer</button></td>
+									<button onclick="validation()" type="button"  class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Customer</button></td>
 									
 								<%}%>
 								<div class="header-elements">
@@ -331,10 +331,10 @@
 												<td class="creditLimit"><%= data[i].creditLimit%></td>
 												<td class="creditDays"><%= data[i].creditDays%></td>
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')">Edit</button>
 												</td>
 												<td >
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')">Delete</button>
 												</td>
 											<%}else if(level>1){%>
 												<td class="customerName"><%= data[i].customerName%></td>
@@ -350,7 +350,7 @@
 												<td class="creditLimit"><%= data[i].creditLimit%></td>
 												<td class="creditDays"><%= data[i].creditDays%></td>
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" >Edit</button>
 												</td>
 											<%}%>
 										</tr>
@@ -426,10 +426,10 @@
 													<td class="creditLimit"><%= data[i].creditLimit%></td>
 													<td class="creditDays"><%= data[i].creditDays%></td>
 													<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" >Edit</button>
 												</td>
 													<td >
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')">Delete</button>
 												</td>
 												<%}else if(level>1){%>
 													<td class="customerName"><%= data[i].customerName%></td>
@@ -521,10 +521,12 @@
 													<td class="creditLimit"><%= data[i].creditLimit%></td>
 													<td class="creditDays"><%= data[i].creditDays%></td>
 													<td>
-														<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+														<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')">Edit</button>
+														<!-- data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data" -->
 													</td>
 													<td >
-														<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
+														<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')" >Delete</button>
+														<!-- data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes" -->
 													</td>
 													<%}else if(level>1){%>
 														<td class="customerName"><%= data[i].customerName%></td>
@@ -540,7 +542,7 @@
 														<td class="creditLimit"><%= data[i].creditLimit%></td>
 														<td class="creditDays"><%= data[i].creditDays%></td>
 														<td>
-															<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+															<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" data-popup="popover">Edit</button>
 														</td>
 														<%}%>
 													</tr>
@@ -1013,8 +1015,7 @@
 			productFil.required = true;
 			pincode.required = true;
 			address.required = true;
-	}
-
+		}
 	});
 	}
 </script>

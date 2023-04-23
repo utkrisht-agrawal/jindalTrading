@@ -310,11 +310,11 @@
 												
 
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%=data[i].firmId%>firm')" title="Edit <%= data[i].firmName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
-													</td>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%=data[i].firmId%>firm')" title="Edit <%= data[i].firmName%>">Edit</button>
+												</td>
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%=data[i].firmId%>firm')" title="Delete <%= data[i].firmName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
-													</td>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%=data[i].firmId%>firm')" title="Delete <%= data[i].firmName%>">Delete</button>
+												</td>
 												
 											<%}else if(level>1){%>
                                                 <td class="firmName"><%= data[i].firmName%></td>

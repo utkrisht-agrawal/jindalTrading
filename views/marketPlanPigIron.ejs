@@ -325,7 +325,7 @@
                                                 <td class="updateTimeStamp" ><%= data[i].updateTimeStamp%></td>
                                                 <td class="totalIssue" ><%= data[i].totalIssue%></td>
 												<td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_uedit" data-popup="popover" onclick="ueedit('<%= data[i].serialNumber %>pigIron')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_uedit"  onclick="ueedit('<%= data[i].serialNumber %>pigIron')">Edit</button>
                                                 </td>
 											<%} else if(level>2) {%>
                                                 
@@ -349,10 +349,10 @@
                                                 <td class="updateTimeStamp" ><%= data[i].updateTimeStamp%></td>
                                                 <td class="totalIssue" ><%= data[i].totalIssue%></td>
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].serialNumber %>pigIron')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit"  onclick="eedit('<%= data[i].serialNumber %>pigIron')">Edit</button>
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].serialNumber%>pigIron')" data-popup="popover" title="Delete <%= data[i].customerName%>" data-trigger="hover" data-content="Click Delete Button to remove Master Customer and reload page to see changes">Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del"  onclick="ddel('<%= data[i].serialNumber%>pigIron')">Delete</button>
                                                 </td>
 											<%}else if(level>1){%>
                                                 <td class="customerName"><button type="button" class="btn btn-light" data-toggle="modal" onclick="custInfo('<%= data[i].customerName%>')" data-target="#customer_information"><%= data[i].customerName%></button></td>
@@ -384,7 +384,7 @@
                                                 <td class="updateTimeStamp" ><%= data[i].updateTimeStamp%></td>
                                                 <td class="totalIssue" ><%= data[i].totalIssue%></td>
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].serialNumber %>pigIron')" data-popup="popover" title="Edit <%= data[i].customerName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit"  onclick="eedit('<%= data[i].serialNumber %>pigIron')" >Edit</button>
                                                 </td>
 											<%}%>
 										</tr>

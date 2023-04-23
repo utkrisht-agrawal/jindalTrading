@@ -262,7 +262,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Employees</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Employee" data-trigger="hover" data-content="Click to Create New Master Employee">Add new Master Employee</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" title="Add Master Employee" >Add new Master Employee</button></td>
 									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
 								<%}%>
 								<div class="header-elements">
@@ -373,10 +373,10 @@
                                                 <td class="gender"><%= data[i].gender%></td>
                                                 <td class="photo"><img width="100px" src="/<%= data[i].photo%>" alt="<%= data[i].employeeName%>"></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].employeeNumber%>employee')" data-popup="popover" title="Edit <%= data[i].employeeName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].employeeNumber%>employee')" >Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].employeeNumber%>employee')" data-popup="popover" title="Delete <%= data[i].employeeName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].employeeNumber%>employee')">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="employeeName"><%= data[i].employeeName%></td>
@@ -406,7 +406,7 @@
                                                 <td class="gender"><%= data[i].gender%></td>
                                                 <td class="photo"><img width="100px" src="/<%= data[i].photo%>" alt="<%= data[i].employeeName%>"></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].employeeNumber%>employee')" data-popup="popover" title="Edit <%= data[i].employeeName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].employeeNumber%>employee')">Edit</button>
                                                 </td>
                                             <%}%>  
                                             

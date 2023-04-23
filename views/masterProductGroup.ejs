@@ -298,15 +298,15 @@
                                             <%} else if(level>2) {%>
                                                 <td class="productGroup"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].id%>productGroup')"data-popup="popover" title="Edit <%= data[i].productGroup%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].id%>productGroup')">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].id%>productGroup')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].productGroup%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].id%>productGroup')" name="foo" value="check" class="btn btn-light">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="productGroup"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].id%>productGroup')"data-popup="popover" title="Edit <%= data[i].productGroup%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].id%>productGroup')">Edit</button>
                                                 </td>
                                             <%}%>
                                         </tr>

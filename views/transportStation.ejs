@@ -295,17 +295,17 @@
                                                 <td class="transportSource"><%= data[i].transportSource%></td>
                                                 <td class="transportDestination"><%= data[i].transportDestination%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].transportId%>transport')" title="Edit <%= data[i].transportName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].transportId%>transport')">Edit</button>
                                                 </td>
                                                 <td >  
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].transportId%>transport')" title="Delete <%= data[i].transportName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].transportId%>transport')">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="transportName"><%= data[i].transportName%></td>
                                                 <td class="transportSource"><%= data[i].transportSource%></td>
                                                 <td class="transportDestination"><%= data[i].transportDestination%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].transportId%>transport')" title="Edit <%= data[i].transportName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].transportId%>transport')">Edit</button>
                                                 </td>
                                             <%}%>
                                             </tr>

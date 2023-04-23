@@ -259,7 +259,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Vendors</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Vendor" data-trigger="hover" data-content="Click to Create New Master Vendor">Add new Master Vendor</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Vendor</button></td>
 									
 								<%}%>
 								<div class="header-elements">
@@ -298,16 +298,16 @@
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
                                                 <td class="vendorArea"><%= data[i].area%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].vendorId%>vendor')" data-popup="popover" title="Edit" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].vendorId%>vendor')">Edit</button>
                                                 </td>
                                                 <td >
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].vendorId%>vendor')" data-popup="popover" title="Delete" data-trigger="hover" data-content="Click to delete data">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].vendorId%>vendor')">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
                                                 <td class="vendorArea"><%= data[i].area%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].vendorId%>vendor')" data-popup="popover" title="Edit" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].vendorId%>vendor')">Edit</button>
                                                 </td>
                                             <%}%>
                                             </tr>

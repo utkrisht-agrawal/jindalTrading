@@ -260,7 +260,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Grades</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Grade" data-trigger="hover" data-content="Click to Create New Master Grade">Add new Master Grade</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical"  title="Add Master Grade">Add new Master Grade</button></td>
 									
 								<%}%>
 								<div class="header-elements">
@@ -296,15 +296,15 @@
                                             <%} else if(level>2) {%>
                                                 <td class="gradeType"><%= data[i].gradeType%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].gradeId%>grade')" data-popup="popover" title="Edit <%= data[i].gradeType%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].gradeId%>grade')">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].gradeId%>grade')"  data-popup="popover" title="Delete <%= data[i].gradeType%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].gradeId%>grade')">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="gradeType"><%= data[i].gradeType%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].gradeId%>grade')" data-popup="popover" title="Edit <%= data[i].gradeType%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].gradeId%>grade')">Edit</button>
                                                 </td>
                                             <%}%>
                                             

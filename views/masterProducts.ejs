@@ -259,7 +259,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Products</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Product" data-trigger="hover" data-content="Click to Create New Master Product">Add new Master Product</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" >Add new Master Product</button></td>
 									<!-- <p><a href="/addMasterCustomer">Add new Master Customer</a></p> -->
 								<%}%>
 								<div class="header-elements">
@@ -298,16 +298,16 @@
                                                 <td class="productName"><%= data[i].productName%></td>
                                                 <td class="productGroup"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].productId%>product')"data-popup="popover" title="Edit <%= data[i].productName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].productId%>product')">Edit</button>
                                                 </td>
                                                 <td >
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].productId%>product')" name="foo" value="check" class="btn btn-light" data-popup="popover" title="Delete <%= data[i].productName%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].productId%>product')" name="foo" value="check" class="btn btn-light">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="productName"><%= data[i].productName%></td>
                                                 <td class="productGroup"><%= data[i].productGroup%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].productId%>product')"data-popup="popover" title="Edit <%= data[i].productName%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].productId%>product')">Edit</button>
                                                 </td>
                                             <%}%>
                                         </tr>

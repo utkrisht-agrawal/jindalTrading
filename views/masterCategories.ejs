@@ -261,7 +261,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Categories</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical" data-popup="popover" title="Add Master Category" data-trigger="hover" data-content="Click to Create New Master Category">Add new Master Category</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Category</button></td>
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -297,16 +297,16 @@
                                                 <td class="categoriesType"><%= data[i].categoriesType%></td>
                                                 
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].categoriesId%>categories')" title="Edit <%= data[i].categoriesType%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].categoriesId%>categories')">Edit</button>
 												</td>
                                                 
 												<td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].categoriesId %>categories')" title="Delete <%= data[i].categoriesType%>" data-trigger="hover" data-content="Click to delete data">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].categoriesId %>categories')">Delete</button>
 												</td>
                                             <%}else if(level>1){%>
                                                 <td class="categoriesType"><%= data[i].categoriesType%></td>
                                                 <td>
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].categoriesId%>categories')" title="Edit <%= data[i].categoriesType%>" data-trigger="hover" data-content="Click to change data">Edit</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].categoriesId%>categories')">Edit</button>
 												</td>
                                             <%}%> 
                                         </tr>
