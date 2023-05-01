@@ -40,6 +40,7 @@ const userRoutes = require('./routes/userRoutes');
 const masterRoutes = require('./routes/masterRoutes');
 const customerRoutes = require('./routes/customerRoutes');
 const transportRoutes = require('./routes/transportRoutes');
+const vendorRoutes = require('./routes/vendorRoutes');
 const marketPlanRoutes = require('./routes/marketPlanRoutes');
 
 
@@ -49,6 +50,7 @@ app.use(userRoutes);
 app.use(masterRoutes);
 app.use(customerRoutes);
 app.use(transportRoutes);
+app.use(vendorRoutes);
 app.use(marketPlanRoutes);
 
 app.use('/',(req,res,next)=>{

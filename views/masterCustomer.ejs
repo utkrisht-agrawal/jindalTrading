@@ -637,7 +637,16 @@
 
 									<div class="form-group">
 										<div class="row">
-											<div class="col-sm-12">
+											<div class="col-sm-6">
+												<label>Status</label>
+												<select id="status" name="status" class="form-control status" id="status">
+													<option value="" disabled selected>-Select-</option>
+													<option value="VERIFIED">VERIFIED</option>
+													<option value="UNVERIFIED">UNVERIFIED</option>
+													<option value="INACTIVE">INACTIVE</option>
+												</select>
+											</div>
+											<div class="col-sm-6">
 												<label>Firm<span class="text-danger">*</span></label>
 												<select name="firm" class="form-control firm" id="firm">
 													<option value="" disabled selected>-Select-</option>
@@ -651,7 +660,7 @@
 									
 									<div class="form-group">
 										<div class="row">
-											<div class="col-sm-4">
+											<div class="col-sm-6">
 												<label>Area<span class="text-danger">*</span></label>
 												<select id="area" name="area" class="form-control area" id="area" >
 													<option value="" disabled selected>-Select-</option>
@@ -661,16 +670,8 @@
 												</select>
 												
 											</div>
-											<div class="col-sm-4">
-												<label>Status</label>
-												<select id="status" name="status" class="form-control status" id="status">
-													<option value="" disabled selected>-Select-</option>
-													<option value="VERIFIED">VERIFIED</option>
-													<option value="UNVERIFIED">UNVERIFIED</option>
-													<option value="INACTIVE">INACTIVE</option>
-												</select>
-											</div>
-											<div class="col-sm-4">
+											
+											<div class="col-sm-6">
 												<label>grade<span class="text-danger">*</span></label>
 												<select id="grade" name="grade" class="form-control grade" id="grade" >
 													<option value="" disabled selected>-Select-</option>
@@ -984,6 +985,7 @@
 	{
 		
 		const categorySelect = document.getElementById('category');
+		const statusSelect = document.getElementById('status');
 		const firm = document.getElementById('firm');
 		const area = document.getElementById('area');
 		const grade = document.getElementById('grade');
@@ -994,29 +996,38 @@
 		const address = document.getElementById('address');
 
 		categorySelect.addEventListener('change', () => {
-			console.log("change")
+			console.log("changeCategory")
 			console.log(categorySelect.value)
 
-		if (categorySelect.value === 'Retail') {
-			firm.required = false;
-			area.required = false;
-			grade.required = false;
-			designation.required = false;
-			contact.required = false;
-			productFil.required = false;
-			pincode.required = false;
-			address.required = false;
-		} else {
-			firm.required = true;
-			area.required = true;
-			grade.required = true;
-			designation.required = true;
-			contact.required = true;
-			productFil.required = true;
-			pincode.required = true;
-			address.required = true;
-		}
-	});
+			if (categorySelect.value === 'Retail') {
+				area.required = false;
+				grade.required = false;
+				designation.required = false;
+				contact.required = false;
+				productFil.required = false;
+				pincode.required = false;
+				address.required = false;
+			} else {
+				area.required = true;
+				grade.required = true;
+				designation.required = true;
+				contact.required = true;
+				productFil.required = true;
+				pincode.required = true;
+				address.required = true;
+			}
+		});
+		
+		statusSelect.addEventListener('change', () => {
+			console.log("changeStatus")
+			console.log(statusSelect.value)
+
+			if (statusSelect.value === 'UNVERIFIED') {
+				firm.required = false;
+			} else {
+				firm.required = true;
+			}
+		});
 	}
 </script>
 

@@ -216,6 +216,7 @@
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
+								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -277,6 +278,7 @@
 									
 									<thead>
 										<tr>
+											<th>Vendor-Name</th>
 											<th>Vendor-Address</th>
                                             <th>Vendor-Area</th>
 											<% if(level>2) {%>
@@ -292,9 +294,11 @@
 									<% for(var i=0; i<data.length; i++) {%>
 										<tr  class="<%= data[i].vendorId%>vendor">
                                             <%if(level==1) {%>
+                                                <td class="vendorName"><%= data[i].vendorName%></td>
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
 												<td class="vendorArea"><%= data[i].area%></td>
                                             <%} else if(level>2) {%>
+                                                <td class="vendorName"><%= data[i].vendorName%></td>
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
                                                 <td class="vendorArea"><%= data[i].area%></td>
                                                 <td>
@@ -304,6 +308,7 @@
 													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].vendorId%>vendor')">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
+                                                <td class="vendorName"><%= data[i].vendorName%></td>
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
                                                 <td class="vendorArea"><%= data[i].area%></td>
                                                 <td>
@@ -362,21 +367,43 @@
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-6">
+											            <div class="col-sm-4">
+												            <label>Vendor Name<span class="text-danger">*</span></label>
+												            <input type="text" placeholder="vendorName" class="form-control vendorName" name="vendorName" id="vendorName" required>
+											            </div>
+											            <div class="col-sm-4">
 												            <label>Vendor Address<span class="text-danger">*</span></label>
 												            <input type="text" placeholder="address" class="form-control vendorAddress" name="vendorAddress" id="vendorAddress" required>
 											            </div>
-											            <div class="col-sm-6">
-												            <label>Area<span class="text-danger">*</span></label>
+											            <div class="col-sm-4">
+															<label>Area<span class="text-danger">*</span></label>
 												            <select id="area" name="area" class="form-control area" id="area" required>
-                                                                <option value="" disabled selected>-Select-</option>
+																<option value="" disabled selected>-Select-</option>
                                                                 <% for(var i=0; i<areaData.length; i++) {%>
                                                                     <option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
-                                                                <% } %>
-                                                            </select>
-											            </div>
-										            </div>
-									            </div>
+																	<% } %>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="row">
+														<div class="col-sm-4">
+															<label>Designation<span class="text-danger">*</span></label>
+															<input required type="text" class="form-control designation" name="designation" id="designation">
+														</div>
+														<div class="col-sm-4">
+															<label>Mobile Number <span class="text-danger">*</span></label>
+															<input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control mobileNumber" name="mobileNumber" id="mobileNumber">
+														</div>
+														<div class="col-sm-4">
+															<label>E-mail</label>
+															<input type="email" class="form-control email" name="email" id="email">
+														</div>
+	
+													</div>
+												</div>
+	
 								            </div>
 
 								            <div class="modal-footer">
@@ -474,6 +501,7 @@
     {
 
 		console.log(value);
+        var evendorName = document.getElementById("evendorName").value;
         var evendorAddress = document.getElementById("evendorAddress").value;
 		console.log(evendorAddress);
         var evendorArea = document.getElementById("evendorArea").value;
@@ -482,6 +510,7 @@
         $.post("/masterVendors",
 		{
 			id: value,
+			vendorName: vendorName,
 			evendorAddress: evendorAddress,
 			evendorArea: evendorArea,
 			op:"edt"
@@ -526,6 +555,7 @@
         
         $('.'+value).each(function() 
         {   
+            var vendorName = $(this).find(".vendorName").html();    
             var vendorAddress = $(this).find(".vendorAddress").html();    
             var vendorArea = $(this).find(".vendorArea").html();   
             console.log(vendorAddress);
@@ -534,7 +564,7 @@
 			console.log(result)
 			
 			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorAddress</td> <td><input type="text" value="'+vendorAddress+'" class="form-control evendorAddress" name="evendorAddress" id="evendorAddress"></td> </tr> <tr> <td>vendorArea</td> <td><input type="text" value="'+vendorArea+'" class="form-control evendorArea" name="evendorArea" id="evendorArea"> </tr> </table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorName</td> <td><input type="text" value="'+vendorName+'" class="form-control evendorName" name="evendorName" id="evendorName"></td> </tr>  <tr> <td >vendorAddress</td> <td><input type="text" value="'+vendorAddress+'" class="form-control evendorAddress" name="evendorAddress" id="evendorAddress"></td> </tr> <tr> <td>vendorArea</td> <td><input type="text" value="'+vendorArea+'" class="form-control evendorArea" name="evendorArea" id="evendorArea"> </tr> </table> </div>'
 				
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")
@@ -555,14 +585,16 @@
         $('.'+value).each(function() 
         {   
 			console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+            var vendorName = $(this).find(".vendorName").html();    
             var vendorAddress = $(this).find(".vendorAddress").html();    
             var vendorArea = $(this).find(".vendorArea").html();    
+            console.log(vendorName);
             console.log(vendorAddress);
             console.log(vendorArea);
 			console.log(result)
 
 
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorAddress</td> <td>'+vendorAddress+'</td> </tr> <tr> <td>vendorArea</td> <td>'+vendorArea+' </td> </tr> </table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorName</td> <td>'+vendorName+'</td> </tr> <tr> <tr> <td >vendorAddress</td> <td>'+vendorAddress+'</td> </tr> <tr> <td>vendorArea</td> <td>'+vendorArea+' </td> </tr> </table> </div>'
 
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
 			console.log("Ujjwal")
@@ -599,11 +631,12 @@
 
 	function check(tableData)
 		{
-			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>vendorAddress</th> <th>vendorArea</th> </thead> <tbody> "
+			var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>vendorName</th> <th>vendorAddress</th> <th>vendorArea</th> </thead> <tbody> "
 			for(var i=0;i<tableData.length;i++)
 			{
 
 				table+="<tr> "
+					table+="<td class='vendorName'>"+tableData[i].vendorName+"</td>"	
 					table+="<td class='vendorAddress'>"+tableData[i].vendorAddress+"</td>"	
 					table+="<td class='vendorArea'>"+tableData[i].area+"</td>"	                   
 				table+="</tr>"
@@ -629,10 +662,12 @@
 				
 				column1 = row.cells[0].innerText;
 				column2 = row.cells[1].innerText;
+				column3 = row.cells[2].innerText;
 				rows.push(
 					[
 						column1,
-						column2
+						column2,
+						column3
 					]
 				);
  

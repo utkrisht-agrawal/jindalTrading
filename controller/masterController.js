@@ -14,6 +14,7 @@ const customerCategoryModel = require('../model/customerCategoryModel');
 const customerFirmModel = require('../model/customerFirmModel');
 const customerProductModel = require('../model/customerProductModel');
 const masterFirmModel = require('../model/masterFirmModel');
+const vendorContactModel = require('../model/vendorContactModel');
 
 const fs = require('fs');
 
@@ -585,94 +586,92 @@ const postMasterCustomer =(req,res,next)=>{
                     const creditDays = req.body.creditDays || null
             
                     masterCustomerModel.create({
-                        customerName:customerName,
-                        area:area,
-                        status:status,
-                        grade:grade,
-                        pincode:pincode,
-                        address:address,
-                        referenceNumber1:referenceNumber1,
-                        reference1ContactNumber:reference1ContactNumber,
-                        referenceNumber2:referenceNumber2,
-                        reference2ContactNumber:reference2ContactNumber,
-                        creditLimit:creditLimit,
-                        creditDays:creditDays
+                        customerName: customerName,
+                        area: area,
+                        status: status,
+                        grade: grade,
+                        pincode: pincode,
+                        address: address,
+                        referenceNumber1: referenceNumber1,
+                        reference1ContactNumber: reference1ContactNumber,
+                        referenceNumber2: referenceNumber2,
+                        reference2ContactNumber: reference2ContactNumber,
+                        creditLimit: creditLimit,
+                        creditDays: creditDays
                     })
-                    .then((result)=>
+                    .then((result) => {
                         customerContactModel.create({
-                            customerName :customerName,
-                            mobileNumber :contact,
-                            designation :designation,
-                            email :email
+                            customerName: customerName,
+                            mobileNumber: contact,
+                            designation: designation,
+                            email: email
                         })
-                        .then((res2)=>{
+                        .then((res2) => {
                             customerCategoryModel.create({
-                                customerName :customerName,
-                                category :category
+                                customerName: customerName,
+                                category: category
                             })
-                            .then((res3)=>{
-                                customerFirmModel.create({
-                                    customerName :customerName,
-                                    firm :firm
-                                })
-                                .then((res4)=>{
-                                    if(productFil)
-                                    {
-                                        if(Array.isArray(productFil))
-                                        {
-                                            console.log("::::::::::::::::::::::::::::::::::::::::::::::::::")
-                                            console.log(productFil)
-                                            for(let i=0;i<productFil.length;i++)
-                                            {
-                                                console.log(productFil[i])
-                                                customerProductModel.create({
-                                                    customerName : customerName,
-                                                    product : productFil[i]
-                                                })
-                                                .then((reso)=>{
-                                                    console.log(reso)
-                                                })
-                                                .catch((err)=>{
-                                                    console.log(err)
-                                                })
-                                            }
-                                        }
-                                        else
-                                        {
+                            .then((res3) => {
+                                if (firm) { // Check if firm exists
+                                    customerFirmModel.create({
+                                        customerName: customerName,
+                                        firm: firm
+                                    })
+                                    .then((res4) => {
+                                        console.log(res4);
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    });
+                                }
+                                if (productFil) {
+                                    if (Array.isArray(productFil)) {
+                                        console.log("::::::::::::::::::::::::::::::::::::::::::::::::::");
+                                        console.log(productFil);
+                                        for (let i = 0; i < productFil.length; i++) {
+                                            console.log(productFil[i]);
                                             customerProductModel.create({
-                                                customerName : customerName,
-                                                product : productFil
+                                                customerName: customerName,
+                                                product: productFil[i]
                                             })
-                                            .then((reso)=>{
-                                                console.log(reso)
+                                            .then((reso) => {
+                                                console.log(reso);
                                             })
-                                            .catch((err)=>{
-                                                console.log(err)
-                                            })
+                                            .catch((err) => {
+                                                console.log(err);
+                                            });
                                         }
+                                    } else {
+                                        customerProductModel.create({
+                                            customerName: customerName,
+                                            product: productFil
+                                        })
+                                        .then((reso) => {
+                                            console.log(reso);
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                        });
                                     }
-                                    console.log(result),
-                                    console.log(res2),
-                                    console.log(res3),
-                                    console.log(res4),
-                                    console.log('New Master Customer added'),
-                                    res.redirect('/masterCustomer')
-                                })
-                                .catch((err)=>
-                                console.log(err)
-                                )
+                                }
+                                console.log(result);
+                                console.log(res2);
+                                console.log(res3);
+                                console.log('New Master Customer added');
+                                res.redirect('/masterCustomer');
                             })
-                            .catch((err)=>
-                            console.log(err)
-                            )
+                            .catch((err) => {
+                                console.log(err);
+                            });
                         })
-                        .catch((err)=>
-                        console.log(err)
-                        )
-                    )
-                    .catch((err)=>
-                        console.log(err)
-                    )
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                    
                     
                 }
                 else
@@ -690,21 +689,27 @@ const postMasterCustomer =(req,res,next)=>{
                                     .then((productData)=>{
                                         masterCategoriesModel.findAll()
                                         .then((categorydata)=>{
-                                        masterCustomerModel.findAll()
-                                            .then((data)=>{
-                                                res.render('masterCustomer',
-                                                {
-                                                    username : req.session.username,
-                                                    data:data,
-                                                    categorydata:categorydata,
-                                                    productData:productData,
-                                                    level:req.session.userLevel,
-                                                    gradeData:gradeData,
-                                                    areaData:areaData,
-                                                    firmData:firmData,
-                                                    msg:"Customer Name Already Exists"
+                                            masterFirmModel.findAll()
+                                            .then((firmData)=>{
+                                                masterCustomerModel.findAll()
+                                                .then((data)=>{
+                                                    res.render('masterCustomer',
+                                                    {
+                                                        username : req.session.username,
+                                                        data:data,
+                                                        categorydata:categorydata,
+                                                        productData:productData,
+                                                        level:req.session.userLevel,
+                                                        gradeData:gradeData,
+                                                        areaData:areaData,
+                                                        firmData:firmData,
+                                                        msg:"Customer Name Already Exists"
+                                                    })
+                                    
                                                 })
-                                
+                                                .catch((err)=>
+                                                    console.log(err)
+                                                )
                                             })
                                             .catch((err)=>
                                                 console.log(err)
@@ -1624,29 +1629,44 @@ const postMasterVendors =(req,res,next)=>{
     else
     {
         // const vendorId = req.body.vendorId;
+        const vendorName = req.body.vendorName;
         const vendorAddress = req.body.vendorAddress;
         const area = req.body.area;
        
         masterVendorsModel.findAll(
             {
-                where : {vendorAddress : vendorAddress}
+                where : {vendorName : vendorName}
             }
         )
         .then((venrepdata)=>{
             if(venrepdata.length==0)
             {
                 masterVendorsModel.create({
+                    vendorName :vendorName,
                     vendorAddress :vendorAddress,
                     area :area
                 })
+                .then((result)=>{
+                    // console.log(result)
+                    console.log("andrrrrrrrr")
+                    vendorContactModel.create({
+                        vendorName :req.body.vendorName,
+                        mobileNumber :req.body.mobileNumber,
+                        designation :req.body.designation,
+                        email :req.body.email
+                    })
                     .then((result)=>
-                    console.log(result),
+                    // console.log(result),
                     console.log('New Master Vendor added'),
                     res.redirect('/masterVendors')
                     )           
                     .catch((err)=>
                         console.log(err)
                     )
+                })
+                .catch((err)=>
+                    console.log(err)
+                )
             }
             else
             {
@@ -1659,7 +1679,7 @@ const postMasterVendors =(req,res,next)=>{
                             username : req.session.username,
                             data:data,
                             level:req.session.userLevel,
-                            msg:"Vendor Address already exist"
+                            msg:"Vendor Name already exist"
                         })
                     })
                     .catch((err)=>

@@ -201,22 +201,22 @@
 								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Transport</span></a>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Transport</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/transportDetails" class="nav-link">Details</a></li>
-								<li class="nav-item"><a href="/transportContacts" class="nav-link active">Contacts</a></li>
+								<li class="nav-item"><a href="/transportContacts" class="nav-link">Contacts</a></li>
 								<li class="nav-item"><a href="/transportStations" class="nav-link">Stations</a></li>
 								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Vendor</span></a>
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Vendor</span></a>
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
-								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/vendorContacts" class="nav-link active">Contacts</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -237,7 +237,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transport</span> - Contact</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Vendor</span> - Contact</h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -255,7 +255,7 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Style combinations</h5>
 								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Transporter Contact</button></td>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Vendor Contact</button></td>
 								<%}%>
 								<div class="header-elements">
 									<div class="list-icons">
@@ -272,7 +272,7 @@
 									
 									<thead>
 										<tr>
-											<th>transportName</th>
+											<th>vendorName</th>
                                             <th>designation</th>
                                             <th>mobileNumber</th>
                                             <th>email</th>
@@ -287,30 +287,30 @@
 									</thead >
 									
 									<% for(var i=0; i<data.length; i++) {%>
-										<tr  class="<%= data[i].transportId%>transport">
+										<tr  class="<%= data[i].vendorId%>vendor">
                                             <%if(level==1) {%>
-                                                <td class="transportName"><%= data[i].transportName%></td>
+                                                <td class="vendorName"><%= data[i].vendorName%></td>
 												<td class="designation"><%= data[i].designation%></td>
 												<td class="mobileNumber"><%= data[i].mobileNumber%></td>
 												<td class="email"><%= data[i].email%></td>
                                             <%} else if(level>2) {%>
-                                                <td class="transportName"><%= data[i].transportName%></td>
+                                                <td class="vendorName"><%= data[i].vendorName%></td>
                                                 <td class="designation"><%= data[i].designation%></td>
                                                 <td class="mobileNumber"><%= data[i].mobileNumber%></td>
                                                 <td class="email"><%= data[i].email%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].transportId%>transport')">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].vendorId%>vendor')">Edit</button>
                                                 </td>
                                                 <td >  
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].transportId%>transport')">Delete</button>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].vendorId%>vendor')">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
-                                                <td class="transportName"><%= data[i].transportName%></td>
+                                                <td class="vendorName"><%= data[i].vendorName%></td>
                                                 <td class="designation"><%= data[i].designation%></td>
                                                 <td class="mobileNumber"><%= data[i].mobileNumber%></td>
                                                 <td class="email"><%= data[i].email%></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].transportId%>transport')">Edit</button>
+                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].vendorId%>vendor')">Edit</button>
                                                 </td>
                                             <%}%>
                                             </tr>
@@ -327,7 +327,7 @@
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">Edit Customer Product</h5>
+								            <h5 class="modal-title">Edit Vendor Contact</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
@@ -349,7 +349,7 @@
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">Delete Customer Product</h5>
+								            <h5 class="modal-title">Delete Vendor Contact</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
@@ -369,20 +369,20 @@
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">New Transporter Contact</h5>
+								            <h5 class="modal-title">New Vendor Contact</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
-							            <form action="/transportContacts" method="POST">
+							            <form action="/vendorContacts" method="POST">
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>Transport Name<span class="text-danger">*</span></label>
-															<select required name="transportName" class="form-control transportName" id="transportName">
+												            <label>vendor Name<span class="text-danger">*</span></label>
+															<select required name="vendorName" class="form-control vendorName" id="vendorName">
                                                                 <option value="" disabled selected>-Select-</option>
-                                                                <% for(var i=0; i<transData.length; i++) {%>
-                                                                    <option value="<%=transData[i].transportName%>"><%=transData[i].transportName%></option>
+                                                                <% for(var i=0; i<vendorData.length; i++) {%>
+                                                                    <option value="<%=vendorData[i].vendorName%>"><%=vendorData[i].vendorName%></option>
                                                                 <% } %>
                                                             </select>
 											            </div>
@@ -446,14 +446,14 @@
 <script>
     function edit(value)
     {
-        var etransportName = document.getElementById("etransportName").value;
+        var evendorName = document.getElementById("evendorName").value;
         var emobileNumber = document.getElementById("emobileNumber").value;
         var edesignation = document.getElementById("edesignation").value;
         var eemail = document.getElementById("eemail").value;
-        $.post("/transportContacts",
+        $.post("/vendorContacts",
             {
                 id: value,
-                transportName: etransportName,
+                vendorName: evendorName,
                 mobileNumber: emobileNumber,
                 designation: edesignation,
                 email: eemail,
@@ -472,7 +472,7 @@
     function del(value)
     {
         console.log(value);
-        $.post("/transportContacts",
+        $.post("/vendorContacts",
             {
                 id: value,
                 op:"del"
@@ -494,14 +494,14 @@
 	function eedit(value)
     {
         console.log(value);
-        var sub = 'transport';
+        var sub = 'vendor';
         var result = value.replace(sub,'');
         console.log(result);
         
         $('.'+value).each(function() 
         {   
 
-			var transportName = $(this).find(".transportName").html();    
+			var vendorName = $(this).find(".vendorName").html();    
             var mobileNumber = $(this).find(".mobileNumber").html();   
             var designation = $(this).find(".designation").html();   
             var email = $(this).find(".email").html();      
@@ -510,7 +510,7 @@
 			console.log(result)
 			
 			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >transportName</td> <td><input type="text" value="'+transportName+'" class="form-control etransportName" name="etransportName" id="etransportName"></td> </tr> <tr> <td>mobileNumber</td> <td><input type="text" value="'+mobileNumber+'" class="form-control emobileNumber" name="emobileNumber" id="emobileNumber"></td> </tr> <tr> <td>designation</td> <td><input type="text" value="'+designation+'" class="form-control edesignation" name="edesignation" id="edesignation"></td> </tr> <tr> <td>email</td> <td><input type="email" value="'+email+'" class="form-control eemail" name="eemail" id="eemail"></td> </tr>  </table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorName</td> <td><input type="text" value="'+vendorName+'" class="form-control evendorName" name="evendorName" id="evendorName"></td> </tr> <tr> <td>mobileNumber</td> <td><input type="text" value="'+mobileNumber+'" class="form-control emobileNumber" name="emobileNumber" id="emobileNumber"></td> </tr> <tr> <td>designation</td> <td><input type="text" value="'+designation+'" class="form-control edesignation" name="edesignation" id="edesignation"></td> </tr> <tr> <td>email</td> <td><input type="email" value="'+email+'" class="form-control eemail" name="eemail" id="eemail"></td> </tr>  </table> </div>'
 				
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")
@@ -524,13 +524,13 @@
 	function ddel(value)
     {
         console.log(value);
-        var sub = 'transport';
+        var sub = 'vendor';
         var result = value.replace(sub,'');
         console.log(result);
         
         $('.'+value).each(function() 
         {   
-			var transportName = $(this).find(".transportName").html();    
+			var vendorName = $(this).find(".vendorName").html();    
             var mobileNumber = $(this).find(".mobileNumber").html();   
             var designation = $(this).find(".designation").html();   
             var email = $(this).find(".email").html();   
@@ -538,7 +538,7 @@
 			console.log(result)
 
 
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >transportName</td> <td>'+transportName+'</td> </tr> <tr> <td>mobileNumber</td> <td>'+mobileNumber+' </td> </tr> <tr> <td>designation</td> <td>'+designation+' </td> </tr> <tr> <td>email</td> <td>'+email+' </td> </tr> </table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorName</td> <td>'+vendorName+'</td> </tr> <tr> <td>mobileNumber</td> <td>'+mobileNumber+' </td> </tr> <tr> <td>designation</td> <td>'+designation+' </td> </tr> <tr> <td>email</td> <td>'+email+' </td> </tr> </table> </div>'
 
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
 			console.log("Ujjwal")

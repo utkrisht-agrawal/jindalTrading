@@ -2,23 +2,24 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../database/connect');
 
-const masterVendorsModel = sequelize.define('master_vendors',{
+const vendorContactModel = sequelize.define('vendor_Contact',{
     vendorId:{
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    vendorName:{
+    vendorName: {
         type: Sequelize.STRING
     },
-    vendorAddress: {
+    designation: {
         type: Sequelize.STRING
     },
-    area: {
+    mobileNumber: {
+        type: Sequelize.INTEGER
+    },
+    email: {
         type: Sequelize.STRING
     }
-},{
-    timestamps: false
 }); 
 
-module.exports = masterVendorsModel
+module.exports = vendorContactModel
