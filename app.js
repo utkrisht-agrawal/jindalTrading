@@ -64,7 +64,7 @@ app.use('/',(req,res,next)=>{
 
 
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 80;
 
 sequelize.sync()
     .then(result => {
