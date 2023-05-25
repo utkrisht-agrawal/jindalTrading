@@ -403,49 +403,92 @@
 									<div class="col-sm-2">
 										<label for="customerName" class="form-control"><span class="font-weight-semibold">customerName</span></label>
 										<select name="customerName" class="form-control multiselect-filtering customerName" id="customerNameFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].customerName%>"><%=data[i].customerName%></option>
-                                            <% } %>	
+                                            <% let dataValuescustomerName = data.reduce((acc, curr) => {
+												if (curr.customerName && !acc.includes(curr.customerName)) {
+												acc.push(curr.customerName);
+												}
+												return acc;
+											}, []); %>
+											
+											<% dataValuescustomerName.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											<% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="area" class="form-control"><span class="font-weight-semibold">area</span></label>
 										<select name="area" class="form-control multiselect-filtering  area" id="areaFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].area%>"><%=data[i].area%></option>
-                                            <% } %>	
+                                            <% let dataValuesarea = data.reduce((acc, curr) => {
+												if (curr.area && !acc.includes(curr.area)) {
+												acc.push(curr.area);
+												}
+												return acc;
+											}, []); %>
+											
+											<% dataValuesarea.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											<% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="grade" class="form-control"><span class="font-weight-semibold">grade</span></label>
 										<select name="grade" class="form-control multiselect-filtering grade" id="gradeFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].grade%>"><%=data[i].grade%></option>
-                                            <% } %>	
+											<% let dataValuesgrade = data.reduce((acc, curr) => {
+												if (curr.grade && !acc.includes(curr.grade)) {
+												acc.push(curr.grade);
+												}
+												return acc;
+											}, []); %>
+											
+											<% dataValuesgrade.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											<% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="category" class="form-control"><span class="font-weight-semibold">category</span></label>
 										<select name="category" class="form-control multiselect-filtering category" id="categoryFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].category%>"><%=data[i].category%></option>
-                                            <% } %>	
+                                            <% let dataValuescategory = data.reduce((acc, curr) => {
+												if (curr.category && !acc.includes(curr.category)) {
+												acc.push(curr.category);
+												}
+												return acc;
+											}, []); %>
+											
+											<% dataValuescategory.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											<% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="product" class="form-control"><span class="font-weight-semibold">product</span></label>
 										<select name="product" class="form-control multiselect-filtering product" id="productFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].product%>"><%=data[i].product%></option>
-                                            <% } %>	
+                                            <% let dataValuesproduct = data.reduce((acc, curr) => {
+												if (curr.product && !acc.includes(curr.product)) {
+												acc.push(curr.product);
+												}
+												return acc;
+											}, []); %>
+											
+											<% dataValuesproduct.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											<% }); %>
+											
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="representative" class="form-control"><span class="font-weight-semibold">representative</span></label>
 										<select name="representative" class="form-control multiselect-filtering representative" id="representativeFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].representative%>"><%=data[i].representative%></option>
-                                            <% } %>	
+											<% let dataValuesrepresentative = data.reduce((acc, curr) => {
+												if (curr.representative && !acc.includes(curr.representative)) {
+												acc.push(curr.representative);
+												}
+												return acc;
+											}, []); %>
+											
+											<% dataValuesrepresentative.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											<% }); %>
 										</select>
 									</div>									
 								</div>
@@ -475,13 +518,39 @@
 
 							            <form action="/marketPlanPigIron" method="POST">
 								            <div class="modal-body">
+
+												<div class="form-group">
+										            <div class="row">
+                                                       
+											            
+
+											            <div class="col-sm-4">
+												            <label>Area</label>
+															<select id="areaFilter" onchange="populateCustomers()"  name="areaFilter" class="form-control areaFilter">
+																<option value="" disabled selected>-Select-</option>
+																<% let dataValuesnewArea = custdata.reduce((acc, curr) => {
+																	if (curr.area && !acc.includes(curr.area)) {
+																	acc.push(curr.area);
+																	}
+																	return acc;
+																}, []); %>
+																<%console.log(dataValuesnewArea)%>
+																<% dataValuesnewArea.forEach(function(value) { %>
+																	<option value="<%= value %>"><%= value %></option>
+																<% }); %>
+                                                                
+                                                            </select>
+											            </div>
+
+										            </div>
+									            </div>
 									            
 												<div class="form-group">
 										            <div class="row">
 											            
 														<div class="col-sm-6">
 												            <label>Customer Name<span class="text-danger">*</span></label>
-												            <select required id="customerName" name="customerName" class="customerName form-control" id="customerName">
+												            <select required id="customerName" onchange="populateProducts()" name="customerName" class="customerName form-control" id="customerName">
                                                                 <option value="" disabled selected>-Select-</option>
                                                                 <% for(var i=0; i<custdata.length; i++) {%>
                                                                     <option value="<%=custdata[i].customerName%>"><%=custdata[i].customerName%></option>
@@ -515,33 +584,6 @@
 
 										            </div>
 									            </div>
-                                                
-									            <div class="form-group">
-										            <div class="row">
-                                                       
-											            
-
-											            <!-- <div class="col-sm-4">
-												            <label>Category</label>
-															<select id="category" name="category" class="form-control category" id="category">
-                                                                <option value="" disabled selected>-Select-</option>
-                                                                <% for(var i=0; i<catdata.length; i++) {%>
-                                                                    <option value="<%=catdata[i].categoriesType%>"><%=catdata[i].categoriesType%></option>
-                                                                <% } %>
-                                                            </select>
-											            </div>
-											            <div class="col-sm-4">
-												            <label>product</label>
-												            <select id="product" name="product" class="form-control product" id="product">
-                                                                <option value="" disabled selected>-Select-</option>
-                                                                <% for(var i=0; i<productData.length; i++) {%>
-                                                                    <option value="<%=productData[i].productName%>"><%=productData[i].productName%></option>
-                                                                <% } %>
-                                                            </select>
-											            </div> -->
-
-										            </div>
-									            </div>
 
 									            <div class="form-group">
 										            <div class="row">
@@ -554,73 +596,18 @@
                                                                 <% } %>
                                                             </select>
 											            </div>
-											            <div class="col-sm-4">
-												            <label>Phone Number</label>
-												            <input type="number" placeholder="10-digit-format" pattern="[0-9]{10}" class="form-control phoneNumber" name="phoneNumber" id="phoneNumber">
-											            </div>
+											            
 											            <div class="col-sm-4">
 												            <label>Meeting Dates<span class="text-danger">*</span></label>
 												            <input required type="date" placeholder="meetingDates" class="form-control meetingDates" name="meetingDates" id="meetingDates">
 											            </div>
-										            </div>
-									            </div>
-
-									            <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-4">
-												            <label>lastDelivery<span class="text-danger">*</span></label>
-												            <input required type="date" placeholder="lastDelivery" class="form-control lastDelivery" name="lastDelivery" id="lastDelivery">
-											            </div>
-											            <!-- <div class="col-sm-4">
-												            <label>currentRemark</label>
-												            <input type="text" placeholder="currentRemark" class="form-control currentRemark" name="currentRemark" id="currentRemark">
-											            </div>
+														
 														<div class="col-sm-4">
-															<label>remarkStatus</label>
-															<select id="remarkStatus" name="remarkStatus" class="form-control remarkStatus" id="remarkStatus">
-																<option value="" disabled selected>-Select-</option>
-																<option value="VERIFIED">VERIFIED</option>
-																<option value="UNVERIFIED">UNVERIFIED</option>
-															</select>
-														</div> -->
+															<label>lastDelivery<span class="text-danger">*</span></label>
+															<input required type="date" placeholder="lastDelivery" class="form-control lastDelivery" name="lastDelivery" id="lastDelivery">
+														</div>
 										            </div>
 									            </div>
-
-									            <!-- <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>nextDate</label>
-												            <input type="text" placeholder="nextDate" class="form-control nextDate" name="nextDate" id="nextDate">
-											            </div>
-											            <div class="col-sm-6">
-												            <label>currentIssue</label>
-												            <input type="text" placeholder="office ka number" class="form-control currentIssue" name="currentIssue" id="currentIssue">
-											            </div>
-										            </div>
-									            </div>
-
-									            <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>analysed</label>
-												            <input type="text" placeholder="analysed" class="form-control analysed" name="analysed" id="analysed">
-											            </div>
-											            <div class="col-sm-6">
-												            <label>updateTimeStamp</label>
-												            <input type="text" placeholder="updateTimeStamp" class="form-control updateTimeStamp" name="updateTimeStamp" id="updateTimeStamp">
-											            </div>
-										            </div>
-									            </div>
-
-									            <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-12">
-												            <label>totalIssue</label>
-												            <input type="text" placeholder="Issue" class="form-control totalIssue" name="totalIssue" id="totalIssue">
-											            </div>
-											            
-										            </div>
-									            </div> -->
 									            
 
 								            </div>
@@ -636,7 +623,81 @@
 
 
 
+<script>
+	var customerData = <%- JSON.stringify(custdata) %>;
+	var custprodData = <%- JSON.stringify(custProdData) %>;
+	function populateCustomers()
+	{
+		var areaDropdown = document.getElementById('areaFilter');
+     	var customerDropdown = document.getElementById('customerName');
+     	var productDropdown = document.getElementById('categoryProduct');
+      	var selectedArea = areaDropdown.value;
+		customerDropdown.innerHTML = '';
+		console.log(selectedArea)
 
+		var filteredCustomers = customerData.filter(function(customer) {
+			return customer.area === selectedArea;
+		});
+		console.log(filteredCustomers)
+
+		var option = document.createElement('option');
+		option.text = "-Select-";
+		option.value = "";
+		option.selected = true;
+        option.disabled = true;
+		customerDropdown.add(option);
+
+		filteredCustomers.forEach(function(customer) {
+			var option = document.createElement('option');
+			option.text = customer.customerName;
+			option.value = customer.customerName;
+			customerDropdown.add(option);
+		  });
+	
+	}
+
+	function populateProducts()
+	{
+     	var customerDropdown = document.getElementById('customerName');
+     	var productDropdown = document.getElementById('categoryProduct');
+      	var selectedCustomer = customerDropdown.value;
+		productDropdown.innerHTML = '';
+		console.log(selectedCustomer)
+
+
+		var filteredProducts = custprodData.filter(function(product) {
+			return product.customerName === selectedCustomer;
+		});
+		console.log(filteredProducts)
+
+		var option = document.createElement('option');
+		option.text = "-Select-";
+		option.value = "";
+		option.selected = true;
+        option.disabled = true;
+		productDropdown.add(option);
+
+		var optgroup = document.createElement('optgroup');
+        optgroup.label = "Retail";
+		filteredProducts.forEach(function(product) {
+			var option = document.createElement('option');
+			option.text = "RETAIL "+product.product;
+			option.value = "R"+product.product;
+			optgroup.appendChild(option);
+		});
+		productDropdown.appendChild(optgroup);
+		
+		var optgroup2 = document.createElement('optgroup');
+        optgroup2.label = "Wholesale";
+		filteredProducts.forEach(function(product) {
+			var option = document.createElement('option');
+			option.text = "WHOLESALE "+product.product;
+			option.value = "W"+product.product;
+			optgroup2.appendChild(option);
+		});
+		productDropdown.appendChild(optgroup2);
+	}
+</script>
 
 							
 

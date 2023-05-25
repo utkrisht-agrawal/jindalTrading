@@ -411,7 +411,7 @@ const postMasterCustomer =(req,res,next)=>{
         let stat=req.body.statusFil;
         let grad=req.body.gradeFil;
 
-        sequelize.query("SELECT * FROM master_customers AS master_customer WHERE (customerName IN (CASE WHEN ? !='' THEN (?) ELSE customerName END)) AND (area IN (CASE WHEN ? !='' THEN(?) ELSE area END)) AND (status IN (CASE WHEN ? !='' THEN(?) ELSE status END)) AND (grade IN (CASE WHEN ? !='' THEN(?) ELSE grade END))",
+        sequelize.query("SELECT * FROM master_Customers AS master_Customer WHERE (customerName IN (CASE WHEN ? !='' THEN (?) ELSE customerName END)) AND (area IN (CASE WHEN ? !='' THEN(?) ELSE area END)) AND (status IN (CASE WHEN ? !='' THEN(?) ELSE status END)) AND (grade IN (CASE WHEN ? !='' THEN(?) ELSE grade END))",
         {
             replacements: [cust,cust,area,area,stat,stat,grad,grad],
             type: QueryTypes.SELECT

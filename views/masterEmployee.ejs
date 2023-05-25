@@ -426,25 +426,46 @@
 									<div class="col-sm-2">
 										<label for="employeeName" class="form-control"><span class="font-weight-semibold">employeeName</span></label>
 										<select name="employeeName" class="form-control multiselect-filtering employeeName" id="employeeNameFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].employeeName%>"><%=data[i].employeeName%></option>
-                                            <% } %>	
+											<% let dataValuesemployeeName = data.reduce((acc, curr) => {
+												if (curr.employeeName && !acc.includes(curr.employeeName)) {
+												  acc.push(curr.employeeName);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesemployeeName.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="designation" class="form-control"><span class="font-weight-semibold">designation</span></label>
 										<select name="designation" class="form-control multiselect-filtering  designation" id="designationFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].designation%>"><%=data[i].designation%></option>
-                                            <% } %>	
+											<% let dataValuesdesignation = data.reduce((acc, curr) => {
+												if (curr.designation && !acc.includes(curr.designation)) {
+												  acc.push(curr.designation);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesdesignation.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>																	
 									<div class="col-sm-2">
 										<label for="employeeCategories" class="form-control"><span class="font-weight-semibold">employeeCategories</span></label>
 										<select name="employeeCategories" class="form-control multiselect-filtering  employeeCategories" id="employeeCategoriesFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].employeeCategories%>"><%=data[i].employeeCategories%></option>
-                                            <% } %>	
+											<% let dataValuesemployeeCategories = data.reduce((acc, curr) => {
+												if (curr.employeeCategories && !acc.includes(curr.employeeCategories)) {
+												  acc.push(curr.employeeCategories);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesemployeeCategories.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>																	
 								</div>

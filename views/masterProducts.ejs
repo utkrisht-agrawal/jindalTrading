@@ -325,17 +325,31 @@
 									<div class="col-sm-2">
 										<label for="productName" class="form-control"><span class="font-weight-semibold">productName</span></label>
 										<select name="productName" class="form-control multiselect-filtering productName" id="productNameFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].productName%>"><%=data[i].productName%></option>
-                                            <% } %>	
+											<% let dataValuesproductName = data.reduce((acc, curr) => {
+												if (curr.productName && !acc.includes(curr.productName)) {
+												  acc.push(curr.productName);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesproductName.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="productGroup" class="form-control"><span class="font-weight-semibold">productGroup</span></label>
 										<select name="productGroup" class="form-control multiselect-filtering  productGroup" id="productGroupFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].productGroup%>"><%=data[i].productGroup%></option>
-                                            <% } %>	
+											<% let dataValuesproductGroup = data.reduce((acc, curr) => {
+												if (curr.productGroup && !acc.includes(curr.productGroup)) {
+												  acc.push(curr.productGroup);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesproductGroup.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>																	
 								</div>

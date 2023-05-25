@@ -343,33 +343,61 @@
 									<div class="col-sm-2">
 										<label for="area" class="form-control"><span class="font-weight-semibold">area</span></label>
 										<select name="area" class="form-control multiselect-filtering area" id="areaFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].area%>"><%=data[i].area%></option>
-                                            <% } %>	
+											<% let dataValuesarea = data.reduce((acc, curr) => {
+												if (curr.area && !acc.includes(curr.area)) {
+												  acc.push(curr.area);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesarea.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2" >
 										<label for="district" class="form-control"><span class="font-weight-semibold">district</span></label>
 										<select name="district" class="form-control multiselect-filtering district" id="districtFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].district%>"><%=data[i].district%></option>
-                                            <% } %>	
+                                            <% let dataValuesdistrict = data.reduce((acc, curr) => {
+												if (curr.district && !acc.includes(curr.district)) {
+												  acc.push(curr.district);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesdistrict.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="zone" class="form-control"><span class="font-weight-semibold">zone</span></label>
 										<select name="zone" class="form-control multiselect-filtering  zone" id="zoneFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].zone%>"><%=data[i].zone%></option>
-                                            <% } %>	
+                                            <% let dataValueszone = data.reduce((acc, curr) => {
+												if (curr.zone && !acc.includes(curr.zone)) {
+												  acc.push(curr.zone);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValueszone.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>																	
 									<div class="col-sm-2">
 										<label for="state" class="form-control"><span class="font-weight-semibold">state</span></label>
 										<select name="state" class="form-control multiselect-filtering  state" id="stateFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].state%>"><%=data[i].state%></option>
-                                            <% } %>	
+											<% let dataValuesstate = data.reduce((acc, curr) => {
+												if (curr.state && !acc.includes(curr.state)) {
+												  acc.push(curr.state);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesstate.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>																	
 								</div>

@@ -325,17 +325,31 @@
 									<div class="col-sm-2">
 										<label for="teamMember" class="form-control"><span class="font-weight-semibold">teamMember</span></label>
 										<select name="teamMember" class="form-control multiselect-filtering teamMember" id="teamMemberFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].teamMember%>"><%=data[i].teamMember%></option>
-                                            <% } %>	
+                                            <% let dataValuesteamMember = data.reduce((acc, curr) => {
+												if (curr.teamMember && !acc.includes(curr.teamMember)) {
+												  acc.push(curr.teamMember);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesteamMember.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>
 									<div class="col-sm-2">
 										<label for="teamLeader" class="form-control"><span class="font-weight-semibold">teamLeader</span></label>
 										<select name="teamLeader" class="form-control multiselect-filtering  teamLeader" id="teamLeaderFil" multiple="multiple" data-fouc>
-                                            <% for(var i=0; i<data.length; i++) {%>
-                                                <option value="<%=data[i].teamLeader%>"><%=data[i].teamLeader%></option>
-                                            <% } %>	
+                                            <% let dataValuesteamLeader = data.reduce((acc, curr) => {
+												if (curr.teamLeader && !acc.includes(curr.teamLeader)) {
+												  acc.push(curr.teamLeader);
+												}
+												return acc;
+											  }, []); %>
+											  
+											  <% dataValuesteamLeader.forEach(function(value) { %>
+												<option value="<%= value %>"><%= value %></option>
+											  <% }); %>
 										</select>
 									</div>																	
 								</div>

@@ -23,11 +23,7 @@ const getMarketPlanPigIron = (req,res,next)=>{
         console.log(`User Level :  ${req.session.userLevel}`);
         if(req.session.userLevel==1)
         {
-            marketPlanPigIronModel.findAll(
-                {
-                    where : {representative : req.session.username}
-                }
-            )
+            marketPlanPigIronModel.findAll()
             .then((data)=>{
                 console.log(data);
                 masterAreaModel.findAll()
@@ -48,21 +44,29 @@ const getMarketPlanPigIron = (req,res,next)=>{
                                     .then((teamData)=>{
                                         masterFirmModel.findAll()
                                         .then((firmData)=>{
+                                            customerProductModel.findAll()
+                                            .then((custProdData)=>{
+                                                res.render('marketPlanPigIron',{
+                                                    username : req.session.username,
+                                                    level: req.session.userLevel,
+                                                    data:data,
+                                                    dataFil:[],
+                                                    areaData:areaData,
+                                                    gradeData:gradeData,
+                                                    catdata:catdata,
+                                                    custdata:custdata,
+                                                    teamData:teamData,
+                                                    productData:productData,
+                                                    firmData:firmData,
+                                                    custProdData:custProdData
+                                                })
+                                            })
+                                            .catch((err)=>{
+                                                console.log(err)
+                                            })
 
                                             
-                                            res.render('marketPlanPigIron',{
-                                                username : req.session.username,
-                                                level: req.session.userLevel,
-                                                data:data,
-                                                dataFil:[],
-                                                areaData:areaData,
-                                                gradeData:gradeData,
-                                                catdata:catdata,
-                                                custdata:custdata,
-                                                teamData:teamData,
-                                                productData:productData,
-                                                firmData:firmData
-                                            })
+                                            
                                         })
                                         .catch((err)=>
                                         console.log(err)
@@ -120,21 +124,29 @@ const getMarketPlanPigIron = (req,res,next)=>{
                                     .then((teamData)=>{
                                         masterFirmModel.findAll()
                                         .then((firmData)=>{
+                                            customerProductModel.findAll()
+                                            .then((custProdData)=>{
+                                                res.render('marketPlanPigIron',{
+                                                    username : req.session.username,
+                                                    level: req.session.userLevel,
+                                                    data:data,
+                                                    dataFil:[],
+                                                    areaData:areaData,
+                                                    gradeData:gradeData,
+                                                    catdata:catdata,
+                                                    custdata:custdata,
+                                                    teamData:teamData,
+                                                    productData:productData,
+                                                    firmData:firmData,
+                                                    custProdData:custProdData
+                                                })
+                                            })
+                                            .catch((err)=>{
+                                                console.log(err)
+                                            })
 
                                             
-                                            res.render('marketPlanPigIron',{
-                                                username : req.session.username,
-                                                level: req.session.userLevel,
-                                                data:data,
-                                                dataFil:[],
-                                                areaData:areaData,
-                                                gradeData:gradeData,
-                                                catdata:catdata,
-                                                custdata:custdata,
-                                                teamData:teamData,
-                                                productData:productData,
-                                                firmData:firmData
-                                            })
+                                            
                                         })
                                         .catch((err)=>
                                         console.log(err)
@@ -549,10 +561,10 @@ const postMarketPlanPigIron = (req,res,next)=>{
         // const grade = req.body.grade;
         // const category = req.body.category;
         // const product = req.body.product;
+        // const phoneNumber = req.body.phoneNumber;
         
         const categoryProduct = req.body.categoryProduct;
         const representative = req.body.representative;
-        const phoneNumber = req.body.phoneNumber;
         const meetingDates = req.body.meetingDates;
         const lastDelivery = req.body.lastDelivery;
         
@@ -592,7 +604,39 @@ const postMarketPlanPigIron = (req,res,next)=>{
         masterCustomerModel.findAll({
             where : {customerName : customerName}
         })
-        .then((custData)=>{          
+        .then((custData)=>{     
+            customerContactModel.findOne({
+                where : {customerName : customerName}
+            })
+            .then((contact)=>{
+                marketPlanPigIronModel.create({
+                    customerName: customerName,
+                    area: custData[0].area,
+                    grade: custData[0].grade,
+                    category: cat,
+                    product: prd,
+                    representative: representative,
+                    phoneNumber: contact.mobileNumber,
+                    meetingDates: meetingDates,
+                    lastDelivery: lastDelivery,
+                    // currentRemark: currentRemark,
+                    // remarkStatus: remarkStatus,
+                    // nextDate: nextDate,
+                    // currentIssue: currentIssue,
+                    // analysed: analysed,
+                    // updateTimeStamp: updateTimeStamp,
+                    // totalIssue: totalIssue
+                })
+                .then((result)=>
+                console.log(result),
+                console.log('New Market Plan added'),
+                res.redirect('/marketPlanPigIron')
+                )
+                .catch((err)=>
+                console.log(err)
+                )
+            })
+            .catch(err=>console.log(err))  
             marketPlanPigIronModel.create({
                 customerName: customerName,
                 area: custData[0].area,
