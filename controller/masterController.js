@@ -15,8 +15,12 @@ const customerFirmModel = require('../model/customerFirmModel');
 const customerProductModel = require('../model/customerProductModel');
 const masterFirmModel = require('../model/masterFirmModel');
 const vendorContactModel = require('../model/vendorContactModel');
+const vendorProductsModel = require('../model/vendorProductsModel');
+const vendorFirmModel = require('../model/vendorFirmModel');
 
 const fs = require('fs');
+const pdf = require('html-pdf');
+
 
 
 
@@ -50,18 +54,38 @@ const postMasterArea =(req,res,next)=>{
     console.log(`check1 ${req.body.id}`);
     console.log(`check2 ${req.body.op}`);
     console.log(`check3 ${req.body.area}`);
+    console.log(`check3 ${req.body.state}`);
     const id = req.body.id;
     if(req.body.op==="del")
     {
-        masterAreaModel.destroy({
-            where: { areaId : id}
+        masterCustomerModel.findAll(
+            {
+                where:{area:id}
+            }
+        )
+        .then((data)=>{
+            console.log(data)
+            console.log(data.length)
+            if(data.length===0)
+            {
+                console.log("A")
+                masterAreaModel.destroy({
+                    where: { areaId : id}
+                })
+                .then((qwe)=>{
+                    res.send("kyu")
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })   
+            }
+            else
+            {
+                console.log("B")
+                res.send("present")
+            }
         })
-        .then((qwe)=>{
-            res.send("kyu")
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+        .catch(err=>{console.log(err)})
         
     }
     else if(req.body.op==="edt")
@@ -365,6 +389,18 @@ const postMasterCustomer =(req,res,next)=>{
         })
         .then((qwe)=>{
             res.send("kyu")
+            customerCategoryModel.destroy({
+                where: {customerName:id}
+            })
+            customerContactModel.destroy({
+                where: {customerName:id}
+            })
+            customerFirmModel.destroy({
+                where: {customerName:id}
+            })
+            customerProductModel.destroy({
+                where: {customerName:id}
+            })
         })
         .catch((err)=>{
             console.log(err);
@@ -373,12 +409,9 @@ const postMasterCustomer =(req,res,next)=>{
     
     else if(req.body.op==="edt")
     {
-
+        console.log(req.body)
         masterCustomerModel.update({
             customerName: req.body.customerName,
-            area: req.body.area,
-            status: req.body.status,
-            grade: req.body.grade,
             pincode: req.body.pincode  || null,
             address: req.body.address,
             referenceNumber1: req.body.referenceNumber1,
@@ -386,7 +419,10 @@ const postMasterCustomer =(req,res,next)=>{
             referenceNumber2: req.body.referenceNumber2,
             reference2ContactNumber: req.body.reference2ContactNumber || null,
             creditLimit: req.body.creditLimit,
-            creditDays: req.body.creditDays
+            creditDays: req.body.creditDays,
+            ...(req.body.area !== "null" && { area: req.body.area }),
+            ...(req.body.grade !== "null" && { grade: req.body.grade }),
+            ...(req.body.status !== "null" && { status: req.body.status })
 
           },
           {
@@ -426,19 +462,24 @@ const postMasterCustomer =(req,res,next)=>{
         )
         
         
+    }    
+    else if(req.body.op==="filterContact")
+    {
+        console.log("agya")
+        console.log(req.body.customerId)
+        customerContactModel.findAll(
+            {
+                where : {customerName : req.body.customerId}
+            }
+        ).then((result)=>res.send(result))
+        .catch((err)=>console.log(err))
     }
     else if(req.body.op==="cinf")
     {
         console.log(req.body.value);
         
-        customerContactModel.findAll({
-            where : {customerName : req.body.value}
-        })
-        .then((cntctdata)=>{   
-            console.log("11111111111111111111111111111111111111111111111111");     
-            console.log(cntctdata);     
-            masterCustomerModel.findAll({
-                where : {customerName : req.body.value}
+        masterCustomerModel.findAll({
+                where : {customerId : req.body.value}
             })
             .then((data)=>
             {
@@ -451,80 +492,196 @@ const postMasterCustomer =(req,res,next)=>{
                 .then((prdctdata)=>{
                     console.log("333333333333333333333333333333333333333333");     
                     console.log(prdctdata);     
-                    customerCategoryModel.findAll({
-                        where : {customerName : req.body.value}
-                    })    
-                    .then((catdata)=>{
-                        console.log("44444444444444444444444444444444444444444444444444");     
-                        console.log(catdata);     
-                        customerFirmModel.findAll({
-                            where : {customerName : req.body.value}
-                        })
-                        .then((firmData)=>{
-                            console.log(firmData);     
-                            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                            console.log(prdctdata);
-                            console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-                            if(data.length!=0 && cntctdata.length!=0 && prdctdata.length!=0 && catdata.length!=0  )
-                            {
-                                console.log("1111111111111111111111111111111111111111");
-                                console.log(data[0].dataValues)
-                                console.log("222222222222222222222222222222222222222222");
-                                console.log(cntctdata[0].dataValues)
-                                console.log("3333333333333333333333333333333333333333333333");
-                                console.log(catdata[0].dataValues)
-                                console.log("444444444444444444444444444444444444");
-                                console.log(firmData[0].dataValues)
-                                console.log("55555555555555555555555555555555555");
-                                let sData = {
-                                    ...data[0].dataValues,
-                                    ...cntctdata[0].dataValues,
-                                    ...catdata[0].dataValues,
-                                    ...firmData[0].dataValues
-                                };
-                                let fData = { 
-                                    ...sData,
-                                    ...prdctdata
-                                }
-                                
-                                console.log("----------------------------------------------")        
-                                console.log(sData)  
-                                console.log("----------------------------------------------")        
-                                console.log(fData)
-                                
-                                console.log("----------------------------------------------")        
-                                res.send(fData)
-                            }
-                            else
-                            {
-                                res.send(null)
-                            }
-                            
-                        })
-                        .catch((err)=>{
-                            console.log(err);
-                        })    
-                    })
-                    .catch((err)=>{
-                        console.log(err);
-                    })  
+                    if(data.length!=0 && prdctdata.length!=0 )
+                    {
+                        let sData = {
+                            ...data[0].dataValues
+                        };
+                        let fData = { 
+                            ...sData,
+                            ...prdctdata
+                        }  
+                        console.log(fData)       
+                        res.send(fData)
+                    }
+                    else
+                    {
+                        res.send(null)
+                    }
+                    
                 })
                 .catch((err)=>{
                     console.log(err);
-                })          
+                })    
             })
             .catch((err)=>{
                 console.log(err);
-            })
+            })  
+      
+    }
+    else if(req.body.op==="customerContact")
+    {
+        console.log("customerContact")
+        customerContactModel.findAll({
+            where : {customerName : req.body.value}
+        })
+        .then((cntctData)=>
+        {
+            console.log(cntctData)
+            res.send(cntctData)
         })
         .catch((err)=>{
-            console.log(err)
+            console.log(err);
         })
+       
+    }
+    else if(req.body.op==="customerCategory")
+    {
+        console.log("customerCategory")
+        customerCategoryModel.findAll({
+            where : {customerName : req.body.value}
+        })
+        .then((cntctData)=>
+        {
+            console.log(cntctData)
+            res.send(cntctData)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+       
+    }
+    else if(req.body.op==="customerFirm")
+    {
+        console.log("customerFirm")
+        customerFirmModel.findAll({
+            where : {customerName : req.body.value}
+        })
+        .then((cntctData)=>
+        {
+            console.log(cntctData)
+            res.send(cntctData)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+       
+    }
+    else if(req.body.op==="printReport")
+    {
+        console.log("printReport")
+        var customerData = req.body.customerData;
+		var	fData = req.body.fData;
+		var	ctData = req.body.ctData;
+		var	cnData = req.body.cnData;
+		var	pData = req.body.pData;
+        
+
+        const htmlContent = `
+<html>
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
     
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Table A</h1>
+  <table>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+    </tr>
+    <!-- Add your data rows for 'a' here -->
+  </table>
+
+  <h1>Table B</h1>
+  <table>
+    <tr>
+      <th>Column</th>
+    </tr>
+    <!-- Add your data rows for 'b' here -->
+  </table>
+
+  <h1>Table C</h1>
+  <table>
+    <tr>
+      <th>Column</th>
+    </tr>
+    <!-- Add your data rows for 'c' here -->
+  </table>
+
+  <h1>Table D</h1>
+  <table>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <th>Column 3</th>
+      <th>Column 4</th>
+      <th>Column 5</th>
+    </tr>
+    <!-- Add your data rows for 'd' here -->
+  </table>
+
+  <h1>Table E</h1>
+  <table>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <th>Column 3</th>
+      <th>Column 4</th>
+      <th>Column 5</th>
+      <th>Column 6</th>
+    </tr>
+    <!-- Add your data rows for 'e' here -->
+  </table>
+</body>
+</html>
+`;
+
+// Define the options for PDF generation
+const pdfOptions = {
+  format: 'Letter',
+  border: {
+    top: '0.5in',
+    right: '0.5in',
+    bottom: '0.5in',
+    left: '0.5in'
+  }
+};
+
+// Generate the PDF
+pdf.create(htmlContent, pdfOptions).toFile('report.pdf', (err, res) => {
+  if (err) {
+    console.error('Error occurred while generating the PDF:', err);
+  } else {
+    console.log('PDF saved successfully as report.pdf');
+  }
+});
+          var timestampInSeconds = Math.floor(new Date().getTime() / 1000);
+
+
         
     }
     else if(req.body.op==="marktrep")
     {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         customerProductModel.findAll({
             where : {customerId : req.body.value}
@@ -567,15 +724,16 @@ const postMasterCustomer =(req,res,next)=>{
                 if(data.length==0)
                 {
                     const customerName = req.body.customerName
-                    const firm = req.body.firm
+                    const firm = req.body.firmFil
                     const area = req.body.area
                     const status = req.body.status
                     const grade = req.body.grade
                     const productFil = req.body.productFil
-                    const contact = req.body.contact || null
-                    const designation = req.body.designation
-                    const email = req.body.email
-                    const category = req.body.category
+                    const contacts = req.body.contact || null
+                    const contactNames = req.body.contactName
+                    const designations = req.body.designation
+                    const emails = req.body.email
+                    const category = req.body.categoryFil
                     const pincode = req.body.pincode || null
                     const address = req.body.address
                     const referenceNumber1 = req.body.referenceNumber1
@@ -600,51 +758,105 @@ const postMasterCustomer =(req,res,next)=>{
                         creditDays: creditDays
                     })
                     .then((result) => {
-                        customerContactModel.create({
-                            customerName: customerName,
-                            mobileNumber: contact,
-                            designation: designation,
-                            email: email
-                        })
-                        .then((res2) => {
-                            customerCategoryModel.create({
-                                customerName: customerName,
-                                category: category
-                            })
-                            .then((res3) => {
-                                if (firm) { // Check if firm exists
-                                    customerFirmModel.create({
-                                        customerName: customerName,
-                                        firm: firm
+                        const customerId = result.customerId;
+                            if(contacts)
+                            {
+                                console.log(contactNames)
+                                console.log(contacts)
+                                console.log(designations)
+                                console.log(emails)
+                                for (let i = 0; i < contacts.length; i++) {
+                                    const contactName = contactNames[i];
+                                    const contact = contacts[i];
+                                    const designation = designations[i];
+                                    const email = emails[i];
+                                
+                                    customerContactModel
+                                    .create({
+                                        customerName: customerId,
+                                        mobileNumber: contact,
+                                        contactName: contactName,
+                                        designation: designation,
+                                        email: email,
                                     })
-                                    .then((res4) => {
-                                        console.log(res4);
+                                    .then((res2) => {
+                                        console.log(res2);
                                     })
                                     .catch((err) => {
                                         console.log(err);
                                     });
                                 }
-                                if (productFil) {
-                                    if (Array.isArray(productFil)) {
-                                        console.log("::::::::::::::::::::::::::::::::::::::::::::::::::");
-                                        console.log(productFil);
-                                        for (let i = 0; i < productFil.length; i++) {
-                                            console.log(productFil[i]);
-                                            customerProductModel.create({
-                                                customerName: customerName,
-                                                product: productFil[i]
-                                            })
-                                            .then((reso) => {
-                                                console.log(reso);
-                                            })
-                                            .catch((err) => {
-                                                console.log(err);
-                                            });
-                                        }
-                                    } else {
+                            }
+
+                            if (category) { // Check if category exists
+                                if (Array.isArray(category)) {
+                                    console.log(category);
+                                    for (let i = 0; i < category.length; i++) {
+                                        console.log(category[i]);
+                                        customerCategoryModel.create({
+                                            customerName: customerId,
+                                            category: category[i]
+                                        })
+                                        .then((res) => {
+                                            console.log(res);
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                        });
+                                    }
+                                } else {
+                                    customerCategoryModel.create({
+                                        customerName: customerId,
+                                        category: category
+                                    })
+                                    .then((res) => {
+                                        console.log(res);
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    });
+                                }
+                            }
+                            
+                            if (firm) { // Check if firm exists
+                                if (Array.isArray(firm)) {
+                                    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                                    console.log(firm);
+                                    for (let i = 0; i < firm.length; i++) {
+                                        console.log(firm[i]);
+                                        customerFirmModel.create({
+                                            customerName: customerId,
+                                            firm: firm[i]
+                                        })
+                                        .then((res) => {
+                                            console.log(res);
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                        });
+                                    }
+                                } else {
+                                    customerFirmModel.create({
+                                        customerName: customerId,
+                                        firm: firm
+                                    })
+                                    .then((res) => {
+                                        console.log(res);
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    });
+                                }
+                            }
+
+                            if (productFil) {
+                                if (Array.isArray(productFil)) {
+                                    console.log(productFil);
+                                    for (let i = 0; i < productFil.length; i++) {
+                                        console.log(productFil[i]);
                                         customerProductModel.create({
-                                            customerName: customerName,
-                                            product: productFil
+                                            customerName: customerId,
+                                            product: productFil[i]
                                         })
                                         .then((reso) => {
                                             console.log(reso);
@@ -653,20 +865,23 @@ const postMasterCustomer =(req,res,next)=>{
                                             console.log(err);
                                         });
                                     }
+                                } else {
+                                    customerProductModel.create({
+                                        customerName: customerId,
+                                        product: productFil
+                                    })
+                                    .then((reso) => {
+                                        console.log(reso);
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    });
                                 }
-                                console.log(result);
-                                console.log(res2);
-                                console.log(res3);
-                                console.log('New Master Customer added');
-                                res.redirect('/masterCustomer');
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
+                            }
+                                
+                            console.log('New Master Customer added');
+                            res.redirect('/masterCustomer');
+                            
                     })
                     .catch((err) => {
                         console.log(err);
@@ -808,7 +1023,6 @@ const postMasterEmployee =(req,res,next)=>{
     }
     else if(req.body.op==="edt")
     {
-
         masterEmployeeModel.update({
             
             employeeName: req.body.employeeName,
@@ -834,7 +1048,8 @@ const postMasterEmployee =(req,res,next)=>{
             panNumber: req.body.panNumber,
             reference: req.body.reference,
             referenceContactNumber: req.body.referenceContactNumber,
-            gender: req.body.gender
+            gender: req.body.gender,
+            ...(req.body.area !== "null" && { area: req.body.area })
           },
           {
               where: {employeeNumber: req.body.id}
@@ -1146,15 +1361,34 @@ const postMasterProducts =(req,res,next)=>{
     
     if(req.body.op==="del")
     {
-        masterProductsModel.destroy({
-            where: { productId : id}
+        customerProductModel.findAll(
+            {
+                where:{product:id}
+            }
+        )
+        .then((data)=>{
+            console.log(data)
+            console.log(data.length)
+            if(data.length===0)
+            {
+                console.log("A")
+                masterProductsModel.destroy({
+                    where: { productId : id}
+                })
+                .then((qwe)=>{
+                    res.send("kyu")
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })   
+            }
+            else
+            {
+                console.log("B")
+                res.send("present")
+            }
         })
-        .then((qwe)=>{
-            res.send("kyu")
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+        .catch(err=>{console.log(err)})
     }
     else if(req.body.op==="edt")
     {
@@ -1162,7 +1396,7 @@ const postMasterProducts =(req,res,next)=>{
         console.log(req.body.id);
         masterProductsModel.update({
             productName: req.body.eproductName,
-            productGroup: req.body.eproductGroup
+            ...(req.body.eproductGroup !== "null" && { productGroup: req.body.eproductGroup })
         },
         {
             where: {productId: req.body.id}
@@ -1296,15 +1530,35 @@ const postMasterProductGroup =(req,res,next)=>{
     console.log("pppppppppppppppppppppppppp")    
     if(req.body.op==="del")
     {
-        masterProductGroupModel.destroy({
-            where: { id : id}
+        masterProductsModel.findAll(
+            {
+                where:{productGroup:id}
+            }
+        )
+        .then((data)=>{
+            console.log(data)
+            console.log(data.length)
+            if(data.length===0)
+            {
+                console.log("A")
+                masterProductGroupModel.destroy({
+                    where: { id : id}
+                })
+                .then((qwe)=>{
+                    res.send("kyu")
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })  
+            }
+            else
+            {
+                console.log("B")
+                res.send("present")
+            }
         })
-        .then((qwe)=>{
-            res.send("kyu")
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+        .catch(err=>{console.log(err)})
+
     }
     else if(req.body.op==="edt")
     {
@@ -1540,34 +1794,49 @@ const postMasterTeams =(req,res,next)=>{
 const getMasterVendors =(req,res,next)=>{
     if(req.session.isLoggedIn)
     {
-        masterAreaModel.findAll()
-            .then((areaData)=>{
-                masterVendorsModel.findAll()
-                .then((data)=>{
-                    res.render('masterVendors',{
-                        areaData:areaData,
-                        username : req.session.username,
-                        data:data,
-                        level:req.session.userLevel,
-                        msg:""
+        masterFirmModel.findAll()
+        .then((firmData)=>{
+            masterProductsModel.findAll()
+            .then((productData)=>{
+                masterAreaModel.findAll()
+                .then((areaData)=>{
+                    masterVendorsModel.findAll()
+                    .then((data)=>{
+                        res.render('masterVendors',{
+                            areaData : areaData,
+                            firmData : firmData,
+                            productData : productData,
+                            username : req.session.username,
+                            data : data,
+                            level : req.session.userLevel,
+                            msg:""
+                        })
                     })
+                    .catch((err)=>
+                    console.log(err)
+                    )
+                    
                 })
                 .catch((err)=>
-                    console.log(err)
+                console.log(err)
                 )
                 
             })
             .catch((err)=>
                 console.log(err)
+                )
+            
+        })
+        .catch((err)=>
+            console.log(err)
             )
-        
     }
     else 
     {
         res.redirect('/')
     }
 }
-
+    
 const postMasterVendors =(req,res,next)=>{
     var id = req.body.id;
     
@@ -1578,10 +1847,20 @@ const postMasterVendors =(req,res,next)=>{
         })
         .then((qwe)=>{
             res.send("kyu")
+            vendorContactModel.destroy({
+                    where: {vendorName:id}
+                })
+            vendorFirmModel.destroy({
+                    where: {vendorName:id}
+                })
+            vendorProductsModel.destroy({
+                    where: {vendorName:id}
+                })
         })
         .catch((err)=>{
             console.log(err);
         })
+       
     }
     else if(req.body.op==="edt")
     {
@@ -1628,10 +1907,14 @@ const postMasterVendors =(req,res,next)=>{
     }
     else
     {
-        // const vendorId = req.body.vendorId;
         const vendorName = req.body.vendorName;
         const vendorAddress = req.body.vendorAddress;
         const area = req.body.area;
+        const contacts = req.body.contact;
+        const designations = req.body.designation;
+        const emails = req.body.email;
+        const productFil = req.body.productFil;
+        const firm = req.body.firmFil;
        
         masterVendorsModel.findAll(
             {
@@ -1647,22 +1930,93 @@ const postMasterVendors =(req,res,next)=>{
                     area :area
                 })
                 .then((result)=>{
-                    // console.log(result)
-                    console.log("andrrrrrrrr")
-                    vendorContactModel.create({
-                        vendorName :req.body.vendorName,
-                        mobileNumber :req.body.mobileNumber,
-                        designation :req.body.designation,
-                        email :req.body.email
-                    })
-                    .then((result)=>
-                    // console.log(result),
+                    const vendorId = result.vendorId
+                    if(contacts)
+                    {
+                        for (let i = 0; i < contacts.length; i++) {
+                            const contact = contacts[i];
+                            const designation = designations[i];
+                            const email = emails[i];
+                        
+                            vendorContactModel
+                            .create({
+                                vendorName: vendorId,
+                                mobileNumber: contact,
+                                designation: designation,
+                                email: email,
+                            })
+                            .then((res2) => {
+                                console.log(res2);
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                        }
+                    }
+
+                    if (productFil) {
+                        if (Array.isArray(productFil)) {
+                            console.log(productFil);
+                            for (let i = 0; i < productFil.length; i++) {
+                                console.log(productFil[i]);
+                                vendorProductsModel.create({
+                                    vendorName: vendorId,
+                                    product: productFil[i]
+                                })
+                                .then((reso) => {
+                                    console.log(reso);
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                            }
+                        } else {
+                            vendorProductsModel.create({
+                                vendorName: vendorId,
+                                product: productFil
+                            })
+                            .then((reso) => {
+                                console.log(reso);
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                        }
+                    }
+
+                    if (firm) { // Check if firm exists
+                        if (Array.isArray(firm)) {
+                            console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                            console.log(firm);
+                            for (let i = 0; i < firm.length; i++) {
+                                console.log(firm[i]);
+                                vendorFirmModel.create({
+                                    vendorName: vendorId,
+                                    firm: firm[i]
+                                })
+                                .then((res) => {
+                                    console.log(res);
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                            }
+                        } else {
+                            vendorFirmModel.create({
+                                vendorName: vendorId,
+                                firm: firm
+                            })
+                            .then((res) => {
+                                console.log(res);
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                        }
+                    }
+
                     console.log('New Master Vendor added'),
                     res.redirect('/masterVendors')
-                    )           
-                    .catch((err)=>
-                        console.log(err)
-                    )
                 })
                 .catch((err)=>
                     console.log(err)
@@ -1670,31 +2024,44 @@ const postMasterVendors =(req,res,next)=>{
             }
             else
             {
-                masterAreaModel.findAll()
-                .then((areaData)=>{
-                    masterVendorsModel.findAll()
-                    .then((data)=>{
-                        res.render('masterVendors',{
-                            areaData:areaData,
-                            username : req.session.username,
-                            data:data,
-                            level:req.session.userLevel,
-                            msg:"Vendor Name already exist"
+                masterFirmModel.findAll()
+                .then((firmData)=>{
+                    masterProductsModel.findAll()
+                    .then((productData)=>{
+                        masterAreaModel.findAll()
+                        .then((areaData)=>{
+                            masterVendorsModel.findAll()
+                            .then((data)=>{
+                                res.render('masterVendors',{
+                                    areaData : areaData,
+                                    firmData : firmData,
+                                    productData : productData,
+                                    username : req.session.username,
+                                    data : data,
+                                    level : req.session.userLevel,
+                                    msg:"Vendor Name already exist"
+                                })
+                            })
+                            .catch((err)=>
+                            console.log(err)
+                            )
+                            
                         })
+                        .catch((err)=>
+                        console.log(err)
+                        )
+                        
                     })
                     .catch((err)=>
                         console.log(err)
-                    )
-                
-            })
-            .catch((err)=>
-                console.log(err)
-            )
+                        )
+                    
+                })
+                .catch((err)=>
+                    console.log(err)
+                )
             }
         })
-        .catch((err)=>
-                console.log(err)
-            )
     }
 }
 

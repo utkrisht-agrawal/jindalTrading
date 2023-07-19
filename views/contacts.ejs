@@ -146,7 +146,7 @@
 
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item nav-item-submenu">
-							<a href="/userDashboard" class="nav-link">
+							<a href="/userDashboard" class="nav-link ">
 								<i class="icon-home4"></i>
 								<span>
 									Dashboard
@@ -163,6 +163,7 @@
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Market-Plan</span></a>
 
+							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/marketPlanPigIron" class="nav-link">Pig-Iron</a></li>
 							</ul>
@@ -175,12 +176,12 @@
 								<li class="nav-item"><a href="/marketPlanQuantityLedger" class="nav-link">QuantityLedger</a></li>
 							</ul>
 						</li>
-						
+
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
+								<li class="nav-item"><a href="/masterArea" class="nav-link active">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
@@ -188,13 +189,13 @@
 								<li class="nav-item"><a href="/masterTeams" class="nav-link">MasterTeams</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu" >
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Customers</span></a>
 							
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
-								<li class="nav-item nav-item-submenu ">
+								<li class="nav-item nav-item-submenu">
 									<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Datatables</span></a>
 									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 										<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
@@ -205,14 +206,14 @@
 								</li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Transport</span></a>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Transport</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/transportDetails" class="nav-link">Details</a></li>
 								<li class="nav-item"><a href="/transportContacts" class="nav-link">Contacts</a></li>
 								<li class="nav-item"><a href="/transportStations" class="nav-link">Stations</a></li>
-								<li class="nav-item"><a href="/transportTrucks" class="nav-link active">Trucks</a></li>
+								<li class="nav-item"><a href="/transportTrucks" class="nav-link">Trucks</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -221,8 +222,8 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
-								<li class="nav-item"><a href="/vendorFirm" class="nav-link">Firm</a></li>
-								<li class="nav-item"><a href="/vendorProduct" class="nav-link">Product</a></li>
+                                <li class="nav-item"><a href="/vendorFirm" class="nav-link">Firm</a></li>
+								<li class="nav-item"><a href="/vendorProduct" class="nav-link active">Product</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -232,9 +233,10 @@
 								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="/contacts" class="nav-link"><i class="icon-copy"></i> <span>Contacts</span></a>
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+							<a href="/contacts" class="nav-link active"><i class="icon-copy"></i> <span>Contacts</span></a>
 						</li>
+						
 					</ul>
 				</div>
 				<!-- /main navigation -->
@@ -253,7 +255,7 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transport</span> - Trucks</h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Contacts</span> </h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 				</div>
@@ -267,12 +269,10 @@
 				<!-- Dashboard content -->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="card">
+						<div class="card" style="overflow-x: auto;">
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Style combinations</h5>
-								<% if(level>2) {%>
-									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Transporter Truck</button></td>
-								<%}%>
+								<h5 class="card-title">Contacts</h5>
+								
 								<div class="header-elements">
 									<div class="list-icons">
 										<a class="list-icons-item" data-action="collapse"></a>
@@ -282,165 +282,260 @@
 								</div>
 							</div>
 
-							<% if(data.length>0) {%>
-    
-								<table class="table datatable-basic table-bordered table-striped table-hover">
+                         
+
+							<% if(customerContactData.length>0) {%>
+									
+								<table class="table datatable-basic table-bordered table-striped table-hover" style="table-layout: auto; width: 100%; overflow-x: auto;">
 									
 									<thead>
 										<tr>
-											<th>transportName</th>
-                                            <th>transportTruck</th>
-                                            <th>ownerName</th>
-                                            <th>ownerMobileNumber</th>
-                                            <th>driverName</th>
-                                            <th>driverMobileNumber</th>
-                                            <th>bodyType</th>
-                                            <th>capacity</th>
-											<% if(level>2) {%>
-												<th>Edit</th>
-												<th>Delete</th>
-											<%}else if(level>1){%>
-												<th>Edit</th>
-											<%}else{%>
-											<%}%>
+											<th>Name</th>
+											<th>Category</th>
+											<th>Designation</th>
+											<th>Mobile Number</th>
+											<th>Email</th>
 										</tr>
 									</thead >
-									
-									<% for(var i=0; i<data.length; i++) {%>
-										<tr  class="<%= data[i].transportId%>transport">
-                                            <%if(level==1) {%>
-                                                <td class="transportName">
-													<% for (var a = 0; a < transData.length; a++) { %>
-														<% if (transData[a].transportId == data[i].transportName) { %>
-														  <%=transData[a].transportName %>
+										
+									<% for(var i=0; i<customerContactData.length; i++) {%>
+										<tr class="<%= customerContactData[i].id%>contact">
+											<%if(level==1) {%>
+												<td class="personName">
+													<% for (var a = 0; a < customerData.length; a++) { %>
+														<% if (customerData[a].customerId == customerContactData[i].customerName) { %>
+														  <%=customerData[a].customerName %>
 														<% } %>
 													<% } %>
 												</td>
-												<td class="transportTruck"><%= data[i].transportTruck%></td>
-												<td class="ownerName"><%= data[i].ownerName%></td>
-												<td class="ownerMobileNumber"><%= data[i].ownerMobileNumber%></td>
-												<td class="driverName"><%= data[i].driverName%></td>
-												<td class="driverMobileNumber"><%= data[i].driverMobileNumber%></td>
-												<td class="bodyType"><%= data[i].bodyType%></td>
-												<td class="capacity"><%= data[i].capacity%></td>
-                                            <%} else if(level>2) {%>
-                                                <td class="transportName" >
-													<% for (var a = 0; a < transData.length; a++) { %>
-														<% if (transData[a].transportId == data[i].transportName) { %>
-														  <%=transData[a].transportName %>
+												<td class="category">Customer</td>
+                                                <td class="designation"><%= customerContactData[i].designation%></td>
+												<td class="mobileNumber"><%= customerContactData[i].mobileNumber%></td>
+												<td class="email"><%= customerContactData[i].email%></td>
+											<%} else if(level>2) {%>
+												<td class="personName">
+													<% for (var a = 0; a < customerData.length; a++) { %>
+														<% if (customerData[a].customerId == customerContactData[i].customerName) { %>
+														  <%=customerData[a].customerName %>
 														<% } %>
 													<% } %>
 												</td>
-                                                <td class="transportTruck" ><%= data[i].transportTruck%></td>
-                                                <td class="ownerName"><%= data[i].ownerName%></td>
-												<td class="ownerMobileNumber"><%= data[i].ownerMobileNumber%></td>
-												<td class="driverName"><%= data[i].driverName%></td>
-                                                <td class="driverMobileNumber" ><%= data[i].driverMobileNumber%></td>
-                                                <td class="bodyType" ><%= data[i].bodyType%></td>
-												<td class="capacity"><%= data[i].capacity%></td>
-
-                                                <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].transportId%>transport')" >Edit</button>
-                                                </td>
-                                                <td >  
-													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].transportId%>transport')">Delete</button>
-                                                </td>
-                                            <%}else if(level>1){%>
-                                                <td class="transportName" >
-													<% for (var a = 0; a < transData.length; a++) { %>
-														<% if (transData[a].transportId == data[i].transportName) { %>
-														  <%=transData[a].transportName %>
+												<td class="category">Customer</td>
+                                                <td class="designation"><%= customerContactData[i].designation%></td>
+												<td class="mobileNumber"><%= customerContactData[i].mobileNumber%></td>
+												<td class="email"><%= customerContactData[i].email%></td>
+											<%}else if(level>1){%>
+                                                <td class="personName">
+													<% for (var a = 0; a < customerData.length; a++) { %>
+														<% if (customerData[a].customerId == customerContactData[i].customerName) { %>
+														  <%=customerData[a].customerName %>
 														<% } %>
 													<% } %>
 												</td>
-                                                <td class="transportTruck" ><%= data[i].transportTruck%></td>
-												<td class="ownerName"><%= data[i].ownerName%></td>
-												<td class="ownerMobileNumber"><%= data[i].ownerMobileNumber%></td>
-												<td class="driverName"><%= data[i].driverName%></td>
-                                                <td class="driverMobileNumber" ><%= data[i].driverMobileNumber%></td>
-                                                <td class="bodyType" ><%= data[i].bodyType%></td>
-												<td class="capacity"><%= data[i].capacity%></td>
-
-                                                <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].transportId%>transport')">Edit</button>
-                                                </td>
-                                            <%}%>
-                                            </tr>
+												<td class="category">Customer</td>
+                                                <td class="designation"><%= customerContactData[i].designation%></td>
+												<td class="mobileNumber"><%= customerContactData[i].mobileNumber%></td>
+												<td class="email"><%= customerContactData[i].email%></td>
+											<%}%> 
+										</tr>
 									<% } %>
-								</table>
+									
+                                    <% for(var i=0; i<transportContactData.length; i++) {%>
+										<tr class="<%= transportContactData[i].id%>contact">
+											<%if(level==1) {%>
+												<td class="personName">
+													<% for (var a = 0; a < transportData.length; a++) { %>
+														<% if (transportData[a].transportId == transportContactData[i].transportName) { %>
+														  <%=transportData[a].transportName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="category">Transport</td>
+                                                <td class="designation"><%= transportContactData[i].designation%></td>
+												<td class="mobileNumber"><%= transportContactData[i].mobileNumber%></td>
+												<td class="email"><%= transportContactData[i].email%></td>
+											<%} else if(level>2) {%>
+												<td class="personName">
+													<% for (var a = 0; a < transportData.length; a++) { %>
+														<% if (transportData[a].transportId == transportContactData[i].transportName) { %>
+														  <%=transportData[a].transportName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="category">Transport</td>
+                                                <td class="designation"><%= transportContactData[i].designation%></td>
+												<td class="mobileNumber"><%= transportContactData[i].mobileNumber%></td>
+												<td class="email"><%= transportContactData[i].email%></td>
+											<%}else if(level>1){%>
+                                                <td class="personName">
+													<% for (var a = 0; a < transportData.length; a++) { %>
+														<% if (transportData[a].transportId == transportContactData[i].transportName) { %>
+														  <%=transportData[a].transportName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="category">Transport</td>
+                                                <td class="designation"><%= transportContactData[i].designation%></td>
+												<td class="mobileNumber"><%= transportContactData[i].mobileNumber%></td>
+												<td class="email"><%= transportContactData[i].email%></td>
+											<%}%> 
+										</tr>
+									<% } %>
+									
+                                    <% for(var i=0; i<vendorContactData.length; i++) {%>
+										<tr class="<%= vendorContactData[i].id%>contact">
+											<%if(level==1) {%>
+												<td class="personName">
+													<% for (var a = 0; a < vendorData.length; a++) { %>
+														<% if (vendorData[a].vendorId == vendorContactData[i].vendorName) { %>
+														  <%=vendorData[a].vendorName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="category">Vendor</td>
+                                                <td class="designation"><%= vendorContactData[i].designation%></td>
+												<td class="mobileNumber"><%= vendorContactData[i].mobileNumber%></td>
+												<td class="email"><%= vendorContactData[i].email%></td>
+											<%} else if(level>2) {%>
+												<td class="personName">
+													<% for (var a = 0; a < vendorData.length; a++) { %>
+														<% if (vendorData[a].vendorId == vendorContactData[i].vendorName) { %>
+														  <%=vendorData[a].vendorName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="category">Vendor</td>
+                                                <td class="designation"><%= vendorContactData[i].designation%></td>
+												<td class="mobileNumber"><%= vendorContactData[i].mobileNumber%></td>
+												<td class="email"><%= vendorContactData[i].email%></td>
+											<%}else if(level>1){%>
+                                                <td class="personName">
+													<% for (var a = 0; a < vendorData.length; a++) { %>
+														<% if (vendorData[a].vendorId == vendorContactData[i].vendorName) { %>
+														  <%=vendorData[a].vendorName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="category">Vendor</td>
+                                                <td class="designation"><%= vendorContactData[i].designation%></td>
+												<td class="mobileNumber"><%= vendorContactData[i].mobileNumber%></td>
+												<td class="email"><%= vendorContactData[i].email%></td>
+											<%}%> 
+										</tr>
+									<% } %>
+                                    
+									<% for(var i=0; i<truckData.length; i++) {%>
+										<tr class="<%= truckData[i].transportId%>contact">
+											<%if(level==1) {%>
+												<td class="personName"><%= truckData[i].ownerName%></td>
+												<td class="category">Transport</td>
+                                                <td class="designation">Truck Owner</td>
+												<td class="mobileNumber"><%= truckData[i].ownerMobileNumber%></td>
+												<td class="email"><%= truckData[i].email%></td>
+											<%} else if(level>2) {%>
+												<td class="personName"><%= truckData[i].ownerName%></td>
+												<td class="category">Transport</td>
+                                                <td class="designation">Truck Owner</td>
+												<td class="mobileNumber"><%= truckData[i].ownerMobileNumber%></td>
+												<td class="email"><%= truckData[i].email%></td>
+											<%}else if(level>1){%>
+												<td class="personName"><%= truckData[i].ownerName%></td>
+												<td class="category">Transport</td>
+                                                <td class="designation">Truck Owner</td>
+												<td class="mobileNumber"><%= truckData[i].ownerMobileNumber%></td>
+												<td class="email"><%= truckData[i].email%></td>
+											<%}%> 
+										</tr>
+									<% } %>
+
+									
+									<% for(var i=0; i<truckData.length; i++) {%>
+										<tr class="<%= truckData[i].transportId%>contact">
+											<%if(level==1) {%>
+												<td class="personName"><%= truckData[i].driverName%></td>
+												<td class="category">Transport</td>
+                                                <td class="designation">Truck Driver</td>
+												<td class="mobileNumber"><%= truckData[i].driverMobileNumber%></td>
+												<td class="email"><%= truckData[i].email%></td>
+											<%} else if(level>2) {%>
+												<td class="personName"><%= truckData[i].driverName%></td>
+												<td class="category">Transport</td>
+                                                <td class="designation">Truck Driver</td>
+												<td class="mobileNumber"><%= truckData[i].driverMobileNumber%></td>
+												<td class="email"><%= truckData[i].email%></td>
+											<%}else if(level>1){%>
+												<td class="personName"><%= truckData[i].driverName%></td>
+												<td class="category">Transport</td>
+                                                <td class="designation">Truck Driver</td>
+												<td class="mobileNumber"><%= truckData[i].driverMobileNumber%></td>
+												<td class="email"><%= truckData[i].email%></td>
+											<%}%> 
+										</tr>
+									<% } %>
+
+									<% for(var i=0; i<employeeData.length; i++) {%>
+										<tr class="<%= employeeData[i].id%>contact">
+											<%if(level==1) {%>
+												<td class="personName"><%= employeeData[i].employeeName%></td>
+												<td class="category">Employee</td>
+                                                <td class="designation"><%= employeeData[i].designation%></td>
+												<td class="mobileNumber"><%= employeeData[i].primaryMobileNumber%></td>
+												<td class="email"><%= employeeData[i].emailId%></td>
+											<%} else if(level>2) {%>
+												<td class="personName"><%= employeeData[i].employeeName%></td>
+												<td class="category">Employee</td>
+                                                <td class="designation"><%= employeeData[i].designation%></td>
+												<td class="mobileNumber"><%= employeeData[i].primaryMobileNumber%></td>
+												<td class="email"><%= employeeData[i].emailId%></td>
+											<%}else if(level>1){%>
+                                                <td class="personName"><%= employeeData[i].employeeName%></td>
+												<td class="category">Employee</td>
+                                                <td class="designation"><%= employeeData[i].designation%></td>
+												<td class="mobileNumber"><%= employeeData[i].primaryMobileNumber%></td>
+												<td class="email"><%= employeeData[i].emailId%></td>
+											<%}%> 
+										</tr>
+									<% } %>
+
+									</table>
 							
 							<%}else{%>
 								<h4>No new data</h4>
 							<%}%>
-
 							
 							
 							<!-- Vertical form modal -->
-							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
+							<!-- <div id="modal_form_vertical" class="modal fade" tabindex="-1">
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">New Transporter Truck</h5>
+								            <h5 class="modal-title">New Vendor Product</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
-							            <form action="/transportTrucks" method="POST">
+							            <form action="/vendorProduct" method="POST">
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-4">
-												            <label>Transport Name<span class="text-danger">*</span></label>
-												            <select required name="transportName" class="form-control multiselect-filtering transportName" id="transportName" multiple="multiple" data-fouc>
-                                                                <% for(var i=0; i<transData.length; i++) {%>
-                                                                    <option value="<%=transData[i].transportId%>"><%=transData[i].transportName%></option>
-                                                                <% } %>
-                                                            </select>
+											            <div class="col-sm-6">
+												            <label>vendorName</label>
+												            <select name="vendorName" class="form-control vendorName" id="vendorName" required>
+																<option value="" disabled selected>-Select-</option>
+																<% for(var i=0; i<vendorData.length; i++) {%>
+																	<option value="<%=vendorData[i].vendorId%>"><%=vendorData[i].vendorName%></option>
+																<% } %>
+															</select>
 											            </div>
-											            <div class="col-sm-4">
-												            <label>Truck Number<span class="text-danger">*</span></label>
-                                                            <input required type="text"class="form-control transportTruck" name="transportTruck" id="transportTruck">
-											            </div>
-											            <div class="col-sm-4">
-												            <label>Capacity<span class="text-danger">*</span></label>
-                                                            <input required type="text"class="form-control capacity" name="capacity" id="capacity">
+											            <div class="col-sm-6">
+												            <label>product</label>
+															<select name="product" class="form-control product" id="product" required>
+																
+															</select>
 											            </div>
 										            </div>
-										        </div>
+									            </div>
+								            </div>
 
-									            <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-4">
-												            <label>Truck Body<span class="text-danger">*</span></label>
-												            <select required name="bodyType" class="form-control bodyType" id="bodyType">
-                                                                <option value="" disabled selected>-Select-</option>
-                                                                <option value="FULL" >FULL</option>
-                                                                <option value="HALF" >HALF</option>
-                                                            </select>
-											            </div>
-														<div class="col-sm-4">
-															<label>Owner Name<span class="text-danger">*</span></label>
-															<input type="text" class="form-control ownerName" name="ownerName[]" id="ownerName">
-														</div>
-														<div class="col-sm-4">
-															<label>Driver Name<span class="text-danger">*</span></label>
-															<input type="text" class="form-control driverName" name="driverName[]" id="driverName">
-														</div>
-										            </div>
-										        </div>
-
-									            <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-4">
-												            <label>Owner Mobile Number<span class="text-danger">*</span></label>
-												            <input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control ownerMobileNumber" name="ownerMobileNumber" id="ownerMobileNumber">
-											            </div>
-											            <div class="col-sm-4">
-												            <label>Driver Mobile Number<span class="text-danger">*</span></label>
-                                                            <input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control driverMobileNumber" name="driverMobileNumber" id="driverMobileNumber">
-											            </div>
-										            </div>
-										        </div>
-											</div>	
 								            <div class="modal-footer">
 									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
 									            <button type="submit" class="btn bg-primary">Add</button>
@@ -448,15 +543,16 @@
 							            </form>
 						            </div>
 					            </div>
-				            </div>
+				            </div> -->
+
 
 
 							<!-- EDIT modal -->
-							<div id="modal_edit" class="modal fade" tabindex="-1">
+							<!-- <div id="modal_edit" class="modal fade" tabindex="-1">
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">Edit Customer Product</h5>
+								            <h5 class="modal-title">Edit Vendor Product</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
@@ -469,16 +565,16 @@
 								        </div>
 						            </div>
 					            </div>
-				            </div>
+				            </div> -->
 							
 							
 							
 							<!-- DEL modal -->
-							<div id="modal_del" class="modal fade" tabindex="-1">
+							<!-- <div id="modal_del" class="modal fade" tabindex="-1">
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
-								            <h5 class="modal-title">Delete Customer Product</h5>
+								            <h5 class="modal-title">Delete Vendor Product</h5>
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
@@ -491,7 +587,9 @@
 								        </div>
 						            </div>
 					            </div>
-				            </div>
+				            </div> -->
+
+
 
 							
 			            </div>
@@ -518,30 +616,17 @@
 </html>
 
 
+
+
 <script>
-    function edit(value)
+    
+    function del(value)
     {
-		console.log("/-/-/-/-")
-		var etransportName = document.getElementById("etransportName").value;
-        var etransportTruck = document.getElementById("etransportTruck").value;
-        var eownerName = document.getElementById("eownerName").value;
-        var edriverName = document.getElementById("edriverName").value;
-        var eownerMobileNumber = document.getElementById("eownerMobileNumber").value;
-        var edriverMobileNumber = document.getElementById("edriverMobileNumber").value;
-        var ebodyType = document.getElementById("ebodyType").value;
-        var ecapacity = document.getElementById("ecapacity").value;
-        $.post("/transportTrucks",
+        console.log(value);
+        $.post("/vendorProduct",
             {
                 id: value,
-                transportName: etransportName,
-                transportTruck: etransportTruck,
-                ownerName: eownerName,
-                driverName: edriverName,
-                ownerMobileNumber: eownerMobileNumber,
-                driverMobileNumber: edriverMobileNumber,
-                bodyType: ebodyType,
-                capacity: ecapacity,
-                op:"edt"
+                op:"del"
             },
             function (data, status) {
                 console.log(data);
@@ -550,16 +635,17 @@
             }
             );
     }
-</script>
-
-<script>
-    function del(value)
+	function edit(value)
     {
         console.log(value);
-        $.post("/transportTrucks",
+		var evendorName = document.getElementById("evendorName").value;
+        var eproduct = document.getElementById("eproduct").value;
+        $.post("/vendorProduct",
             {
                 id: value,
-                op:"del"
+                vendorName: evendorName,
+                product: eproduct,
+                op:"edt"
             },
             function (data, status) {
                 console.log(data);
@@ -577,28 +663,24 @@
 	function eedit(value)
     {
         console.log(value);
-        var sub = 'transport';
+        var sub = 'vendor';
         var result = value.replace(sub,'');
         console.log(result);
         
         $('.'+value).each(function() 
         {   
 
-			var transportName = $(this).find(".transportName").html();    
-            var transportTruck = $(this).find(".transportTruck").html(); 
-            var ownerName = $(this).find(".ownerName").html(); 
-            var driverName = $(this).find(".driverName").html(); 
-            var ownerMobileNumber = $(this).find(".ownerMobileNumber").html(); 
-            var driverMobileNumber = $(this).find(".driverMobileNumber").html();     
-            var bodyType = $(this).find(".bodyType").html();     
-            var capacity = $(this).find(".capacity").html();     
+			var vendorName = $(this).find(".vendorName").html();    
+            var product = $(this).find(".product").html();
             
+
+
+			console.log(vendorName)
 			console.log("++++++++++++++++++++++++++++++++++++++++")
 			console.log(result)
 			
 			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >transportName</td> <td><input type="text" value="'+transportName+'" class="form-control etransportName" name="etransportName" id="etransportName"></td> </tr> <tr> <td>transportTruck</td> <td><input type="text" value="'+transportTruck+'" class="form-control etransportTruck" name="etransportTruck" id="etransportTruck"></td> </tr> <tr> <td>ownerName</td> <td><input type="text" value="'+ownerName+'" class="form-control eownerName" name="eownerName" id="eownerName"></td> </tr> <tr> <td>ownerMobileNumber</td> <td><input type="tel" value="'+ownerMobileNumber+'" class="form-control eownerMobileNumber" name="eownerMobileNumber" id="eownerMobileNumber"></td> </tr> <tr> <td>driverName</td> <td><input type="text" value="'+driverName+'" class="form-control edriverName" name="edriverName" id="edriverName"></td> </tr> <tr> <td>driverMobileNumber</td> <td><input type="tel" value="'+driverMobileNumber+'" class="form-control edriverMobileNumber" name="edriverMobileNumber" id="edriverMobileNumber"></td> </tr> <tr> <td>Body Type</td> <td><select id="ebodyType" name="ebodyType" class="form-control ebodyType"> <option value="null" disabled selected>'+bodyType+'</option> <option value="FULL">FULL</option> <option value="HALF">HALF</option> </select> </td> </tr> <tr> <td>capacity</td> <td><input type="tel" value="'+capacity+'" class="form-control ecapacity" name="ecapacity" id="ecapacity"></td> </tr>  </table> </div>'
-				
+			
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")
 			document.getElementById("blast").innerHTML=tek;
@@ -611,25 +693,20 @@
 	function ddel(value)
     {
         console.log(value);
-        var sub = 'transport';
+        var sub = 'vendor';
         var result = value.replace(sub,'');
         console.log(result);
         
         $('.'+value).each(function() 
         {   
-			var transportName = $(this).find(".transportName").html();    
-            var transportTruck = $(this).find(".transportTruck").html();
-			var ownerName = $(this).find(".ownerName").html(); 
-            var driverName = $(this).find(".driverName").html();    
-            var ownerMobileNumber = $(this).find(".ownerMobileNumber").html();    
-            var driverMobileNumber = $(this).find(".driverMobileNumber").html(); 
-            var bodyType = $(this).find(".bodyType").html(); 
-            var capacity = $(this).find(".capacity").html(); 
+			var vendorName = $(this).find(".vendorName").html();    
+            var product = $(this).find(".product").html();   
+              
                 
 			console.log(result)
 
 
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >transportName</td> <td>'+transportName+'</td> </tr> <tr> <td>transportTruck</td> <td>'+transportTruck+' </td> </tr> <tr> <td>ownerName</td> <td>'+ownerName+' </td> </tr> <tr> <td>ownerMobileNumber</td> <td>'+ownerMobileNumber+' </td> </tr> <tr> <td>driverName</td> <td>'+driverName+' </td> </tr> <tr> <td>driverMobileNumber</td> <td>'+driverMobileNumber+' </td> </tr> <tr> <td>bodyType</td> <td>'+bodyType+' </td> </tr> <tr> <td>capacity</td> <td>'+capacity+' </td> </tr> </table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >vendorName</td> <td>'+vendorName+'</td> </tr> <tr> <td>product</td> <td>'+product+' </td> </tr> </table> </div>'
 
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='del("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Delete</button>"
 			console.log("Ujjwal")
@@ -638,8 +715,4 @@
 
 		});
     }
-</script>
-
-
-
-
+    </script>

@@ -11,6 +11,9 @@ const transportContactModel = sequelize.define('transport_Contact',{
     transportName: {
         type: Sequelize.STRING
     },
+    contactName: {
+        type: Sequelize.STRING
+    },
     designation: {
         type: Sequelize.STRING
     },

@@ -183,7 +183,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link active">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
@@ -196,10 +195,15 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
-								<li class="nav-item"><a href="/customerContact" class="nav-link active">Contact</a></li>
-								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
-								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
-								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+								<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+									<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Datatables</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="/customerContact" class="nav-link active">Contact</a></li>
+										<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
+										<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
+										<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -218,7 +222,19 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/vendorFirm" class="nav-link">Firm</a></li>
+								<li class="nav-item"><a href="/vendorProduct" class="nav-link">Product</a></li>
 							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Employee</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="/contacts" class="nav-link"><i class="icon-copy"></i> <span>Contacts</span></a>
 						</li>
 					</ul>
 				</div>
@@ -274,6 +290,7 @@
 									<thead>
 										<tr>
 											<th>CustomerName</th>
+											<th>ContactName</th>
 											<th>Designation</th>
 											<th>MobileNumber</th>
 											<th>Email</th>
@@ -290,12 +307,26 @@
 									<% for(var i=0; i<data.length; i++) {%>
 										<tr class="<%= data[i].customerId%>cust">
 											<%if(level==1) {%>
-												<td class="customerName"><%= data[i].customerName%></td>
+												<td class="customerName">
+													<% for (var a = 0; a < custData.length; a++) { %>
+														<% if (custData[a].customerId == data[i].customerName) { %>
+														  <%=custData[a].customerName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="contactName"><%= data[i].contactName%></td>
 												<td class="designation"><%= data[i].designation%></td>
 												<td class="mobileNumber"><%= data[i].mobileNumber%></td>
 												<td class="email"><%= data[i].email%></td>
 											<%} else if(level>2) {%>
-												<td class="customerName"><%= data[i].customerName%></td>
+												<td class="customerName">
+													<% for (var a = 0; a < custData.length; a++) { %>
+														<% if (custData[a].customerId == data[i].customerName) { %>
+														  <%=custData[a].customerName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="contactName"><%= data[i].contactName%></td>
 												<td class="designation"><%= data[i].designation%></td>
 												<td class="mobileNumber"><%= data[i].mobileNumber%></td>
 												<td class="email"><%= data[i].email%></td>
@@ -306,7 +337,14 @@
 													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].customerId%>cust')">Delete</button>
 													</td>
 											<%}else if(level>1){%>
-                                                <td class="customerName"><%= data[i].customerName%></td>
+                                                <td class="customerName">
+													<% for (var a = 0; a < custData.length; a++) { %>
+														<% if (custData[a].customerId == data[i].customerName) { %>
+														  <%=custData[a].customerName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="contactName"><%= data[i].contactName%></td>
 												<td class="designation"><%= data[i].designation%></td>
 												<td class="mobileNumber"><%= data[i].mobileNumber%></td>
 												<td class="email"><%= data[i].email%></td>
@@ -341,28 +379,38 @@
 												            <select name="customerName" class="form-control customerName" id="customerName" required>
 																<option value="" disabled selected>-Select-</option>
 																<% for(var i=0; i<custData.length; i++) {%>
-																	<option value="<%=custData[i].customerName%>"><%=custData[i].customerName%></option>
+																	<option value="<%=custData[i].customerId%>"><%=custData[i].customerName%></option>
 																<% } %>
 															</select>
 											            </div>
-											            <div class="col-sm-6">
-												            <label>designation</label>
-												            <input type="text" placeholder="Dehradun" class="form-control designation" name="designation" id="designation">
-											            </div>
+											            
 										            </div>
 									            </div>
-									            <div class="form-group">
-										            <div class="row">
-														<div class="col-sm-6">
-															<label>mobileNumber</label>
-															<input type="text" placeholder="Dehradun" class="form-control mobileNumber" name="mobileNumber" id="mobileNumber">
+												<div class="form-group"  id="contactsContainer">
+													<div class="row">
+														<div class="col-sm-3">
+															<label>Contact Name<span class="text-danger">*</span></label>
+															<input type="text" class="form-control contactName" name="contactName[]" id="contactName" >
 														</div>
-											            <div class="col-sm-6">
-												            <label>email</label>
-												            <input type="text" placeholder="Dehradun" class="form-control email" name="email" id="email">
-											            </div>
-										            </div>
-									            </div>
+														<div class="col-sm-2">
+															<label>Designation<span class="text-danger">*</span></label>
+															<input type="text" class="form-control designation" name="designation[]" id="designation" >
+														</div>
+														<div class="col-sm-3">
+															<label>Mobile Number<span class="text-danger">*</span></label>
+															<input type="tel" placeholder="10-digit-format" class="form-control contact" name="contact[]" id="contact" pattern="[0-9]{10}">
+														</div>
+														<div class="col-sm-2">
+															<label>Email</label>
+															<input type="email" class="form-control email" name="email[]" id="email" >
+														</div>
+
+														<div class="col-sm-2">
+															<button type="button" class="float-right" id="addContactBtn">Add Contact</button>
+														</div>
+
+													</div>
+												</div>
 								            </div>
 
 								            <div class="modal-footer">
@@ -373,6 +421,79 @@
 						            </div>
 					            </div>
 				            </div>
+
+
+							<script>
+								// Function to add dynamic contact input fields
+								function addContactInput() {
+									var container = document.getElementById("contactsContainer");
+							
+									// Create a new row
+									var row = document.createElement("div");
+									row.className = "row";
+							
+									// Create name input field
+									var col1 = document.createElement("div");
+									col1.className = "col-sm-3";
+									var contactNameInput = document.createElement("input");
+									contactNameInput.type = "text";
+									contactNameInput.className = "form-control contactName";
+									contactNameInput.name = "contactName[]";
+									col1.appendChild(contactNameInput);
+									row.appendChild(col1);
+							
+									// Create designation input field
+									var col2 = document.createElement("div");
+									col2.className = "col-sm-2";
+									var designationInput = document.createElement("input");
+									designationInput.type = "text";
+									designationInput.className = "form-control designation";
+									designationInput.name = "designation[]";
+									col2.appendChild(designationInput);
+									row.appendChild(col2);
+							
+									// Create contact input field
+									var col3 = document.createElement("div");
+									col3.className = "col-sm-3";
+									var contactInput = document.createElement("input");
+									contactInput.type = "tel";
+									contactInput.className = "form-control contact";
+									contactInput.name = "contact[]";
+									contactInput.pattern = "[0-9]{10}";
+									contactInput.placeholder = "10-digit-format";
+									col3.appendChild(contactInput);
+									row.appendChild(col3);
+							
+									// Create email input field
+									var col4 = document.createElement("div");
+									col4.className = "col-sm-2";
+									var emailInput = document.createElement("input");
+									emailInput.type = "email";
+									emailInput.className = "form-control email";
+									emailInput.name = "email[]";
+									col4.appendChild(emailInput);
+									row.appendChild(col4);
+							
+									// Create remove button
+									var col5 = document.createElement("div");
+									col5.className = "col-sm-2";
+									var removeBtn = document.createElement("button");
+									removeBtn.type = "button";
+									removeBtn.className = "btn btn-danger float-right";
+									removeBtn.textContent = "Remove";
+									removeBtn.addEventListener("click", function() {
+										container.removeChild(row);
+									});
+									col5.appendChild(removeBtn);
+									row.appendChild(col5);
+							
+									// Append the row to the contacts container
+									container.appendChild(row);
+								}
+							
+								// Event listener for the "Add Contact" button
+								document.getElementById("addContactBtn").addEventListener("click", addContactInput);
+							</script>
 							
 							<!-- EDIT modal -->
 							<div id="modal_edit" class="modal fade" tabindex="-1">
@@ -512,7 +633,8 @@
 			console.log(result)
 			
 			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td><input type="text" value="'+customerName+'" class="form-control ecustomerName" name="ecustomerName" id="ecustomerName"></td> </tr> <tr> <td>designation</td> <td><input type="text" value="'+designation+'" class="form-control edesignation" name="edesignation" id="edesignation"></td> </tr> <tr> <td>mobileNumber</td> <td><input type="tel" value="'+mobileNumber+'" class="form-control emobileNumber" name="emobileNumber" id="emobileNumber"></td> </tr> <tr> <td>email</td> <td><input type="email" value="'+email+'" class="form-control eemail" name="eemail" id="eemail"></td> </tr>  </table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td>customerName</td> <td><select id="ecustomerName" name="ecustomerName" class="form-control ecustomerName"> <option value="null" disabled selected>'+customerName+'</option> <% for(var i=0; i<custData.length; i++) {%> <option value="<%=custData[i].customerId%>"><%=custData[i].customerName%></option> <% } %> </select> </td> </tr> <tr> <td>designation</td> <td><input type="text" value="'+designation+'" class="form-control edesignation" name="edesignation" id="edesignation"></td> </tr> <tr> <td>mobileNumber</td> <td><input type="tel" value="'+mobileNumber+'" class="form-control emobileNumber" name="emobileNumber" id="emobileNumber"></td> </tr> <tr> <td>email</td> <td><input type="email" value="'+email+'" class="form-control eemail" name="eemail" id="eemail"></td> </tr>  </table> </div>'
+			
 				
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")

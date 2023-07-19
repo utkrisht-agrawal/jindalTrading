@@ -1,9 +1,11 @@
+const { QueryTypes } = require('sequelize');
+const sequelize = require('../database/connect');
+const masterAreaModel = require('../model/masterAreaModel')
 const transportDetailModel = require('../model/transportDetailModel');
 const transportContactModel = require('../model/transportContactModel');
 const transportStationModel = require('../model/transportStationModel');
 const transportTruckModel = require('../model/transportTruckModel');
 
-const masterAreaModel = require('../model/masterAreaModel');
 
 
 
@@ -15,11 +17,18 @@ const getTransportDetails =(req,res,next)=>{
         transportDetailModel.findAll()
         .then((data)=>{
             console.log(data);
-            res.render('transportDetail',{
-                username : req.session.username,
-                data:data,
-                level: req.session.userLevel
+            masterAreaModel.findAll()
+            .then((areaData)=>{
+                res.render('transportDetail',{
+                    username : req.session.username,
+                    data:data,
+                    areaData:areaData,
+                    level: req.session.userLevel
+                })
             })
+            .catch((err)=>
+                console.log(err)
+            )
         })
         .catch((err)=>
         console.log(err)
@@ -72,8 +81,50 @@ const postTransportDetails =(req,res,next)=>{
             console.log(err);
         })
     }
+    else if(req.body.op==='filterTruck')
+    {
+        console.log("truck")
+        console.log(req.body.transportId)
+        transportTruckModel.findAll(
+            {
+                where : {transportName : req.body.transportId}
+            }
+        ).then((result)=>res.send(result))
+        .catch((err)=>console.log(err))
+    }
+    else if(req.body.op==='fil')
+    {
+        console.log(req.body.transportAreaFil);
+        let area=req.body.transportAreaFil;
+
+        sequelize.query("SELECT * FROM transport_details AS transport_detail WHERE (transportArea IN (CASE WHEN ? !='' THEN (?) ELSE transportArea END))",
+        {
+            replacements: [area,area],
+            type: QueryTypes.SELECT
+        })
+        .then((dataFil)=>{
+            console.log(dataFil);
+            res.send(dataFil);
+                
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+    }
     else
     {
+        const contacts = req.body.contact || null
+        const contactNames = req.body.contactName
+        const designations = req.body.designation
+        const emails = req.body.email
+        const transportTrucks = req.body.transportTruck || [];
+        const capacities = req.body.capacity || [];
+        const bodyTypes = req.body.bodyType || [];
+        const ownerNames = req.body.ownerName || [];
+        const driverNames = req.body.driverName || [];
+        const ownerMobileNumbers = req.body.ownerMobileNumber || [];
+        const driverMobileNumbers = req.body.driverMobileNumber || [];
+
         transportDetailModel.create({
             transportName :req.body.transportName,
             transportArea :req.body.transportArea,
@@ -84,43 +135,77 @@ const postTransportDetails =(req,res,next)=>{
             ifscCode :req.body.ifscCode
         })
         .then((result)=>{
-            console.log(result),
-            transportContactModel.create({
-                transportName :req.body.transportName,
-                mobileNumber :req.body.mobileNumber,
-                designation :req.body.designation,
-                email :req.body.email
-            })
-            .then((res2)=>{
-                console.log(res2);
+            if(contacts)
+            {
+                for (let i = 0; i < contacts.length; i++) {
+                    const contactName = contactNames[i];
+                    const contact = contacts[i];
+                    const designation = designations[i];
+                    const email = emails[i];
+                
+                    transportContactModel.create({
+                        transportName: result.transportId,
+                        contactName: contactName,
+                        mobileNumber: contact,
+                        designation: designation,
+                        email: email,
+                    })
+                    .then((result) => {
+                        console.log(result);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                }
+            }
+
+            if(transportTrucks)
+            {
+                for (let i = 0; i < transportTrucks.length; i++) {
+                    const transportTruck = transportTrucks[i];
+                    const capacity = capacities[i];
+                    const bodyType = bodyTypes[i];
+                    const ownerName = ownerNames[i];
+                    const driverName = driverNames[i];
+                    const ownerMobileNumber = ownerMobileNumbers[i];
+                    const driverMobileNumber = driverMobileNumbers[i];
+                  
+                    transportTruckModel
+                      .create({
+                        transportName: result.transportId,
+                        transportTruck: transportTruck,
+                        capacity: capacity,
+                        bodyType: bodyType,
+                        ownerName: ownerName,
+                        driverName: driverName,
+                        ownerMobileNumber: ownerMobileNumber,
+                        driverMobileNumber: driverMobileNumber
+                      })
+                      .then((result) => {
+                        console.log(result);
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  }
+            }
+
+            if(req.body.transportSource)
+            {
                 transportStationModel.create({
-                    transportName :req.body.transportName,
+                    transportName :result.transportId,
                     transportSource :req.body.transportSource,
                     transportDestination :req.body.transportDestination                  
                 })
-                .then((res3)=>{
-                    transportTruckModel.create({
-                        transportName :req.body.transportName,
-                        transportTruck :req.body.transportTruck,
-                        ownerMobileNumber :req.body.ownerMobileNumber,
-                        driverMobileNumber :req.body.driverMobileNumber                      
-                    })
-                    .then((res4)=>{
-                        console.log(res4)
-                        res.redirect('/transportDetails')
-
-                    })
-                    .catch((err)=>
-                        console.log(err)
-                    )
+                .then((result) => {
+                    console.log(result);
                 })
-                .catch((err)=>
-                    console.log(err)
-                )
-            })
-            .catch((err)=>
-                console.log(err)
-            )
+                .catch((err) => 
+                {
+                    console.log(err);
+                });
+            }
+            res.redirect('/transportDetails')
         })
         .catch((err)=>
             console.log(err)
@@ -403,8 +488,13 @@ const postTransportTrucks =(req,res,next)=>{
         transportTruckModel.update({
             transportName: req.body.transportName,
             transportTruck: req.body.transportTruck,
+            ownerName: req.body.ownerName,
+            driverName: req.body.driverName,
             ownerMobileNumber: req.body.ownerMobileNumber,
-            driverMobileNumber: req.body.driverMobileNumber
+            driverMobileNumber: req.body.driverMobileNumber,
+            capacity: req.body.capacity,
+            ...(req.body.bodyType !== "null" && { bodyType: req.body.bodyType })
+
           },
           {
               where: {transportId: req.body.id}
@@ -420,30 +510,40 @@ const postTransportTrucks =(req,res,next)=>{
     }
     else
     {
-        const transportName = req.body.transportName;
-        const transportTruck = req.body.transportTruck;
-        const ownerMobileNumber = req.body.ownerMobileNumber;
-        const driverMobileNumber = req.body.driverMobileNumber;
-        transportTruckModel.create({
-            transportName :transportName,
-            transportTruck :transportTruck,
-            ownerMobileNumber :ownerMobileNumber,
-            driverMobileNumber :driverMobileNumber
-        })
-        .then((result)=>{
-            console.log(result),
-            transportTruckModel.findAll()
-            .then((data)=>{
-                console.log(data);
-                res.redirect('/transportTrucks')
-            })
-            .catch((err)=>
-                console.log(err)
-            )
-        })
-        .catch((err)=>
-            console.log(err)
+        const transportNames = req.body.transportName; // Assuming transportNames is an array of transport names
+
+        // Loop through each transport name and create a separate entry in the database
+        Promise.all(
+          transportNames.map(transportName => {
+            const transportTruck = req.body.transportTruck;
+            const ownerMobileNumber = req.body.ownerMobileNumber;
+            const driverMobileNumber = req.body.driverMobileNumber;
+            const ownerName = req.body.ownerName;
+            const driverName = req.body.driverName;
+            const bodyType = req.body.bodyType;
+            const capacity = req.body.capacity;
+            
+            return transportTruckModel.create({
+              transportName: transportName,
+              transportTruck: transportTruck,
+              ownerMobileNumber: ownerMobileNumber,
+              driverMobileNumber: driverMobileNumber,
+              ownerName: ownerName,
+              driverName: driverName,
+              bodyType: bodyType,
+              capacity: capacity
+            });
+          })
         )
+          .then(() => {
+            transportTruckModel.findAll()
+              .then(data => {
+                console.log(data);
+                res.redirect('/transportTrucks');
+              })
+              .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
     }
     
 }

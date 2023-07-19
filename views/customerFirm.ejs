@@ -183,7 +183,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link active">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
@@ -196,10 +195,15 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
-								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
-								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
-								<li class="nav-item"><a href="/customerFirm" class="nav-link active">Firms</a></li>
-								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+								<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+									<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Datatables</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
+										<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
+										<li class="nav-item"><a href="/customerFirm" class="nav-link active">Firms</a></li>
+										<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -218,7 +222,19 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/vendorFirm" class="nav-link">Firm</a></li>
+								<li class="nav-item"><a href="/vendorProduct" class="nav-link">Product</a></li>
 							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Employee</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="/contacts" class="nav-link"><i class="icon-copy"></i> <span>Contacts</span></a>
 						</li>
 					</ul>
 				</div>
@@ -288,11 +304,36 @@
 									<% for(var i=0; i<data.length; i++) {%>
 										<tr class="<%= data[i].customerId%>cust">
 											<%if(level==1) {%>
-												<td class="customerName"><%= data[i].customerName%></td>
-												<td class="firm"><%= data[i].firm%></td>
+												<td class="customerName">
+													
+													<% for (var a = 0; a < custData.length; a++) { %>
+														<% if (custData[a].customerId == data[i].customerName) { %>
+														  <%=custData[a].customerName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="firm">
+													<% for (var a = 0; a < firmData.length; a++) { %>
+														<% if (firmData[a].firmId == data[i].firm) { %>
+														  <%=firmData[a].firmName %>
+														<% } %>
+													<% } %>
+												</td>
 											<%} else if(level>2) {%>
-												<td class="customerName"><%= data[i].customerName%></td>
-												<td class="firm"><%= data[i].firm%></td>
+												<td class="customerName">
+													<% for (var a = 0; a < custData.length; a++) { %>
+														<% if (custData[a].customerId == data[i].customerName) { %>
+														  <%=custData[a].customerName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="firm">
+													<% for (var a = 0; a < firmData.length; a++) { %>
+														<% if (firmData[a].firmId == data[i].firm) { %>
+														  <%=firmData[a].firmName %>
+														<% } %>
+													<% } %>
+												</td>
 												<td>
 													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].customerId%>cust')">Edit</button>
 												</td>
@@ -300,8 +341,20 @@
 													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].customerId%>cust')" >Delete</button>
 												</td>
 											<%}else if(level>1){%>
-                                                <td class="customerName"><%= data[i].customerName%></td>
-												<td class="firm"><%= data[i].firm%></td>
+                                                <td class="customerName">
+													<% for (var a = 0; a < custData.length; a++) { %>
+														<% if (custData[a].customerId == data[i].customerName) { %>
+														  <%=custData[a].customerName %>
+														<% } %>
+													<% } %>
+												</td>
+												<td class="firm">
+													<% for (var a = 0; a < firmData.length; a++) { %>
+														<% if (firmData[a].firmId == data[i].firm) { %>
+														  <%=firmData[a].firmName %>
+														<% } %>
+													<% } %>
+												</td>
 												<td>
 													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].customerId%>cust')" >Edit</button>
 												</td>
@@ -333,7 +386,7 @@
 												            <select name="customerName" class="form-control customerName" id="customerName" required>
 																<option value="" disabled selected>-Select-</option>
 																<% for(var i=0; i<custData.length; i++) {%>
-																	<option value="<%=custData[i].customerName%>"><%=custData[i].customerName%></option>
+																	<option value="<%=custData[i].customerId%>"><%=custData[i].customerName%></option>
 																<% } %>
 															</select>
 											            </div>
@@ -342,7 +395,7 @@
 															<select name="firm" class="form-control firm" id="firm" required>
 																<option value="" disabled selected>-Select-</option>
 																<% for(var i=0; i<firmData.length; i++) {%>
-																	<option value="<%=firmData[i].firmName%>"><%=firmData[i].firmName%></option>
+																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
 																<% } %>
 															</select>
 											            </div>
@@ -496,8 +549,8 @@
 			console.log(result)
 			
 			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td><input type="text" value="'+customerName+'" class="form-control ecustomerName" name="ecustomerName" id="ecustomerName"></td> </tr> <tr> <td>firm</td> <td><input type="text" value="'+firm+'" class="form-control efirm" name="efirm" id="efirm"></td> </tr> </table> </div>'
-				
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td>customerName</td> <td><select id="ecustomerName" name="ecustomerName" class="form-control ecustomerName"> <option value="null" disabled selected>'+customerName+'</option> <% for(var i=0; i<custData.length; i++) {%> <option value="<%=custData[i].customerId%>"><%=custData[i].customerName%></option> <% } %> </select> </td> </tr> <tr> <td>firm</td> <td><select name="efirm" class="form-control efirm" id="efirm"> <option value="null" disabled selected>'+firm+'</option> <% for(var i=0; i<firmData.length; i++) {%> <option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option> <% } %> </select></td> </tr> </table> </div>'
+			
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")
 			document.getElementById("blast").innerHTML=tek;

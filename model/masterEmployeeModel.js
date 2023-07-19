@@ -15,16 +15,19 @@ const masterEmployeeModel = sequelize.define('master_employee',{
     designation: {
         type: Sequelize.STRING
     },
-    employeeCategories: {
+    dateOfJoining: {
+        type: Sequelize.STRING
+    },
+    dateOfLeaving: {
+        type: Sequelize.STRING
+    },
+    gender: {
         type: Sequelize.STRING
     },
     dateOfBirth: {
         type: Sequelize.STRING
     },
-    fatherName: {
-        type: Sequelize.STRING
-    },
-    motherName: {
+    bloodGroup: {
         type: Sequelize.STRING
     },
     address: {
@@ -33,8 +36,14 @@ const masterEmployeeModel = sequelize.define('master_employee',{
     primaryMobileNumber: {
         type: Sequelize.BIGINT
     },
-    officeMobileNumber: {
-        type: Sequelize.STRING,
+    emailId: {
+        type: Sequelize.STRING
+    },
+    fatherName: {
+        type: Sequelize.STRING
+    },
+    motherName: {
+        type: Sequelize.STRING
     },
     fatherMobileNumber: {
         type: Sequelize.STRING
@@ -48,15 +57,6 @@ const masterEmployeeModel = sequelize.define('master_employee',{
     spouseMobileNumber: {
         type: Sequelize.STRING
     },
-    emailId: {
-        type: Sequelize.STRING
-    },
-    officeEmailId: {
-        type: Sequelize.STRING
-    },
-    area: {
-        type: Sequelize.STRING
-    },
     bankName: {
         type: Sequelize.STRING
     },
@@ -64,9 +64,6 @@ const masterEmployeeModel = sequelize.define('master_employee',{
         type: Sequelize.STRING
     },
     ifscCode: {
-        type: Sequelize.STRING
-    },
-    dateOfJoining: {
         type: Sequelize.STRING
     },
     aadharNumber: {
@@ -79,9 +76,6 @@ const masterEmployeeModel = sequelize.define('master_employee',{
         type: Sequelize.STRING
     },
     referenceContactNumber: {
-        type: Sequelize.STRING
-    },
-    gender: {
         type: Sequelize.STRING
     },
     photo: {

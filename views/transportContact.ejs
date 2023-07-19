@@ -182,7 +182,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
@@ -195,10 +194,15 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
-								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
-								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
-								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
-								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+								<li class="nav-item nav-item-submenu ">
+									<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Datatables</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
+										<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
+										<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
+										<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
@@ -217,7 +221,19 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/vendorFirm" class="nav-link">Firm</a></li>
+								<li class="nav-item"><a href="/vendorProduct" class="nav-link">Product</a></li>
 							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Employee</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="/contacts" class="nav-link"><i class="icon-copy"></i> <span>Contacts</span></a>
 						</li>
 					</ul>
 				</div>
@@ -289,12 +305,24 @@
 									<% for(var i=0; i<data.length; i++) {%>
 										<tr  class="<%= data[i].transportId%>transport">
                                             <%if(level==1) {%>
-                                                <td class="transportName"><%= data[i].transportName%></td>
+                                                <td class="transportName">
+													<% for (var a = 0; a < transData.length; a++) { %>
+														<% if (transData[a].transportId == data[i].transportName) { %>
+														  <%=transData[a].transportName %>
+														<% } %>
+													<% } %>
+												</td>
 												<td class="designation"><%= data[i].designation%></td>
 												<td class="mobileNumber"><%= data[i].mobileNumber%></td>
 												<td class="email"><%= data[i].email%></td>
                                             <%} else if(level>2) {%>
-                                                <td class="transportName"><%= data[i].transportName%></td>
+                                                <td class="transportName">
+													<% for (var a = 0; a < transData.length; a++) { %>
+														<% if (transData[a].transportId == data[i].transportName) { %>
+														  <%=transData[a].transportName %>
+														<% } %>
+													<% } %>
+												</td>
                                                 <td class="designation"><%= data[i].designation%></td>
                                                 <td class="mobileNumber"><%= data[i].mobileNumber%></td>
                                                 <td class="email"><%= data[i].email%></td>
@@ -305,7 +333,13 @@
 													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" onclick="ddel('<%= data[i].transportId%>transport')">Delete</button>
                                                 </td>
                                             <%}else if(level>1){%>
-                                                <td class="transportName"><%= data[i].transportName%></td>
+                                                <td class="transportName">
+													<% for (var a = 0; a < transData.length; a++) { %>
+														<% if (transData[a].transportId == data[i].transportName) { %>
+														  <%=transData[a].transportName %>
+														<% } %>
+													<% } %>
+												</td>
                                                 <td class="designation"><%= data[i].designation%></td>
                                                 <td class="mobileNumber"><%= data[i].mobileNumber%></td>
                                                 <td class="email"><%= data[i].email%></td>
@@ -382,7 +416,7 @@
 															<select required name="transportName" class="form-control transportName" id="transportName">
                                                                 <option value="" disabled selected>-Select-</option>
                                                                 <% for(var i=0; i<transData.length; i++) {%>
-                                                                    <option value="<%=transData[i].transportName%>"><%=transData[i].transportName%></option>
+                                                                    <option value="<%=transData[i].transportId%>"><%=transData[i].transportName%></option>
                                                                 <% } %>
                                                             </select>
 											            </div>

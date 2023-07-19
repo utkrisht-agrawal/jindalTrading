@@ -179,13 +179,12 @@
 							</ul>
 						</li>
 
-						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
-							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Master</span></a>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
@@ -198,10 +197,15 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
-								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
-								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
-								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
-								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+								<li class="nav-item nav-item-submenu ">
+									<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Datatables</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
+										<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
+										<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
+										<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -220,7 +224,19 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/vendorFirm" class="nav-link">Firm</a></li>
+								<li class="nav-item"><a href="/vendorProduct" class="nav-link">Product</a></li>
 							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+							<a href="#" class="nav-link active"><i class="icon-copy"></i> <span>Employee</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterEmployee" class="nav-link active">MasterEmployee</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="/contacts" class="nav-link"><i class="icon-copy"></i> <span>Contacts</span></a>
 						</li>
 					</ul>
 				</div>
@@ -282,30 +298,28 @@
 									<thead>
 										<tr>
                                             <th>Employee-Name</th>
+                                            <th>Gender</th>
                                             <th>Designation</th>
-                                            <th>Employee-Categories</th>
+                                            <th>Date Of Joining</th>
+                                            <th>Date Of Leaving</th>
                                             <th>Date Of Birth</th>
-                                            <th>FatherName</th>
-                                            <th>MotherName</th>
+                                            <th>Blood Group</th>
                                             <th>Address</th>
-                                            <th>Primary Mobile Number</th>
-                                            <th>Office Mobile Number</th>
+                                            <th>Mobile Number</th>
+                                            <th>Email Id</th>
+                                            <th>FatherName</th>
                                             <th>Father Mobile Number</th>
+                                            <th>MotherName</th>
                                             <th>Mother Mobile Number</th>
                                             <th>Spouse Name</th>
                                             <th>Spouse Mobile Number</th>
-                                            <th>Email Id</th>
-                                            <th>Office Email Id</th>
-                                            <th>Area</th>
                                             <th>Bank Name</th>
                                             <th>Bank Account Number</th>
                                             <th>IFSC Code</th>
-                                            <th>Date Of Joining</th>
                                             <th>AadharNumber</th>
                                             <th>PanNumber</th>
                                             <th>Reference</th>
-                                            <th>Reference Contact Number</th>
-                                            <th>Gender</th>
+                                            <th>Reference Mobile Number</th>
                                             <th>Photo</th>
                                             <% if(level>2) {%>
                                                 <th>Edit</th>
@@ -321,57 +335,53 @@
 										<tr class="<%= data[i].employeeNumber%>employee">
                                             <%if(level==1) {%>
                                                 <td class="employeeName"><%= data[i].employeeName%></td>
+												<td class="gender"><%= data[i].gender%></td>
                                                 <td class="designation"><%= data[i].designation%></td>
-                                                <td class="employeeCategories"><%= data[i].employeeCategories%></td>
+                                                <td class="dateOfJoining"><%= data[i].dateOfJoining%></td>
+                                                <td class="dateOfLeaving"><%= data[i].dateOfLeaving%></td>
                                                 <td class="dateOfBirth"><%= data[i].dateOfBirth%></td>
-                                                <td class="fatherName"><%= data[i].fatherName%></td>
-                                                <td class="motherName"><%= data[i].motherName%></td>
+                                                <td class="bloodGroup"><%= data[i].bloodGroup%></td>
                                                 <td class="address"><%= data[i].address%></td>
                                                 <td class="primaryMobileNumber"><%= data[i].primaryMobileNumber%></td>
-                                                <td class="officeMobileNumber"><%= data[i].officeMobileNumber%></td>
+                                                <td class="emailId"><%= data[i].emailId%></td>
+                                                <td class="fatherName"><%= data[i].fatherName%></td>
                                                 <td class="fatherMobileNumber"><%= data[i].fatherMobileNumber%></td>
+                                                <td class="motherName"><%= data[i].motherName%></td>
                                                 <td class="motherMobileNumber"><%= data[i].motherMobileNumber%></td>
                                                 <td class="spouseName"><%= data[i].spouseName%></td>
                                                 <td class="spouseMobileNumber"><%= data[i].spouseMobileNumber%></td>
-                                                <td class="emailId"><%= data[i].emailId%></td>
-                                                <td class="officeEmailId"><%= data[i].officeEmailId%></td>
-                                                <td class="area"><%= data[i].area%></td>
                                                 <td class="bankName"><%= data[i].bankName%></td>
                                                 <td class="bankAccountNumber"><%= data[i].bankAccountNumber%></td>
                                                 <td class="ifscCode"><%= data[i].ifscCode%></td>
-                                                <td class="dateOfJoining"><%= data[i].dateOfJoining%></td>
                                                 <td class="aadharNumber"><%= data[i].aadharNumber%></td>
                                                 <td class="panNumber"><%= data[i].panNumber%></td>
                                                 <td class="reference"><%= data[i].reference%></td>
                                                 <td class="referenceContactNumber"><%= data[i].referenceContactNumber%></td>
-                                                <td class="gender"><%= data[i].gender%></td>
                                                 <td class="photo"><img width="100px" src="/<%= data[i].photo%>" alt="<%= data[i].employeeName%>"></td>
                                             <%} else if(level>2) {%>
-                                                <td class="employeeName"><%= data[i].employeeName%></td>
+												<td class="employeeName"><%= data[i].employeeName%></td>
+												<td class="gender"><%= data[i].gender%></td>
                                                 <td class="designation"><%= data[i].designation%></td>
-                                                <td class="employeeCategories"><%= data[i].employeeCategories%></td>
+                                                <td class="dateOfJoining"><%= data[i].dateOfJoining%></td>
+                                                <td class="dateOfLeaving"><%= data[i].dateOfLeaving%></td>
                                                 <td class="dateOfBirth"><%= data[i].dateOfBirth%></td>
-                                                <td class="fatherName"><%= data[i].fatherName%></td>
-                                                <td class="motherName"><%= data[i].motherName%></td>
+                                                <td class="bloodGroup"><%= data[i].bloodGroup%></td>
                                                 <td class="address"><%= data[i].address%></td>
                                                 <td class="primaryMobileNumber"><%= data[i].primaryMobileNumber%></td>
-                                                <td class="officeMobileNumber"><%= data[i].officeMobileNumber%></td>
+                                                <td class="emailId"><%= data[i].emailId%></td>
+                                                <td class="fatherName"><%= data[i].fatherName%></td>
                                                 <td class="fatherMobileNumber"><%= data[i].fatherMobileNumber%></td>
+                                                <td class="motherName"><%= data[i].motherName%></td>
                                                 <td class="motherMobileNumber"><%= data[i].motherMobileNumber%></td>
                                                 <td class="spouseName"><%= data[i].spouseName%></td>
                                                 <td class="spouseMobileNumber"><%= data[i].spouseMobileNumber%></td>
-                                                <td class="emailId"><%= data[i].emailId%></td>
-                                                <td class="officeEmailId"><%= data[i].officeEmailId%></td>
-                                                <td class="area"><%= data[i].area%></td>
                                                 <td class="bankName"><%= data[i].bankName%></td>
                                                 <td class="bankAccountNumber"><%= data[i].bankAccountNumber%></td>
                                                 <td class="ifscCode"><%= data[i].ifscCode%></td>
-                                                <td class="dateOfJoining"><%= data[i].dateOfJoining%></td>
                                                 <td class="aadharNumber"><%= data[i].aadharNumber%></td>
                                                 <td class="panNumber"><%= data[i].panNumber%></td>
                                                 <td class="reference"><%= data[i].reference%></td>
                                                 <td class="referenceContactNumber"><%= data[i].referenceContactNumber%></td>
-                                                <td class="gender"><%= data[i].gender%></td>
                                                 <td class="photo"><img width="100px" src="/<%= data[i].photo%>" alt="<%= data[i].employeeName%>"></td>
                                                 <td>
                                                     <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].employeeNumber%>employee')" >Edit</button>
@@ -381,30 +391,28 @@
                                                 </td>
                                             <%}else if(level>1){%>
                                                 <td class="employeeName"><%= data[i].employeeName%></td>
+												<td class="gender"><%= data[i].gender%></td>
                                                 <td class="designation"><%= data[i].designation%></td>
-                                                <td class="employeeCategories"><%= data[i].employeeCategories%></td>
+                                                <td class="dateOfJoining"><%= data[i].dateOfJoining%></td>
+                                                <td class="dateOfLeaving"><%= data[i].dateOfLeaving%></td>
                                                 <td class="dateOfBirth"><%= data[i].dateOfBirth%></td>
-                                                <td class="fatherName"><%= data[i].fatherName%></td>
-                                                <td class="motherName"><%= data[i].motherName%></td>
+                                                <td class="bloodGroup"><%= data[i].bloodGroup%></td>
                                                 <td class="address"><%= data[i].address%></td>
                                                 <td class="primaryMobileNumber"><%= data[i].primaryMobileNumber%></td>
-                                                <td class="officeMobileNumber"><%= data[i].officeMobileNumber%></td>
+                                                <td class="emailId"><%= data[i].emailId%></td>
+                                                <td class="fatherName"><%= data[i].fatherName%></td>
                                                 <td class="fatherMobileNumber"><%= data[i].fatherMobileNumber%></td>
+                                                <td class="motherName"><%= data[i].motherName%></td>
                                                 <td class="motherMobileNumber"><%= data[i].motherMobileNumber%></td>
                                                 <td class="spouseName"><%= data[i].spouseName%></td>
                                                 <td class="spouseMobileNumber"><%= data[i].spouseMobileNumber%></td>
-                                                <td class="emailId"><%= data[i].emailId%></td>
-                                                <td class="officeEmailId"><%= data[i].officeEmailId%></td>
-                                                <td class="area"><%= data[i].area%></td>
                                                 <td class="bankName"><%= data[i].bankName%></td>
                                                 <td class="bankAccountNumber"><%= data[i].bankAccountNumber%></td>
                                                 <td class="ifscCode"><%= data[i].ifscCode%></td>
-                                                <td class="dateOfJoining"><%= data[i].dateOfJoining%></td>
                                                 <td class="aadharNumber"><%= data[i].aadharNumber%></td>
                                                 <td class="panNumber"><%= data[i].panNumber%></td>
                                                 <td class="reference"><%= data[i].reference%></td>
                                                 <td class="referenceContactNumber"><%= data[i].referenceContactNumber%></td>
-                                                <td class="gender"><%= data[i].gender%></td>
                                                 <td class="photo"><img width="100px" src="/<%= data[i].photo%>" alt="<%= data[i].employeeName%>"></td>
                                                 <td>
                                                     <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].employeeNumber%>employee')">Edit</button>
@@ -541,75 +549,123 @@
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-12">
+											            <div class="col-sm-8">
 												            <label>Employee Name<span class="text-danger">*</span></label>
 												            <input type="text" class="form-control employeeName" name="employeeName" id="employeeName" required>
 											            </div>
                                                         
+														
 											            
-
+														<div class="col-sm-4">
+												            <label>Gender<span class="text-danger">*</span></label>
+												            <select type="text" class="form-control gender" name="gender" id="gender" required>
+																<option value="" disabled selected>-Select-</option>
+																<option value="Male">Male</option>
+																<option value="Female" >Female</option>
+															</select>
+											            </div>
 										            </div>
 									            </div>
+												<div class="form-group">
+										            <div class="row">
+													</div>
+									            </div>
                                                 
+												<legend class="font-weight-semibold">Employment Details</legend>
 									            <div class="form-group">
 										            <div class="row">
-                                                        <div class="col-sm-4">
-												            <label>Designation<span class="text-danger">*</span></label>
-												            <input type="text" class="form-control designation" name="designation" id="designation" required>
-											            </div>
+														<div class="col-sm-4">
+															<label>Designation<span class="text-danger">*</span></label>
+															<input type="text" class="form-control designation" name="designation" id="designation" required>
+														</div>
 
 											            <div class="col-sm-4">
-												            <label>Employee Categories<span class="text-danger">*</span></label>
-												            <input type="text" class="form-control employeeCategories" name="employeeCategories" id="employeeCategories" required>
+												            <label>Date Of Joining<span class="text-danger">*</span></label>
+												            <input type="date" class="form-control dateOfJoining" name="dateOfJoining" id="dateOfJoining" required>
 											            </div>
+														
 											            <div class="col-sm-4">
+												            <label>Date Of Leaving</label>
+												            <input type="date" class="form-control dateOfLeaving" name="dateOfLeaving" id="dateOfLeaving" >
+											            </div>
+											            
+										            </div>
+									            </div>
+
+												<div class="form-group">
+										            <div class="row">
+													</div>
+									            </div>
+                                                
+												<legend class="font-weight-semibold">Personal Information</legend>
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
 												            <label>Date Of Birth<span class="text-danger">*</span></label>
 												            <input type="date" class="form-control dateOfBirth" name="dateOfBirth" id="dateOfBirth" required>
 											            </div>
-										            </div>
-									            </div>
 
-									            <div class="form-group">
-										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>Father Name</label>
-												            <input type="text"  class="form-control fatherName" name="fatherName" id="fatherName">
-											            </div>
-											            <div class="col-sm-6">
-												            <label>Mother Name</label>
-												            <input type="text" class="form-control motherName" name="motherName" id="motherName">
+												            <label>Blood Group</label>
+												            <input type="text" class="form-control bloodGroup" name="bloodGroup" id="bloodGroup" >
 											            </div>
 										            </div>
 									            </div>
-
-									            <div class="form-group">
+												<div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-12">
-												            <label>Address<span class="text-danger">*</span></label>
+													</div>
+									            </div>
+
+												<legend class="font-weight-semibold">Contact Details</legend>
+									            <div class="form-group">
+													<div class="row">
+														<div class="col-sm-12">
+															<label>Address<span class="text-danger">*</span></label>
 												            <input type="text" required class="form-control address" name="address" id="address">
 											            </div>
 										            </div>
 									            </div>
-
+												
 									            <div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>Primary Mobile Number<span class="text-danger">*</span></label>
-												            <input type="tel" class="form-control primaryMobileNumber" placeholder="10-digit-format" pattern="[0-9]{10}" name="primaryMobileNumber" required id="primaryMobileNumber">
-											            </div>
-											            <div class="col-sm-6">
-												            <label>Office Mobile Number</label>
-												            <input type="number" placeholder="10-digit-format" pattern="[0-9]{10}"  class="form-control officeMobileNumber" name="officeMobileNumber" id="officeMobileNumber">
-											            </div>
+											            
+														<div class="col-sm-6">
+															<label>Email Id<span class="text-danger">*</span></label>
+															<input type="email" placeholder="email" required class="form-control emailId" name="emailId" id="emailId">
+														</div>
+
+														<div class="col-sm-6">
+															<label>Primary Mobile Number<span class="text-danger">*</span></label>
+															<input type="tel" class="form-control primaryMobileNumber" placeholder="10-digit-format" pattern="[0-9]{10}" name="primaryMobileNumber" required id="primaryMobileNumber">
+														</div>
 										            </div>
 									            </div>
-
-									            <div class="form-group">
+												<div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-6">
+													</div>
+									            </div>
+
+												<legend class="font-weight-semibold">Family Details</legend>
+												<div class="form-group">
+													<div class="row">
+														<div class="col-sm-6">
+															<label>Father Name</label>
+															<input type="text"  class="form-control fatherName" name="fatherName" id="fatherName">
+														</div>
+														<div class="col-sm-6">
 												            <label>Father Mobile Number</label>
 												            <input type="tel" class="form-control fatherMobileNumber" name="fatherMobileNumber" id="fatherMobileNumber" placeholder="10-digit-format" pattern="[0-9]{10}">
 											            </div>
+														
+													</div>
+												</div>
+
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+															<label>Mother Name</label>
+															<input type="text" class="form-control motherName" name="motherName" id="motherName">
+														</div>
 											            <div class="col-sm-6">
 												            <label>Mother Mobile Number</label>
 												            <input type="tel" class="form-control motherMobileNumber" name="motherMobileNumber" id="motherMobileNumber" placeholder="10-digit-format" pattern="[0-9]{10}">
@@ -630,86 +686,64 @@
 										            </div>
 									            </div>
 
+												<legend class="font-weight-semibold">Bank Details</legend>
 									            <div class="form-group">
 										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>Email Id<span class="text-danger">*</span></label>
-												            <input type="email" placeholder="email" required class="form-control emailId" name="emailId" id="emailId">
-											            </div>
-											            <div class="col-sm-6">
-												            <label>Office Email Id</label>
-												            <input type="email" placeholder="email" class="form-control officeEmailId" name="officeEmailId" id="officeEmailId">
-											            </div>
-										            </div>
-									            </div>
-									            <div class="form-group">
-										            <div class="row">
-											            <div class="col-sm-6">
-												            <label>Area<span class="text-danger">*</span></label>
-												            <select id="area" name="area" required class="area form-control" id="area">
-                                                                <option value="" disabled selected>-Select-</option>
-                                                                <% for(var i=0; i<areaData.length; i++) {%>
-                                                                    <option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
-                                                                <% } %>
-                                                            </select>
-											            </div>
-											            <div class="col-sm-6">
+											            <div class="col-sm-4">
 												            <label>Bank Name<span class="text-danger">*</span></label>
 												            <input type="text" placeholder="Bank" required class="form-control bankName" name="bankName" id="bankName">
 											            </div>
-										            </div>
-									            </div>
-									            <div class="form-group">
-										            <div class="row">
-                                                        <div class="col-sm-6">
+														<div class="col-sm-4">
                                                             <label>Bank Account Number<span class="text-danger">*</span></label>
                                                             <input type="number" placeholder="11/12/14-digit-format" min="999999999" max="99999999999999" class="form-control bankAccountNumber" name="bankAccountNumber" required id="bankAccountNumber">
                                                         </div>
-											            <div class="col-sm-6">
+											            <div class="col-sm-4">
 												            <label>Ifsc Code<span class="text-danger">*</span></label>
 												            <input type="text" required class="form-control ifscCode" name="ifscCode" placeholder="IFSC" id="ifscCode">
 											            </div>
 										            </div>
 									            </div>
+												<div class="form-group">
+										            <div class="row">
+													</div>
+									            </div>
+
+												<legend class="font-weight-semibold">Identification Details</legend>
 									            <div class="form-group">
 										            <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <label>Date Of Joining</label>
-                                                            <input type="date" class="form-control dateOfJoining" name="dateOfJoining" id="dateOfJoining">
-                                                        </div>
-											            <div class="col-sm-4">
+											            <div class="col-sm-6">
 												            <label>Aadhar Number<span class="text-danger">*</span></label>
 												            <input type="number" required class="form-control aadharNumber" placeholder="12-digit-format" pattern="[0-9]{12}" name="aadharNumber" id="aadharNumber">
 											            </div>
-											            <div class="col-sm-4">
+											            <div class="col-sm-6">
 												            <label>Pan Number<span class="text-danger">*</span></label>
 												            <input type="text" required class="form-control panNumber" name="panNumber" id="panNumber">
 											            </div>
 										            </div>
 									            </div>
-									            <div class="form-group">
+												<div class="form-group">
 										            <div class="row">
-                                                        <div class="col-sm-6">
+													</div>
+									            </div>
+
+												<legend class="font-weight-semibold">Reference Details</legend>
+									            <div class="form-group">
+													<div class="row">
+														<div class="col-sm-6">
                                                             <label>Reference Name</label>
                                                             <input type="text" class="form-control reference" name="reference" id="reference">
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <label>Reference Contact Number</label>
+															<label>Reference Moblie Number</label>
                                                             <input type="text" class="form-control referenceContactNumber" name="referenceContactNumber" id="referenceContactNumber">
                                                         </div>
-											           
+														
 										            </div>
 									            </div>
+												<legend class="font-weight-semibold">Photo Attachment</legend>
 									            <div class="form-group">
 										            <div class="row">
-														<div class="col-sm-6">
-												            <label>Gender</label>
-												            <select type="text" class="form-control gender" name="gender" id="gender">
-																<option value="" disabled selected>-Select-</option>
-																<option value="Male">Male</option>
-																<option value="Female" >Female</option>
-															</select>
-											            </div>
+														
 											            <div class="col-sm-6">
 												            <label>Attach Photo :</label>
 															<input type="file" class="form-input-styled photo" name="photo" id="photo" data-fouc>
@@ -892,7 +926,7 @@
 			console.log(result)
 			
 			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >employeeName</td> <td><input type="text" value="'+employeeName+'" class="form-control eemployeeName" name="eemployeeName" id="eemployeeName"></td> </tr> <tr> <td>designation</td> <td><input type="text" value="'+designation+'" class="form-control edesignation" name="edesignation" id="edesignation"></td> </tr> <tr> <td>employeeCategories</td> <td><input type="tel" value="'+employeeCategories+'" class="form-control eemployeeCategories" name="eemployeeCategories" id="eemployeeCategories"></td> </tr> <tr> <td>dateOfBirth</td> <td><input type="tel" value="'+dateOfBirth+'" class="form-control edateOfBirth" name="edateOfBirth" id="edateOfBirth"></td> </tr> <tr> <td>fatherName</td> <td><input type="tel" value="'+fatherName+'" class="form-control efatherName" name="efatherName" id="efatherName"></td> </tr>  <tr> <td>motherName</td> <td><input type="tel" value="'+motherName+'" class="form-control emotherName" name="emotherName" id="emotherName"></td> </tr>  <tr> <td>address</td> <td><input type="tel" value="'+address+'" class="form-control eaddress" name="eaddress" id="eaddress"></td> </tr>  <tr> <td>primaryMobileNumber</td> <td><input type="tel" value="'+primaryMobileNumber+'" class="form-control eprimaryMobileNumber" name="eprimaryMobileNumber" id="eprimaryMobileNumber"></td> </tr>  <tr> <td>officeMobileNumber</td> <td><input type="tel" value="'+officeMobileNumber+'" class="form-control eofficeMobileNumber" name="eofficeMobileNumber" id="eofficeMobileNumber"></td> </tr>  <tr> <td>fatherMobileNumber</td> <td><input type="tel" value="'+fatherMobileNumber+'" class="form-control efatherMobileNumber" name="efatherMobileNumber" id="efatherMobileNumber"></td> </tr>  <tr> <td>motherMobileNumber</td> <td><input type="tel" value="'+motherMobileNumber+'" class="form-control emotherMobileNumber" name="emotherMobileNumber" id="emotherMobileNumber"></td> </tr>  <tr> <td>spouseName</td> <td><input type="tel" value="'+spouseName+'" class="form-control espouseName" name="espouseName" id="espouseName"></td> </tr>  <tr> <td>spouseMobileNumber</td> <td><input type="tel" value="'+spouseMobileNumber+'" class="form-control espouseMobileNumber" name="espouseMobileNumber" id="espouseMobileNumber"></td> </tr>  <tr> <td>officeEmailId</td> <td><input type="tel" value="'+officeEmailId+'" class="form-control eofficeEmailId" name="eofficeEmailId" id="eofficeEmailId"></td> </tr>  <tr> <td>area</td> <td><input type="tel" value="'+area+'" class="form-control earea" name="earea" id="earea"></td> </tr>  <tr> <td>bankName</td> <td><input type="tel" value="'+bankName+'" class="form-control ebankName" name="ebankName" id="ebankName"></td> </tr>  <tr> <td>bankAccountNumber</td> <td><input type="tel" value="'+bankAccountNumber+'" class="form-control ebankAccountNumber" name="ebankAccountNumber" id="ebankAccountNumber"></td> </tr>  <tr> <td>ifscCode</td> <td><input type="tel" value="'+ifscCode+'" class="form-control eifscCode" name="eifscCode" id="eifscCode"></td> </tr>  <tr> <td>dateOfJoining</td> <td><input type="tel" value="'+dateOfJoining+'" class="form-control edateOfJoining" name="edateOfJoining" id="edateOfJoining"></td> </tr>  <tr> <td>aadharNumber</td> <td><input type="tel" value="'+aadharNumber+'" class="form-control eaadharNumber" name="eaadharNumber" id="eaadharNumber"></td> </tr>  <tr> <td>panNumber</td> <td><input type="tel" value="'+panNumber+'" class="form-control epanNumber" name="epanNumber" id="epanNumber"></td> </tr>  <tr> <td>reference</td> <td><input type="tel" value="'+reference+'" class="form-control ereference" name="ereference" id="ereference"></td> </tr> <tr> <td>referenceContactNumber</td> <td><input type="tel" value="'+referenceContactNumber+'" class="form-control ereferenceContactNumber" name="ereferenceContactNumber" id="ereferenceContactNumber"></td> </tr> <tr> <td>gender</td> <td><input type="tel" value="'+gender+'" class="form-control egender" name="egender" id="egender"></td> </tr>   <tr> </table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >employeeName</td> <td><input type="text" value="'+employeeName+'" class="form-control eemployeeName" name="eemployeeName" id="eemployeeName"></td> </tr> <tr> <td>designation</td> <td><input type="text" value="'+designation+'" class="form-control edesignation" name="edesignation" id="edesignation"></td> </tr> <tr> <td>employeeCategories</td> <td><input type="tel" value="'+employeeCategories+'" class="form-control eemployeeCategories" name="eemployeeCategories" id="eemployeeCategories"></td> </tr> <tr> <td>dateOfBirth</td> <td><input type="tel" value="'+dateOfBirth+'" class="form-control edateOfBirth" name="edateOfBirth" id="edateOfBirth"></td> </tr> <tr> <td>fatherName</td> <td><input type="tel" value="'+fatherName+'" class="form-control efatherName" name="efatherName" id="efatherName"></td> </tr>  <tr> <td>motherName</td> <td><input type="tel" value="'+motherName+'" class="form-control emotherName" name="emotherName" id="emotherName"></td> </tr>  <tr> <td>address</td> <td><input type="tel" value="'+address+'" class="form-control eaddress" name="eaddress" id="eaddress"></td> </tr>  <tr> <td>primaryMobileNumber</td> <td><input type="tel" value="'+primaryMobileNumber+'" class="form-control eprimaryMobileNumber" name="eprimaryMobileNumber" id="eprimaryMobileNumber"></td> </tr>  <tr> <td>officeMobileNumber</td> <td><input type="tel" value="'+officeMobileNumber+'" class="form-control eofficeMobileNumber" name="eofficeMobileNumber" id="eofficeMobileNumber"></td> </tr>  <tr> <td>fatherMobileNumber</td> <td><input type="tel" value="'+fatherMobileNumber+'" class="form-control efatherMobileNumber" name="efatherMobileNumber" id="efatherMobileNumber"></td> </tr>  <tr> <td>motherMobileNumber</td> <td><input type="tel" value="'+motherMobileNumber+'" class="form-control emotherMobileNumber" name="emotherMobileNumber" id="emotherMobileNumber"></td> </tr>  <tr> <td>spouseName</td> <td><input type="tel" value="'+spouseName+'" class="form-control espouseName" name="espouseName" id="espouseName"></td> </tr>  <tr> <td>spouseMobileNumber</td> <td><input type="tel" value="'+spouseMobileNumber+'" class="form-control espouseMobileNumber" name="espouseMobileNumber" id="espouseMobileNumber"></td> </tr>  <tr> <td>officeEmailId</td> <td><input type="tel" value="'+officeEmailId+'" class="form-control eofficeEmailId" name="eofficeEmailId" id="eofficeEmailId"></td> </tr>  <tr> <td>area</td> <td> <select id="earea" name="earea" class="earea form-control"> <option value="null" disabled selected>'+area+'</option> <% for(var i=0; i<areaData.length; i++) {%> <option value="<%=areaData[i].areaId%>"><%=areaData[i].area%></option> <% } %> </select></td> </tr>  <tr> <td>bankName</td> <td><input type="tel" value="'+bankName+'" class="form-control ebankName" name="ebankName" id="ebankName"></td> </tr>  <tr> <td>bankAccountNumber</td> <td><input type="tel" value="'+bankAccountNumber+'" class="form-control ebankAccountNumber" name="ebankAccountNumber" id="ebankAccountNumber"></td> </tr>  <tr> <td>ifscCode</td> <td><input type="tel" value="'+ifscCode+'" class="form-control eifscCode" name="eifscCode" id="eifscCode"></td> </tr>  <tr> <td>dateOfJoining</td> <td><input type="tel" value="'+dateOfJoining+'" class="form-control edateOfJoining" name="edateOfJoining" id="edateOfJoining"></td> </tr>  <tr> <td>aadharNumber</td> <td><input type="tel" value="'+aadharNumber+'" class="form-control eaadharNumber" name="eaadharNumber" id="eaadharNumber"></td> </tr>  <tr> <td>panNumber</td> <td><input type="tel" value="'+panNumber+'" class="form-control epanNumber" name="epanNumber" id="epanNumber"></td> </tr>  <tr> <td>reference</td> <td><input type="tel" value="'+reference+'" class="form-control ereference" name="ereference" id="ereference"></td> </tr> <tr> <td>referenceContactNumber</td> <td><input type="tel" value="'+referenceContactNumber+'" class="form-control ereferenceContactNumber" name="ereferenceContactNumber" id="ereferenceContactNumber"></td> </tr> <tr> <td>gender</td> <td><input type="tel" value="'+gender+'" class="form-control egender" name="egender" id="egender"></td> </tr>   <tr> </table> </div>'
 				
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")

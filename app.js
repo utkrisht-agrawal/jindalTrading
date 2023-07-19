@@ -42,6 +42,7 @@ const customerRoutes = require('./routes/customerRoutes');
 const transportRoutes = require('./routes/transportRoutes');
 const vendorRoutes = require('./routes/vendorRoutes');
 const marketPlanRoutes = require('./routes/marketPlanRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 
 app.use(multer({ storage : fileStorage,fileFilter: fileFilter}).single('photo'))
@@ -52,6 +53,7 @@ app.use(customerRoutes);
 app.use(transportRoutes);
 app.use(vendorRoutes);
 app.use(marketPlanRoutes);
+app.use(contactRoutes);
 
 app.use('/',(req,res,next)=>{
     console.log(req.session);

@@ -41,7 +41,9 @@ var DatatableBasic = function() {
         });
 
         // Basic datatable
-        $('.datatable-basic').DataTable();
+        $('.datatable-basic').DataTable({
+            stateSave:true
+        });
 
         // Alternative pagination
         $('.datatable-pagination').DataTable({

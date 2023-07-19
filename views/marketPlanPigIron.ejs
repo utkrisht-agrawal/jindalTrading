@@ -183,7 +183,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
@@ -196,10 +195,15 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
-								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
-								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
-								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
-								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+								<li class="nav-item nav-item-submenu ">
+									<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Datatables</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
+										<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
+										<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
+										<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -218,7 +222,19 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link">MasterVendors</a></li>
 								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/vendorFirm" class="nav-link">Firm</a></li>
+								<li class="nav-item"><a href="/vendorProduct" class="nav-link">Product</a></li>
 							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Employee</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="/contacts" class="nav-link"><i class="icon-copy"></i> <span>Contacts</span></a>
 						</li>
 					</ul>
 				</div>
@@ -528,7 +544,8 @@
 												            <label>Area</label>
 															<select id="areaFilter" onchange="populateCustomers()"  name="areaFilter" class="form-control areaFilter">
 																<option value="" disabled selected>-Select-</option>
-																<% let dataValuesnewArea = custdata.reduce((acc, curr) => {
+																<% 
+																	let dataValuesnewArea = custdata.reduce((acc, curr) => {
 																	if (curr.area && !acc.includes(curr.area)) {
 																	acc.push(curr.area);
 																	}
@@ -536,7 +553,13 @@
 																}, []); %>
 																<%console.log(dataValuesnewArea)%>
 																<% dataValuesnewArea.forEach(function(value) { %>
-																	<option value="<%= value %>"><%= value %></option>
+																	<option value="<%=value%>">
+																		<% for (var a = 0; a < areaData.length; a++) { %>
+																			<% if (areaData[a].areaId == value) { %>
+																			  <%=areaData[a].area %>
+																			<% } %>
+																		  <% } %>
+																	</option>
 																<% }); %>
                                                                 
                                                             </select>
@@ -559,7 +582,6 @@
 											            </div>
 
 														<div class="col-sm-6">
-															
 															<label>Category-Product<span class="text-danger">*</span></label>
 															<select name="categoryProduct" required class="form-control categoryProduct" id="categoryProduct">
 																<option value="" disabled selected>-Select-</option>
@@ -626,6 +648,7 @@
 <script>
 	var customerData = <%- JSON.stringify(custdata) %>;
 	var custprodData = <%- JSON.stringify(custProdData) %>;
+	var productData = <%- JSON.stringify(productData) %>;
 	function populateCustomers()
 	{
 		var areaDropdown = document.getElementById('areaFilter');
@@ -660,15 +683,32 @@
 	{
      	var customerDropdown = document.getElementById('customerName');
      	var productDropdown = document.getElementById('categoryProduct');
-      	var selectedCustomer = customerDropdown.value;
 		productDropdown.innerHTML = '';
+      	var selectedCustomer = customerDropdown.value;
 		console.log(selectedCustomer)
+		for (var a = 0; a < customerData.length; a++) {
+			if (customerData[a].customerName == selectedCustomer) { 
+				var selectedCustomerId=customerData[a].customerId
+			} 
+		} 
 
+		console.log(selectedCustomerId)
+		console.log("aaaaaaaaaaaaaaaaaaaaaaaaa")
 
-		var filteredProducts = custprodData.filter(function(product) {
-			return product.customerName === selectedCustomer;
-		});
-		console.log(filteredProducts)
+		var selectedProducts=[];
+		for (var a = 0; a < custprodData.length; a++) {
+			if (custprodData[a].customerName == selectedCustomerId) { 
+				selectedProducts.push(custprodData[a].product)
+			} 
+		} 
+		console.log(selectedProducts)
+
+		var filteredProducts=[]
+		for (var a = 0; a < productData.length; a++) {
+			if (productData[a].customerName == selectedCustomerId) { 
+				selectedProducts.push(productData[a].product)
+			} 
+		} 
 
 		var option = document.createElement('option');
 		option.text = "-Select-";

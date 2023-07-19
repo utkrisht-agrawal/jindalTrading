@@ -182,7 +182,6 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterArea" class="nav-link">MasterArea</a></li>
 								<li class="nav-item"><a href="/masterCategories" class="nav-link">MasterCategories</a></li>
-								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
 								<li class="nav-item"><a href="/masterGrade" class="nav-link">MasterGrade</a></li>
 								<li class="nav-item"><a href="/masterProducts" class="nav-link">MasterProducts</a></li>
 								<li class="nav-item"><a href="/masterProductGroup" class="nav-link">MasterProductGroup</a></li>
@@ -195,10 +194,15 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterCustomer" class="nav-link">MasterCustomer</a></li>
 								<li class="nav-item"><a href="/masterFirm" class="nav-link">MasterFirm</a></li>
-								<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
-								<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
-								<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
-								<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+								<li class="nav-item nav-item-submenu ">
+									<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Datatables</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="/customerContact" class="nav-link">Contact</a></li>
+										<li class="nav-item"><a href="/customerCategory" class="nav-link">Categories</a></li>
+										<li class="nav-item"><a href="/customerFirm" class="nav-link">Firms</a></li>
+										<li class="nav-item"><a href="/customerProduct" class="nav-link">Products</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
@@ -217,7 +221,19 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="/masterVendors" class="nav-link active">MasterVendors</a></li>
 								<li class="nav-item"><a href="/vendorContacts" class="nav-link">Contacts</a></li>
+								<li class="nav-item"><a href="/vendorFirm" class="nav-link">Firm</a></li>
+								<li class="nav-item"><a href="/vendorProduct" class="nav-link">Product</a></li>
 							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Employee</span></a>
+							
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="/masterEmployee" class="nav-link">MasterEmployee</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="/contacts" class="nav-link"><i class="icon-copy"></i> <span>Contacts</span></a>
 						</li>
 					</ul>
 				</div>
@@ -296,11 +312,23 @@
                                             <%if(level==1) {%>
                                                 <td class="vendorName"><%= data[i].vendorName%></td>
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
-												<td class="vendorArea"><%= data[i].area%></td>
+												<td class="vendorArea">
+													<% for (var a = 0; a < areaData.length; a++) { %>
+														<% if (areaData[a].areaId == data[i].area) { %>
+														  <%=areaData[a].area %>
+														<% } %>
+												  <% } %>
+												</td>
                                             <%} else if(level>2) {%>
                                                 <td class="vendorName"><%= data[i].vendorName%></td>
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
-                                                <td class="vendorArea"><%= data[i].area%></td>
+                                                <td class="vendorArea">
+													<% for (var a = 0; a < areaData.length; a++) { %>
+														<% if (areaData[a].areaId == data[i].area) { %>
+														  <%=areaData[a].area %>
+														<% } %>
+												  <% } %>
+												</td>
                                                 <td>
                                                     <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].vendorId%>vendor')">Edit</button>
                                                 </td>
@@ -310,7 +338,13 @@
                                             <%}else if(level>1){%>
                                                 <td class="vendorName"><%= data[i].vendorName%></td>
                                                 <td class="vendorAddress"><%= data[i].vendorAddress%></td>
-                                                <td class="vendorArea"><%= data[i].area%></td>
+                                                <td class="vendorArea">
+													<% for (var a = 0; a < areaData.length; a++) { %>
+														<% if (areaData[a].areaId == data[i].area) { %>
+														  <%=areaData[a].area %>
+														<% } %>
+												  <% } %>
+												</td>
                                                 <td>
                                                     <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%= data[i].vendorId%>vendor')">Edit</button>
                                                 </td>
@@ -376,33 +410,65 @@
 												            <input type="text" placeholder="address" class="form-control vendorAddress" name="vendorAddress" id="vendorAddress" required>
 											            </div>
 											            <div class="col-sm-4">
-															<label>Area<span class="text-danger">*</span></label>
-												            <select id="area" name="area" class="form-control area" id="area" required>
+															<label>Area</label>
+												            <select id="area" name="area" class="form-control area" id="area" >
 																<option value="" disabled selected>-Select-</option>
-                                                                <% for(var i=0; i<areaData.length; i++) {%>
-                                                                    <option value="<%=areaData[i].area%>"><%=areaData[i].area%></option>
-																	<% } %>
+																<% for(var i=0; i<areaData.length; i++) {%>
+																	<option value="<%=areaData[i].areaId%>"><%=areaData[i].area%></option>
+																<% } %>
 															</select>
 														</div>
 													</div>
 												</div>
+
 												<div class="form-group">
 													<div class="row">
-														<div class="col-sm-4">
-															<label>Designation<span class="text-danger">*</span></label>
-															<input required type="text" class="form-control designation" name="designation" id="designation">
+														<div class="col-sm-6">
+															<label>Products</label>
+															<select name="productFil" class="form-control multiselect-filtering productFil" id="productFil" multiple="multiple" data-fouc>
+																<% for(var i=0; i<productData.length; i++) {%>
+																	<option value="<%=productData[i].productId%>"><%=productData[i].productName%></option>
+																<% } %>	
+															</select>
 														</div>
-														<div class="col-sm-4">
-															<label>Mobile Number <span class="text-danger">*</span></label>
-															<input required pattern="[0-9]{10}" placeholder="10-digit-format" type="tel" class="form-control mobileNumber" name="mobileNumber" id="mobileNumber">
+
+														<div class="col-sm-6">
+															<label>Firm<span class="text-danger">*</span></label>
+															<button class="" data-toggle="modal" data-target="#modal_firm">Add new Firm</button>
+															<select name="firmFil" class="form-control multiselect-filtering firmFil" id="firmFil" multiple="multiple" data-fouc>
+																<% for(var i=0; i<firmData.length; i++) {%>
+																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
+																<% } %>	
+															</select>
 														</div>
-														<div class="col-sm-4">
-															<label>E-mail</label>
-															<input type="email" class="form-control email" name="email" id="email">
-														</div>
-	
+
 													</div>
 												</div>
+
+												<legend class="font-weight-semibold">Contact Info</legend>
+												<div class="form-group"  id="contactsContainer">
+													<div class="row">
+														<div class="col-sm-4">
+															<label>designation<span class="text-danger">*</span></label>
+															<input type="text" class="form-control designation" name="designation" id="designation" >
+														</div>
+														<div class="col-sm-3">
+															<label>Contact<span class="text-danger">*</span></label>
+															<input type="tel" placeholder="10-digit-format" class="form-control contact" name="contact" id="contact" pattern="[0-9]{10}">
+														</div>
+														<div class="col-sm-3">
+															<label>email</label>
+															<input type="email" class="form-control email" name="email" id="email" >
+														</div>
+														
+														<div class="col-sm-2">
+															<button type="button" class="float-right" id="addContactBtn">Add Contact</button>
+														</div>
+														
+													</div>
+												</div>
+
+												
 	
 								            </div>
 
@@ -415,8 +481,119 @@
 					            </div>
 				            </div>
 
+							<script>
+								// Function to add dynamic contact input fields
+								function addContactInput() {
+									var container = document.getElementById("contactsContainer");
+									
+									// Create a new row
+									var row = document.createElement("div");
+									row.className = "row";
+									
+									// Create contact name input field
+									var col1 = document.createElement("div");
+									col1.className = "col-sm-4";
+									var contactNameInput = document.createElement("input");
+									contactNameInput.type = "text";
+									contactNameInput.className = "form-control contactName";
+									contactNameInput.name = "designation[]";
+									contactNameInput.required = true;
+									col1.appendChild(contactNameInput);
+									row.appendChild(col1);
+									
+									// Create phone input field
+									var col2 = document.createElement("div");
+									col2.className = "col-sm-3";
+									var phoneInput = document.createElement("input");
+									phoneInput.type = "tel";
+									phoneInput.className = "form-control phone";
+									phoneInput.name = "contact[]";
+									phoneInput.required = true;
+									phoneInput.pattern = "[0-9]{10}";
+									phoneInput.placeholder = "10-digit-format";
+									col2.appendChild(phoneInput);
+									row.appendChild(col2);
+									
+									// Create email input field
+									var col3 = document.createElement("div");
+									col3.className = "col-sm-3";
+									var emailInput = document.createElement("input");
+									emailInput.type = "email";
+									emailInput.className = "form-control email";
+									emailInput.name = "email[]";
+									col3.appendChild(emailInput);
+									row.appendChild(col3);
+							
+									// Append the row to the contacts container
+									container.appendChild(row);
+								}
+							
+								// Event listener for the "Add Contact" button
+								document.getElementById("addContactBtn").addEventListener("click", addContactInput);
+							</script>
 
 
+
+							<div id="modal_firm" class="modal fade" tabindex="-1">
+					            <div class="modal-dialog">
+						            <div class="modal-content">
+							            <div class="modal-header">
+								            <h5 class="modal-title">New Master Firm</h5>
+								            <button type="button" class="close" data-dismiss="modal">&times;</button>
+							            </div>
+
+							            <form action="/masterFirm" method="POST">
+								            <div class="modal-body">
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>firmName</label>
+												            <input type="text" placeholder="Dehradun" class="form-control firmName" name="firmName" id="firmName">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>address</label>
+												            <input type="text" placeholder="Dehradun" class="form-control address" name="address" id="address">
+											            </div>
+										            </div>
+									            </div>
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>pincode</label>
+												            <input type="text" placeholder="Dehradun" class="form-control pincode" name="pincode" id="pincode">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>GSTNumber</label>
+												            <input type="text" placeholder="Dehradun" class="form-control GSTNumber" name="GSTNumber" id="GSTNumber">
+											            </div>
+										            </div>
+									            </div>
+									            <div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-4">
+												            <label>accountNumber</label>
+												            <input type="text" placeholder="Dehradun" class="form-control accountNumber" name="accountNumber" id="accountNumber">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>bankName</label>
+												            <input type="text" placeholder="Dehradun" class="form-control bankName" name="bankName" id="bankName">
+											            </div>
+											            <div class="col-sm-4">
+												            <label>IFSCcode</label>
+												            <input type="text" placeholder="Dehradun" class="form-control IFSCcode" name="IFSCcode" id="IFSCcode">
+											            </div>
+										            </div>
+									            </div>
+								            </div>
+
+								            <div class="modal-footer">
+									            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+									            <button type="submit" class="btn bg-primary">Add</button>
+								            </div>
+							            </form>
+						            </div>
+					            </div>
+				            </div>
 
 
 
