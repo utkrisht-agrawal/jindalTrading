@@ -17,6 +17,23 @@ const masterFirmModel = require('../model/masterFirmModel');
 const vendorContactModel = require('../model/vendorContactModel');
 const vendorProductsModel = require('../model/vendorProductsModel');
 const vendorFirmModel = require('../model/vendorFirmModel');
+// Import the pdfmake library
+const pdfMake = require('pdfmake/build/pdfmake');
+const pdfFonts = require('pdfmake/build/vfs_fonts');
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+// Define the font files and aliases
+const fonts = {
+  Roboto: {
+    normal: 'fonts/Roboto-Regular.ttf',
+    bold: 'fonts/Roboto-Bold.ttf',
+    italics: 'fonts/Roboto-Italic.ttf',
+    bolditalics: 'fonts/Roboto-BoldItalic.ttf',
+  }
+};
+
+// Register the fonts with pdfmake
+pdfMake.fonts = fonts;
 
 const fs = require('fs');
 const pdf = require('html-pdf');
@@ -332,6 +349,7 @@ const getMasterCustomer =(req,res,next)=>{
                         .then((categorydata)=>{
                             masterFirmModel.findAll()
                             .then((firmData)=>{
+                                console.log(firmData)
                                 masterCustomerModel.findAll()
                                 .then((data)=>{
                                     res.render('masterCustomer',
@@ -570,105 +588,18 @@ const postMasterCustomer =(req,res,next)=>{
     else if(req.body.op==="printReport")
     {
         console.log("printReport")
-        var customerData = req.body.customerData;
-		var	fData = req.body.fData;
-		var	ctData = req.body.ctData;
-		var	cnData = req.body.cnData;
-		var	pData = req.body.pData;
-        
+        var documentDefinition = req.body.documentDefinition;
+        console.log(documentDefinition)  
+        // Register the fonts with pdfmake
+        pdfMake.fonts = fonts;
+        const pdfDoc = pdfMake.createPdf(documentDefinition);
 
-        const htmlContent = `
-<html>
-<head>
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Table A</h1>
-  <table>
-    <tr>
-      <th>Column 1</th>
-      <th>Column 2</th>
-    </tr>
-    <!-- Add your data rows for 'a' here -->
-  </table>
-
-  <h1>Table B</h1>
-  <table>
-    <tr>
-      <th>Column</th>
-    </tr>
-    <!-- Add your data rows for 'b' here -->
-  </table>
-
-  <h1>Table C</h1>
-  <table>
-    <tr>
-      <th>Column</th>
-    </tr>
-    <!-- Add your data rows for 'c' here -->
-  </table>
-
-  <h1>Table D</h1>
-  <table>
-    <tr>
-      <th>Column 1</th>
-      <th>Column 2</th>
-      <th>Column 3</th>
-      <th>Column 4</th>
-      <th>Column 5</th>
-    </tr>
-    <!-- Add your data rows for 'd' here -->
-  </table>
-
-  <h1>Table E</h1>
-  <table>
-    <tr>
-      <th>Column 1</th>
-      <th>Column 2</th>
-      <th>Column 3</th>
-      <th>Column 4</th>
-      <th>Column 5</th>
-      <th>Column 6</th>
-    </tr>
-    <!-- Add your data rows for 'e' here -->
-  </table>
-</body>
-</html>
-`;
-
-// Define the options for PDF generation
-const pdfOptions = {
-  format: 'Letter',
-  border: {
-    top: '0.5in',
-    right: '0.5in',
-    bottom: '0.5in',
-    left: '0.5in'
-  }
-};
-
-// Generate the PDF
-pdf.create(htmlContent, pdfOptions).toFile('report.pdf', (err, res) => {
-  if (err) {
-    console.error('Error occurred while generating the PDF:', err);
-  } else {
-    console.log('PDF saved successfully as report.pdf');
-  }
-});
-          var timestampInSeconds = Math.floor(new Date().getTime() / 1000);
-
-
-        
+        // Generate the PDF and display it in the browser 
+        pdfDoc.getBuffer((buffer) => {
+        const base64String = Buffer.from(buffer).toString('base64');
+        const dataUrl = 'data:application/pdf;base64,' + base64String; 
+        window.open(dataUrl);
+        });
     }
     else if(req.body.op==="marktrep")
     {

@@ -246,6 +246,66 @@ const getLogout = (req,res,next)=>{
     res.redirect('/');
 }
 
+const getProducts = (req,res,next)=>{
+    res.render('products',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getDistribution = (req,res,next)=>{
+    res.render('distribution',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getVendors = (req,res,next)=>{
+    res.render('vendors',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getTeam = (req,res,next)=>{
+    res.render('team',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getCoal = (req,res,next)=>{
+    res.render('coal',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getCoke = (req,res,next)=>{
+    res.render('coke',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getCharcoal = (req,res,next)=>{
+    res.render('charcoal',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getCoaldust = (req,res,next)=>{
+    res.render('coaldust',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getPigiron = (req,res,next)=>{
+    res.render('pigiron',{
+        data:req.session.isLoggedIn
+      });
+}
+
+const getFerroalloys = (req,res,next)=>{
+    res.render('ferroalloys',{
+        data:req.session.isLoggedIn
+      });
+}
+
 
 
 
@@ -257,5 +317,15 @@ module.exports = {
     postRegister,
     getRegisteredUsers,
     postRegisteredUsers,
-    getLogout
+    getLogout,
+    getProducts,
+    getDistribution,
+    getVendors,
+    getTeam,
+    getCoal,
+    getCoke,
+    getCharcoal,
+    getCoaldust,
+    getPigiron,
+    getFerroalloys
 }

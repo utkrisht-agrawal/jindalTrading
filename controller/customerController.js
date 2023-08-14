@@ -91,6 +91,65 @@ const postmasterFirm =(req,res,next)=>{
             console.log(err);
         })
     }
+    else if(req.body.op=="addFirm")
+    {
+        console.log("modal firm")
+        console.log(req.body.data)
+        var dataString = req.body.data
+        const keyValuePairs = dataString.split('&').map(pair => pair.split('='));
+
+        let firmName, address, pincode, GSTNumber, accountNumber, bankName, IFSCcode;
+
+        keyValuePairs.forEach(pair => {
+        const key = pair[0];
+        const value = pair[1];
+        switch (key) {
+            case "firmName":
+            firmName = value;
+            break;
+            case "address":
+            address = value;
+            break;
+            case "pincode":
+            pincode = value;
+            break;
+            case "GSTNumber":
+            GSTNumber = value;
+            break;
+            case "accountNumber":
+            accountNumber = value;
+            break;
+            case "bankName":
+            bankName = value;
+            break;
+            case "IFSCcode":
+            IFSCcode = value;
+            break;
+            default:
+            // Handle any other keys here if necessary
+            break;
+        }
+        });
+
+
+        masterFirmModel.create({
+            firmName: firmName,
+            address: address,
+            pincode: pincode,
+            GSTNumber: GSTNumber,
+            accountNumber: accountNumber,
+            bankName: bankName,
+            IFSCcode: IFSCcode
+        })
+        .then((result)=>{
+            console.log(result),
+            res.json({ firmData: result }); // Return the updated firm data in the response
+            
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+    }
     else
     {
         masterFirmModel.create({
@@ -104,7 +163,14 @@ const postmasterFirm =(req,res,next)=>{
         })
         .then((result)=>{
             console.log(result),
-            res.redirect('/masterFirm')
+            masterFirmModel.findAll()
+            .then((updatedFirmData) => {
+                res.json({ firmData: updatedFirmData }); // Return the updated firm data in the response
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json({ error: "Failed to fetch updated firm data" });
+            });
         })
         .catch((err)=>
             console.log(err)

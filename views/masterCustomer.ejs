@@ -7,6 +7,9 @@
 	<title>Jindal Trading | Dashboard</title>
 
 	<!-- Global stylesheets -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -44,6 +47,7 @@
 
 
 </head>
+
 
 <body>
 
@@ -819,16 +823,11 @@
 																<option value="INACTIVE">INACTIVE</option>
 															</select>
 														</div>
+														
 														<div class="col-sm-6">
 															<label>Firm<span class="text-danger">*</span></label>
-															<button class="" data-toggle="modal" data-target="#modal_firm">Add new Firm</button>
-															<!-- <select name="firm" class="form-control firm" id="firm">
-																<option value="" disabled selected>-Select-</option>
-																<% for(var i=0; i<firmData.length; i++) {%>
-																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
-																<% } %>
-															</select> -->
-															<select name="firmFil" class="form-control multiselect-filtering firmFil" id="firmFil" multiple="multiple" data-fouc>
+															<a style="border: 2px solid black; cursor: default;" class="" data-toggle="modal" data-target="#modal_firm">Add new Firm</a>
+															<select name="firmFil" class="form-control " id="firmFil" >
 																<% for(var i=0; i<firmData.length; i++) {%>
 																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
 																<% } %>	
@@ -1054,7 +1053,7 @@
 
 
 
-							<div id="modal_firm" class="modal fade" tabindex="-1">
+							<div id="modal_firm" class="modal fade"  tabindex="-1">
 					            <div class="modal-dialog">
 						            <div class="modal-content">
 							            <div class="modal-header">
@@ -1062,7 +1061,7 @@
 								            <button type="button" class="close" data-dismiss="modal">&times;</button>
 							            </div>
 
-							            <form action="/masterFirm" method="POST">
+							            <form action="/masterFirm" method="POST" id="addFirmForm">
 								            <div class="modal-body">
 									            <div class="form-group">
 										            <div class="row">
@@ -1115,352 +1114,67 @@
 					            </div>
 				            </div>
 
-<!-- Vertical form modal -->
-							<div id="modal_form_vertical" class="modal fade" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title">New Master Customer</h5>
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-										</div>
-
-										<form action="/masterCustomer" method="POST">
-											<div class="modal-body">
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-6">
-															<label>Customer Name<span class="text-danger">*</span></label>
-															<input type="text" class="form-control customerName" required name="customerName" id="customerName">
-														</div>
-
-														<div class="col-sm-6">
-															<label>Category<span class="text-danger">*</span></label>
-															<!-- <select name="category" class="category form-control" id="category" required>
-																<option value="" disabled selected>-Select-</option>
-																<% for(var j=0; j<categorydata.length; j++) {%>
-																	<option value="<%=categorydata[j].categoriesId%>"><%=categorydata[j].categoriesType%></option>
-																<% } %>
-															</select> -->
-															<select name="categoryFil" class="form-control multiselect-filtering categoryFil" id="categoryFil" multiple="multiple" data-fouc>
-																<% for(var i=0; i<categorydata.length; i++) {%>
-																	<option value="<%=categorydata[i].categoriesId%>"><%=categorydata[i].categoriesType%></option>
-																<% } %>	
-															</select>
-														</div>
-
-													</div>
-												</div>
-
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-6">
-															<label>Status</label>
-															<select id="status" name="status" class="form-control status" id="status">
-																<option value="" disabled selected>-Select-</option>
-																<option value="VERIFIED">VERIFIED</option>
-																<option value="UNVERIFIED">UNVERIFIED</option>
-																<option value="INACTIVE">INACTIVE</option>
-															</select>
-														</div>
-														<div class="col-sm-6">
-															<label>Firm<span class="text-danger">*</span></label>
-															<button class="" data-toggle="modal" data-target="#modal_firm">Add new Firm</button>
-															<!-- <select name="firm" class="form-control firm" id="firm">
-																<option value="" disabled selected>-Select-</option>
-																<% for(var i=0; i<firmData.length; i++) {%>
-																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
-																<% } %>
-															</select> -->
-															<select name="firmFil" class="form-control multiselect-filtering firmFil" id="firmFil" multiple="multiple" data-fouc>
-																<% for(var i=0; i<firmData.length; i++) {%>
-																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
-																<% } %>	
-															</select>
-														</div>
-													</div>
-												</div>
-												
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-6">
-															<label>Area<span class="text-danger">*</span></label>
-															<select id="area" name="area" class="form-control area" id="area" >
-																<option value="" disabled selected>-Select-</option>
-																<% for(var i=0; i<areaData.length; i++) {%>
-																	<option value="<%=areaData[i].areaId%>"><%=areaData[i].area%></option>
-																<% } %>
-																
-															</select>
-															
-														</div>
-														
-														<div class="col-sm-6">
-															<label>grade<span class="text-danger">*</span></label>
-															<select id="grade" name="grade" class="form-control grade" id="grade" >
-																<option value="" disabled selected>-Select-</option>
-																<% for(var i=0; i<gradeData.length; i++) {%>
-																	<option value="<%=gradeData[i].gradeId%>"><%=gradeData[i].gradeType%></option>
-																<% } %>
-															</select>
-															
-														</div>											
-													</div>
-												</div>
-												<legend class="font-weight-semibold">Contact Info</legend>	
-												<div class="form-group"  id="contactsContainer">
-													<div class="row">
-														<div class="col-sm-3">
-															<label>Contact Name<span class="text-danger">*</span></label>
-															<input type="text" class="form-control contactName" name="contactName[]" id="contactName" >
-														</div>
-														<div class="col-sm-2">
-															<label>Designation<span class="text-danger">*</span></label>
-															<input type="text" class="form-control designation" name="designation[]" id="designation" >
-														</div>
-														<div class="col-sm-3">
-															<label>Mobile Number<span class="text-danger">*</span></label>
-															<input type="tel" placeholder="10-digit-format" class="form-control contact" name="contact[]" id="contact" pattern="[0-9]{10}">
-														</div>
-														<div class="col-sm-2">
-															<label>Email</label>
-															<input type="email" class="form-control email" name="email[]" id="email" >
-														</div>
-
-														<div class="col-sm-2">
-															<button type="button" class="float-right" id="addContactBtn">Add Contact</button>
-														</div>
-
-													</div>
-												</div>
-												
-												<legend class="font-weight-semibold">Products Info</legend>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-8">
-															<label>Products<span class="text-danger">*</span></label>
-															<select name="productFil" class="form-control multiselect-filtering productFil" id="productFil" multiple="multiple" data-fouc>
-																<% for(var i=0; i<productData.length; i++) {%>
-																	<option value="<%=productData[i].productId%>"><%=productData[i].productName%></option>
-																<% } %>	
-															</select>
-															
-														</div>
-
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="row">
-												<legend class="font-weight-semibold">Address Info</legend>
-
-														<div class="col-sm-4">
-															<label>Pincode</label>
-															<input type="number"  placeholder="6-digit-format" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}">
-														</div>
-
-														<div class="col-sm-8">
-															<label>Address<span class="text-danger">*</span></label>
-															<input type="text"  class="form-control address" name="address" id="address">
-														</div>
-
-													</div>
-												</div>
-
-												<div class="form-group">
-													<div class="row">
-
-														<legend class="font-weight-semibold">Reference Info</legend>
-
-														<div class="col-sm-6">
-															<label>Reference 1 Name</label>
-															<input type="text" placeholder="name" class="form-control referenceNumber1" name="referenceNumber1" id="referenceNumber1">
-															
-														</div>
-
-														<div class="col-sm-6">
-															<label>Reference 1 Contact Number</label>
-															<input type="text" placeholder="Contact Number" class="form-control reference1ContactNumber" name="reference1ContactNumber"  id="reference1ContactNumber">
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														
-														<div class="col-sm-6">
-															<label>Reference 2 Name</label>
-															<input type="text" placeholder="name" class="form-control referenceNumber2" name="referenceNumber2"  id="referenceNumber2">
-														</div>
-														
-														<div class="col-sm-6">
-															<label>Reference 2 Contact Number</label>
-															<input type="text" placeholder="Contact Number" class="form-control reference2ContactNumber" name="reference2ContactNumber"  id="reference2ContactNumber">
-														</div>
-
-													</div>
-												</div>
-
-												<div class="form-group">
-													<div class="row">
-														<div class="col-sm-6">
-															<label>Credit Limit</label>
-															<input type="number" placeholder="amount" class="form-control creditLimit" name="creditLimit" id="creditLimit">									
-														</div>
-
-														<div class="col-sm-6">
-															<label>Credit Days</label>
-															<input type="number" placeholder="time period" class="form-control creditDays" name="creditDays" id="creditDays">
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div class="modal-footer">
-												<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-												<button  class="btn bg-primary">Add</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-
+				
+							
 							<script>
-								// Function to add dynamic contact input fields
-								function addContactInput() {
-									var container = document.getElementById("contactsContainer");
-							
-									// Create a new row
-									var row = document.createElement("div");
-									row.className = "row";
-							
-									// Create name input field
-									var col1 = document.createElement("div");
-									col1.className = "col-sm-3";
-									var contactNameInput = document.createElement("input");
-									contactNameInput.type = "text";
-									contactNameInput.className = "form-control contactName";
-									contactNameInput.name = "contactName[]";
-									col1.appendChild(contactNameInput);
-									row.appendChild(col1);
-							
-									// Create designation input field
-									var col2 = document.createElement("div");
-									col2.className = "col-sm-2";
-									var designationInput = document.createElement("input");
-									designationInput.type = "text";
-									designationInput.className = "form-control designation";
-									designationInput.name = "designation[]";
-									col2.appendChild(designationInput);
-									row.appendChild(col2);
-							
-									// Create contact input field
-									var col3 = document.createElement("div");
-									col3.className = "col-sm-3";
-									var contactInput = document.createElement("input");
-									contactInput.type = "tel";
-									contactInput.className = "form-control contact";
-									contactInput.name = "contact[]";
-									contactInput.pattern = "[0-9]{10}";
-									contactInput.placeholder = "10-digit-format";
-									col3.appendChild(contactInput);
-									row.appendChild(col3);
-							
-									// Create email input field
-									var col4 = document.createElement("div");
-									col4.className = "col-sm-2";
-									var emailInput = document.createElement("input");
-									emailInput.type = "email";
-									emailInput.className = "form-control email";
-									emailInput.name = "email[]";
-									col4.appendChild(emailInput);
-									row.appendChild(col4);
-							
-									// Create remove button
-									var col5 = document.createElement("div");
-									col5.className = "col-sm-2";
-									var removeBtn = document.createElement("button");
-									removeBtn.type = "button";
-									removeBtn.className = "btn btn-danger float-right";
-									removeBtn.textContent = "Remove";
-									removeBtn.addEventListener("click", function() {
-										container.removeChild(row);
+
+								// Function to handle the "Add New Firm" form submission
+								$("#addFirmForm").submit(function (event) {
+									event.preventDefault(); // Prevent the default form submission behavior
+									$.post("/masterFirm",
+									{
+										data: $(this).serialize(),
+										op:"addFirm"
+									},
+									function (data, status) 
+									{
+										console.log(data);
+										const updatedFirmData = data.firmData;
+										updateFirmSelectDropdown(updatedFirmData);
+										$("#modal_firm").modal("hide");
+										console.log(status);
+										console.log(updatedFirmData)
 									});
-									col5.appendChild(removeBtn);
-									row.appendChild(col5);
-							
-									// Append the row to the contacts container
-									container.appendChild(row);
+								});
+								
+								function updateFirmSelectDropdown(firmData) {
+									var x = document.getElementById("firmFil");
+									var option = document.createElement("option");
+									option.text = firmData.firmName;
+									option.value = firmData.firmId;
+									x.add(option);
+
+									const updatedFirmData =firmData; 
+									/*
+									$("#firmFil").empty();
+									console.log("empty data:");
+
+									// Append new options based on the updated firm data
+									for (let i = 0; i < updatedFirmData.length; i++) {
+										const firmId = updatedFirmData[i].firmId;
+										const firmName = updatedFirmData[i].firmName;
+										const option = $("<option>").val(firmId).text(firmName);
+										$("#firmFil").append(option);
+									}
+								
+									const firmId = firmData.firmId;
+									const firmName = firmData.firmName;
+								
+									// Use jQuery's append method to add the new option
+									$("#firmFil").append($('<option>', {
+										value: firmId,
+										text: firmName
+									}));
+									*/
 								}
-							
-								// Event listener for the "Add Contact" button
-								document.getElementById("addContactBtn").addEventListener("click", addContactInput);
 							</script>
 
-							<script>
-								// Function to add dynamic truck input fields
-								function addTruckInput() {
-									var container = document.getElementById("trucksContainer");
 							
-									// Create a new row
-									var row = document.createElement("div");
-									row.className = "row";
-							
-									// Create truck number input field
-									var col1 = document.createElement("div");
-									col1.className = "col-sm-3";
-									var truckNumberInput = document.createElement("input");
-									truckNumberInput.type = "text";
-									truckNumberInput.className = "form-control truckNumber";
-									truckNumberInput.name = "truckNumber[]";
-									col1.appendChild(truckNumberInput);
-									row.appendChild(col1);
-							
-									// Create truck type input field
-									var col2 = document.createElement("div");
-									col2.className = "col-sm-3";
-									var truckTypeInput = document.createElement("input");
-									truckTypeInput.type = "text";
-									truckTypeInput.className = "form-control truckType";
-									truckTypeInput.name = "truckType[]";
-									col2.appendChild(truckTypeInput);
-									row.appendChild(col2);
-							
-									// Create remove button
-									var col3 = document.createElement("div");
-									col3.className = "col-sm-2";
-									var removeBtn = document.createElement("button");
-									removeBtn.type = "button";
-									removeBtn.className = "btn btn-danger float-right";
-									removeBtn.textContent = "Remove";
-									removeBtn.addEventListener("click", function() {
-										container.removeChild(row);
-									});
-									col3.appendChild(removeBtn);
-									row.appendChild(col3);
-							
-									// Append the row to the trucks container
-									container.appendChild(row);
-								}
-							
-								// Event listener for the "Add Truck" button
-								document.getElementById("addTruckBtn").addEventListener("click", addTruckInput);
-							</script>
-							
-							<!-- Form section -->
-							<legend class="font-weight-semibold">Truck Info</legend>
-							<div class="form-group" id="trucksContainer">
-								<div class="row">
-									<div class="col-sm-3">
-										<label>Truck Number<span class="text-danger">*</span></label>
-										<input type="text" class="form-control truckNumber" name="truckNumber[]">
-									</div>
-									<div class="col-sm-3">
-										<label>Truck Type<span class="text-danger">*</span></label>
-										<input type="text" class="form-control truckType" name="truckType[]">
-									</div>
-									<div class="col-sm-2">
-										<button type="button" class="float-right" id="addTruckBtn">Add Truck</button>
-									</div>
-								</div>
-							</div>					
+
+
+						
+
+									
 							
 							<!-- EDIT modal -->
 							<div id="modal_edit" class="modal fade" tabindex="-1" style="z-index: 1050; ">
@@ -1505,7 +1219,7 @@
 				            </div>
 
 
-
+							<!-- Customer Information modal -->
 							<div id="customer_information" class="modal fade" tabindex="-1" style="z-index: 1049;">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content ">
@@ -1525,100 +1239,7 @@
 								</div>
 							</div>
 
-							<!-- /vertical form modal -->
-		
-							<!-- <table class="table datatable-basic table-bordered table-striped table-hover">
-								<thead>
-									<tr>
-										<th>Customer Name</th>
-										<th>Area</th>
-										<th>Grade</th>
-										<th>Category</th>
-										<th>Product</th>
-										<th>Representative</th>
-										<th>Meeting Date</th>
-										<th>Current Issue</th>
-										<th class="text-center">Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Rakesh Tomar</td>
-										<td>Delhi</td>
-										<td>A</td>
-										<td>Wholesale</td>
-										<td>Pig Iron</td>
-										<td>Vipin</td>
-										<td>01-10-2022</td>
-										<td>Not Available Previously</td>
-										<td class="text-center">
-											<div class="list-icons">
-												<div class="dropdown">
-													<a href="#" class="list-icons-item" data-toggle="dropdown">
-														<i class="icon-menu9"></i>
-													</a>
-		
-													<div class="dropdown-menu dropdown-menu-right">
-														<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to .pdf</a>
-														<a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-														<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a>
-													</div>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Rakesh Tomar</td>
-										<td>Delhi</td>
-										<td>A</td>
-										<td>Retail</td>
-										<td>Pig Iron</td>
-										<td>Vipin</td>
-										<td>01-10-2022</td>
-										<td>Not Available Previously</td>
-										<td class="text-center">
-											<div class="list-icons">
-												<div class="dropdown">
-													<a href="#" class="list-icons-item" data-toggle="dropdown">
-														<i class="icon-menu9"></i>
-													</a>
-		
-													<div class="dropdown-menu dropdown-menu-right">
-														<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to .pdf</a>
-														<a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-														<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a>
-													</div>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Rakesh Tomar</td>
-										<td>Meerut</td>
-										<td>A</td>
-										<td>Retail</td>
-										<td>Pig Iron</td>
-										<td>Vipin</td>
-										<td>01-10-2022</td>
-										<td>Not Available Previously</td>
-										<td class="text-center">
-											<div class="list-icons">
-												<div class="dropdown">
-													<a href="#" class="list-icons-item" data-toggle="dropdown">
-														<i class="icon-menu9"></i>
-													</a>
-		
-													<div class="dropdown-menu dropdown-menu-right">
-														<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to .pdf</a>
-														<a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-														<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a>
-													</div>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table> -->
+							
 						</div>
 					</div>
 					
@@ -2016,8 +1637,7 @@
 		)
 	}
 	</script>
-	<script src="pdfmake.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+	
 
 	<script>
 
@@ -2143,6 +1763,7 @@
 	  
 
 	function printFunction(customerId, customerData,fData,ctData,cnData) {
+
 		var productData = <%-JSON.stringify(productData)%>;
 		var areaData = <%-JSON.stringify(areaData)%>;
 		var gradeData = <%-JSON.stringify(gradeData)%>;
@@ -2164,6 +1785,7 @@
 			}
 		  }
 		console.log(pData)
+
 
 		const documentDefinition = {
 			content: [
@@ -2193,108 +1815,23 @@
 				fontSize: 18,
 				bold: true,
 				margin: [0, 0, 0, 10] // top, right, bottom, left
+
 			  }
-			}
+			},
+			defaultStyle: {
+				font: 'Roboto' // Use the registered font
+			  }
 		  };
-		  
-		  const RobotoMediumBase64 = '...'; // Replace with the actual base64-encoded string of 'Roboto-Medium.ttf'
 
-		// Configure the virtual file system for pdfMake
-		const pdfFonts = {
-		Roboto: {
-			normal: RobotoMediumBase64,
-			bold: RobotoMediumBase64,
-			italics: RobotoMediumBase64,
-			bolditalics: RobotoMediumBase64
-		}
-		};
-
-		// Set the vfs property of pdfMake
-		pdfMake.vfs = pdfFonts;
-
-		// Assuming you have the required tabular data and documentDefinition as mentioned before
-
-		// Create a PDF document
-		const pdfDoc = pdfMake.createPdf(documentDefinition);
-
-		// Generate the PDF and display it in the browser
-		pdfDoc.getBuffer((buffer) => {
-		// Convert the buffer to a base64 string
-		const base64String = Buffer.from(buffer).toString('base64');
-
-		// Create a data URL
-		const dataUrl = 'data:application/pdf;base64,' + base64String;
-
-		// Open the PDF in a new window or tab
-		window.open(dataUrl);
-		});
-
-		/*$.post("/masterCustomer", {
+		  $.post("/masterCustomer", {
 			value: customerId,
-			op: "printReport",
-			customerData:customerData,
-			fData:fData,
-			ctData:ctData,
-			cnData:cnData,
-			pData:pData
+			documentDefinition: documentDefinition,
+			op: "printReport"
 		  }, function(data, status) {
 			console.log(data);
 			console.log(status);
-		  })
+		  });
 
-		const documentDefinition = {
-			content: [
-			  // Row 1: customerData, ctData, and pData
-			  {
-				table: {
-				  body: [
-					[
-					  { text: 'Customer Data', style: 'header' },
-					  { text: 'CT Data', style: 'header' },
-					  { text: 'P Data', style: 'header' }
-					],
-					[
-					  { text: JSON.stringify(customerData) },
-					  { text: JSON.stringify(ctData) },
-					  { text: JSON.stringify(pData) }
-					]
-				  ]
-				}
-			  },
-			  // Row 2: cnData
-			  {
-				table: {
-				  body: [
-					[
-					  { text: 'CN Data', style: 'header' }
-					],
-					[
-					  { text: JSON.stringify(cnData) }
-					]
-				  ]
-				}
-			  },
-			  // Row 3: fData
-			  {
-				table: {
-				  body: [
-					[
-					  { text: 'F Data', style: 'header' }
-					],
-					[
-					  { text: JSON.stringify(fData) }
-					]
-				  ]
-				}
-			  }
-			],
-			styles: {
-			  header: {
-				bold: true
-			  }
-			}
-		  };*/
-		
 	}
 	  
 
