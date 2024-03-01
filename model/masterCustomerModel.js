@@ -16,7 +16,7 @@ const masterCustomerModel = sequelize.define('master_Customer',{
         allowNull: true
     },
     status: {
-        type: Sequelize.ENUM("VERIFIED","UNVERIFIED","INACTIVE")
+        type: Sequelize.ENUM("VERIFIED","UNVERIFIED" )
     },
     grade: {
         type: Sequelize.STRING
@@ -47,6 +47,9 @@ const masterCustomerModel = sequelize.define('master_Customer',{
     creditDays: {
         type: Sequelize.INTEGER,
         allowNull: true
+    },
+    CustomerStatus: {
+        type: Sequelize.ENUM("active","inactive" )
     }
 },{
     timestamps: false

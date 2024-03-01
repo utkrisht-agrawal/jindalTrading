@@ -35,6 +35,14 @@ const masterFirmModel = sequelize.define('master_firm',{
     IFSCcode:{
         type: Sequelize.STRING,
         allowNull: false
+    },
+    ProductProduced:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    Quantity:{
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
 
 }); 

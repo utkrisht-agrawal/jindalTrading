@@ -45,6 +45,11 @@
 	<script src="global_assets/js/demo_pages/form_multiselect.js"></script>
 	<!-- /theme JS files -->
 
+	<style>
+		.tab-content {
+    overflow: auto;
+}
+	</style>
 
 </head>
 
@@ -274,6 +279,7 @@
 						<div class="card" style="overflow-x: auto;">
 							
 							<div class="errInfo" id="errInfo" style=" background-color: rgb(255, 0, 0); margin: 1%;">
+							<%= console.log("msssssssssssssssssssssssssss" , msg)  %>
 								<% if(msg){ %>
 									<h6 style="text-align: center; font-weight: 600"><%=msg%></h6>
 								<% } %>
@@ -281,7 +287,7 @@
 							
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">Master Customers</h5>
-								<% if(level>2) {%>
+								<% if(level>=1) {%>
 									<button onclick="validation()" type="button"  class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">Add new Master Customer</button></td>
 									
 								<%}%>
@@ -301,8 +307,10 @@
 									<thead>
 										<tr>
 											<th>customerName</th>
+											<th>category</th>
 											<th>AREA</th>
 											<th>STATUS</th>
+											<th>CustomerStatus</th>
 											<th>GRADE</th>
 											<th>PIN_CODE</th>
 											<th>ADDRESS</th>
@@ -315,6 +323,7 @@
 											<% if(level>2) {%>
 												<th>Edit</th>
 												<th>Delete</th>
+												<th>PRINT</th>
 											<%}else if(level>1){%>
 												<th>Edit</th>
 											<%}else{%>
@@ -327,6 +336,20 @@
 										<tr class="<%= data[i].customerId%>customer">
 											<%if(level==1) {%>
 												<td class="customerName" ><%= data[i].customerName%></td>
+												<td class="custCateg">
+ 														<% for (var a = 0; a < custCateg.length; a++) { %>
+															<% if (custCateg[a].customerName == data[i].customerId) { %>
+															  <%=custCateg[a].category %>
+															  <% for (var b = 0; b < categorydata.length; b++) { %>
+																<% if (custCateg[a].category == categorydata[b].categoriesId) { %>
+																  <%=categorydata[b].categoriesType %>
+																  <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
+																<% } %>
+														   <% } %>
+															 <% } %>
+													   <% } %>
+													  
+												</td>
 												<td class="area">
 													<% for (var a = 0; a < areaData.length; a++) { %>
 													  	<% if (areaData[a].areaId == data[i].area) { %>
@@ -335,6 +358,7 @@
 													<% } %>
 												</td>
 												<td class="status" ><%= data[i].status%></td>
+												<td class="Customerstatus"><%= data[i].CustomerStatus%></td>
 												<td class="grade" >
 													<% for (var a = 0; a < gradeData.length; a++) { %>
 														<% if (gradeData[a].gradeId == data[i].grade) { %>
@@ -352,7 +376,18 @@
 												<td class="creditDays" ><%= data[i].creditDays%></td>
 											<%} else if(level>2) {%>
 												<td class="customerName"><button type="button" class="btn btn-light" data-toggle="modal" onclick="custInfo('<%= data[i].customerId%>')" data-target="#customer_information"><%= data[i].customerName%></button></td>
-												
+												<td class="custCateg">
+													<% for (var a = 0; a < custCateg.length; a++) { %>
+													   <% if (custCateg[a].customerName == data[i].customerId) { %>
+ 														 <% for (var b = 0; b < categorydata.length; b++) { %>
+														   <% if (custCateg[a].category == categorydata[b].categoriesId) { %>
+															 <%=categorydata[b].categoriesType %>  
+															 <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
+														   <% } %>
+													  <% } %>
+														<% } %>
+												  <% } %>												 
+										   </td>
 												<td class="area">
 													<% for (var a = 0; a < areaData.length; a++) { %>
 													  	<% if (areaData[a].areaId == data[i].area) { %>
@@ -361,6 +396,7 @@
 													<% } %>
 												</td>
 												<td class="status"><%= data[i].status%></td>
+												<td class="CustomerStatus"><%= data[i].CustomerStatus%></td>
 												<td class="grade">
 													<% for (var a = 0; a < gradeData.length; a++) { %>
 														<% if (gradeData[a].gradeId == data[i].grade) { %>
@@ -382,8 +418,26 @@
 												<td >
 													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')">Delete</button>
 												</td>
+												<td >
+													<button type="button" class="btn btn-light"     onclick="printMasterCustomer('<%= data[i].customerId%>customer')">print</button>
+ 
+												</td>
 											<%}else if(level>1){%>
 												<td class="customerName"><%= data[i].customerName%></td>
+												<td class="custCateg">
+													<% for (var a = 0; a < custCateg.length; a++) { %>
+													   <% if (custCateg[a].customerName == data[i].customerId) { %>
+														 <%=custCateg[a].category %>
+														 <% for (var b = 0; b < categorydata.length; b++) { %>
+														   <% if (custCateg[a].category == categorydata[b].categoriesId) { %>
+															 <%=categorydata[b].categoriesType %>
+															 <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
+														   <% } %>
+													  <% } %>
+														<% } %>
+												  <% } %>
+												 
+										   </td>
 												<td class="area">
 													<% for (var a = 0; a < areaData.length; a++) { %>
 													  	<% if (areaData[a].areaId == data[i].area) { %>
@@ -392,6 +446,7 @@
 													<% } %>
 												</td>
 												<td class="status"><%= data[i].status%></td>
+												<td class="CustomerStatus"><%= data[i].CustomerStatus%></td>
 												<td class="grade">
 													<% for (var a = 0; a < gradeData.length; a++) { %>
 														<% if (gradeData[a].gradeId == data[i].grade) { %>
@@ -433,8 +488,10 @@
 										<thead>
 											<tr>
 												<th>customerName</th>
+												<th>category</th>
 												<th>AREA</th>
 												<th>STATUS</th>
+												<th>CustomerStatus</th>	
 												<th>GRADE</th>
 												<th>PIN_CODE</th>
 												<th>ADDRESS</th>
@@ -445,20 +502,36 @@
 												<th>CREDIT_LIMIT</th>
 												<th>CREDIT_DAYS</th>
 												<% if(level>2) {%>
+													
 													<th>Edit</th>
 													<th>Delete</th>
+													<th>Print</th>
 												<%}else if(level>1){%>
 													<th>Edit</th>
 												<%}else{%>
 												<%}%>
 											</tr>
-										</thead >
+										</thead>
 										
 										<% for(var i=0; i<data.length; i++) {%>
 											<%if(data[i].status=='UNVERIFIED') {%>
 											<tr class="<%= data[i].customerId%>customer">
 												<%if(level==1) {%>
 													<td class="customerName" ><%= data[i].customerName%></td>
+											        <td class="custCateg">
+														<% for (var a = 0; a < custCateg.length; a++) { %>
+														   <% if (custCateg[a].customerName == data[i].customerId) { %>
+															 <%=custCateg[a].category %>
+															 <% for (var b = 0; b < categorydata.length; b++) { %>
+															   <% if (custCateg[a].category == categorydata[b].categoriesId) { %>
+																 <%=categorydata[b].categoriesType %>
+																 <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
+															   <% } %>
+														  <% } %>
+															<% } %>
+													  <% } %>
+													 
+											   </td>
 													<td class="area">
 														<% for (var a = 0; a < areaData.length; a++) { %>
 														  	<% if (areaData[a].areaId == data[i].area) { %>
@@ -467,6 +540,7 @@
 														<% } %>
 													</td>
 													<td class="status" ><%= data[i].status%></td>
+													<td class="status"><%= data[i].CustomerStatus%></td>
 													<td class="grade" >
 														<% for (var a = 0; a < gradeData.length; a++) { %>
 															<% if (gradeData[a].gradeId == data[i].grade) { %>
@@ -484,6 +558,19 @@
 													<td class="creditDays" ><%= data[i].creditDays%></td>
 												<%} else if(level>2) {%>
 													<td class="customerName"><%= data[i].customerName%></td>
+													<td class="custCateg">
+														<% for (var a = 0; a < custCateg.length; a++) { %>
+														   <% if (custCateg[a].customerName == data[i].customerId) { %>
+															  <% for (var b = 0; b < categorydata.length; b++) { %>
+															   <% if (custCateg[a].category == categorydata[b].categoriesId) { %>
+																 <%=categorydata[b].categoriesType %> 
+																 <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
+															   <% } %>
+														  <% } %>
+															<% } %>
+													  <% } %>
+													 
+											   </td>
 													<td class="area">
 														<% for (var a = 0; a < areaData.length; a++) { %>
 														  	<% if (areaData[a].areaId == data[i].area) { %>
@@ -492,6 +579,7 @@
 														<% } %>
 													</td>
 													<td class="status"><%= data[i].status%></td>
+													<td class="CustomerStatus"><%= data[i].CustomerStatus%></td>
 													<td class="grade">
 														<% for (var a = 0; a < gradeData.length; a++) { %>
 															<% if (gradeData[a].gradeId == data[i].grade) { %>
@@ -513,8 +601,25 @@
 													<td >
 													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_del" data-popup="popover" onclick="ddel('<%= data[i].customerId%>customer')">Delete</button>
 												</td>
+												<td>
+													<button type="button" class="btn btn-light"     onclick="printMasterCustomer('<%= data[i].customerId%>customer')">print</button>
+												</td>
 												<%}else if(level>1){%>
 													<td class="customerName"><%= data[i].customerName%></td>
+													<td class="custCateg">
+ 														<% for (var a = 0; a < custCateg.length; a++) { %>
+															<% if (custCateg[a].customerName == data[i].customerId) { %>
+															  <%=custCateg[a].category %>
+															  <% for (var b = 0; b < categorydata.length; b++) { %>
+																<% if (custCateg[a].category == categorydata[b].categoriesId) { %>
+																  <%=categorydata[b].categoriesType %>
+																  <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
+																<% } %>
+														   <% } %>
+															 <% } %>
+													   <% } %>
+													  
+												</td>
 													<td class="area">
 														<% for (var a = 0; a < areaData.length; a++) { %>
 														  	<% if (areaData[a].areaId == data[i].area) { %>
@@ -523,6 +628,7 @@
 														<% } %>
 													</td>
 													<td class="status"><%= data[i].status%></td>
+													<td class="status"><%= data[i].CustomerStatus%></td>
 													<td class="grade">
 														<% for (var a = 0; a < gradeData.length; a++) { %>
 															<% if (gradeData[a].gradeId == data[i].grade) { %>
@@ -566,6 +672,7 @@
 												<th>customerName</th>
 												<th>AREA</th>
 												<th>STATUS</th>
+												
 												<th>GRADE</th>
 												<th>PIN_CODE</th>
 												<th>ADDRESS</th>
@@ -670,7 +777,7 @@
 														<td class="referenceNumber2" ><%= data[i].referenceNumber2%></td>
 														<td class="reference2ContactNumber" ><%= data[i].reference2ContactNumber%></td>
 														<td class="creditLimit"><%= data[i].creditLimit%></td>
-														<td class="creditDays"><%= data[i].creditDays%></td>
+														<td class="creditDays"><%= data[i].creditDays%></td>														
 														<td>
 															<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" data-popup="popover" onclick="eedit('<%= data[i].customerId%>customer')" data-popup="popover">Edit</button>
 														</td>
@@ -811,6 +918,20 @@
 
 													</div>
 												</div>
+												<div class="form-group">
+													<div class="row">											
+														<div class="col-sm-4">
+															<label>Pincode</label>
+															<input type="text" placeholder="6-digit-format" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}" maxlength="6">
+														</div>
+
+														<div class="col-sm-8">
+															<label>Address<span class="text-danger">*</span></label>
+															<input type="text"  class="form-control address" name="address" id="address">
+														</div>
+
+													</div>
+												</div>
 
 												<div class="form-group">
 													<div class="row">
@@ -820,11 +941,26 @@
 																<option value="" disabled selected>-Select-</option>
 																<option value="VERIFIED">VERIFIED</option>
 																<option value="UNVERIFIED">UNVERIFIED</option>
-																<option value="INACTIVE">INACTIVE</option>
 															</select>
 														</div>
-														
 														<div class="col-sm-6">
+															<label>Customer Status</label>
+															<select id="CustomerStatus" name="CustomerStatus" class="form-control status" id="CustomerStatus">
+																<option value="" disabled selected>-Select-</option>
+																<option value="active">ACTIVE</option>
+																<option value="inactive">INACTIVE</option>
+ 															</select>
+														</div>
+														<div class="col-sm-12">
+															<label>Firm2<span class="text-danger">*</span></label>
+															<a style="border: 2px solid black; cursor: default;" class="" data-toggle="modal" data-target="#modal_firm">Add new Firm</a>
+															<select name="firmFil" class="form-control multiselect-filtering firmFil" id="firmFil" multiple="multiple" data-fouc>
+																<% for(var i=0; i<firmData.length; i++) { %>
+																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
+																<% } %>
+															</select>
+														</div>
+														<!-- <div class="col-sm-12">
 															<label>Firm<span class="text-danger">*</span></label>
 															<a style="border: 2px solid black; cursor: default;" class="" data-toggle="modal" data-target="#modal_firm">Add new Firm</a>
 															<select name="firmFil" class="form-control " id="firmFil" >
@@ -832,7 +968,7 @@
 																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
 																<% } %>	
 															</select>
-														</div>
+														</div> -->
 													</div>
 												</div>
 												
@@ -844,14 +980,12 @@
 																<option value="" disabled selected>-Select-</option>
 																<% for(var i=0; i<areaData.length; i++) {%>
 																	<option value="<%=areaData[i].areaId%>"><%=areaData[i].area%></option>
-																<% } %>
-																
-															</select>
-															
+																<% } %>																
+															</select>														
 														</div>
 														
 														<div class="col-sm-6">
-															<label>grade<span class="text-danger">*</span></label>
+															<label>Grade<span class="text-danger">*</span></label>
 															<select id="grade" name="grade" class="form-control grade" id="grade" >
 																<option value="" disabled selected>-Select-</option>
 																<% for(var i=0; i<gradeData.length; i++) {%>
@@ -875,7 +1009,7 @@
 														</div>
 														<div class="col-sm-3">
 															<label>Mobile Number<span class="text-danger">*</span></label>
-															<input type="tel" placeholder="10-digit-format" class="form-control contact" name="contact[]" id="contact" pattern="[0-9]{10}">
+															<input type="text" placeholder="10-digit-format" class="form-control contact" name="contact[]" id="contact" pattern="[0-9]{10}" maxlength="10">
 														</div>
 														<div class="col-sm-2">
 															<label>Email</label>
@@ -904,22 +1038,7 @@
 
 													</div>
 												</div>
-												<div class="form-group">
-													<div class="row">
-												<legend class="font-weight-semibold">Address Info</legend>
-
-														<div class="col-sm-4">
-															<label>Pincode</label>
-															<input type="number"  placeholder="6-digit-format" class="form-control pincode" name="pincode" id="pincode" pattern="[0-9]{6}">
-														</div>
-
-														<div class="col-sm-8">
-															<label>Address<span class="text-danger">*</span></label>
-															<input type="text"  class="form-control address" name="address" id="address">
-														</div>
-
-													</div>
-												</div>
+												
 
 												<div class="form-group">
 													<div class="row">
@@ -928,13 +1047,13 @@
 
 														<div class="col-sm-6">
 															<label>Reference 1 Name</label>
-															<input type="text" placeholder="name" class="form-control referenceNumber1" name="referenceNumber1" id="referenceNumber1">
+															<input type="text" placeholder="name" class="form-control referenceNumber1" name="referenceNumber1" id="referenceNumber1" >
 															
 														</div>
 
 														<div class="col-sm-6">
 															<label>Reference 1 Contact Number</label>
-															<input type="text" placeholder="Contact Number" class="form-control reference1ContactNumber" name="reference1ContactNumber"  id="reference1ContactNumber">
+															<input type="text" placeholder="Contact Number" class="form-control reference1ContactNumber" name="reference1ContactNumber"  id="reference1ContactNumber" maxlength="10" pattern="[0-9]{10}">
 														</div>
 													</div>
 												</div>
@@ -948,7 +1067,7 @@
 														
 														<div class="col-sm-6">
 															<label>Reference 2 Contact Number</label>
-															<input type="text" placeholder="Contact Number" class="form-control reference2ContactNumber" name="reference2ContactNumber"  id="reference2ContactNumber">
+															<input type="text" placeholder="Contact Number" class="form-control reference2ContactNumber" name="reference2ContactNumber"  id="reference2ContactNumber" maxlength="10" pattern="[0-9]{10}">
 														</div>
 
 													</div>
@@ -981,8 +1100,7 @@
 							<script>
 								// Function to add dynamic contact input fields
 								function addContactInput() {
-									var container = document.getElementById("contactsContainer");
-							
+									var container = document.getElementById("contactsContainer");							
 									// Create a new row
 									var row = document.createElement("div");
 									row.className = "row";
@@ -1045,7 +1163,7 @@
 									// Append the row to the contacts container
 									container.appendChild(row);
 								}
-							
+
 								// Event listener for the "Add Contact" button
 								document.getElementById("addContactBtn").addEventListener("click", addContactInput);
 							</script>
@@ -1066,40 +1184,52 @@
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>firmName</label>
-												            <input type="text" placeholder="Dehradun" class="form-control firmName" name="firmName" id="firmName">
+												            <label>Firm Name</label>
+												            <input type="text" placeholder="Firm Name" class="form-control firmName" name="firmName" id="firmName">
 											            </div>
 											            <div class="col-sm-6">
-												            <label>address</label>
-												            <input type="text" placeholder="Dehradun" class="form-control address" name="address" id="address">
+												            <label>Address</label>
+												            <input type="text" placeholder="Address" class="form-control address" name="address" id="address">
 											            </div>
 										            </div>
 									            </div>
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-6">
-												            <label>pincode</label>
-												            <input type="text" placeholder="Dehradun" class="form-control pincode" name="pincode" id="pincode">
+												            <label>Pincode</label>
+												            <input type="text" placeholder="Pin Code" class="form-control pincode" name="pincode" id="pincode" maxlength="6" pattern="[0-9]{6}">
 											            </div>
 											            <div class="col-sm-6">
-												            <label>GSTNumber</label>
-												            <input type="text" placeholder="Dehradun" class="form-control GSTNumber" name="GSTNumber" id="GSTNumber">
+												            <label>GST Number</label>
+												            <input type="text" placeholder="GST Number" class="form-control GSTNumber" name="GSTNumber" id="GSTNumber" maxlength="15" pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}">
 											            </div>
 										            </div>
 									            </div>
 									            <div class="form-group">
 										            <div class="row">
 											            <div class="col-sm-4">
-												            <label>accountNumber</label>
-												            <input type="text" placeholder="Dehradun" class="form-control accountNumber" name="accountNumber" id="accountNumber">
+												            <label>Account Number</label>
+												            <input type="text" placeholder="Account Number" class="form-control accountNumber" name="accountNumber" id="accountNumber" pattern="[0-9]{11-16}" minlength="11" maxlength="16">
 											            </div>
 											            <div class="col-sm-4">
-												            <label>bankName</label>
-												            <input type="text" placeholder="Dehradun" class="form-control bankName" name="bankName" id="bankName">
+												            <label>Bank Name</label>
+												            <input type="text" placeholder="Bank Name" class="form-control bankName" name="bankName" id="bankName">
 											            </div>
 											            <div class="col-sm-4">
-												            <label>IFSCcode</label>
-												            <input type="text" placeholder="Dehradun" class="form-control IFSCcode" name="IFSCcode" id="IFSCcode">
+												            <label>IFSC Code</label>
+												            <input type="text" placeholder="IFSC Code" class="form-control IFSCcode" name="IFSCcode" id="IFSCcode" maxlength="11" pattern="[A-Z]{4}0[A-Z0-9]{6}">
+											            </div>
+										            </div>
+									            </div>
+												<div class="form-group">
+										            <div class="row">
+											            <div class="col-sm-6">
+												            <label>Product Produced</label>
+												            <input type="text" placeholder="Product Produced" class="form-control pincode" name="ProductProduced" id="ProductProduced">
+											            </div>
+											            <div class="col-sm-6">
+												            <label>Quantity</label>
+												            <input type="number" placeholder="Quantity" class="form-control Quantity" name="Quantity" id="Quantity">
 											            </div>
 										            </div>
 									            </div>
@@ -1115,6 +1245,7 @@
 				            </div>
 
 				
+					 
 							
 							<script>
 
@@ -1128,44 +1259,63 @@
 									},
 									function (data, status) 
 									{
-										console.log(data);
-										const updatedFirmData = data.firmData;
-										updateFirmSelectDropdown(updatedFirmData);
+										// console.log("data" , data);
+ 								 
+										for( i=0 ; i < data.result.length ; i++){
+											updateFirmSelectDropdown(data.result[i]);
+										}
+									 
 										$("#modal_firm").modal("hide");
+										if (data.msg) {
+														let selectElement = $("select[name='firmFil']");
+														console.log(selectElement);
+														selectElement.next('.error').remove();
+														// Clear previous content and append the error message div after the select element
+														selectElement.html('').after('<div class="error">' + data.msg + '</div>');
+													}
+
+										 window.location.reload()
 										console.log(status);
-										console.log(updatedFirmData)
+										// console.log(updatedFirmData)
 									});
 								});
+								   
 								
 								function updateFirmSelectDropdown(firmData) {
-									var x = document.getElementById("firmFil");
-									var option = document.createElement("option");
-									option.text = firmData.firmName;
-									option.value = firmData.firmId;
-									x.add(option);
-
-									const updatedFirmData =firmData; 
-									/*
-									$("#firmFil").empty();
-									console.log("empty data:");
-
-									// Append new options based on the updated firm data
-									for (let i = 0; i < updatedFirmData.length; i++) {
-										const firmId = updatedFirmData[i].firmId;
-										const firmName = updatedFirmData[i].firmName;
-										const option = $("<option>").val(firmId).text(firmName);
-										$("#firmFil").append(option);
-									}
-								
 									const firmId = firmData.firmId;
 									const firmName = firmData.firmName;
 								
+									
 									// Use jQuery's append method to add the new option
 									$("#firmFil").append($('<option>', {
 										value: firmId,
 										text: firmName
-									}));
-									*/
+									})) 
+									// console.log("firmdata" ,firmData)
+									// $("#firmFil").val(firmId);
+									$('#firmFil').multiselect('rebuild')
+
+									// var x = document.getElementById("firmFil");
+									// var option = document.createElement("option");
+									// option.text = firmData.firmName;
+									// option.value = firmData.firmId;
+									// x.add(option);
+
+									// const updatedFirmData =firmData; 
+									 
+									// $("#firmFil").empty();
+									// console.log("empty data:");
+
+									// // Append new options based on the updated firm data
+									// for (let i = 0; i < updatedFirmData.length; i++) {
+									// 	const firmId = updatedFirmData[i].firmId;
+									// 	const firmName = updatedFirmData[i].firmName;
+									// 	const option = $("<option>").val(firmId).text(firmName);
+									// 	$("#firmFil").append(option);
+									// }
+								
+								
+									 
 								}
 							</script>
 
@@ -1338,6 +1488,7 @@
         var ereference2ContactNumber = document.getElementById("ereference2ContactNumber").value;
         var ecreditLimit = document.getElementById("ecreditLimit").value;
         var ecreditDays = document.getElementById("ecreditDays").value;
+        var eCustomerStatus = document.getElementById("eCustomerStatus").value;
 		console.log(ecustomerName);
 		console.log(earea);
         
@@ -1356,6 +1507,7 @@
 				reference2ContactNumber:ereference2ContactNumber,
                 creditLimit: ecreditLimit,
                 creditDays: ecreditDays,
+				CustomerStatus : eCustomerStatus,
                 op:"edt"
             },
             function (data, status) 
@@ -1368,8 +1520,88 @@
     }
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js" integrity="sha512-5wC3oH3tojdOtHBV6B4TXjlGc0E2uk3YViSrWnv1VUmmVlQDAs1lcupsqqpwjh8jIuodzADYK5xCL5Dkg/ving==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js" integrity="sha512-EFlschXPq/G5zunGPRSYqazR1CMKj0cQc8v6eMrQwybxgIbhsfoO5NAMQX3xFDQIbFlViv53o7Hy+yCWw6iZxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
+	
+	function printMasterCustomer(value){
+	 
+	
+		$.post("/masterCustomer", {
+		    id: value, 
+		  op: "pMasterCustomer"
+		}, function(data, status) {
+		    console.log("datassssssssssssssssssssssssssssss" , data)
+		    console.log("status " , status)
+			
+			var docDefinition =  {
+                content: [
+				{text: 'Master Customer Details', style: 'header'},
+	  
+	  {text: 'Profile', style: 'subheader'},
+	  'The following table has nothing more than a body array',
+	  {
+		  style: 'tableExample',
+		  table: {
+				  widths: [  '*', '*'  ],
+			  body:  Object.entries(data).map(([key, value]) => {
+                // Replace null values with a placeholder
+                const displayValue = value !== null ? value.toString() : 'N/A';
+                return [key, displayValue];
+            })
+		  }
+	  },
+   
+	   ]
+                
+            }
+            
+			console.log()
+
+		pdfMake.createPdf(docDefinition).download();
+		});
+
+	}
+
+	function excelMasterCustomer(value){
+		$.post("/masterCustomer", {
+		    id: value, 
+		  op: "excelMasterCustomer"
+		}, function(data, status) {
+		    console.log("data " , data)
+		    console.log("status " , status)
+			
+               // Convert the binary data to a Uint8Array
+    const uint8Array = new Uint8Array(data.length);
+    for (let i = 0; i < data.length; i++) {
+      uint8Array[i] = data.charCodeAt(i) & 0xff;
+    }
+
+    // Create a Blob from the Uint8Array
+    const blob = new Blob([uint8Array], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    // Create a temporary URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a hidden anchor element
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'output.xlsx';
+
+    // Append the anchor to the document and trigger a click event
+    document.body.appendChild(a);
+    a.click();
+
+    // Remove the anchor from the document
+    document.body.removeChild(a);
+
+    // Clean up the temporary URL
+    window.URL.revokeObjectURL(url);
+		});
+
+	}
+
     function del(value)
     {
         console.log(value);
@@ -1421,18 +1653,16 @@
         }
         );
     }
-
-
 	function eedit(value)
     {
-        console.log(value);
+        console.log("value11111111111111" ,value);
         var sub = 'customer';
         var result = value.replace(sub,'');
-        console.log(result);
+        console.log("result1111111" ,result);
         
         $('.'+value).each(function() 
         {   
-			console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+			console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq" , this)
             var customerName = $(this).find(".customerName")[0].innerText;    
             var area = $(this).find(".area").html();    
             var status = $(this).find(".status").html();    
@@ -1445,16 +1675,17 @@
             var reference2ContactNumber = $(this).find(".reference2ContactNumber").html();    
             var creditLimit = $(this).find(".creditLimit").html();    
             var creditDays = $(this).find(".creditDays").html();     
+            var CustomerStatus = $(this).find(".CustomerStatus").html();     
             
 
 
-			console.log(customerName)
+			console.log("CustomerStatus" ,CustomerStatus)
 			console.log(area)
 			console.log("++++++++++++++++++++++++++++++++++++++++")
 			console.log(result)
 			
 			
-            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td><input type="text" value="'+customerName+'" class="form-control ecustomerName" name="ecustomerName" id="ecustomerName"></td> </tr> <tr> <td>area</td> <td><select id="earea" name="earea" class="form-control earea"> <option value="null" disabled selected>'+area+'</option> <% for(var i=0; i<areaData.length; i++) {%> <option value="<%=areaData[i].areaId%>"><%=areaData[i].area%></option> <% } %> </select> </td> </tr> <tr> <td>status</td> <td><select id="estatus" name="estatus" class="form-control estatus"> <option value="null" disabled selected>'+status+'</option> <option value="VERIFIED">VERIFIED</option> <option value="UNVERIFIED">UNVERIFIED</option> <option value="INACTIVE">INACTIVE</option> </select> </td> </tr> <tr> <td>grade</td> <td><select id="egrade" name="egrade" class="form-control egrade"> <option value="null" disabled selected>'+grade+'</option> <% for(var i=0; i<gradeData.length; i++) {%> <option value="<%=gradeData[i].gradeId%>"><%=gradeData[i].gradeType%></option> <% } %> </select> </td> </tr> <tr> <td>pincode</td> <td><input type="text" value="'+pincode+'" class="form-control epincode" name="epincode" id="epincode"> </tr> <tr> <td>address</td> <td><input type="text" value="'+address+'" class="form-control eaddress" name="eaddress" id="eaddress"> </tr> <tr> <td>reference 1 Name</td> <td><input type="text" value="'+referenceNumber1+'" class="form-control ereferenceNumber1" name="ereferenceNumber1" id="ereferenceNumber1"> </tr> <tr> <td>reference 1 ContactNumber</td> <td><input type="text" value="'+reference1ContactNumber+'" class="form-control ereference1ContactNumber" name="ereference1ContactNumber" id="ereference1ContactNumber"> </tr> <tr> <td>reference 2 Name</td> <td><input type="text" value="'+referenceNumber2+'" class="form-control ereferenceNumber2" name="ereferenceNumber2" id="ereferenceNumber2"> </tr> <tr> <td>reference 2 ContactNumber</td> <td><input type="text" value="'+reference2ContactNumber+'" class="form-control ereference2ContactNumber" name="ereference2ContactNumber" id="ereference2ContactNumber"> </tr> <tr> <td>Credit Limit</td> <td><input type="text" value="'+creditLimit+'" class="form-control ecreditLimit" name="ecreditLimit" id="ecreditLimit"> </tr>   <tr> <td>Credit Days</td> <td><input type="text" value="'+creditDays+'" class="form-control ecreditDays" name="ecreditDays" id="ecreditDays"> </tr></table> </div>'
+            var tek = '<div class="card" style="text-align:center;"> <table class="table datatable-basic table-bordered table-striped table-hover"> <tr> <td >customerName</td> <td><input type="text" value="'+customerName+'" class="form-control ecustomerName" name="ecustomerName" id="ecustomerName"></td> </tr> <tr> <td>area</td> <td><select id="earea" name="earea" class="form-control earea"> <option value="null" disabled selected>'+area+'</option> <% for(var i=0; i<areaData.length; i++) {%> <option value="<%=areaData[i].areaId%>"><%=areaData[i].area%></option> <% } %> </select> </td> </tr> <tr> <td>status</td> <td><select id="estatus" name="estatus" class="form-control estatus"> <option value="null" disabled selected>'+status+'</option> <option value="VERIFIED">VERIFIED</option> <option value="UNVERIFIED">UNVERIFIED</option> <option value="INACTIVE">INACTIVE</option> </select> </td> </tr> <tr> <td>Customer status</td> <td><select id="eCustomerStatus" name="eCustomerStatus" class="form-control eCustomerStatus"> <option value="null" disabled selected>'+CustomerStatus+'</option> <option value="active">ACTIVE</option><option value="inactive">INACTIVE</option> </select> </td> </tr><tr> <td>grade</td> <td><select id="egrade" name="egrade" class="form-control egrade"> <option value="null" disabled selected>'+grade+'</option> <% for(var i=0; i<gradeData.length; i++) {%> <option value="<%=gradeData[i].gradeId%>"><%=gradeData[i].gradeType%></option> <% } %> </select> </td> </tr> <tr> <td>pincode</td> <td><input type="text" value="'+pincode+'" class="form-control epincode" name="epincode" id="epincode"> </tr> <tr> <td>address</td> <td><input type="text" value="'+address+'" class="form-control eaddress" name="eaddress" id="eaddress"> </tr> <tr> <td>reference 1 Name</td> <td><input type="text" value="'+referenceNumber1+'" class="form-control ereferenceNumber1" name="ereferenceNumber1" id="ereferenceNumber1"> </tr> <tr> <td>reference 1 ContactNumber</td> <td><input type="text" value="'+reference1ContactNumber+'" class="form-control ereference1ContactNumber" name="ereference1ContactNumber" id="ereference1ContactNumber"> </tr> <tr> <td>reference 2 Name</td> <td><input type="text" value="'+referenceNumber2+'" class="form-control ereferenceNumber2" name="ereferenceNumber2" id="ereferenceNumber2"> </tr> <tr> <td>reference 2 ContactNumber</td> <td><input type="text" value="'+reference2ContactNumber+'" class="form-control ereference2ContactNumber" name="ereference2ContactNumber" id="ereference2ContactNumber"> </tr> <tr> <td>Credit Limit</td> <td><input type="text" value="'+creditLimit+'" class="form-control ecreditLimit" name="ecreditLimit" id="ecreditLimit"> </tr>   <tr> <td>Credit Days</td> <td><input type="text" value="'+creditDays+'" class="form-control ecreditDays" name="ecreditDays" id="ecreditDays"> </tr></table> </div>'
 				
 			var bt="<button type='button' class='btn btn-link' style='color:teal' data-dismiss='modal'>Cancel</button> <button type='submit' onclick='edit("+result+")' data-dismiss='modal' class='btn bg-teal-400'>Save</button>"
 			console.log("Ujjwal")
@@ -1502,15 +1733,21 @@
 
 
 	async function check(tableData) {
-		var gradeData = <%-JSON.stringify(gradeData)%>;
-		var areaData = <%-JSON.stringify(areaData)%>;
+		var gradeData = JSON.parse('<%-JSON.stringify(gradeData)%>');
+		var areaData = JSON.parse('<%-JSON.stringify(areaData)%>');
 	  
-		var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>Customer Name</th> <th>Area</th> <th>Status</th> <th>Grade</th> <th>Pincode</th> <th>Address</th> <th>Contact</th> </thead> <tbody> ";
-	  
+		var table = "<table class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;' id='tbl'> <thead> <th>Customer Name</th> <th>Customer Status</th><th>Area</th> <th>Status</th> <th>Grade</th> <th>Pincode</th> <th>Address</th> <th>Contact</th> </thead> <tbody> ";
+	//   console.log("tablData" , custCateg)
 		for (var i = 0; i < tableData.length; i++) {
 		  table += "<tr>";
 		  table += "<td class='customerName'>" + tableData[i].customerName + "</td>";
-		  for (var a = 0; a < areaData.length; a++) {
+    // Check if CustomerStatus is null
+    if (tableData[i].CustomerStatus !== null) {
+        table += "<td class='customerName'>" + tableData[i].CustomerStatus + "</td>";
+    } else {
+        table += "<td class='customerName'>N/A</td>";
+    }		
+	  for (var a = 0; a < areaData.length; a++) {
 			if (areaData[a].areaId == tableData[i].area) {
 			  table += "<td class='area'>" + areaData[a].area + "</td>";
 			  break;
@@ -1626,6 +1863,8 @@
             op:"cinf"
         },
         function (data, status) {
+			
+			console.log("data9999999999999999999999999999999999999999" , data)
 			console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
             console.log(data);
 			console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
@@ -1643,9 +1882,17 @@
 
 	function custmod(data)
 	{
-		var productData = <%-JSON.stringify(productData)%>;
+		
+		var productData = <%- JSON.stringify(productData) %>;
+console.log("productData" ,productData )
 		if(data)
 		{
+			// area
+			const address = `area - ${data.area} district -  ${data.district} zone - ${data.zone} state - ${data.state}`;
+			console.log("data1333333333333" ,address  )
+
+			console.log("data" ,data[0].product )
+			console.log("data1111111111111111111111" ,data  )
 			var index=Object.keys(data).length;
 			console.log(index)
 			index=index-14;
@@ -1658,19 +1905,24 @@
 				ishuProdTable += "<thead> <tr> <th class='col-lg-6'>Index</th> <th>Product</th> </tr> </thead>";
 				for (let i = 0; i <= index; i++) {
 				  ishuProdTable += "<tr>";
-				  ishuProdTable += "<td >"+ (i+1) +"</td>";
-				  for (var a = 0; a < productData.length; a++) {
-					if (productData[a].productId == data[i].product) {
-					  ishuProdTable += "<td> " + productData[a].productName+ "</td>";
-					  break;
-					}
-				  }
+				 
+				   // Check if data[i].product is defined
+    if (data[i] && data[i].product) {
+        for (var a = 0; a < productData.length; a++) {
+            console.log("data[i].product", data[i].product);
+            if (productData[a].productId == data[i].product) {
+				ishuProdTable += "<td >"+ (a+1) +"</td>";
+                ishuProdTable += "<td> " + productData[a].productName + "</td>";
+                break;
+            }
+        }
+    }
 				  ishuProdTable += "</tr>";
 				  
 				}
 			ishuProdTable += "</table>";
 
-			console.log(data)
+		 
 			
 			var	tek="<div><button onclick='getCustomerData(\"" + holiname + "\", " + JSON.stringify(data) + ")' class='btn-light'>Print Customer Details</button> <div class='float-right'> <button class='btn-light' data-toggle='modal' data-target='#modal_edit' data-popup='popover' onclick='eedit(\"" + data.customerId + "customer\")'>Edit</button> <button class='btn-light' data-toggle='modal' data-target='#modal_del' data-popup='popover' onclick='ddel(\"" + data.customerId + "customer\")'>Delete</button> </div> </div> <br> <ul class='nav nav-tabs nav-tabs-solid bg-teal-400 border-0 nav-justified'>"	
 
@@ -1688,7 +1940,7 @@
 
 			tek+="</ul> <div class='tab-content'> "	
 
-			tek+="<div class='tab-pane fade show active' id='customer-tab1' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td>Customer Name</td> <td>"+data.customerName+"</td> </tr> <tr> <td>Area</td> <td>"+data.area+"</td> </tr> <tr> <td>Status</td> <td>"+data.status+"</td> </tr> <tr> <td>Grade</td> <td>"+data.grade+"</td> </tr> <tr> <td>Pincode</td> <td>"+data.pincode+"</td> </tr> <tr> <td>Address</td> <td>"+data.address+"</td> </tr> <tr> <td>REF_NO_1</td> <td>"+data.referenceNumber1+"</td> </tr> <tr> <td>REF_NO_2</td> <td>"+data.referenceNumber2+"</td> </tr> <tr> <td>Credit Limit</td> <td>"+data.creditLimit+"</td> </tr> <tr> <td>Credit Days</td> <td>"+data.creditDays+"</td> </tr> </table> </div>"
+			tek+="<div class='tab-pane fade show active' id='customer-tab1' style='text-align:center;'> <table class='table datatable-basic table-bordered table-striped table-hover'> <tr> <td>Customer Name</td> <td>"+data.customerName+"</td> </tr> <tr> <td>Area</td> <td>"+address+"</td> </tr> <tr> <td>Status</td> <td>"+data.status+"</td> </tr> <tr> <td>Grade</td> <td>"+data.gradeType+"</td> </tr> <tr> <td>Pincode</td> <td>"+data.pincode+"</td> </tr> <tr> <td>Address</td> <td>"+data.address+"</td> </tr> <tr> <td>REF_NO_1</td> <td>"+data.referenceNumber1+"</td> </tr> <tr> <td>REF_NO_2</td> <td>"+data.referenceNumber2+"</td> </tr> <tr> <td>Credit Limit</td> <td>"+data.creditLimit+"</td> </tr> <tr> <td>Credit Days</td> <td>"+data.creditDays+"</td> </tr> <tr> <td>Customer Status</td> <td>"+data.CustomerStatus+"</td> </tr> </table> </div>"
 			
 			tek+="<div class='tab-pane fade' id='customer-tab2' style='text-align:center;'> </div> "
 
@@ -1703,136 +1955,405 @@
 
 			tek+="</div>"
 			
+			console.log("llllllllllllllllllllllllllllllllll" )
 			document.getElementById("ekdin").innerHTML=tek;
+		 
 		}
 		else
 		{
+			 
+			console.log("llllllllllllllllllllllllllllllllll33333333333333333333333333333" )
 			var table="<h5>Verified Master Customer does not exist</h5>"
 			document.getElementById("ekdin").innerHTML=table;
+			
 		}
 	}
-
 
 
 
 	function getCustomerData(customerId, customerData) {
-		var fData, ctData, cnData;
-	  
-		$.post("/masterCustomer", {
-		  value: customerId,
-		  op: "customerContact"
-		}, function(data, status) {
-		  console.log(data);
-		  cnData = data;
-		  console.log(status);
-		  
-		  // Check if all data is available before calling printFunction
-		  if (fData && ctData && cnData) {
-			printFunction(customerId, customerData, fData, ctData, cnData);
-		  }
-		});
-	  
-		$.post("/masterCustomer", {
-		  value: customerId,
-		  op: "customerCategory"
-		}, function(data, status) {
-		  console.log(data);
-		  ctData = data;
-		  console.log(status);
-		  
-		  // Check if all data is available before calling printFunction
-		  if (fData && ctData && cnData) {
-			printFunction(customerId, customerData, fData, ctData, cnData);
-		  }
-		});
-	  
-		$.post("/masterCustomer", {
-		  value: customerId,
-		  op: "customerFirm"
-		}, function(data, status) {
-		  console.log(data);
-		  fData = data;
-		  console.log(status);
-		  
-		  // Check if all data is available before calling printFunction
-		  if (fData && ctData && cnData) {
-			printFunction(customerId, customerData, fData, ctData, cnData);
-		  }
-		});
-	  }
+    var fData, ctData, cnData;
+    var dataLoaded = {
+        fData: false,
+        ctData: false,
+        cnData: false
+    };
+
+    function checkDataLoaded() {
+        if (dataLoaded.fData && dataLoaded.ctData && dataLoaded.cnData) {
+            printFunction(customerId, customerData, fData, ctData, cnData);
+        }
+    }
+
+    $.post("/masterCustomer", {
+        value: customerId,
+        op: "customerContact"
+    }, function (data, status) {
+        console.log(data);
+        cnData = data;
+        console.log(status);
+        dataLoaded.cnData = true;
+        checkDataLoaded();
+    });
+
+    $.post("/masterCustomer", {
+        value: customerId,
+        op: "customerCategory"
+    }, function (data, status) {
+        console.log(data);
+        ctData = data;
+        console.log(status);
+        dataLoaded.ctData = true;
+        checkDataLoaded();
+    });
+
+    $.post("/masterCustomer", {
+        value: customerId,
+        op: "customerFirm"
+    }, function (data, status) {
+        console.log(data);
+        fData = data;
+        console.log(status);
+        dataLoaded.fData = true;
+        checkDataLoaded();
+    });
+}
 	  
 
-	function printFunction(customerId, customerData,fData,ctData,cnData) {
-
-		var productData = <%-JSON.stringify(productData)%>;
-		var areaData = <%-JSON.stringify(areaData)%>;
-		var gradeData = <%-JSON.stringify(gradeData)%>;
+	  function printFunction(customerId, customerData,fData,ctData,cnData) {
+		var productData = <%- JSON.stringify(productData) %>;
+		// var productData = JSON.stringify(productData);
+		var areaData = JSON.stringify(areaData);
+		var gradeData = JSON.stringify(gradeData);
 		console.log("printing")
-		console.log(customerData)
-		console.log(fData)
-		console.log(ctData)
-		console.log(cnData)
-
+		console.log("customerData" ,customerData)
+		console.log("fData" , fData)
+		console.log("ctData" ,ctData)
+		console.log("cnData", cnData)
+		console.log("areaData", areaData)
+		console.log("gradeData", gradeData)
+		
 		var index=Object.keys(customerData).length;
+		console.log("customerData1111" , customerData.area , customerData.zone )
 		index=index-14;
 		var pData=[];
 		for (let i = 0; i <= index; i++) {
 			for (var a = 0; a < productData.length; a++) {
-			  if (productData[a].productId == customerData[i].product) {
+				if (customerData[i] && customerData[i].product) {
+					if (productData[a].productId == customerData[i].product) {
 				pData.push(productData[a].productName);
 				break;
 			  }
+				}
+			
 			}
 		  }
 		console.log(pData)
 
+		let firms = custFirmPrint(fData);
+		console.log("firmssssss" , firms)
+		// const firmsData = getfirmsData()
+		// function getfirmsData(){
+		// 	const arrayData = []
+		// 	for(i = 0 ; i < firms.length ; i++){
+		// 		const keys = Object.keys(firms[i])
+		// 		for(a = 0 ; a < keys.length ; a++){
+					
 
-		const documentDefinition = {
-			content: [
-			  // Title
-			  { text: 'Sample Document', style: 'title' },
-			  
-			  // Paragraph
-			  { text: 'This is a paragraph of text.' },
-			  
-			  // Table
-			  {
-				table: {
-				  headerRows: 1,
-				  widths: ['*', 'auto', 100, '*'],
-				  body: [
-					['Column 1', 'Column 2', 'Column 3', 'Column 4'],
-					['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-					['Value 5', 'Value 6', 'Value 7', 'Value 8']
-				  ]
+		// 			const data = [keys[a] , firms[i][keys[a]]]
+		// 			console.log("item" ,data)
+		// 			arrayData.push(data)
+		// 		}
+		// 	}
+		// 	console.log("arrayData",arrayData)
+		// return arrayData
+		// }
+		
+
+// console.log("firmsData" ,firmsData);
+
+	 let category =	custCatPrint(ctData)
+	 console.log("category" , category)
+	 console.log("firms" , firms)
+	 let contacts =	custCntctPrint(cnData)
+	 console.log("contacts" , contacts)
+	 let customerData1 = {...customerData , area : `${customerData.area}`}
+	 // Delete keys '0' and '1' if they exist
+delete customerData1['0'];
+delete customerData1['1'];
+delete customerData1['customerId'];
+delete customerData1['grade'];
+delete customerData1['areaId'];
+delete customerData1['gradeId'];
+
+const frimsDAtaArray = []
+const firmDataa = firms.forEach((item) => {
+                // Replace null values with a placeholder
+				let {key, value} = item
+				console.log("dataitem" ,item)
+                 console.log("Data , key"  , key , value)
+				console.log(Object.keys(item)  , Object.values(item))
+				frimsDAtaArray.push(  Object.values(item))
+                // return [Object.keys(item)  , Object.values(item) ]
+				 
+            })
+			console.log("firmDAtaa" , frimsDAtaArray)
+
+			const contactDAtaArray = []
+			console.log( "contacts111" ,contacts)
+			let contactDataa = contacts.forEach((  item) => {
+					// Replace null values with a placeholder
+					console.log("dataitem", item);
+
+					const data3 = Object.values(item);
+					console.log(data3);
+
+					contactDAtaArray.push(data3); // Use push directly without reassigning
+					console.log("acc", contactDAtaArray);
+
+					 // Return the updated acc array
+				} );
+
+				console.log("contactDataArray", contactDataa); 
+
+
+console.log("Customerwwwww" ,customerData1)
+	 console.log("Customer" ,Object.entries(customerData))
+console.log("firms" ,firms)
+console.log("firms" ,Object.entries(firms))
+		var docDefinition =  {
+                content: [
+				{text: 'Master Customer Details', style: 'header'},
+	  
+				// custoer data 
+	  {text: 'PROFILE', style: 'subheader'},
+	   
+	  {
+		  style: 'tableExample',
+		  table: {
+				  widths: [  'auto', 'auto'  ],
+			  body:  Object.entries(customerData1).map(([key, value]) => {
+                const displayValue = value !== null ? value.toString() : 'N/A';
+				return [key, displayValue];
+            })	
+		  },
+		  layout: {
+				fillColor: function (rowIndex, node, columnIndex) {
+					return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
 				}
-			  }
+			}
+	  },
+   
+	 // fData data 
+	  {text: 'FIRMS', style: 'subheader'},
+	   
+	   {
+		   style: 'tableExample',
+		   table: {
+			widths: [ 'auto', 'auto','auto', 'auto' ,'auto', 'auto','auto', 'auto','auto' ],
+ 			   body: [ ['First Name', 'Address', 'Pincode', 'GST Number', 'Account Number', 'Bank Name', 'IFSC Code', 'Product Produced', 'Quantity'],
+				...frimsDAtaArray
 			],
+				headerRows: 1
 			
-			// Styles
-			styles: {
-			  title: {
-				fontSize: 18,
-				bold: true,
-				margin: [0, 0, 0, 10] // top, right, bottom, left
+			 
+		   },
+		   layout: {
+				 fillColor: function (rowIndex, node, columnIndex) {
+					 return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
+				 }
+			 }
+	   },
 
-			  }
+	   	 // cData data 
+	  {text: 'CONTACTS', style: 'subheader'},
+	   
+	   {
+		   style: 'tableExample',
+		   table: {
+			widths: [  '*', '*','*', '*'  ],
+
+ 			   body:  [['Contact Name', 'Designation', 'MobileNumber', 'Email' ],
+ ...contactDAtaArray],
+				headerRows: 1
+			
+			 
+		   },
+		   layout: {
+				 fillColor: function (rowIndex, node, columnIndex) {
+					 return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
+				 }
+			 }
+	   },
+
+
+
+//  fData
+// ...firms.map((firm) => {
+
+// 	const firmData = []
+// 	let arrayData = [{text: 'Firm', style: 'subheader'},   {
+// 		   style: 'tableExample',
+// 		   table: {
+// 				   widths: [ 'auto','auto','auto', 'auto','auto', 'auto','auto', 'auto','auto' ],
+// 			   body:[
+//                     Object.keys(firms[0]), // Display keys as table headers
+//                     ...firms.map((firm) => Object.values(firm).map(value => value.toString()))
+//                 ]
+//             },
+// 		   layout: {
+// 				 fillColor: function (rowIndex, node, columnIndex) {
+// 					 return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
+// 				 }
+// 			 }
+// 	   }]
+		 
+// 				const keys = Object.keys(firm)
+// 				console.log("keys",keys)
+// 				for(a = 0 ; a < keys.length ; a++){
+					
+
+// 					const data = [keys[a] , firm[keys[a]]]
+// 					console.log("item" ,data)
+// 					firmData.push(	data)
+					  
+
+// 				}
+			 
+ 
+// 	console.log("arrayData" ,arrayData)
+			
+	 
+
+
+// 	  return arrayData
+// 	}),
+//  ctData  category
+{text: 'CATEGORY', style: 'subheader', absolutePosition: { x: 400, y:73 }},
+	  
+	  {
+		  style: 'tableExample',
+		  table: {
+				  widths: ['*'],
+			  body:  Object.entries(category ).map(([key, value]) => {
+                // Replace null values with a placeholder
+                const displayValue = value !== null ? value.toString() : 'N/A';
+                return [displayValue];
+            })
+		  },	
+		  layout: {
+				fillColor: function (rowIndex, node, columnIndex) {
+					return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
+				}
 			},
-			defaultStyle: {
-				font: 'Roboto' // Use the registered font
-			  }
-		  };
+			absolutePosition: { x: 400, y: 90 }
+	  },
+	  //  cnData   contact
+// 	  ...contacts.map((contact) => {
 
-		  $.post("/masterCustomer", {
-			value: customerId,
-			documentDefinition: documentDefinition,
-			op: "printReport"
-		  }, function(data, status) {
-			console.log(data);
-			console.log(status);
-		  });
+// const contactData = []
+// let arrayContactData = [{text: 'contacts', style: 'subheader'},   {
+// 	   style: 'tableExample',
+// 	   table: {
+// 			   widths: [  '*', '*', '*', '*' , '*', '*'  ],
+// 		   body: [
+//                     Object.keys(contacts[0]), // Display keys as table headers
+//                     ...contacts.map((contact) => Object.values(contact).map(value => value.toString()))
+//                 ]
+//             },
+// 	   layout: {
+// 			 fillColor: function (rowIndex, node, columnIndex) {
+// 				 return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
+// 			 }
+// 		 }
+//    }]
+	 
+// 			const keys = Object.keys(contact)
+// 			console.log("keys",keys)
+// 			for(a = 0 ; a < keys.length ; a++){
+				
 
-	}
+// 				const data = [keys[a] , contact[keys[a]]]
+// 				console.log("item" ,data)
+// 				contactData.push(	data)
+				  
+
+// 			}
+		 
+
+// console.log("arrayContactData" ,arrayContactData)
+		
+ 
+
+
+//   return arrayContactData
+// }),
+
+
+	  	  //  pData   contact
+{text: 'PRODUCTS', style: 'subheader', absolutePosition: { x: 400, y: 180 }},
+	   
+	  {
+		  style: 'tableExample',
+		  table: {
+				  widths: ['*'],
+			  body:  Object.entries(pData  ).map(([key, value]) => {
+                // Replace null values with a placeholder
+                const displayValue = value !== null ? value.toString() : 'N/A';
+                return [displayValue];
+            })
+		  },
+		  layout: {
+				fillColor: function (rowIndex, node, columnIndex) {
+					return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
+				}
+			},
+			absolutePosition: { x: 400, y: 197 }
+	  },
+
+	   ],
+	   styles: {
+		header: {
+			fontSize: 10,
+			bold: true,
+			margin: [0, 0, 0, 10],
+		 
+           
+		},
+		subheader: {
+			fontSize: 7,
+			bold: true,
+			margin: [0, 10, 0, 5]
+		},
+		tableExample: {
+			margin: [0, 5, 0, 10],
+			fontSize:9
+		},
+		tableHeader: {
+			bold: true,
+			fontSize: 6,
+			color: 'black'
+		},
+	},
+	//pageOrientation: 'landscape',
+};
+                        
+			console.log()
+
+		pdfMake.createPdf(docDefinition).download();
+}	 
+		  console.log("documentDefinition" ,pData)
+		//   $.post("/masterCustomer", {
+		// 	value: customerId,
+		// 	documentDefinition: pData,
+		// 	op: "printReport"
+		//   }, function(data, status) {
+		// 	alert(data)
+		// 	console.log(data);
+		// 	console.log("status " , status);
+		//   });
+
+
 	  
 
 	function holi (value)
@@ -1910,12 +2431,13 @@
 		{
 			var holi="<table id='' class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>";
 			
-			holi+="<thead> <tr> <th>Index</th> <th>Designation</th> <th>Mobile Number</th> <th>Email</th> </tr> </thead>";
+			holi+="<thead> <tr> <th>Index</th> <th>Contact Name </th> <th>Designation</th> <th>Mobile Number</th> <th>Email</th> </tr> </thead>";
 			
 			for(var i=0; i<cntctdata.length; i++)
 			{
 				holi+="<tr>"
 				holi+="<td >"+ (i+1) +"</td>"
+				holi+="<td >"+ cntctdata[i].contactName+"</td>"
 				holi+="<td >"+ cntctdata[i].designation+"</td>"
 				holi+="<td >"+ cntctdata[i].mobileNumber+"</td>"
 				holi+="<td >"+ cntctdata[i].email+"</td>"
@@ -1933,7 +2455,7 @@
 	}
 	function custCat(catdata)
 	{
-		var categorydata = <%-JSON.stringify(categorydata)%>;
+		var categorydata = JSON.parse('<%-JSON.stringify(categorydata)%>');
 		console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
 		console.log(catdata)
 		if(catdata)
@@ -1966,14 +2488,14 @@
 	}
 	function custFirm(firmdata)
 	{
-		var firmData = <%-JSON.stringify(firmData)%>;
+		var firmData = JSON.parse('<%-JSON.stringify(firmData)%>');
 		console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
-		console.log(firmdata)
+		console.log("firmdataaaaa" ,firmdata)
 		if(firmdata)
 		{
 			var holi="<table id='' class='table datatable-basic table-bordered table-striped table-hover' style='table-layout: auto; width: 100%; overflow-x: auto;'>";
 			
-			holi+="<thead> <tr> <th>Index</th> <th>Firm Name</th> <th>Address</th> <th>Pincode</th> <th>GST Number</th> <th>Account Number</th> <th>Bank Name</th> <th>IFSC Code</th></tr> </thead>";
+			holi+="<thead> <tr> <th>Index</th> <th>Firm Name</th> <th>Address</th> <th>Pincode</th> <th>GST Number</th> <th>Account Number</th> <th>Bank Name</th> <th>IFSC Code</th> <th>Product Produced</th> <th>Quantity</th> </tr> </thead>";
 			
 			for(var i=0; i<firmdata.length; i++)
 			{
@@ -1988,6 +2510,8 @@
 					  holi += "<td> " + firmData[a].accountNumber+ "</td>";
 					  holi += "<td> " + firmData[a].bankName+ "</td>";
 					  holi += "<td> " + firmData[a].IFSCcode+ "</td>";
+					  holi += "<td> " + firmData[a].ProductProduced+ "</td>";
+					  holi += "<td> " + firmData[a].Quantity+ "</td>";
 					  break;
 					}
 				}
@@ -2088,5 +2612,127 @@
 			document.body.appendChild(link);
 			link.click();
 	}
+	
+function custFirmPrint(firmdata) {
+    var firmData = JSON.parse('<%-JSON.stringify(firmData)%>');
+    var firmDetails = [];
 
+    if (firmdata) {
+        for (var i = 0; i < firmdata.length; i++) {
+            for (var a = 0; a < firmData.length; a++) {
+                if (firmData[a].firmId == firmdata[i].firm) {
+                    var firmDetailsArray = {};
+
+                    firmDetailsArray["firstName"] = decodeURIComponent(firmData[a].firmName),
+                    firmDetailsArray["Address"] = decodeURIComponent(firmData[a].address),
+                    firmDetailsArray["Pincode"] = decodeURIComponent(firmData[a].pincode),
+                    firmDetailsArray["GSTNumber"] = decodeURIComponent(firmData[a].GSTNumber),
+                    firmDetailsArray["AccountNumber"] = decodeURIComponent(firmData[a].accountNumber),
+                    firmDetailsArray["BankName"] = decodeURIComponent(firmData[a].bankName),
+                    firmDetailsArray["IFSCCode"] = decodeURIComponent(firmData[a].IFSCcode),
+                    firmDetailsArray["Produced"] = decodeURIComponent(firmData[a].ProductProduced),
+                    firmDetailsArray["Quantity"] = decodeURIComponent(firmData[a].Quantity);
+                    
+                    firmDetails.push(firmDetailsArray);
+                }
+            }
+        }
+
+        return firmDetails;
+    } else {
+        return null;
+    }
+}
+
+
+	
+// 	function custFirmPrint(firmdata) {
+//     var firmData = JSON.parse('<%-JSON.stringify(firmData)%>');
+//     var firms = []; // Initialize an empty array to store firm details
+
+//     if (firmdata) {
+//         for (var i = 0; i < firmdata.length; i++) {
+//             for (var a = 0; a < firmData.length; a++) {
+//                 if (firmData[a].firmId == firmdata[i].firm) {
+//                     // Create a new firm object and push it to the firms array
+//                     firms.push({
+//                         firmName: firmData[a].firmName,
+//                         address: firmData[a].address,
+//                         pincode: firmData[a].pincode,
+//                         GSTNumber: firmData[a].GSTNumber,
+//                         accountNumber: firmData[a].accountNumber,
+//                         bankName: firmData[a].bankName,
+//                         IFSCcode: firmData[a].IFSCcode
+//                     });
+//                 }
+//             }
+//         }
+
+//         return firms; // Return the array of firm objects
+//     } else {
+//         // Handle the case when firmdata is falsy (null or undefined)
+//         return null;
+//     }
+// }
+
+function custCatPrint(catdata) {
+    var categorydata = JSON.parse('<%-JSON.stringify(categorydata)%>');
+    console.log("categorydata", categorydata)
+    if (catdata) {
+        let categories = [];
+
+        for (var i = 0; i < catdata.length; i++) {
+            for (var a = 0; a < categorydata.length; a++) {
+                if (categorydata[a].categoriesId == catdata[i].category) {
+                    categories.push(categorydata[a].categoriesType);
+                }
+            }
+        }
+
+        return categories;
+    } else {
+        return null;
+    }
+}
+
+function custCntctPrint(cntctdata) {
+    if (cntctdata) {
+        let contacts =[];
+        for (var i = 0; i < cntctdata.length; i++) {
+			let contactDetails = {}
+			contactDetails['contactName'] = cntctdata[i].contactName
+			contactDetails['Designation'] = cntctdata[i].designation
+			contactDetails['MobileNumber'] = cntctdata[i].mobileNumber
+			contactDetails['Email'] = cntctdata[i].email
+          
+			contacts.push( contactDetails)
+        }
+        return contacts;
+    } else {
+        return null;
+    }
+        }
+   
+//  function custCntctPrint(cntctdata)
+// 	{
+// 		let contacts = {};
+// 		if(cntctdata)
+// 		{
+			 
+// 			for(var i=0; i<cntctdata.length; i++)
+// 			{
+// 				contacts.contactName = cntctdata[i].contactName
+// 				contacts.designation =  cntctdata[i].designation 
+// 				contacts.mobileNumber = cntctdata[i].mobileNumber 
+// 				contacts.email =  cntctdata[i].email 				 
+// 			}
+		 
+// 			return contacts
+// 		}
+// 		else
+// 		{
+// 			return null; 
+// 		}
+// 	}
+	
 </script>

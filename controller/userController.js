@@ -17,9 +17,18 @@ const getRegister = (req,res,next)=>{
 }
 
 const postRegister = (req,res,next)=>{
+    console.log(req.body)
     const username = req.body.username;
     const password = req.body.password;
     const role = req.body.role;
+
+    // const username =  "shubham"
+    // const password = "pass"
+    // const role =  'Admin'
+    // const username =  "kunwar"
+    // const password = "pass"
+    // const role =  'Moderator'
+    
     var level;
     if(role==='User')
     {
@@ -187,7 +196,8 @@ const getRegisteredUsers = (req,res,next)=>{
     }
     else
     {
-        res.redirect('/');
+        // res.redirect('/');
+        res.redirect('/userDashboard')
     }
 }
 

@@ -635,25 +635,35 @@ const postMasterCustomer = async (req, res, next) => {
       });
   } else {
 
-    for (const contactNumber of req.body.contact) {
-      const contactData = await customerContactModel.findOne({
-        where: { mobileNumber: contactNumber },
-      });
+    console.log(req.body)
+    let msg;
 
-      if (!contactData) {
-        // existingContactNumbers.add(contactNumber);
-        customerData()
-      } else {
-
-        const gradeData = await masterGradeModel.findAll();
+    try {
+      const gradeData = await masterGradeModel.findAll();
       const areaData = await masterAreaModel.findAll();
       const productData = await masterProductsModel.findAll();
       const categoryData = await masterCategoriesModel.findAll();
       const custCateg = await customerCategoryModel.findAll();
       const firmData = await masterFirmModel.findAll();
+      const existingContactNumbers = new Set();
+  
+      for (const contactNumber of req.body.contact) {
+        const contactData = await customerContactModel.findOne({
+          where: { mobileNumber: contactNumber },
+        });
+  
+        if (!contactData) {
+          existingContactNumbers.add(contactNumber);
+        } else {
+          msg = "Contact already exists";
+        }
+      }
+  
+      console.log("Ddddddddddddddd" , req.body)
+     
 
-       let msg = "Contact already exists";
 
+      if (msg) {
         res.render("masterCustomer", {
           username: req.session.username,
           data: [],
@@ -666,266 +676,67 @@ const postMasterCustomer = async (req, res, next) => {
           custCateg: custCateg,
           msg: msg,
         });
-
-      }
-    }
-
-
-    function customerData(){
-
-   
-    masterCustomerModel
-      .findAll({
-        where: { customerName: req.body.customerName },
-      })
-      .then((data) => {
-        console.log("1111111111111111111111111111111111111111111");
-        console.log(data);
-        console.log("1111111111111111111111111111111111111111111");
-        if (data.length == 0) {
-          const customerName = req.body.customerName;
-          const firm = req.body.firmFil;
-          const area = req.body.area;
-          const status = req.body.status;
-          const grade = req.body.grade;
-          const productFil = req.body.productFil;
-          const contacts = req.body.contact || null;
-          const contactNames = req.body.contactName;
-          const designations = req.body.designation;
-          const emails = req.body.email;
-          const category = req.body.categoryFil;
-          const pincode = req.body.pincode || null;
-          const custCateg = req.body.custCateg || null;
-          const address = req.body.address;
-          const referenceNumber1 = req.body.referenceNumber1;
-          const reference1ContactNumber =
-            req.body.reference1ContactNumber || null;
-          const referenceNumber2 = req.body.referenceNumber2;
-          const reference2ContactNumber =
-            req.body.reference2ContactNumber || null;
-          const creditLimit = req.body.creditLimit || null;
-          const creditDays = req.body.creditDays || null;
-          const custStatus = req.body.CustomerStatus || null;
-          console.log("custStatus", custStatus);
-          masterCustomerModel
-            .create({
-              customerName: customerName,
-              area: area,   
-              status: status,
-              grade: grade,
-              pincode: pincode,
-              address: address,
-              referenceNumber1: referenceNumber1,
-              reference1ContactNumber: reference1ContactNumber,
-              referenceNumber2: referenceNumber2,
-              reference2ContactNumber: reference2ContactNumber,
-              creditLimit: creditLimit,
-              creditDays: creditDays,
-              CustomerStatus: custStatus,
-              custCateg: custCateg,
-            })
-            .then((result) => {
-              const customerId = result.customerId;
-              if (contacts) {
-                console.log(contactNames);
-                console.log(contacts);
-                console.log(designations);
-                console.log(emails);
-                for (let i = 0; i < contacts.length; i++) {
-                  const contactName = contactNames[i];
-                  const contact = contacts[i];
-                  const designation = designations[i];
-                  const email = emails[i];
-
-                  customerContactModel
-                    .create({
-                      customerName: customerId,
-                      mobileNumber: contact,
-                      contactName: contactName,
-                      designation: designation,
-                      email: email,
-                    })
-                    .then((res2) => {
-                      console.log(res2);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }
-              }
-
-              if (category) {
-                // Check if category exists
-                if (Array.isArray(category)) {
-                  console.log(category);
-                  for (let i = 0; i < category.length; i++) {
-                    console.log(category[i]);
-                    customerCategoryModel
-                      .create({
-                        customerName: customerId,
-                        category: category[i],
-                      })
-                      .then((res) => {
-                        console.log(res);
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                  }
-                } else {
-                  customerCategoryModel
-                    .create({
-                      customerName: customerId,
-                      category: category,
-                    })
-                    .then((res) => {
-                      console.log(res);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }
-              }
-
-              if (firm) {
-                // Check if firm exists
-                if (Array.isArray(firm)) {
-                  console.log(
-                    "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-                  );
-                  console.log(firm);
-                  for (let i = 0; i < firm.length; i++) {
-                    console.log(firm[i]);
-                    customerFirmModel
-                      .create({
-                        customerName: customerId,
-                        firm: firm[i],
-                      })
-                      .then((res) => {
-                        console.log(res);
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                  }
-                } else {
-                  customerFirmModel
-                    .create({
-                      customerName: customerId,
-                      firm: firm,
-                    })
-                    .then((res) => {
-                      console.log(res);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }
-              }
-
-              if (productFil) {
-                if (Array.isArray(productFil)) {
-                  console.log(productFil);
-                  for (let i = 0; i < productFil.length; i++) {
-                    console.log(productFil[i]);
-                    customerProductModel
-                      .create({
-                        customerName: customerId,
-                        product: productFil[i],
-                      })
-                      .then((reso) => {
-                        console.log(reso);
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                  }
-                } else {
-                  customerProductModel
-                    .create({
-                      customerName: customerId,
-                      product: productFil,
-                    })
-                    .then((reso) => {
-                      console.log(reso);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }
-              }
-
-              console.log("New Master Customer added");
-              res.redirect("/masterCustomer");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+      } else {
+        const customerExists = await masterCustomerModel.findOne({
+          where: { customerName: req.body.customerName },
+        });
+  
+        if (customerExists) {
+          msg = "Customer already exists";
         } else {
-          console.log(req.session.username);
-          var dataFil = "abc";
-          console.log(dataFil);
-          if (req.session.isLoggedIn) {
-            masterGradeModel
-              .findAll()
-              .then((gradeData) => {
-                masterAreaModel
-                  .findAll()
-                  .then((areaData) => {
-                    masterProductsModel
-                      .findAll()
-                      .then((productData) => {
-                        masterCategoriesModel
-                          .findAll()
-                          .then((categorydata) => {
-                            masterFirmModel
-                              .findAll()
-                              .then((firmData) => {
-
-                                
-                        customerCategoryModel
-                        .findAll()
-                        .then((custCateg) => {
-                            masterCustomerModel
-                            .findAll()
-                            .then((data) => {
-                              res.render("masterCustomer", {
-                                username: req.session.username,
-                                data: data,
-                                categorydata: categorydata,
-                                productData: productData,
-                                level: req.session.userLevel,
-                                gradeData: gradeData,
-                                areaData: areaData,
-                                firmData: firmData,
-                                custCateg: custCateg  ,
-                                msg: "Customer Name Already Exists",
-                              });
-                            })
-                            .catch((err) => console.log(err));
-                        })
-                        .catch((err) => console.log(err));
-
-                                
-
-
-                              })
-                              .catch((err) => console.log(err));
-                          })
-                          .catch((err) => console.log(err));
-                      })
-                      .catch((err) => console.log(err));
-                  })
-                  .catch((err) => console.log(err));
-              })
-              .catch((err) => console.log(err));
-          } else {
-            res.redirect("/");
+          const newCustomer = await masterCustomerModel.create({
+            customerName: req.body.customerName,
+            area: req.body.area,
+            status: req.body.status,
+            grade: req.body.grade,
+            pincode: req.body.pincode,
+            address: req.body.address,
+            referenceNumber1: req.body.referenceNumber1,
+            reference1ContactNumber: req.body.reference1ContactNumber,
+            referenceNumber2: req.body.referenceNumber2,
+            reference2ContactNumber: req.body.reference2ContactNumber,
+            creditLimit: req.body.creditLimit,
+            creditDays: req.body.creditDays,
+            CustomerStatus: req.body.custStatus,
+            custCateg: req.body.custCateg,
+          });
+  
+          if (newCustomer) {
+            for (const contactNumber of existingContactNumbers) {
+              await customerContactModel.create({
+                customerName: newCustomer.customerId,
+                mobileNumber: contactNumber,
+                contactName: req.body.contactName,
+                designation: req.body.designation,
+                email: req.body.email,
+              });
+            }
+  
+            res.redirect("/masterCustomer");
+          }else{
+            
           }
         }
-      })
-      .catch((err) => console.log(err));
+  
+        res.render("masterCustomer", {
+          username: req.session.username,
+          data: [],
+          categorydata: categoryData,
+          productData: productData,
+          level: req.session.userLevel,
+          gradeData: gradeData,
+          areaData: areaData,
+          firmData: firmData,
+          custCateg: custCateg,
+          msg: msg,
+        });
+      }
+    } catch (error) {
+      console.error("Error creating customer:", error);
+      res.status(500).send("Internal Server Error");
     }
+
+
   }
   };
 

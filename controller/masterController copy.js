@@ -300,7 +300,7 @@ const getMasterCustomer = (req, res, next) => {
                                   gradeData: gradeData,
                                   areaData: areaData,
                                   firmData: firmData,
-                                  custCateg: custCateg,
+                                  custCateg: custCateg  ,
                                   msg: "",
                                 });
                               })
@@ -322,8 +322,8 @@ const getMasterCustomer = (req, res, next) => {
   }
 };
 
-const postMasterCustomer = async (req, res, next) => {
-  let custCateg = [];
+const postMasterCustomer = (req, res, next) => { 
+  let custCateg = []; 
   var id = req.body.id;
   console.log("requestData", req.body);
   console.log("requestOP", req.body.op);
@@ -423,60 +423,60 @@ const postMasterCustomer = async (req, res, next) => {
       })
       .then((data) => {
         // Object.assign(cntctdata, data);
-        console.log(" data.area", data)
-        console.log(" data.area1", data[0].area)
+        console.log(" data.area" , data)
+        console.log(" data.area1" , data[0].area)
         masterGradeModel
-          .findAll(
-            { where: { gradeId: data[0].grade } }
+        .findAll(
+          {where : {gradeId : data[0].grade}}
           )
-          .then(gradeData => {
-            console.log("gradeData", gradeData)
-            masterAreaModel
-              .findAll({
-                where: { areaId: data[0].area },
-              })
-              .then((areaData) => {
-                console.log("areaData", { ...areaData[0].dataValues })
-                customerProductModel
-                  .findAll({
-                    where: { customerName: req.body.value },
-                  })
-                  .then((prdctdata) => {
-                    if (data.length != 0 && prdctdata.length != 0) {
-                      let sData = {
-                        ...data[0].dataValues,
-                      };
-                      let gData = {
-                        ...gradeData[0].dataValues,
-                      };
-                      let aData = {
-                        ...areaData[0].dataValues,
-                      };
-                      let fData = {
-                        ...sData,
-                        ...aData,
-                        ...gData,
-                        ...prdctdata
-
-                      };
-                      console.log("dataaaaaaaaaaaaaaaaaaa", fData);
-                      res.send(fData);
-                    } else {
-                      res.send(null);
-                    }
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              })
-              .catch(err => {
-                console.log(err)
-              })
-
-          }).catch(err => {
+        .then(gradeData => {
+          console.log("gradeData" , gradeData)
+          masterAreaModel
+          .findAll({
+            where: { areaId: data[0].area},
+          } )
+          .then((areaData)=> {
+            console.log("areaData" , {...areaData[0].dataValues})
+            customerProductModel
+            .findAll({
+              where: { customerName: req.body.value },
+            })
+            .then((prdctdata) => {
+              if (data.length != 0 && prdctdata.length != 0) {
+                let sData = {
+                  ...data[0].dataValues,
+                };
+                let gData = {
+                  ...gradeData[0].dataValues,
+                };
+                let aData = {
+                  ...areaData[0].dataValues,
+                };
+                let fData = {
+                  ...sData,
+                  ...aData,
+                   ...gData,
+                  ...prdctdata 
+                   
+                };
+                console.log("dataaaaaaaaaaaaaaaaaaa", fData);
+                res.send(fData);
+              } else {
+                res.send(null);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          })
+          .catch(err =>{
             console.log(err)
           })
-
+          
+        }).catch(err=>{
+          console.log(err)
+        })
+       
 
       })
       .catch((err) => {
@@ -519,9 +519,9 @@ const postMasterCustomer = async (req, res, next) => {
     var documentDefinition = req.body.documentDefinition;
     console.log("eeeeeeeeeeeeeee", documentDefinition);
 
-
-
-
+     
+ 
+   
   } else if (req.body.op === "marktrep") {
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -634,46 +634,6 @@ const postMasterCustomer = async (req, res, next) => {
         res.status(500).send("Internal Server Error");
       });
   } else {
-
-    for (const contactNumber of req.body.contact) {
-      const contactData = await customerContactModel.findOne({
-        where: { mobileNumber: contactNumber },
-      });
-
-      if (!contactData) {
-        // existingContactNumbers.add(contactNumber);
-        customerData()
-      } else {
-
-        const gradeData = await masterGradeModel.findAll();
-      const areaData = await masterAreaModel.findAll();
-      const productData = await masterProductsModel.findAll();
-      const categoryData = await masterCategoriesModel.findAll();
-      const custCateg = await customerCategoryModel.findAll();
-      const firmData = await masterFirmModel.findAll();
-
-       let msg = "Contact already exists";
-
-        res.render("masterCustomer", {
-          username: req.session.username,
-          data: [],
-          categorydata: categoryData,
-          productData: productData,
-          level: req.session.userLevel,
-          gradeData: gradeData,
-          areaData: areaData,
-          firmData: firmData,
-          custCateg: custCateg,
-          msg: msg,
-        });
-
-      }
-    }
-
-
-    function customerData(){
-
-   
     masterCustomerModel
       .findAll({
         where: { customerName: req.body.customerName },
@@ -738,20 +698,59 @@ const postMasterCustomer = async (req, res, next) => {
                   const email = emails[i];
 
                   customerContactModel
-                    .create({
-                      customerName: customerId,
-                      mobileNumber: contact,
-                      contactName: contactName,
-                      designation: designation,
-                      email: email,
+                  .findAll({
+                    where: { mobileNumber: req.body.contact },
+                  }).then((data) => {
+                    console.log("dddddddddddddddddddddddddd1" , data);
+                    console.log(data.length);
+                    console.log("1111111111111111111111111111111111111111111");
+                    if (data.length === 0) {
+                      console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+
+                      customerContactModel
+                      .create({
+                        customerName: customerId,
+                        mobileNumber: contact,
+                        contactName: contactName,
+                        designation: designation,
+                        email: email,
+                      })
+                      .then((res2) => {
+                        console.log(res2);
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  }else((data) => {
+                    console.log("tttttttttttttttttttttttttttttttttttttttttt");
+
+                      res.render("masterCustomer", {
+                        
+                        msg: "Mobile Number Name Already Exists",
+                      });
                     })
-                    .then((res2) => {
-                      console.log(res2);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }
+                  }
+                  ).catch((err) => {
+                    console.log(err);
+                  });
+
+                  // customerContactModel
+                  // .create({
+                  //   customerName: customerId,
+                  //   mobileNumber: contact,
+                  //   contactName: contactName,
+                  //   designation: designation,
+                  //   email: email,
+                  // })
+                  // .then((res2) => {
+                  //   console.log(res2);
+                  // })
+                  // .catch((err) => {
+                  //   console.log(err);
+                  // });
+              }
+
+               
               }
 
               if (category) {
@@ -925,9 +924,8 @@ const postMasterCustomer = async (req, res, next) => {
         }
       })
       .catch((err) => console.log(err));
-    }
   }
-  };
+};
 
 const getMasterEmployee = (req, res, next) => {
   if (req.session.isLoggedIn) {

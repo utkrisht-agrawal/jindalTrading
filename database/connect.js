@@ -4,5 +4,5 @@ const sequelize = new Sequelize('jindaltrading','root','root',{
     dialect: 'mysql',
     host: 'localhost'
 });
-
-module.exports = sequelize; 
+ 
+module.exports = sequelize;  

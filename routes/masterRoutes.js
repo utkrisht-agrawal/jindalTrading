@@ -17,7 +17,7 @@ router.post('/masterCustomer',masterCtrl.postMasterCustomer);
 
 router.get('/masterEmployee',masterCtrl.getMasterEmployee);
 router.post('/masterEmployee',masterCtrl.postMasterEmployee);
-
+    
 router.get('/masterGrade',masterCtrl.getMasterGrade);
 router.post('/masterGrade',masterCtrl.postMasterGrade);
 

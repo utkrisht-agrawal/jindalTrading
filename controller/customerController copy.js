@@ -142,47 +142,47 @@ const postmasterFirm = async (req,res,next)=>{
         });
 
 
-        try {
-            // Check if firm exists
-            const existingFirms = await masterFirmModel.findOne({
-                  where: {
-                      GSTNumber: GSTNumber,
-                  },
+    
+            try {
+              // Check if firm exists
+              const existingFirms = await masterFirmModel.findOne({
+                    where: {
+                        GSTNumber: GSTNumber,
+                    },
+                  });
+          
+              if (existingFirms) {
+
+                const Firms = await masterFirmModel.findAll()
+                res.send({msg : "Gst Already Exist" , result : Firms})
+
+              } else {
+                let result = await masterFirmModel.create({
+                    firmName: firmName,
+                    address: address,
+                    pincode: pincode,
+                    GSTNumber: GSTNumber,
+                    accountNumber: accountNumber,
+                    bankName: bankName,
+                    IFSCcode: IFSCcode,
+                    ProductProduced: ProductProduced,
+                    Quantity: Quantity,
                 });
-        
-            if (existingFirms) {
-
-              const Firms = await masterFirmModel.findAll()
-              res.send({msg : "Gst Already Exist" , result : Firms})
-
-            } else {
-              let result = await masterFirmModel.create({
-                  firmName: firmName,
-                  address: address,
-                  pincode: pincode,
-                  GSTNumber: GSTNumber,
-                  accountNumber: accountNumber,
-                  bankName: bankName,
-                  IFSCcode: IFSCcode,
-                  ProductProduced: ProductProduced,
-                  Quantity: Quantity,
-              });
-          
-              console.log("result", result);
-          
-              if (result) {
-                
-                  const Firms = await masterFirmModel.findAll();
-                  console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSss" , Firms)
-                  res.send({ msg: "New Firm Created", result: Firms });
+            
+                console.log("result", result);
+            
+                if (result) {
+                    const Firms = await masterFirmModel.findAll();
+                    console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSss" , Firms)
+                    res.send({ msg: "New Firm Created", result: Firms });
+                }
               }
+            } catch (error) {
+              console.error("Error creating firm:", error);
+              // Handle the error accordingly
+              msg = "Error creating firm";
             }
-          } catch (error) {
-            console.error("Error creating firm:", error);
-            // Handle the error accordingly
-            msg = "Error creating firm";
-          }
-        
+         
 
        
     }

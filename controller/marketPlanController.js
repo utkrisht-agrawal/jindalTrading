@@ -46,6 +46,7 @@ const getMarketPlanPigIron = (req,res,next)=>{
                                         .then((firmData)=>{
                                             customerProductModel.findAll()
                                             .then((custProdData)=>{
+                                             
                                                 res.render('marketPlanPigIron',{
                                                     username : req.session.username,
                                                     level: req.session.userLevel,
@@ -126,6 +127,7 @@ const getMarketPlanPigIron = (req,res,next)=>{
                                         .then((firmData)=>{
                                             customerProductModel.findAll()
                                             .then((custProdData)=>{
+                                                console.log("hellow" ,custProdData)
                                                 res.render('marketPlanPigIron',{
                                                     username : req.session.username,
                                                     level: req.session.userLevel,
@@ -555,123 +557,69 @@ const postMarketPlanPigIron = (req,res,next)=>{
         }
         
     }
-    else{
+    else {
         const customerName = req.body.customerName;
-        // const area = req.body.area;
-        // const grade = req.body.grade;
-        // const category = req.body.category;
-        // const product = req.body.product;
-        // const phoneNumber = req.body.phoneNumber;
-        
         const categoryProduct = req.body.categoryProduct;
         const representative = req.body.representative;
         const meetingDates = req.body.meetingDates;
         const lastDelivery = req.body.lastDelivery;
-        
-        
-
-        console.log(categoryProduct)
-        console.log(categoryProduct.substring(0, 1))
-
-        var cat ;
-        if(categoryProduct.substring(0, 1)=='R')
-        {
-            cat="Retail"
+    
+        console.log(categoryProduct);
+        console.log(categoryProduct.substring(0, 1));
+    
+        var cat;
+        if (categoryProduct.substring(0, 1) == 'R') {
+            cat = "Retail";
+        } else if (categoryProduct.substring(0, 1) == 'T') {
+            cat = "Trader";
+        } else if (categoryProduct.substring(0, 1) == 'W') {
+            cat = "Wholesale";
         }
-        else if(categoryProduct.substring(0, 1)=='T')
-        {
-            cat="Trader"
-        }
-        else if(categoryProduct.substring(0, 1)=='W')
-        {
-            cat="Wholesale"
-        }
-
-        console.log(cat)
-        console.log(categoryProduct.substring(1))
-
-        var prd=categoryProduct.substring(1)
-
-        // const currentRemark = req.body.currentRemark;
-        // const remarkStatus = req.body.remarkStatus;
-        // const nextDate = req.body.nextDate;
-        // const currentIssue = req.body.currentIssue;
-        // const analysed = req.body.analysed;
-        // const updateTimeStamp = req.body.updateTimeStamp;
-        // const totalIssue = req.body.totalIssue;
-
-
+    
+        console.log(cat);
+        console.log(categoryProduct.substring(1));
+    
+        var prd = categoryProduct.substring(1);
+    
         masterCustomerModel.findAll({
-            where : {customerName : customerName}
+            where: { customerName: customerName }
         })
-        .then((custData)=>{     
-            customerContactModel.findOne({
-                where : {customerName : customerName}
-            })
-            .then((contact)=>{
-                marketPlanPigIronModel.create({
-                    customerName: customerName,
-                    area: custData[0].area,
-                    grade: custData[0].grade,
-                    category: cat,
-                    product: prd,
-                    representative: representative,
-                    phoneNumber: contact.mobileNumber,
-                    meetingDates: meetingDates,
-                    lastDelivery: lastDelivery,
-                    // currentRemark: currentRemark,
-                    // remarkStatus: remarkStatus,
-                    // nextDate: nextDate,
-                    // currentIssue: currentIssue,
-                    // analysed: analysed,
-                    // updateTimeStamp: updateTimeStamp,
-                    // totalIssue: totalIssue
+            .then((custData) => {
+                console.log("custoid" , custData)
+                customerContactModel.findOne({
+                    where: { customerName: custData[0].customerId }
                 })
-                .then((result)=>
-                console.log(result),
-                console.log('New Market Plan added'),
-                res.redirect('/marketPlanPigIron')
-                )
-                .catch((err)=>
-                console.log(err)
-                )
+                    .then((contact) => {
+                        console.log("contact" , contact)    
+                        marketPlanPigIronModel.create({
+                            customerName: customerName,
+                            area: custData[0].area, // Uncomment and complete
+                            grade: custData[0].grade, // Uncomment and complete
+                            category: cat,
+                            product: prd,
+                            representative: representative,
+                            phoneNumber: contact.mobileNumber,
+                            meetingDates: meetingDates,
+                            lastDelivery: lastDelivery,
+                            // Uncomment and complete other fields
+                        })
+                            .then((result) => {
+                                console.log(result);
+                                console.log('New Market Plan added');
+                                res.redirect('/marketPlanPigIron');
+                            })
+                            .catch((err) => console.log(err));
+                    })
+                    .catch(err => console.log(err));
             })
-            .catch(err=>console.log(err))  
-            marketPlanPigIronModel.create({
-                customerName: customerName,
-                area: custData[0].area,
-                grade: custData[0].grade,
-                category: cat,
-                product: prd,
-                representative: representative,
-                phoneNumber: phoneNumber,
-                meetingDates: meetingDates,
-                lastDelivery: lastDelivery,
-                // currentRemark: currentRemark,
-                // remarkStatus: remarkStatus,
-                // nextDate: nextDate,
-                // currentIssue: currentIssue,
-                // analysed: analysed,
-                // updateTimeStamp: updateTimeStamp,
-                // totalIssue: totalIssue
-            })
-            .then((result)=>
-            console.log(result),
-            console.log('New Market Plan added'),
-            res.redirect('/marketPlanPigIron')
-            )
-            .catch((err)=>
-            console.log(err)
-            )
-        })
-        .catch((err)=>
-            console.log(err)
-            )
+            .catch((err) => {
+                console.log(err);
+                // Handle the error appropriately
+                res.status(500).send("Internal Server Error");
+            });
     }
+    
 }
-
-
-
 
 
 
