@@ -18,6 +18,10 @@
 	<link href="assets/css/layout.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/colors.min.css" rel="stylesheet" type="text/css">
+
+
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
@@ -43,6 +47,9 @@
 	<script src="global_assets/js/demo_pages/dashboard.js"></script>
 	<script src="global_assets/js/demo_pages/datatables_basic.js"></script>
 	<script src="global_assets/js/demo_pages/form_multiselect.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 	<!-- /theme JS files -->
 
 	<style>
@@ -335,21 +342,19 @@
 										<%if(data[i].status=='VERIFIED') {%>
 										<tr class="<%= data[i].customerId%>customer">
 											<%if(level==1) {%>
-												<td class="customerName" ><%= data[i].customerName%></td>
+												<td class="customerName"><button type="button" class="btn btn-light" data-toggle="modal" onclick="custInfo('<%= data[i].customerId%>')" data-target="#customer_information"><%= data[i].customerName%></button></td>
 												<td class="custCateg">
- 														<% for (var a = 0; a < custCateg.length; a++) { %>
-															<% if (custCateg[a].customerName == data[i].customerId) { %>
-															  <%=custCateg[a].category %>
-															  <% for (var b = 0; b < categorydata.length; b++) { %>
-																<% if (custCateg[a].category == categorydata[b].categoriesId) { %>
-																  <%=categorydata[b].categoriesType %>
-																  <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
-																<% } %>
+													<% for (var a = 0; a < custCateg.length; a++) { %>
+													   <% if (custCateg[a].customerName == data[i].customerId) { %>
+ 														 <% for (var b = 0; b < categorydata.length; b++) { %>
+														   <% if (custCateg[a].category == categorydata[b].categoriesId) { %>
+															 <%=categorydata[b].categoriesType %>  
+															 <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
 														   <% } %>
-															 <% } %>
-													   <% } %>
-													  
-												</td>
+													  <% } %>
+														<% } %>
+												  <% } %>												 
+										   </td>
 												<td class="area">
 													<% for (var a = 0; a < areaData.length; a++) { %>
 													  	<% if (areaData[a].areaId == data[i].area) { %>
@@ -423,20 +428,19 @@
  
 												</td>
 											<%}else if(level>1){%>
-												<td class="customerName"><%= data[i].customerName%></td>
+												<td class="customerName"><button type="button" class="btn btn-light" data-toggle="modal" onclick="custInfo('<%= data[i].customerId%>')" data-target="#customer_information"><%= data[i].customerName%></button></td>
+
 												<td class="custCateg">
 													<% for (var a = 0; a < custCateg.length; a++) { %>
 													   <% if (custCateg[a].customerName == data[i].customerId) { %>
-														 <%=custCateg[a].category %>
-														 <% for (var b = 0; b < categorydata.length; b++) { %>
+ 														 <% for (var b = 0; b < categorydata.length; b++) { %>
 														   <% if (custCateg[a].category == categorydata[b].categoriesId) { %>
-															 <%=categorydata[b].categoriesType %>
+															 <%=categorydata[b].categoriesType %>  
 															 <% console.log("customer data1234" ,categorydata[b].categoriesType) %>
 														   <% } %>
 													  <% } %>
 														<% } %>
-												  <% } %>
-												 
+												  <% } %>												 
 										   </td>
 												<td class="area">
 													<% for (var a = 0; a < areaData.length; a++) { %>
@@ -936,39 +940,48 @@
 												<div class="form-group">
 													<div class="row">
 														<div class="col-sm-6">
+															<% if(level ==1 ){ %>
+																<label>Status</label>
+															<select id="status" name="status" class="form-control status" id="status">
+  																<option value="UNVERIFIED" disabled selected>UNVERIFIED</option>
+															</select>
+															<% } %>
+															<% if(level > 1 || level > 2 ){ %>
 															<label>Status</label>
 															<select id="status" name="status" class="form-control status" id="status">
 																<option value="" disabled selected>-Select-</option>
 																<option value="VERIFIED">VERIFIED</option>
 																<option value="UNVERIFIED">UNVERIFIED</option>
 															</select>
+															<% } %>
 														</div>
 														<div class="col-sm-6">
 															<label>Customer Status</label>
+															<% if(level ==1 ){ %>
+																<select id="CustomerStatus" name="CustomerStatus" class="form-control status" id="CustomerStatus">
+  																	<option value="inactive" disabled selected>INACTIVE</option>
+																 </select>
+															<% } %>
+															<% if(level > 1 || level > 2 ){ %>
 															<select id="CustomerStatus" name="CustomerStatus" class="form-control status" id="CustomerStatus">
 																<option value="" disabled selected>-Select-</option>
 																<option value="active">ACTIVE</option>
 																<option value="inactive">INACTIVE</option>
  															</select>
+															 <% } %>
 														</div>
 														<div class="col-sm-12">
 															<label>Firm2<span class="text-danger">*</span></label>
 															<a style="border: 2px solid black; cursor: default;" class="" data-toggle="modal" data-target="#modal_firm">Add new Firm</a>
-															<select name="firmFil" class="form-control multiselect-filtering firmFil" id="firmFil" multiple="multiple" data-fouc>
-																<% for(var i=0; i<firmData.length; i++) { %>
-																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
-																<% } %>
-															</select>
+														
+														 
+															<select class="form-control " name="firmFil[]" id="firmFil" multiple="multiple">
+																 
+															  </select>
+														
+														 
 														</div>
-														<!-- <div class="col-sm-12">
-															<label>Firm<span class="text-danger">*</span></label>
-															<a style="border: 2px solid black; cursor: default;" class="" data-toggle="modal" data-target="#modal_firm">Add new Firm</a>
-															<select name="firmFil" class="form-control " id="firmFil" >
-																<% for(var i=0; i<firmData.length; i++) {%>
-																	<option value="<%=firmData[i].firmId%>"><%=firmData[i].firmName%></option>
-																<% } %>	
-															</select>
-														</div> -->
+											 
 													</div>
 												</div>
 												
@@ -1069,12 +1082,11 @@
 															<label>Reference 2 Contact Number</label>
 															<input type="text" placeholder="Contact Number" class="form-control reference2ContactNumber" name="reference2ContactNumber"  id="reference2ContactNumber" maxlength="10" pattern="[0-9]{10}">
 														</div>
-
 													</div>
 												</div>
 
 												<div class="form-group">
-													<div class="row">
+						 							<div class="row">
 														<div class="col-sm-6">
 															<label>Credit Limit</label>
 															<input type="number" placeholder="amount" class="form-control creditLimit" name="creditLimit" id="creditLimit">									
@@ -1259,68 +1271,71 @@
 									},
 									function (data, status) 
 									{
-										// console.log("data" , data);
- 								 
-										for( i=0 ; i < data.result.length ; i++){
-											updateFirmSelectDropdown(data.result[i]);
-										}
+										console.log("data" , data);
+										  updateFirmSelectDropdown( );
+
+										// for( i=0 ; i < data.result.length ; i++){
+										// 	updateFirmSelectDropdown(data.result[i]);
+										// }
 									 
 										$("#modal_firm").modal("hide");
 										if (data.msg) {
-														let selectElement = $("select[name='firmFil']");
+														let selectElement = $("#firmFil");
 														console.log(selectElement);
 														selectElement.next('.error').remove();
 														// Clear previous content and append the error message div after the select element
 														selectElement.html('').after('<div class="error">' + data.msg + '</div>');
 													}
 
-										 window.location.reload()
+										// window.location.reload() 
 										console.log(status);
 										// console.log(updatedFirmData)
 									});
 								});
-								   
-								
-								function updateFirmSelectDropdown(firmData) {
-									const firmId = firmData.firmId;
-									const firmName = firmData.firmName;
-								
-									
-									// Use jQuery's append method to add the new option
-									$("#firmFil").append($('<option>', {
-										value: firmId,
-										text: firmName
-									})) 
-									// console.log("firmdata" ,firmData)
-									// $("#firmFil").val(firmId);
-									$('#firmFil').multiselect('rebuild')
+								    
+								// var firmData = <%- JSON.stringify(firmData) %>;
+								function updateFirmSelectDropdown() {
+									$.ajax({
+										url: "/masterFirmApi",
+										dataType: 'json',
+										success: function (data) {
+											console.log("Raw data from server:", data);
 
-									// var x = document.getElementById("firmFil");
-									// var option = document.createElement("option");
-									// option.text = firmData.firmName;
-									// option.value = firmData.firmId;
-									// x.add(option);
+											let formattedData = $.map(data, function (item) {
+												return {
+													id: item.firmId,
+													text: item.firmName
+												};
+											});
 
-									// const updatedFirmData =firmData; 
-									 
-									// $("#firmFil").empty();
-									// console.log("empty data:");
+											console.log("Formatted data for Select2:", formattedData);
+											
+											if(formattedData){
+												$("#firmFil").select2({
+													placeholder: 'Select an Firm',
+												width: '100%',
+													data: formattedData
+												});
+											}
 
-									// // Append new options based on the updated firm data
-									// for (let i = 0; i < updatedFirmData.length; i++) {
-									// 	const firmId = updatedFirmData[i].firmId;
-									// 	const firmName = updatedFirmData[i].firmName;
-									// 	const option = $("<option>").val(firmId).text(firmName);
-									// 	$("#firmFil").append(option);
-									// }
-								
-								
-									 
+										},
+										error: function (error) {
+											console.error("Error fetching data:", error);
+										}
+									});
 								}
+
+								// Call the function to update Select2
+								updateFirmSelectDropdown();
+
+
+							 
+								 
+								
+									 
+								
 							</script>
-
-							
-
+ 
 
 						
 
@@ -1884,6 +1899,7 @@
 	{
 		
 		var productData = <%- JSON.stringify(productData) %>;
+console.log("data11111111111111111111111111" ,data )
 console.log("productData" ,productData )
 		if(data)
 		{
@@ -2048,10 +2064,10 @@ console.log("productData" ,productData )
 			
 			}
 		  }
-		console.log(pData)
+		console.log("///////////////////////////////" ,pData)
 
 		let firms = custFirmPrint(fData);
-		console.log("firmssssss" , firms)
+		// console.log("firmssssss" , firms)
 		// const firmsData = getfirmsData()
 		// function getfirmsData(){
 		// 	const arrayData = []
@@ -2077,7 +2093,27 @@ console.log("productData" ,productData )
 	 console.log("firms" , firms)
 	 let contacts =	custCntctPrint(cnData)
 	 console.log("contacts" , contacts)
-	 let customerData1 = {...customerData , area : `${customerData.area}`}
+	//  let customerData1 = {...customerData , area : `${customerData.area}`}
+	 CustomerStatus = customerData["CustomerStatus"]
+	 address = customerData["address"]
+	 area = `${customerData.area}`
+	 CustomerStatus = customerData["CustomerStatus"]
+	 customerName = customerData["customerName"]
+	 gradeType = customerData["gradeType"]
+	 reference1ContactNumber = customerData["reference1ContactNumber"]
+	 reference2ContactNumber = customerData["reference2ContactNumber"]
+	 referenceNumber1 = customerData["referenceNumber1"]
+	 referenceNumber2 = customerData["referenceNumber2"]
+	 creditLimit = customerData["creditLimit"]
+	 creditDays = customerData["creditDays"]
+	 status = customerData["status"]
+ 	 zone = customerData["zone"]
+	 district = customerData["district"]
+ 
+	 let customerData1 = {customerName ,CustomerStatus ,address ,area : `${customerData.area}`,status , zone ,district ,CustomerStatus,gradeType ,
+		reference1ContactNumber , reference2ContactNumber ,referenceNumber1 ,referenceNumber2 ,
+		creditLimit ,creditDays , }
+
 	 // Delete keys '0' and '1' if they exist
 delete customerData1['0'];
 delete customerData1['1'];
@@ -2085,6 +2121,9 @@ delete customerData1['customerId'];
 delete customerData1['grade'];
 delete customerData1['areaId'];
 delete customerData1['gradeId'];
+
+console.log(".................................." , customerData)
+console.log(".................................." , customerData1)
 
 const frimsDAtaArray = []
 const firmDataa = firms.forEach((item) => {
@@ -2131,7 +2170,7 @@ console.log("firms" ,Object.entries(firms))
 	  {
 		  style: 'tableExample',
 		  table: {
-				  widths: [  'auto', 'auto'  ],
+				  widths: [148, 148],
 			  body:  Object.entries(customerData1).map(([key, value]) => {
                 const displayValue = value !== null ? value.toString() : 'N/A';
 				return [key, displayValue];
@@ -2327,7 +2366,7 @@ console.log("firms" ,Object.entries(firms))
 		},
 		tableExample: {
 			margin: [0, 5, 0, 10],
-			fontSize:9
+			fontSize:7
 		},
 		tableHeader: {
 			bold: true,

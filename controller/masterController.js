@@ -459,7 +459,8 @@ const postMasterCustomer = async (req, res, next) => {
                         ...prdctdata
 
                       };
-                      console.log("dataaaaaaaaaaaaaaaaaaa", fData);
+                     
+
                       res.send(fData);
                     } else {
                       res.send(null);

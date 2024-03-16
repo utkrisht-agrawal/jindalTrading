@@ -261,7 +261,12 @@
 			</div>
 			<!-- /page header -->
 
-
+			 
+			<div class="errInfo" id="errInfo" style="background-color: rgb(255, 0, 0); margin: 1%;">
+				<% if (msg) { %>
+				  <h6 style="text-align: center; font-weight: 600"><%= msg %></h6>
+				<% }  %>
+			  </div>
 			<!-- Content area -->
 			<div class="content">
 

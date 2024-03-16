@@ -353,8 +353,8 @@
 												<td class="Quantity"><%= data[i].Quantity%></td>
 
 												<td>
-													<button onclick="edit('<%= data[i].firmId%>firm')" name="foo" value="check" >Edit</button>
-													</td>
+													<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_edit" onclick="eedit('<%=data[i].firmId%>firm')" title="Edit <%= data[i].firmName%>">Edit</button>
+												</td>
 											<%}%> 
 										</tr>
 									<% } %>

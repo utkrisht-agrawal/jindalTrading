@@ -18,45 +18,52 @@ const getRegister = (req,res,next)=>{
 
 const postRegister = (req,res,next)=>{
     console.log(req.body)
-    const username = req.body.username;
+   const username = req.body.username;
     const password = req.body.password;
     const role = req.body.role;
 
-    // const username =  "shubham"
-    // const password = "pass"
-    // const role =  'Admin'
-    // const username =  "kunwar"
-    // const password = "pass"
-    // const role =  'Moderator'
-    
-    var level;
-    if(role==='User')
-    {
-        level = 1;
-    }
-    else if(role==='Moderator')
-    {
-        level = 2;
-    }
-    else{
-        level = 3;
-    }
-    console.log(`level ; ${level}`)
-    userModel.create({
-        username : username,
-        password : password, 
-        role : role, 
-        level : level
+    userModel.findOne({ 
+        where: { username: username }
     })
-    .then(result=> {
-        console.log(result),
-        console.log("new hrUser registered "),
-        
-        res.redirect('/userDashboard')
+    .then(user => {
+        if (user) {
+            console.log("User already exists");
+            // res.send("User already exists");
+            res.render("dashboard", {
+                username: username,
+                 role: role,
+                level: level,
+                msg: "User already exists",
+              });
+        } else {
+            var level;
+            if (role === 'User') {
+                level = 1;
+            } else if (role === 'Moderator') {
+                level = 2;
+            } else {
+                level = 3;
+            }
+            console.log(`level: ${level}`);
+            userModel.create({
+                username: username,
+                password: password,
+                role: role,
+                level: level
+            })
+            .then(result => {
+                console.log(result);
+                console.log("New user registered");
+                res.redirect('/userDashboard');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
     })
-    .catch(err=>{
-        console.log(err)
-    })
+    .catch(err => {
+        console.log(err);
+    });
 }
 
 
@@ -150,7 +157,8 @@ const getUserDashboard=(req,res,next)=>{
                 username : user.username,
                 password : user.password,
                 role : user.role,
-                level : user.level
+                level : user.level,
+                msg : ""
             });
         })
         .catch(

@@ -32,6 +32,25 @@ const getmasterFirm =(req,res,next)=>{
     }
 }
 
+const getmasterFirmApi =(req,res,next)=>{
+    if(req.session.isLoggedIn)
+    {
+        console.log(`User Level :  ${req.session.userLevel}`);
+        masterFirmModel.findAll()
+            .then((data)=>{
+                console.log(data);
+                res.json(data )
+            })
+            .catch((err)=>
+                console.log(err)
+            )
+    }
+    else 
+    {
+        res.redirect('/')
+    }
+}
+
 const postmasterFirm = async (req,res,next)=>{
     console.log(`check1 ${req.body.id}`);
     console.log(`check2 ${req.body.op}`);
@@ -153,7 +172,7 @@ const postmasterFirm = async (req,res,next)=>{
             if (existingFirms) {
 
               const Firms = await masterFirmModel.findAll()
-              res.send({msg : "Gst Already Exist" , result : Firms})
+              res.send({msg : "Firm Already Exist" , result : Firms})
 
             } else {
               let result = await masterFirmModel.create({
@@ -694,5 +713,6 @@ module.exports = {
     getCustomerFirm,
     postCustomerFirm,
     getCustomerProduct,
-    postCustomerProduct
+    postCustomerProduct,
+    getmasterFirmApi
 }
