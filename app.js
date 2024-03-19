@@ -13,7 +13,7 @@ app.use(session({secret: 'my secret',resave: false, saveUninitialized: false}));
 
 
 const fileStorage = multer.diskStorage({
-  destination: (req,file,cb) =>{
+  destination: (req,file,cb) =>{ 
     cb(null,'images');
   },
   filename:(req,file,cb)=>{
