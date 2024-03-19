@@ -1,4 +1,4 @@
-const express = require('express'); 
+const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
@@ -6,8 +6,8 @@ const multer = require('multer');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname,'public')))      
-app.use('/images',express.static(path.join(__dirname,'images')))      
+app.use(express.static(path.join(__dirname,'public')))
+app.use('/images',express.static(path.join(__dirname,'images')))
 app.use(session({secret: 'my secret',resave: false, saveUninitialized: false}));
 
 
@@ -30,9 +30,7 @@ const fileFilter = (req,file,cb)=>{
   }
 }
 
-
-
-app.set("view engine","ejs"); 
+app.set("view engine","ejs");
 app.set("views","./views");
 
 const sequelize = require('./database/connect');
@@ -62,7 +60,7 @@ app.use('/',(req,res,next)=>{
     });
 });
 
-  
+
 
 
 
@@ -72,7 +70,7 @@ sequelize.sync()
     .then(result => {
         app.listen(port,()=>{
             console.log(`Server is running at port no ${port}`);
-        });
+          });
     })
     .catch(err =>{
         console.log(err);
